@@ -2,6 +2,7 @@ var Reflux = require('reflux');
 var ElementActions = require('../actions/ElementActions');
 
 var _data;
+var _saveUrl;
 
 var ElementStore = Reflux.createStore({
   init: function() {
@@ -11,9 +12,10 @@ var ElementStore = Reflux.createStore({
     this.listenTo(ElementActions.saveData, this._updateOrder)
   },
 
-  load: function(urlOrData) {
+  load: function(urlOrData, saveUrl) {
 
     var self = this;
+    _saveUrl = saveUrl;
 
     if(typeof urlOrData == 'string' || urlOrData instanceof String) {
       $.ajax({
@@ -49,10 +51,10 @@ var ElementStore = Reflux.createStore({
   },
 
   save: function() {
-    if(window.SAVE_URL) {
+    if(_saveUrl) {
       $.ajax({
         type: 'POST',
-        url: SAVE_URL,
+        url: _saveUrl,
         data: {
           task_data: JSON.stringify(_data)
         },

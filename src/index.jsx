@@ -57,7 +57,14 @@ class ReactFormBuilder extends React.Component {
       <div>
         <div className="react-form-builder clearfix">
           <div>
-            <Preview files={this.props.files} manualEditModeOff={this.manualEditModeOff.bind(this)} parent={this} url={this.props.url} editModeOn={this.editModeOn} editMode={this.state.editMode} editElement={this.state.editElement} />
+            <Preview files={this.props.files} 
+              manualEditModeOff={this.manualEditModeOff.bind(this)} 
+              parent={this} 
+              url={this.props.url} 
+              saveUrl={this.props.saveUrl}
+              editModeOn={this.editModeOn} 
+              editMode={this.state.editMode} 
+              editElement={this.state.editElement} />
             <Toolbar />
           </div>
         </div>

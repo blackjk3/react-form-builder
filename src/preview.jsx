@@ -18,7 +18,9 @@ export default class Preview extends React.Component {
     }
 
     var loadData = (this.props.url) ? this.props.url : (this.props.data) ? this.props.data : [];
-    ElementStore.load(loadData);
+    var saveUrl = (this.props.saveUrl) ? this.props.saveUrl : '';
+
+    ElementStore.load(loadData, saveUrl);
     ElementStore.listen(this._onChange.bind(this));
   }
 

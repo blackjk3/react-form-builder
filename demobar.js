@@ -27,7 +27,6 @@ export default class Demobar extends React.Component {
   }
 
   _onChange(data) {
-    console.log(data, this);
     this.setState({
       data: data
     });

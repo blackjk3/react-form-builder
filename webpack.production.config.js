@@ -1,6 +1,6 @@
 module.exports = {
   entry: {
-    app: ["./src/index.js"]
+    app: ["./src/index.jsx"]
   },
 
   output: {
@@ -13,16 +13,20 @@ module.exports = {
   externals: {
     //don't bundle the 'react' npm package with our bundle.js
     //but get it from a global 'React' variable
-    'react': 'react'
+    'react': 'react',
+    'jquery': 'jquery'
   },
 
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx$/,
         exclude: /node_modules/,
         loaders: ["babel-loader"]
       }
     ],
+  },
+  resolve: {
+    extensions: ['', '.js', '.json', '.jsx', '.css', '.scss']
   }
 }
