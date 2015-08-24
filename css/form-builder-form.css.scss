@@ -1,0 +1,43 @@
+.validation-error {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 99999999;
+  ul {
+    width: auto;
+  }
+  .dismiss-modal-button {
+    margin-top: 10px;
+  }
+}
+.react-form-builder-form {
+  position: relative;
+  .rfb-item {
+    padding: 10px 0;
+    position: relative;
+    .form-group {
+      a {
+        cursor: pointer;
+      }
+      input[type='date'] {
+        height: 42px;
+      }
+      .m-signature-pad {
+        position: relative;
+        width: auto;
+      }
+      .react-star-rating {
+        display: block;
+      }
+      .checkbox-label, .radio-label {
+        font-weight: normal;
+        display: block;
+      }
+      .label-required {
+        margin-left: 5px;
+      }
+    }
+  }
+}
