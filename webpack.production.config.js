@@ -14,7 +14,9 @@ module.exports = {
     //don't bundle the 'react' npm package with our bundle.js
     //but get it from a global 'React' variable
     'react': 'react',
-    'jquery': 'jquery'
+    'react/addons': 'react/addons',
+    'jquery': 'jquery',
+    'bootstrap': 'bootstrap'
   },
 
   module: {
