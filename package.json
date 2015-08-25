@@ -30,7 +30,7 @@
     "react-select": "^0.5.5",
     "react-signature-pad": "0.0.3",
     "react-sortable-items": "0.0.7",
-    "react-star-rating": "git+https://github.com/cameronjroe/react-star-rating.git",
+    "react-star-rating": "git+https://github.com/blackjk3/react-star-rating.git",
     "recat-bootstrap-native-slider": "git+https://github.com/blackjk3/react.bootstrap.slidertest.git",
     "react-textarea-autosize": "^2.3.1",
     "reflux": "^0.2.8"
