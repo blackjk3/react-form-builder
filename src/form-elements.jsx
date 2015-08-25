@@ -215,7 +215,7 @@ let Signature = React.createClass({
               <span className="label-required label label-danger">Required</span>
             }
           </label>
-          <SignaturePad />
+          <SignaturePad {...pad_props} /> 
           <input {...props} />
         </div>
       </div>
