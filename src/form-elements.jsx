@@ -352,7 +352,7 @@ let Rating = React.createClass({
     props.ratingAmount = 5;
 
     if (this.props.mutable) {
-      props.rating = (this.props.defaultValue !== undefined && this.props.defaultValue.length) ? parseInt(this.props.defaultValue, 10) : 0;
+      props.rating = (this.props.defaultValue !== undefined && this.props.defaultValue.length) ? parseFloat(this.props.defaultValue, 10) : 0;
       props.editing = true;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
