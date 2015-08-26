@@ -17,8 +17,10 @@ describe('Testing StarRating', function() {
     );
     var element = React.findDOMNode(starRating);
     var starDiv = element.querySelector('.rating-stars');
+    var input = element.querySelector('input');
     
     assert.equal(starDiv.style.width, '50%');
+    assert.equal(input.value, '2.5');
   });
 
   it('should be able to set default amount of stars to 0', function() {

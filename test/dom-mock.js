@@ -5,6 +5,8 @@ module.exports = function(markup) {
   
   global.document = jsdom(markup || '');
   global.window = document.parentWindow;
+
+  global.$ = global.jQuery = require('jquery')(global.window);
   global.navigator = {
     userAgent: 'node.js'
   };

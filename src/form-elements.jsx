@@ -490,8 +490,9 @@ let Range = React.createClass({
     props.max = this.props.data.max_value;
     props.step = this.props.data.step;
 
+    props.defaultValue = this.props.defaultValue !== undefined ? parseInt(this.props.defaultValue, 10) : parseInt(this.props.data.default_value, 10);
+      
     if (this.props.mutable) {
-      props.defaultValue = this.props.defaultValue !== undefined ? this.props.defaultValue : this.props.data.default_value;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
 
@@ -537,7 +538,7 @@ let Range = React.createClass({
             </div>
             <SliderNativeBootstrap
               name={props.name}
-              value={this.props.data.default_value}
+              value={props.defaultValue}
               step={this.props.data.step}
               max={this.props.data.max_value}
               min={this.props.data.min_value} />
