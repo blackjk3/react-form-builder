@@ -1,5 +1,5 @@
 {
-  "name": "react-form-builder",
+  "name": "react-forms-builder",
   "version": "0.0.1",
   "description": "A complete form builder for react.",
   "main": "lib/app.js",
