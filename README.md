@@ -36,8 +36,11 @@ React.render(
   <FormBuilder.ReactFormGenerator
     form_action="/path/to/form/submit"
     form_method="POST"
-    answer_data={this.state.answers} // Only if we are loading a pre-existing form.
-    data={this.state.data} />,
+    task_id={12} // Used to submit a hidden variable with the id to the form from the database.
+    answer_data={this.state.answers} // Answer data, only used if loading a pre-existing form with values.
+    authenticity_token={AUTH_TOKEN} // If using Rails and need an auth token to submit form.
+    data={this.state.data} // Question data
+  />,
   document.body
 )
 ```
