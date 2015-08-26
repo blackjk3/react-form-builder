@@ -1,4 +1,4 @@
-[![npm package](https://img.shields.io/badge/npm-0.0.1orange.svg?style=flat-square)](https://www.npmjs.com/package/react-form-builder)
+[![npm package](https://img.shields.io/badge/npm-0.0.1-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-form-builder)
 
 # React Form Builder
 A complete react form builder that interfaces with a json endpoint to load and save generated forms.  The toolbox contains 16 items for gathering data.  Everything from star ratings to signature boxes!
