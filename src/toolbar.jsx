@@ -19,6 +19,37 @@ export default class Toolbar extends React.Component {
     };
   }
 
+  _defaultItemOptions(element) {
+    switch(element) {
+      case "Dropdown":
+        return [
+          {value: '', text: '', key: 'dropdown_option_' + ID.uuid()},
+          {value: '', text: '', key: 'dropdown_option_' + ID.uuid()},
+          {value: '', text: '', key: 'dropdown_option_' + ID.uuid()}
+        ];
+      case "Tags":
+        return [
+          {value: 'place_holder_tag_1', text: 'Place holder tag 1', key: 'tags_option_' + ID.uuid()},
+          {value: 'place_holder_tag_2', text: 'Place holder tag 2', key: 'tags_option_' + ID.uuid()},
+          {value: 'place_holder_tag_3', text: 'Place holder tag 3', key: 'tags_option_' + ID.uuid()}
+        ];
+      case "Checkboxes":
+        return [
+          {value: 'place_holder_option_1', text: 'Place holder option 1', key: 'checkboxes_option_' + ID.uuid()},
+          {value: 'place_holder_option_2', text: 'Place holder option 2', key: 'checkboxes_option_' + ID.uuid()},
+          {value: 'place_holder_option_3', text: 'Place holder option 3', key: 'checkboxes_option_' + ID.uuid()}
+        ];
+      case "RadioButtons":
+        return [
+          {value: 'place_holder_option_1', text: 'Place holder option 1', key: 'radiobuttons_option_' + ID.uuid()},
+          {value: 'place_holder_option_2', text: 'Place holder option 2', key: 'radiobuttons_option_' + ID.uuid()},
+          {value: 'place_holder_option_3', text: 'Place holder option 3', key: 'radiobuttons_option_' + ID.uuid()}
+        ];
+      default:
+        return [];
+    }
+  }
+
   _defaultItems() {
     return [
       {
@@ -47,11 +78,7 @@ export default class Toolbar extends React.Component {
         icon: 'fa fa-caret-square-o-down',
         label: 'Placeholder Label',
         field_name: 'dropdown_',
-        options: [
-          {value: '', text: '', key: 'dropdown_option_'},
-          {value: '', text: '', key: 'dropdown_option_'},
-          {value: '', text: '', key: 'dropdown_option_'}
-        ]
+        options: []
       },
       {
         key: 'Tags',
@@ -59,11 +86,7 @@ export default class Toolbar extends React.Component {
         icon: 'fa fa-tags',
         label: 'Placeholder Label',
         field_name: 'tags_',
-        options: [
-          {value: 'place_holder_tag_1', text: 'Place holder tag 1', key: 'tags_option_'},
-          {value: 'place_holder_tag_2', text: 'Place holder tag 2', key: 'tags_option_'},
-          {value: 'place_holder_tag_3', text: 'Place holder tag 3', key: 'tags_option_'}
-        ]
+        options: []
       },
       {
         key: 'Checkboxes',
@@ -71,11 +94,7 @@ export default class Toolbar extends React.Component {
         icon: 'fa fa-check-square-o',
         label: 'Placeholder Label',
         field_name: 'checkboxes_',
-        options: [
-          {value: 'place_holder_option_1', text: 'Place holder option 1', key: 'checkboxes_option_'},
-          {value: 'place_holder_option_2', text: 'Place holder option 2', key: 'checkboxes_option_'},
-          {value: 'place_holder_option_3', text: 'Place holder option 3', key: 'checkboxes_option_'}
-        ]
+        options: []
       },
       {
         key: 'RadioButtons',
@@ -83,11 +102,7 @@ export default class Toolbar extends React.Component {
         icon: 'fa fa-dot-circle-o',
         label: 'Placeholder Label',
         field_name: 'radio_buttons_',
-        options: [
-          {value: 'place_holder_option_1', text: 'Place holder option 1', key: 'radiobuttons_option_'},
-          {value: 'place_holder_option_2', text: 'Place holder option 2', key: 'radiobuttons_option_'},
-          {value: 'place_holder_option_3', text: 'Place holder option 3', key: 'radiobuttons_option_'}
-        ]
+        options: []
       },
       {
         key: 'TextInput',
@@ -205,11 +220,7 @@ export default class Toolbar extends React.Component {
       elementOptions['label'] = item.label;
 
     if (item.options) {
-      let options = item.options.map(item => {
-        item.key += ID.uuid();
-        return item;
-      });
-      elementOptions['options'] = options;
+      elementOptions['options'] = this._defaultItemOptions(elementOptions['element']);
     }
 
     ElementActions.createElement(elementOptions);
