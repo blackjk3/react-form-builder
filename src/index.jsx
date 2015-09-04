@@ -53,19 +53,22 @@ class ReactFormBuilder extends React.Component {
   }
 
   render() {
+    let toolbarProps = {};
+    if (this.props.toolbarItems)
+      toolbarProps.items = this.props.toolbarItems;
     return (
       <div>
         <div className="react-form-builder clearfix">
           <div>
-            <Preview files={this.props.files} 
-              manualEditModeOff={this.manualEditModeOff.bind(this)} 
-              parent={this} 
-              url={this.props.url} 
+            <Preview files={this.props.files}
+              manualEditModeOff={this.manualEditModeOff.bind(this)}
+              parent={this}
+              url={this.props.url}
               saveUrl={this.props.saveUrl}
-              editModeOn={this.editModeOn} 
-              editMode={this.state.editMode} 
+              editModeOn={this.editModeOn}
+              editMode={this.state.editMode}
               editElement={this.state.editElement} />
-            <Toolbar />
+            <Toolbar {...toolbarProps} />
           </div>
         </div>
       </div>
