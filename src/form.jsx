@@ -22,6 +22,39 @@ export default class ReactForm extends React.Component {
     return defaultChecked;
   }
 
+  _isIncorrect(item) {
+    let incorrect = false;
+    if (item.canHaveAnswer) {
+      if (item.element === "Checkboxes" || item.element === "RadioButtons") {
+        item.options.forEach(option => {
+          let $option = React.findDOMNode(this.refs[item.field_name].refs["child_ref_"+option.key]);
+          if ((option.hasOwnProperty("correct") && !$option.checked) || (!option.hasOwnProperty("correct") && $option.checked))
+            incorrect = true;
+        })
+      } else {
+        let $item = null
+        if (item.element === "Rating") {
+          $item = {};
+          $item.value = this.refs[item.field_name].refs["child_ref_"+item.field_name].state.rating;
+          if ($item.value.toString() !== item.correct)
+            incorrect = true;
+        } else {
+          if (item.element === "Tags") {
+            $item = {};
+            $item.value = this.refs[item.field_name].refs["child_ref_"+item.field_name].state.value
+          } else {
+            $item = React.findDOMNode(this.refs[item.field_name].refs["child_ref_"+item.field_name]);
+            $item.value = $item.value.trim();
+          }
+
+          if ($item.value.toLowerCase() !== item.correct.trim().toLowerCase())
+            incorrect = true;
+        }
+      }
+    }
+    return incorrect;
+  }
+
   _isInvalid(item) {
     let invalid = false;
     if (item.required === true) {
@@ -40,9 +73,8 @@ export default class ReactForm extends React.Component {
         if (item.element === "Rating") {
           $item = {};
           $item.value = this.refs[item.field_name].refs["child_ref_"+item.field_name].state.rating;
-          if ($item.value === 0) {
+          if ($item.value === 0)
             invalid = true;
-          }
         } else {
           if (item.element === "Tags") {
             $item = {};
@@ -83,6 +115,9 @@ export default class ReactForm extends React.Component {
 
       if (this._isInvalid(item))
         errors.push(item.label + " is required!");
+
+      if (this.props.validateForCorrectness && this._isIncorrect(item))
+        errors.push(item.label + " was answered incorrectly!");
     });
     // publish errors, if any
     this.emitter.emit('formValidation', errors);
@@ -153,3 +188,5 @@ export default class ReactForm extends React.Component {
     )
   }
 }
+
+ReactForm.defaultProps = { validateForCorrectness: false };

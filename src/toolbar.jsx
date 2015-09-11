@@ -74,6 +74,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'Dropdown',
+        canHaveAnswer: true,
         name: 'Dropdown',
         icon: 'fa fa-caret-square-o-down',
         label: 'Placeholder Label',
@@ -82,6 +83,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'Tags',
+        canHaveAnswer: true,
         name: 'Tags',
         icon: 'fa fa-tags',
         label: 'Placeholder Label',
@@ -90,6 +92,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'Checkboxes',
+        canHaveAnswer: true,
         name: 'Checkboxes',
         icon: 'fa fa-check-square-o',
         label: 'Placeholder Label',
@@ -98,6 +101,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'RadioButtons',
+        canHaveAnswer: true,
         name: 'Multiple Choice',
         icon: 'fa fa-dot-circle-o',
         label: 'Placeholder Label',
@@ -106,6 +110,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'TextInput',
+        canHaveAnswer: true,
         name: 'Text Input',
         label: 'Placeholder Label',
         icon: 'fa fa-font',
@@ -113,6 +118,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'TextArea',
+        canHaveAnswer: true,
         name: 'Multi-line Input',
         label: 'Placeholder Label',
         icon: 'fa fa-text-height',
@@ -120,6 +126,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'Rating',
+        canHaveAnswer: true,
         name: 'Rating',
         label: 'Placeholder Label',
         icon: 'fa fa-star',
@@ -189,6 +196,9 @@ export default class Toolbar extends React.Component {
       static: item.static,
       required: false
     };
+
+    if (item.canHaveAnswer)
+      elementOptions['canHaveAnswer'] = item.canHaveAnswer;
 
     if (item.content)
       elementOptions['content'] = item.content;

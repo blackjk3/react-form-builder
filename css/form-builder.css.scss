@@ -7,7 +7,7 @@
     padding: 10px;
     box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
     min-height: 750px;
-    
+
     .edit-form {
       position: fixed;
       background: #fafafa;
@@ -62,12 +62,20 @@
               &.form-control {
                 width: 84.26%;
                 float: left;
+                &[type="checkbox"] {
+                  border: none;
+                  box-shadow: none;
+                  margin-top: 0;
+                }
               }
               margin-right: 10px;
             }
             button {
               float: left;
               margin-right: 5px;
+            }
+            .dynamic-options-actions-buttons {
+              margin-left: 20px;
             }
           }
         }
@@ -252,7 +260,7 @@
     }
 
     .react-form-builder-toolbar {
-      
+
       h4 {
         padding: 10px;
         background: #7a0019;
@@ -263,7 +271,7 @@
       position: fixed;
       z-index: 900;
       bottom: -320px;
-      
+
       -webkit-transition: transform 0.5s;
       transition: transform 0.5s;
 
