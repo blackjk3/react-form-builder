@@ -17,6 +17,17 @@
   .rfb-item {
     padding: 10px 0;
     position: relative;
+
+    label {
+      font-weight: normal;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+    .italic {
+      font-style: italic;
+    }
     .form-group {
       a {
         cursor: pointer;

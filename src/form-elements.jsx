@@ -12,12 +12,16 @@ let Header = React.createClass({
   mixins: [SortableItemMixin],
   render() {
     let headerClasses = 'dynamic-input ' + this.props.data.element + '-input';
+    let classNames = 'static';
+    if (this.props.data.bold) { classNames += ' bold'; }
+    if (this.props.data.italic) { classNames += ' italic'; }
+
     return this.renderWithSortable(
       <div className="rfb-item">
         { !this.props.mutable &&
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         }
-        <h3 className="static">{this.props.data.content}</h3>
+        <h3 className={classNames}>{this.props.data.content}</h3>
       </div>
     );
   }
@@ -27,12 +31,34 @@ let Header = React.createClass({
 let Paragraph = React.createClass({
   mixins: [SortableItemMixin],
   render() {
+    let classNames = 'static';
+    if (this.props.data.bold) { classNames += ' bold'; }
+    if (this.props.data.italic) { classNames += ' italic'; }
+
     return this.renderWithSortable(
       <div className="rfb-item">
         { !this.props.mutable &&
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         }
-        <p className="static">{this.props.data.content}</p>
+        <p className={classNames}>{this.props.data.content}</p>
+      </div>
+    );
+  }
+})
+
+let Label = React.createClass({
+  mixins: [SortableItemMixin],
+  render() {
+    let classNames = 'static';
+    if (this.props.data.bold) { classNames += ' bold'; }
+    if (this.props.data.italic) { classNames += ' italic'; }
+
+    return this.renderWithSortable(
+      <div className="rfb-item">
+        { !this.props.mutable &&
+          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+        }
+        <label className={classNames}>{this.props.data.content}</label>
       </div>
     );
   }
@@ -558,6 +584,7 @@ let Range = React.createClass({
 
 FormElements.Header = Header;
 FormElements.Paragraph = Paragraph;
+FormElements.Label = Label;
 FormElements.LineBreak = LineBreak;
 FormElements.TextInput = TextInput;
 FormElements.TextArea = TextArea;

@@ -8,6 +8,17 @@
     box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
     min-height: 750px;
 
+    label {
+      font-weight: normal;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+    .italic {
+      font-style: italic;
+    }
+
     .edit-form {
       position: fixed;
       background: #fafafa;

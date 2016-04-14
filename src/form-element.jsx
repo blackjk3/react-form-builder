@@ -19,12 +19,8 @@ export default React.createClass({
   },
 
   render() {
-    // var classes = this.props.className;
-    // if(this.state.hover) { classes += ' active'; }
-
     var headerClasses = 'dynamic-input ' + this.props.data.element + '-input';
 
-    // <TextAreaAutosize type="text" className={headerClasses} onChange={e => this.setState({changedValue: e.target.value})}>{this.props.data.value}</TextAreaAutosize>
     return this.renderWithSortable(
       <div>
         <HeaderBar name={this.props.data.text} onDestroy={this.props.onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />

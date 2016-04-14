@@ -60,6 +60,13 @@ export default class Toolbar extends React.Component {
         content: 'Placeholder Text...'
       },
       {
+        key: 'Label',
+        name: 'Label',
+        static: true,
+        icon: 'fa fa-font',
+        content: 'Placeholder Text...'
+      },
+      {
         key: 'Paragraph',
         name: 'Paragraph',
         static: true,
@@ -196,6 +203,11 @@ export default class Toolbar extends React.Component {
       static: item.static,
       required: false
     };
+
+    if(item.static) {
+      elementOptions['bold'] = false;
+      elementOptions['italic'] = false;
+    }
 
     if (item.canHaveAnswer)
       elementOptions['canHaveAnswer'] = item.canHaveAnswer;

@@ -6,7 +6,7 @@ import React from 'react';
 import Sortable from 'react-sortable-items';
 import ElementStore from './stores/ElementStore';
 import ElementActions from './actions/ElementActions';
-import {Header,Paragraph,LineBreak,TextInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
+import {Header,Paragraph,Label,LineBreak,TextInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
 import FormElementsEdit from './form-elements-edit';
 
 export default class Preview extends React.Component {
@@ -78,6 +78,8 @@ export default class Preview extends React.Component {
           return <Header mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
         case "Paragraph":
           return <Paragraph mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
+        case "Label":
+          return <Label mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />        
         case "LineBreak":
           return <LineBreak mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
         case "TextInput":

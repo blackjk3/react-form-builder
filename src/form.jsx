@@ -5,7 +5,7 @@
 import React from 'react';
 import {EventEmitter} from 'fbemitter';
 import FormValidator from './form-validator';
-import {Header,Paragraph,LineBreak,TextInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
+import {Header,Paragraph,Label,LineBreak,TextInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
 
 export default class ReactForm extends React.Component {
 
@@ -126,12 +126,15 @@ export default class ReactForm extends React.Component {
   }
 
   render() {
+    console.log(this.props.data)
     let items = this.props.data.map( item => {
       switch (item.element) {
         case "Header":
           return <Header mutable={true} key={'form_'+item.id} data={item} />
         case "Paragraph":
           return <Paragraph mutable={true} key={'form_'+item.id} data={item} />
+        case "Label":
+          return <Label mutable={true} key={'form_'+item.id} data={item} />
         case "LineBreak":
           return <LineBreak mutable={true} key={'form_'+item.id} data={item} />
         case "TextInput":

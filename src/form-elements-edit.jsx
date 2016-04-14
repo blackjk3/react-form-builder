@@ -37,6 +37,10 @@ export default class FormElementsEdit extends React.Component {
   }
   render() {
     let this_checked = this.props.element.hasOwnProperty('required') ? this.props.element.required : false;
+
+    let this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
+    let this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
+
     let this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || this_files.length > 0 && this_files[0].id !== "")
       this_files.unshift({id: '', file_name: ''});
@@ -111,6 +115,13 @@ export default class FormElementsEdit extends React.Component {
               <label>Default Selected</label>
               <input type="number" className="form-control" defaultValue={this.props.element.default_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'default_value', 'value')} />
             </div>
+          </div>
+        }
+        { this.props.element.hasOwnProperty('static') && this.props.element.static &&
+          <div className="form-group">
+            <label>Text Style</label>
+            <div><input type="checkbox" checked={this_checked_bold} value={true} onChange={this.editElementProp.bind(this, 'bold', 'checked')} /> Bold</div>
+            <div><input type="checkbox" checked={this_checked_italic} value={true} onChange={this.editElementProp.bind(this, 'italic', 'checked')} /> Italic</div>
           </div>
         }
         { this.props.showCorrectColumn && this.props.element.canHaveAnswer && !this.props.element.hasOwnProperty('options') &&
