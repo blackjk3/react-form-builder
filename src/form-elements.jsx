@@ -6,8 +6,19 @@ import SortableItemMixin from 'react-sortable-items/SortableItemMixin';
 import SliderNativeBootstrap from 'react-bootstrap-native-slider';
 import ReactDatePicker from 'react-datepicker';
 import StarRating from './star-rating';
+import xss from 'xss';
 
 let FormElements = {};
+let myxss = new xss.FilterXSS({
+  whiteList: {
+    u: [],
+    br: [],
+    b: [],
+    i: [],
+    ul: [],
+    li: []
+  }
+});
 
 let Header = React.createClass({
   mixins: [SortableItemMixin],
@@ -98,7 +109,8 @@ let TextInput = React.createClass({
         }
         <div className="form-group">
           <label>
-            {this.props.data.label}
+            <div dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
+            
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
