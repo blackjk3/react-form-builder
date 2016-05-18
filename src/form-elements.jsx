@@ -1,10 +1,11 @@
 import React from 'react';
 import HeaderBar from './header-bar';
-import StarRating from 'react-star-rating';
 import Select from 'react-select';
 import SignaturePad from 'react-signature-pad';
 import SortableItemMixin from 'react-sortable-items/SortableItemMixin';
 import SliderNativeBootstrap from 'react-bootstrap-native-slider';
+import ReactDatePicker from 'react-datepicker';
+import StarRating from './star-rating';
 
 let FormElements = {};
 
@@ -141,6 +142,18 @@ let TextArea = React.createClass({
 
 let DatePicker = React.createClass({
   mixins: [SortableItemMixin],
+
+  getInitialState() {
+    return {value: '', internalValue: this.props.defaultValue};
+  },
+
+  handleChange(dt) {
+    this.setState({
+      value: (dt) ? dt.format('MM/DD/YYYY') : '',
+      internalValue: dt
+    });
+  },
+
   render() {
     let props = {};
     props.type = "date";
@@ -163,7 +176,18 @@ let DatePicker = React.createClass({
               <span className="label-required label label-danger">Required</span>
             }
           </label>
-          <input {...props} />
+          <div>
+            <ReactDatePicker
+            name={props.name}
+            ref={props.ref}
+            onChange={this.handleChange}
+            selected={this.state.internalValue}
+            todayButton={'Today'}
+            className = "form-control"
+            isClearable={true}
+            dateFormat="MM/DD/YYYY"
+            placeholderText='mm/dd/yyyy' />
+          </div>
         </div>
       </div>
     );

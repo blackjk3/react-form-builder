@@ -14,7 +14,10 @@ module.exports = {
     //don't bundle the 'react' npm package with our bundle.js
     //but get it from a global 'React' variable
     'react': 'react',
+    'react-dom': 'react-dom',
+    'react-datepicker': 'react-datepicker',
     'react/addons': 'react/addons',
+    'classnames': 'classnames',
     'jquery': 'jquery',
     'bootstrap': 'bootstrap'
   },
@@ -22,11 +25,18 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx$/,
+        test: /.jsx?$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
-        loaders: ["babel-loader"]
+        query: {
+          presets: ['es2015', 'react']
+        }
+      },
+      {
+        test: /\.scss$/,
+        loader: "style-loader!css-loader!sass-loader"
       }
-    ],
+    ]
   },
   resolve: {
     extensions: ['', '.js', '.json', '.jsx', '.css', '.scss']

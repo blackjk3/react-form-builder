@@ -9,15 +9,18 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /.jsx?$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
-        loaders: ["react-hot", "babel-loader"]
+        query: {
+          presets: ['es2015', 'react']
+        }
       },
       {
         test: /\.scss$/,
         loader: "style-loader!css-loader!sass-loader"
       }
-    ],
+    ]
   },
   resolve: {
     extensions: ['', '.js', '.json', '.jsx', '.css', '.scss']

@@ -3,6 +3,7 @@
   */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {EventEmitter} from 'fbemitter';
 import FormValidator from './form-validator';
 import {Header,Paragraph,Label,LineBreak,TextInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
@@ -27,7 +28,7 @@ export default class ReactForm extends React.Component {
     if (item.canHaveAnswer) {
       if (item.element === "Checkboxes" || item.element === "RadioButtons") {
         item.options.forEach(option => {
-          let $option = React.findDOMNode(this.refs[item.field_name].refs["child_ref_"+option.key]);
+          let $option = ReactDOM.findDOMNode(this.refs[item.field_name].refs["child_ref_"+option.key]);
           if ((option.hasOwnProperty("correct") && !$option.checked) || (!option.hasOwnProperty("correct") && $option.checked))
             incorrect = true;
         })
@@ -42,8 +43,11 @@ export default class ReactForm extends React.Component {
           if (item.element === "Tags") {
             $item = {};
             $item.value = this.refs[item.field_name].refs["child_ref_"+item.field_name].state.value
+          } else if(item.element === "DatePicker") {
+            $item = {};
+            $item.value = this.refs[item.field_name].state.value
           } else {
-            $item = React.findDOMNode(this.refs[item.field_name].refs["child_ref_"+item.field_name]);
+            $item = ReactDOM.findDOMNode(this.refs[item.field_name].refs["child_ref_"+item.field_name]);
             $item.value = $item.value.trim();
           }
 
@@ -61,7 +65,7 @@ export default class ReactForm extends React.Component {
       if (item.element === "Checkboxes" || item.element === "RadioButtons") {
         let checked_options = 0;
         item.options.forEach(option => {
-          let $option = React.findDOMNode(this.refs[item.field_name].refs["child_ref_"+option.key]);
+          let $option = ReactDOM.findDOMNode(this.refs[item.field_name].refs["child_ref_"+option.key]);
           if ($option.checked)
             checked_options += 1;
         })
@@ -79,8 +83,11 @@ export default class ReactForm extends React.Component {
           if (item.element === "Tags") {
             $item = {};
             $item.value = this.refs[item.field_name].refs["child_ref_"+item.field_name].state.value
+          } else if(item.element === "DatePicker") {
+            $item = {};
+            $item.value = this.refs[item.field_name].state.value
           } else {
-            $item = React.findDOMNode(this.refs[item.field_name].refs["child_ref_"+item.field_name]);
+            $item = ReactDOM.findDOMNode(this.refs[item.field_name].refs["child_ref_"+item.field_name]);
             $item.value = $item.value.trim();
           }
 
@@ -96,7 +103,7 @@ export default class ReactForm extends React.Component {
     let $canvas_sig = this.refs[item.field_name].refs["canvas_"+item.field_name]
     let base64 = $canvas_sig.toDataURL().replace('data:image/png;base64,', '');
     let isEmpty = $canvas_sig.isEmpty();
-    let $input_sig = React.findDOMNode(this.refs[item.field_name].refs["child_ref_"+item.field_name]);
+    let $input_sig = ReactDOM.findDOMNode(this.refs[item.field_name].refs["child_ref_"+item.field_name]);
     if (isEmpty) {
       $input_sig.value = "";
     } else {
@@ -107,7 +114,7 @@ export default class ReactForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let $form = React.findDOMNode(this.refs.form);
+    let $form = ReactDOM.findDOMNode(this.refs.form);
     let errors = [];
     this.props.data.forEach(item => {
       if (item.element === "Signature")
@@ -126,7 +133,6 @@ export default class ReactForm extends React.Component {
   }
 
   render() {
-    console.log(this.props.data)
     let items = this.props.data.map( item => {
       switch (item.element) {
         case "Header":
