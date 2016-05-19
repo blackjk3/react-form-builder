@@ -52,7 +52,7 @@ let Paragraph = React.createClass({
         { !this.props.mutable &&
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         }
-        <p className={classNames}>{this.props.data.content}</p>
+        <p className={classNames} dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.content) }} />
       </div>
     );
   }
@@ -70,7 +70,7 @@ let Label = React.createClass({
         { !this.props.mutable &&
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         }
-        <label className={classNames}>{this.props.data.content}</label>
+        <label className={classNames} dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.content) }} />
       </div>
     );
   }
@@ -109,7 +109,7 @@ let TextInput = React.createClass({
         }
         <div className="form-group">
           <label>
-            <div dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
@@ -140,7 +140,7 @@ let TextArea = React.createClass({
         }
         <div className="form-group">
           <label>
-            {this.props.data.label}
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
@@ -183,7 +183,7 @@ let DatePicker = React.createClass({
         }
         <div className="form-group">
           <label>
-            {this.props.data.label}
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
@@ -224,7 +224,7 @@ let Dropdown = React.createClass({
         }
         <div className="form-group">
           <label>
-            {this.props.data.label}
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
@@ -272,7 +272,7 @@ let Signature = React.createClass({
         }
         <div className="form-group">
           <label>
-            {this.props.data.label}
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
@@ -315,8 +315,8 @@ let Tags = React.createClass({
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         }
         <div className="form-group">
-          <label>
-            {this.props.data.label}
+          <label>  
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
@@ -339,7 +339,7 @@ let Checkboxes = React.createClass({
         }
         <div className="form-group">
           <label>
-            {this.props.data.label}
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
@@ -378,7 +378,7 @@ let RadioButtons = React.createClass({
         }
         <div className="form-group">
           <label>
-            {this.props.data.label}
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
@@ -425,7 +425,7 @@ let Rating = React.createClass({
         }
         <div className="form-group">
           <label>
-            {this.props.data.label}
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }

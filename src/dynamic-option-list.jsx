@@ -19,8 +19,19 @@ export default class DynamicOptionList extends React.Component {
   }
   editOption(option_index, e) {
     let this_element = this.state.element;
+    let val = (this_element.options[option_index].value !== this._setValue(this_element.options[option_index].text)) ? this_element.options[option_index].value : this._setValue(e.target.value)
+
     this_element.options[option_index].text = e.target.value;
-    this_element.options[option_index].value = this._setValue(e.target.value);
+    this_element.options[option_index].value = val;
+    this.setState({
+      element: this_element,
+      dirty: true
+    });
+  }
+  editValue(option_index, e) {
+    let this_element = this.state.element;
+    let val = (e.target.value === '') ? this._setValue(this_element.options[option_index].text) : e.target.value;
+    this_element.options[option_index].value = val;
     this.setState({
       element: this_element,
       dirty: true
@@ -60,20 +71,25 @@ export default class DynamicOptionList extends React.Component {
         <ul>
           <li>
             <div className="row">
-              <div className="col-sm-8"><b>Options</b></div>
+              <div className="col-sm-6"><b>Options</b></div>
+              <div className="col-sm-2"><b>Value</b></div>
               <div className="col-sm-4"><b>Correct</b></div>
             </div>
           </li>
           {
             this.props.element.options.map( (option, index) => {
               let this_key = 'edit_' + option.key;
+              let val = (option.value !== this._setValue(option.text)) ? option.value : ''
               return (
                 <li className="clearfix" key={this_key}>
                   <div className="row">
-                    <div className="col-sm-8">
+                    <div className="col-sm-6">
                       <input tabIndex={index+1} className="form-control" style={{width: '100%'}} type="text" name={'text_'+index} placeholder="Option text" value={option.text} onBlur={this.updateOption.bind(this)} onChange={this.editOption.bind(this, index)} />
                     </div>
-                    <div className="col-sm-1">
+                    <div className="col-sm-2">
+                      <input className="form-control" type="text" name={'value_'+index} value={val} onChange={this.editValue.bind(this, index)} />
+                    </div>
+                     <div className="col-sm-1">
                       <input className="form-control" type="checkbox" value="1" onChange={this.editOptionCorrect.bind(this, index)} checked={option.hasOwnProperty("correct")} />
                     </div>
                     <div className="col-sm-3">
