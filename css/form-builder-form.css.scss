@@ -28,7 +28,16 @@
     .italic {
       font-style: italic;
     }
+    .form-label {
+      display: block !important;
+    }
+
     .form-group {
+      .option-inline {
+        display: inline-block !important;
+        margin-right: 10px;
+      }
+
       a {
         cursor: pointer;
       }

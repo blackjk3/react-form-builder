@@ -332,13 +332,16 @@ let Checkboxes = React.createClass({
   mixins: [SortableItemMixin],
   render() {
     let self = this;
+    let classNames = 'checkbox-label';
+    if (this.props.data.inline) { classNames += ' option-inline'; }
+
     return this.renderWithSortable(
       <div className="rfb-item">
         { !this.props.mutable &&
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         }
         <div className="form-group">
-          <label>
+          <label className="form-label">
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
@@ -356,7 +359,7 @@ let Checkboxes = React.createClass({
               props.ref = "child_ref_" + option.key;
             }
             return (
-              <label className="checkbox-label" key={this_key}>
+              <label className={classNames} key={this_key}>
                 <input {...props} /> {option.text}
               </label>
             )
@@ -371,13 +374,17 @@ let RadioButtons = React.createClass({
   mixins: [SortableItemMixin],
   render() {
     let self = this;
+    let classNames = 'radio-label';
+    if (this.props.data.inline) { classNames += ' option-inline'; }
+    console.log(this.props.data.inline);
+
     return this.renderWithSortable(
       <div className="rfb-item">
         { !this.props.mutable &&
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         }
         <div className="form-group">
-          <label>
+          <label className="form-label">
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
@@ -395,7 +402,7 @@ let RadioButtons = React.createClass({
               props.ref = "child_ref_" + option.key;
             }
             return (
-              <label className="radio-label" key={this_key}>
+              <label className={classNames} key={this_key}>
                 <input {...props} /> {option.text}
               </label>
             )

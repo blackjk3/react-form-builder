@@ -37,7 +37,7 @@ export default class FormElementsEdit extends React.Component {
   }
   render() {
     let this_checked = this.props.element.hasOwnProperty('required') ? this.props.element.required : false;
-
+    let this_checked_inline = this.props.element.hasOwnProperty('inline') ? this.props.element.inline : false;
     let this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
     let this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
 
@@ -81,6 +81,11 @@ export default class FormElementsEdit extends React.Component {
             <label>
               <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} /> Required
             </label>
+            { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') &&
+              <div>
+                <input type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} /> Display horizonal
+              </div>
+            }
           </div>
         }
         { this.props.element.hasOwnProperty('step') &&
