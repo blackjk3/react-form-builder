@@ -1,3 +1,12 @@
+input[type="date"]:before {
+  content: attr(placeholder);
+  color: #aaa;
+  margin-right: 0.5em;
+}
+
+input[type="date"] {
+  width: 200px;
+}
 .validation-error {
   position: fixed;
   width: 100%;

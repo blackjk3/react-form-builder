@@ -7,6 +7,7 @@ import SliderNativeBootstrap from 'react-bootstrap-native-slider';
 import ReactDatePicker from 'react-datepicker';
 import StarRating from './star-rating';
 import xss from 'xss';
+import moment from 'moment';
 
 let FormElements = {};
 let myxss = new xss.FilterXSS({
@@ -156,13 +157,17 @@ let DatePicker = React.createClass({
   mixins: [SortableItemMixin],
 
   getInitialState() {
-    return {value: '', internalValue: this.props.defaultValue};
+    return {value: '', internalValue: this.props.defaultValue, placeholder: 'mm/dd/yyyy'};
   },
 
   handleChange(dt) {
+    var placeholder = (dt && dt.target && dt.target.value === '') ? 'mm/dd/yyyy': '';
+    dt = (dt && dt.target) ? moment(dt.target.value) : dt;
+    
     this.setState({
       value: (dt) ? dt.format('MM/DD/YYYY') : '',
-      internalValue: dt
+      internalValue: dt,
+      placeholder: placeholder
     });
   },
 
@@ -171,6 +176,8 @@ let DatePicker = React.createClass({
     props.type = "date";
     props.className = "form-control";
     props.name = this.props.data.field_name;
+
+    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
@@ -189,16 +196,28 @@ let DatePicker = React.createClass({
             }
           </label>
           <div>
-            <ReactDatePicker
-            name={props.name}
-            ref={props.ref}
-            onChange={this.handleChange}
-            selected={this.state.internalValue}
-            todayButton={'Today'}
-            className = "form-control"
-            isClearable={true}
-            dateFormat="MM/DD/YYYY"
-            placeholderText='mm/dd/yyyy' />
+            { iOS &&
+              <input type="date" 
+                name={props.name}
+                ref={props.ref}
+                onChange={this.handleChange}
+                selected={this.state.internalValue}
+                dateFormat="MM/DD/YYYY"
+                placeholder={this.state.placeholder}
+                className = "form-control" />
+            }
+            { !iOS &&
+              <ReactDatePicker
+                name={props.name}
+                ref={props.ref}
+                onChange={this.handleChange}
+                selected={this.state.internalValue}
+                todayButton={'Today'}
+                className = "form-control"
+                isClearable={true}
+                dateFormat="MM/DD/YYYY"
+                placeholderText='mm/dd/yyyy' />
+            }
           </div>
         </div>
       </div>
