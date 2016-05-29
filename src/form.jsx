@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import {EventEmitter} from 'fbemitter';
 import FormValidator from './form-validator';
 import {Header,Paragraph,Label,LineBreak,TextInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
+import moment from 'moment';
 
 export default class ReactForm extends React.Component {
 

@@ -161,14 +161,24 @@ let DatePicker = React.createClass({
   },
 
   handleChange(dt) {
-    var placeholder = (dt && dt.target && dt.target.value === '') ? 'mm/dd/yyyy': '';
-    dt = (dt && dt.target) ? moment(dt.target.value) : dt;
-    
-    this.setState({
-      value: (dt) ? dt.format('MM/DD/YYYY') : '',
-      internalValue: dt,
-      placeholder: placeholder
-    });
+    if(dt && dt.target) {
+      
+      var placeholder = (dt && dt.target && dt.target.value === '') ? 'mm/dd/yyyy': '';
+      var formattedDate = (dt.target.value) ? moment(dt.target.value).format('YYYY-MM-DD') : '';
+      
+      this.setState({
+        value: formattedDate,
+        internalValue: formattedDate,
+        placeholder: placeholder
+      });
+
+    } else {
+      this.setState({
+        value: (dt) ? dt.format('MM/DD/YYYY') : '',
+        internalValue: dt,
+        placeholder: placeholder
+      });
+    }
   },
 
   render() {
@@ -201,7 +211,6 @@ let DatePicker = React.createClass({
                 name={props.name}
                 ref={props.ref}
                 onChange={this.handleChange}
-                selected={this.state.internalValue}
                 dateFormat="MM/DD/YYYY"
                 placeholder={this.state.placeholder}
                 className = "form-control" />
