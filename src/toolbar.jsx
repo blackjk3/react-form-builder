@@ -124,6 +124,14 @@ export default class Toolbar extends React.Component {
         field_name: 'text_input_'
       },
       {
+        key: 'NumberInput',
+        canHaveAnswer: true,
+        name: 'Number Input',
+        label: 'Placeholder Label',
+        icon: 'fa fa-plus',
+        field_name: 'number_input_'
+      },
+      {
         key: 'TextArea',
         canHaveAnswer: true,
         name: 'Multi-line Input',

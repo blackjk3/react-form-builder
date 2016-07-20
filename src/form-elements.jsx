@@ -111,7 +111,39 @@ let TextInput = React.createClass({
         <div className="form-group">
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            
+
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+              <span className="label-required label label-danger">Required</span>
+            }
+          </label>
+          <input {...props} />
+        </div>
+      </div>
+    );
+  }
+})
+
+let NumberInput = React.createClass({
+  mixins: [SortableItemMixin],
+  render() {
+    let props = {};
+    props.type = "number";
+    props.className = "form-control";
+    props.name = this.props.data.field_name;
+
+    if (this.props.mutable) {
+      props.defaultValue = this.props.defaultValue;
+      props.ref = "child_ref_" + this.props.data.field_name;
+    }
+    return this.renderWithSortable(
+      <div className="rfb-item">
+        { !this.props.mutable &&
+          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+        }
+        <div className="form-group">
+          <label>
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
+
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
             }
@@ -162,10 +194,10 @@ let DatePicker = React.createClass({
 
   handleChange(dt) {
     if(dt && dt.target) {
-      
+
       var placeholder = (dt && dt.target && dt.target.value === '') ? 'mm/dd/yyyy': '';
       var formattedDate = (dt.target.value) ? moment(dt.target.value).format('YYYY-MM-DD') : '';
-      
+
       this.setState({
         value: formattedDate,
         internalValue: formattedDate,
@@ -207,7 +239,7 @@ let DatePicker = React.createClass({
           </label>
           <div>
             { iOS &&
-              <input type="date" 
+              <input type="date"
                 name={props.name}
                 ref={props.ref}
                 onChange={this.handleChange}
@@ -305,7 +337,7 @@ let Signature = React.createClass({
               <span className="label-required label label-danger">Required</span>
             }
           </label>
-          <SignaturePad {...pad_props} /> 
+          <SignaturePad {...pad_props} />
           <input {...props} />
         </div>
       </div>
@@ -343,7 +375,7 @@ let Tags = React.createClass({
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         }
         <div className="form-group">
-          <label>  
+          <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
               <span className="label-required label label-danger">Required</span>
@@ -588,7 +620,7 @@ let Range = React.createClass({
     props.step = this.props.data.step;
 
     props.defaultValue = this.props.defaultValue !== undefined ? parseInt(this.props.defaultValue, 10) : parseInt(this.props.data.default_value, 10);
-      
+
     if (this.props.mutable) {
       props.ref = "child_ref_" + this.props.data.field_name;
     }
@@ -658,6 +690,7 @@ FormElements.Paragraph = Paragraph;
 FormElements.Label = Label;
 FormElements.LineBreak = LineBreak;
 FormElements.TextInput = TextInput;
+FormElements.NumberInput = NumberInput;
 FormElements.TextArea = TextArea;
 FormElements.Dropdown = Dropdown;
 FormElements.Signature = Signature;
