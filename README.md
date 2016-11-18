@@ -1,4 +1,4 @@
-[![npm package](https://img.shields.io/badge/npm-0.0.1-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-forms-builder)
+[![npm package](https://img.shields.io/badge/npm-0.0.2-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-forms-builder)
 [![Build Status](https://api.travis-ci.org/blackjk3/react-form-builder.svg?branch=master)](https://travis-ci.org/blackjk3/react-form-builder)
 # React Form Builder
 A complete react form builder that interfaces with a json endpoint to load and save generated forms.  The toolbox contains 16 items for gathering data.  Everything from star ratings to signature boxes!
@@ -81,4 +81,7 @@ $ npm start
 Then navigate to http://localhost:8080/ in your browser and you should be able to see the form builder in action.
 
 # Tests
-To run tests you will need canvas installed
+```bash
+$ npm test
+```
+In order to run tests you will need to install Cairo which is needed for node-canvas. Go to https://www.npmjs.com/package/canvas for more details.
