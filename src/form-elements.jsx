@@ -189,24 +189,24 @@ let DatePicker = React.createClass({
   mixins: [SortableItemMixin],
 
   getInitialState() {
-    var value, internalValue, placeholderValue;
+    var value, internalValue;
 
-    // Is today defaulted?
-    if(this.props.data.defaultToday) {
-      placeholderValue = moment().format('MM/DD/YYYY');
+    if(this.props.data.defaultToday && (this.props.defaultValue === '' ||  this.props.defaultValue === undefined) ) {
+      value = moment().format('MM/DD/YYYY');
+      internalValue = moment();
+    } else {
+      value = this.props.defaultValue;
+      
+      if(this.props.defaultValue !== '' && this.props.defaultValue !== undefined) {
+        internalValue = moment(value, 'MM/DD/YYYY');
+      }  
     }
-
-    value = this.props.defaultValue;
-    if(this.props.defaultValue !== '' && this.props.defaultValue !== undefined) {
-      // Otherwise, is there a default value?  If so, set up the internal value to a moment object.
-      internalValue = moment(this.props.defaultValue);
-    }    
-
+    
     return {
       value: value, 
       internalValue: internalValue, 
       placeholder: 'mm/dd/yyyy',
-      placeholderValue: placeholderValue
+      defaultToday: this.props.data.defaultToday
     };
   },
 
@@ -231,6 +231,19 @@ let DatePicker = React.createClass({
     }
   },
 
+  componentWillReceiveProps(nextProps) {
+
+    if(this.props.data.defaultToday && !this.state.defaultToday) {
+      this.state.value = moment().format('MM/DD/YYYY');
+      this.state.internalValue = moment(this.state.value);
+    } else if(!this.props.data.defaultToday && this.state.defaultToday) {
+      this.state.value = '';
+      this.state.internalValue = undefined;
+    }
+
+    this.state.defaultToday = this.props.data.defaultToday;
+  },
+
   render() {
     let props = {};
     props.type = "date";
@@ -242,22 +255,6 @@ let DatePicker = React.createClass({
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
       props.ref = "child_ref_" + this.props.data.field_name;
-    }
-
-    var value, internalValue;
-
-    if(this.state.value === undefined && this.props.data.defaultToday) {
-      // Is there no value already set and default should be today.  Set today's date.
-      value = (this.state.placeholderValue) ? this.state.placeholderValue : moment().format('MM/DD/YYYY');
-    } else {
-      value = this.state.value;
-    }
-
-    if(this.state.internalValue === undefined && this.props.data.defaultToday) {
-      // Is there no internal value already set and default should be today.  Set today's date.
-      internalValue = moment();
-    } else {
-      internalValue = this.state.internalValue;
     }
     
     return this.renderWithSortable(
@@ -280,7 +277,7 @@ let DatePicker = React.createClass({
                 readOnly="true"
                 dateFormat="MM/DD/YYYY"
                 placeholder={this.state.placeholder}
-                value={value}
+                value={this.state.value}
                 className="form-control" />
             }
             { iOS && !this.props.data.readOnly &&
@@ -290,7 +287,7 @@ let DatePicker = React.createClass({
                 onChange={this.handleChange}
                 dateFormat="MM/DD/YYYY"
                 placeholder={this.state.placeholder}
-                value={value}
+                value={this.state.value}
                 className = "form-control" />
             }
             { !iOS && !this.props.data.readOnly &&
@@ -298,7 +295,7 @@ let DatePicker = React.createClass({
                 name={props.name}
                 ref={props.ref}
                 onChange={this.handleChange}
-                selected={internalValue}
+                selected={this.state.internalValue}
                 todayButton={'Today'}
                 className = "form-control"
                 isClearable={true}

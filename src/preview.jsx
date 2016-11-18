@@ -31,7 +31,7 @@ export default class Preview extends React.Component {
   updateElement(element) {
     let data = this.state.data;
     let found = false;
-
+    
     for(var i=0, len=data.length; i < len; i++) {
       if (element.id === data[i].id) {
         data[i] = element;

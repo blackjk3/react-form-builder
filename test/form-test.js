@@ -74,14 +74,14 @@ describe('<Form />', function() {
   });
 
   it('should validate required fields correctly', function() {
-    assert.equal(this.generatedForm.validateForm().length, 3);
+    assert.equal(this.generatedForm.validateForm().length, 2);
 
     var checkbox = this.formElement.querySelector('input[type=checkbox]');
     checkbox.checked = true;
 
     // Checking checkbox which is required.
     TestUtils.Simulate.change(checkbox, {"target": {"checked": true}});
-    assert.equal(this.generatedForm.validateForm().length, 2);
+    assert.equal(this.generatedForm.validateForm().length, 1);
 
   });
 
