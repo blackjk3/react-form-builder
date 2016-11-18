@@ -37,6 +37,8 @@ export default class FormElementsEdit extends React.Component {
   }
   render() {
     let this_checked = this.props.element.hasOwnProperty('required') ? this.props.element.required : false;
+    let this_read_only = this.props.element.hasOwnProperty('readOnly') ? this.props.element.readOnly : false;
+    let this_default_today = this.props.element.hasOwnProperty('defaultToday') ? this.props.element.defaultToday : false;
     let this_checked_inline = this.props.element.hasOwnProperty('inline') ? this.props.element.inline : false;
     let this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
     let this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
@@ -80,6 +82,12 @@ export default class FormElementsEdit extends React.Component {
             <br />
             <label>
               <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} /> Required
+              { this.props.element.hasOwnProperty('readOnly') && 
+                <div><input type="checkbox" checked={this_read_only} value={true} onChange={this.editElementProp.bind(this, 'readOnly', 'checked')} /> Read only</div>
+              }
+              { this.props.element.hasOwnProperty('defaultToday') && 
+                <div><input type="checkbox" checked={this_default_today} value={true} onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} /> Default to Today?</div>
+              }
             </label>
             { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') &&
               <div>
@@ -88,6 +96,7 @@ export default class FormElementsEdit extends React.Component {
             }
           </div>
         }
+        
         { this.props.element.hasOwnProperty('step') &&
           <div className="form-group">
             <div className="form-group-range">

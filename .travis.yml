@@ -4,6 +4,7 @@ node_js:
   - "4.2.3"
 env:
   - CXX=g++-4.8
+before_install: sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++  
 addons:
   apt:
     sources:

@@ -69,6 +69,7 @@ In order to make the form builder look pretty, there are a few dependencies othe
 - FontAwesome
 - jQuery
 
+
 # SASS
 All relevant styles are located in css/application.css.scss.
 
@@ -78,3 +79,6 @@ $ npm install
 $ npm start
 ```
 Then navigate to http://localhost:8080/ in your browser and you should be able to see the form builder in action.
+
+# Tests
+To run tests you will need canvas installed

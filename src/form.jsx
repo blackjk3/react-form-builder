@@ -92,7 +92,7 @@ export default class ReactForm extends React.Component {
             $item.value = $item.value.trim();
           }
 
-          if ($item.value.length < 1)
+          if ($item.value === undefined || $item.value.length < 1)
             invalid = true;
         }
       }
@@ -115,8 +115,21 @@ export default class ReactForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     let $form = ReactDOM.findDOMNode(this.refs.form);
+    let errors = this.validateForm();
+
+    // Publish errors, if any.
+    this.emitter.emit('formValidation', errors);
+    
+    // Only submit if there are no errors.
+    if (errors.length < 1)
+      $form.submit();
+  }
+
+  validateForm() {
     let errors = [];
+
     this.props.data.forEach(item => {
       if (item.element === "Signature")
         this._getSignatureImg(item);
@@ -127,10 +140,8 @@ export default class ReactForm extends React.Component {
       if (this.props.validateForCorrectness && this._isIncorrect(item))
         errors.push(item.label + " was answered incorrectly!");
     });
-    // publish errors, if any
-    this.emitter.emit('formValidation', errors);
-    if (errors.length < 1)
-      $form.submit();
+
+    return errors;
   }
 
   render() {

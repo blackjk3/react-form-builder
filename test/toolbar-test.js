@@ -6,7 +6,7 @@ var React = require('react/addons');
 var Toolbar = require('../src/toolbar.jsx').default;
 var TestUtils = React.addons.TestUtils;
 
-describe('Testing toolbar', function() {
+describe('<Toolbar />', function() {
 
   jsdom({ skipWindowCheck: true });
 
@@ -20,7 +20,7 @@ describe('Testing toolbar', function() {
 
   it('should contain header', function() {
     var divText = TestUtils.findRenderedDOMComponentWithTag(this.toolBar, 'h4');  
-    assert.equal(divText.getDOMNode().textContent, 'Toolbox');
+    assert.equal(divText.textContent, 'Toolbox');
   });
 
   it('should display default options when none are passed in', function() {
@@ -49,6 +49,6 @@ describe('Testing toolbar', function() {
 
     this.inputElement = React.findDOMNode(this.toolBar);
 
-    assert.equal(this.inputElement.querySelector('ul').children.length, items.length);    
+    assert.equal(this.inputElement.querySelector('ul').children.length, items.length);
   })
 });

@@ -141,6 +141,8 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'DatePicker',
+        canDefaultToday: true,
+        canReadOnly: true,
         name: 'Date',
         icon: 'fa fa-calendar',
         label: 'Placeholder Label',
@@ -211,6 +213,12 @@ export default class Toolbar extends React.Component {
 
     if (item.canHaveAnswer)
       elementOptions['canHaveAnswer'] = item.canHaveAnswer;
+
+    if (item.canReadOnly)
+      elementOptions['readOnly'] = false;
+
+    if (item.canDefaultToday)
+      elementOptions['defaultToday'] = false;
 
     if (item.content)
       elementOptions['content'] = item.content;

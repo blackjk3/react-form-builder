@@ -157,7 +157,25 @@ let DatePicker = React.createClass({
   mixins: [SortableItemMixin],
 
   getInitialState() {
-    return {value: '', internalValue: this.props.defaultValue, placeholder: 'mm/dd/yyyy'};
+    var value, internalValue, placeholderValue;
+
+    // Is today defaulted?
+    if(this.props.data.defaultToday) {
+      placeholderValue = moment().format('MM/DD/YYYY');
+    }
+
+    value = this.props.defaultValue;
+    if(this.props.defaultValue !== '' && this.props.defaultValue !== undefined) {
+      // Otherwise, is there a default value?  If so, set up the internal value to a moment object.
+      internalValue = moment(this.props.defaultValue);
+    }    
+
+    return {
+      value: value, 
+      internalValue: internalValue, 
+      placeholder: 'mm/dd/yyyy',
+      placeholderValue: placeholderValue
+    };
   },
 
   handleChange(dt) {
@@ -193,6 +211,23 @@ let DatePicker = React.createClass({
       props.defaultValue = this.props.defaultValue;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
+
+    var value, internalValue;
+
+    if(this.state.value === undefined && this.props.data.defaultToday) {
+      // Is there no value already set and default should be today.  Set today's date.
+      value = (this.state.placeholderValue) ? this.state.placeholderValue : moment().format('MM/DD/YYYY');
+    } else {
+      value = this.state.value;
+    }
+
+    if(this.state.internalValue === undefined && this.props.data.defaultToday) {
+      // Is there no internal value already set and default should be today.  Set today's date.
+      internalValue = moment();
+    } else {
+      internalValue = this.state.internalValue;
+    }
+    
     return this.renderWithSortable(
       <div className="rfb-item">
         { !this.props.mutable &&
@@ -206,21 +241,32 @@ let DatePicker = React.createClass({
             }
           </label>
           <div>
-            { iOS &&
+            { this.props.data.readOnly &&
+              <input type="text" 
+                name={props.name}
+                ref={props.ref}
+                readOnly="true"
+                dateFormat="MM/DD/YYYY"
+                placeholder={this.state.placeholder}
+                value={value}
+                className="form-control" />
+            }
+            { iOS && !this.props.data.readOnly &&
               <input type="date" 
                 name={props.name}
                 ref={props.ref}
                 onChange={this.handleChange}
                 dateFormat="MM/DD/YYYY"
                 placeholder={this.state.placeholder}
+                value={value}
                 className = "form-control" />
             }
-            { !iOS &&
+            { !iOS && !this.props.data.readOnly &&
               <ReactDatePicker
                 name={props.name}
                 ref={props.ref}
                 onChange={this.handleChange}
-                selected={this.state.internalValue}
+                selected={internalValue}
                 todayButton={'Today'}
                 className = "form-control"
                 isClearable={true}
