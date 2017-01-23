@@ -6,7 +6,7 @@ import React from 'react';
 import Sortable from 'react-sortable-items';
 import ElementStore from './stores/ElementStore';
 import ElementActions from './actions/ElementActions';
-import {Header,Paragraph,Label,LineBreak,TextInput,NumberInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
+import {Header,Paragraph,Label,LineBreak,TextInput,NumberInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Image,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
 import FormElementsEdit from './form-elements-edit';
 
 export default class Preview extends React.Component {
@@ -98,6 +98,8 @@ export default class Preview extends React.Component {
           return <RadioButtons mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
         case "Rating":
           return <Rating mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
+        case "Image":
+          return <Image mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />        
         case "Tags":
           return <Tags mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
         case "Signature":

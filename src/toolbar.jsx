@@ -140,6 +140,14 @@ export default class Toolbar extends React.Component {
         field_name: 'text_area_'
       },
       {
+        key: 'Image',
+        name: 'Image',
+        label: '',
+        icon: 'fa fa-photo',
+        field_name: 'image_',
+        src: ''
+      },
+      {
         key: 'Rating',
         canHaveAnswer: true,
         name: 'Rating',
@@ -233,6 +241,10 @@ export default class Toolbar extends React.Component {
 
     if (item.href)
       elementOptions['href'] = item.href;
+
+    if (item.key === "Image") {
+      elementOptions['src'] = item.src;
+    }
 
     if (item.key === "Download") {
       elementOptions['_href'] = item._href;

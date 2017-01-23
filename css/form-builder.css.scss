@@ -19,6 +19,15 @@
       font-style: italic;
     }
 
+    .no-image {
+      background: #eee;
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ddd;
+      text-align: center;
+      padding-top: 35px;
+    }
+
     .option-inline {
       display: inline-block !important;
       margin-right: 10px !important;

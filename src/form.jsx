@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {EventEmitter} from 'fbemitter';
 import FormValidator from './form-validator';
-import {Header,Paragraph,Label,LineBreak,TextInput,NumberInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
+import {Header,Paragraph,Label,LineBreak,TextInput,NumberInput,TextArea,Dropdown,Image,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
 import moment from 'moment';
 
 export default class ReactForm extends React.Component {
@@ -171,6 +171,8 @@ export default class ReactForm extends React.Component {
           return <RadioButtons ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case "Rating":
           return <Rating ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        case "Image":
+          return <Image ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case "Tags":
           return <Tags ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case "Signature":

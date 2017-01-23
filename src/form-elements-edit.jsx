@@ -42,6 +42,7 @@ export default class FormElementsEdit extends React.Component {
     let this_checked_inline = this.props.element.hasOwnProperty('inline') ? this.props.element.inline : false;
     let this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
     let this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
+    let this_checked_center = this.props.element.hasOwnProperty('center') ? this.props.element.center : false;
 
     let this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || this_files.length > 0 && this_files[0].id !== "")
@@ -73,6 +74,28 @@ export default class FormElementsEdit extends React.Component {
           <div className="form-group">
             <label>Link to:</label>
             <TextAreaAutosize type="text" className="form-control" defaultValue={this.props.element.href} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'href', 'value')} />
+          </div>
+        }
+        { this.props.element.hasOwnProperty('src') &&
+          <div>
+            <div className="form-group">
+              <label>Link to:</label>
+              <input type="text" className="form-control" defaultValue={this.props.element.src} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'src', 'value')} />
+            </div>
+            <div className="form-group">
+              <input type="checkbox" checked={this_checked_center} value={true} onChange={this.editElementProp.bind(this, 'center', 'checked')} />
+              <label>&nbsp;Center?</label>
+            </div>
+            <div className="row">
+              <div className="col-sm-3">
+                <label>Width:</label>
+                <input type="text" className="form-control" defaultValue={this.props.element.width} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'width', 'value')} />
+              </div>
+              <div className="col-sm-3">
+                <label>Height:</label>
+                <input type="text" className="form-control" defaultValue={this.props.element.height} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'height', 'value')} />
+              </div>              
+            </div>
           </div>
         }
         { this.props.element.hasOwnProperty('label') &&
