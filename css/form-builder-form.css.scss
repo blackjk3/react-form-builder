@@ -23,6 +23,11 @@ input[type="date"] {
 }
 .react-form-builder-form {
   position: relative;
+
+  .rfb-item.alwaysbreak { page-break-before: always; }
+  .rfb-item.nobreak:before { clear:both; }
+  .rfb-item.nobreak { page-break-inside: avoid; }
+
   .rfb-item {
     padding: 10px 0;
     position: relative;

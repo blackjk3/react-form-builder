@@ -43,6 +43,8 @@ export default class FormElementsEdit extends React.Component {
     let this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
     let this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
     let this_checked_center = this.props.element.hasOwnProperty('center') ? this.props.element.center : false;
+    let this_checked_page_break = this.props.element.hasOwnProperty('pageBreakBefore') ? this.props.element.pageBreakBefore : false;
+    let this_checked_alternate_form = this.props.element.hasOwnProperty('alternateForm') ? this.props.element.alternateForm : false;
 
     let this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || this_files.length > 0 && this_files[0].id !== "")
@@ -72,7 +74,7 @@ export default class FormElementsEdit extends React.Component {
         }
         { this.props.element.hasOwnProperty('href') &&
           <div className="form-group">
-            <label>Link to:</label>
+          
             <TextAreaAutosize type="text" className="form-control" defaultValue={this.props.element.href} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'href', 'value')} />
           </div>
         }
@@ -119,6 +121,18 @@ export default class FormElementsEdit extends React.Component {
             }
           </div>
         }
+
+        <div className="form-group">
+          <label>Print Options</label>
+          <div><input type="checkbox" checked={this_checked_page_break} value={true} onChange={this.editElementProp.bind(this, 'pageBreakBefore', 'checked')} /> Page Break Before Element?</div>
+        </div>
+
+        <div className="form-group">
+          <label>Alternate/Short Form</label>
+          <div>
+            <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} /> Display on alternate/shorter form?
+          </div>
+        </div>
         
         { this.props.element.hasOwnProperty('step') &&
           <div className="form-group">
@@ -161,6 +175,7 @@ export default class FormElementsEdit extends React.Component {
             <div><input type="checkbox" checked={this_checked_italic} value={true} onChange={this.editElementProp.bind(this, 'italic', 'checked')} /> Italic</div>
           </div>
         }
+
         { this.props.showCorrectColumn && this.props.element.canHaveAnswer && !this.props.element.hasOwnProperty('options') &&
           <div className="form-group">
             <label>Correct Answer</label>

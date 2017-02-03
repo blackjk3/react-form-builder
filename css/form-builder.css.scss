@@ -8,6 +8,24 @@
     box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
     min-height: 750px;
 
+    .preview-page-break {
+      padding: 5px 0;
+      border-top: 2px dotted #ccc;
+      border-bottom: 2px dotted #ccc;
+      background: #eee;
+      text-align: center;
+      width: 100%;
+      font-weight: bold;
+      margin: 5px 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 10px,
+        #eee 10px,
+        #eee 20px
+      );
+    }
+
     label {
       font-weight: normal;
     }
@@ -48,6 +66,8 @@
       // width: 0;
       width: 715px;
       transition: .5s;
+      overflow-y: auto;
+
       h4, .dismiss-edit {
         margin-bottom: 30px;
       }

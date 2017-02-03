@@ -145,7 +145,13 @@ export default class ReactForm extends React.Component {
   }
 
   render() {
-    let items = this.props.data.map( item => {
+    var data_items = this.props.data;
+
+    if(this.props.display_short) {
+      data_items = this.props.data.filter(function(i) {  return i.alternateForm === true; });
+    }
+
+    let items = data_items.map( item => {
       switch (item.element) {
         case "Header":
           return <Header mutable={true} key={'form_'+item.id} data={item} />
@@ -205,8 +211,12 @@ export default class ReactForm extends React.Component {
               </div>
             }
             {items}
-            <input type="submit" className="btn btn-school btn-big btn-agree" value="Submit" />
-            <a href={this.props.back_action} className="btn btn-default btn-cancel btn-big"> Cancel</a>
+            { !this.props.hide_actions &&
+              <input type="submit" className="btn btn-school btn-big btn-agree" value="Submit" />
+            }
+            { !this.props.hide_actions && this.props.back_action &&
+              <a href={this.props.back_action} className="btn btn-default btn-cancel btn-big"> Cancel</a>
+            }
           </form>
         </div>
       </div>

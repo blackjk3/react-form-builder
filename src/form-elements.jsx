@@ -29,10 +29,18 @@ let Header = React.createClass({
     if (this.props.data.bold) { classNames += ' bold'; }
     if (this.props.data.italic) { classNames += ' italic'; }
 
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <h3 className={classNames}>{this.props.data.content}</h3>
       </div>
@@ -48,10 +56,18 @@ let Paragraph = React.createClass({
     if (this.props.data.bold) { classNames += ' bold'; }
     if (this.props.data.italic) { classNames += ' italic'; }
 
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <p className={classNames} dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.content) }} />
       </div>
@@ -66,10 +82,18 @@ let Label = React.createClass({
     if (this.props.data.bold) { classNames += ' bold'; }
     if (this.props.data.italic) { classNames += ' italic'; }
 
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <label className={classNames} dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.content) }} />
       </div>
@@ -80,10 +104,19 @@ let Label = React.createClass({
 let LineBreak = React.createClass({
   mixins: [SortableItemMixin],
   render() {
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <hr />
       </div>
@@ -103,10 +136,19 @@ let TextInput = React.createClass({
       props.defaultValue = this.props.defaultValue;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -135,10 +177,19 @@ let NumberInput = React.createClass({
       props.defaultValue = this.props.defaultValue;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -166,10 +217,19 @@ let TextArea = React.createClass({
       props.defaultValue = this.props.defaultValue;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -256,11 +316,19 @@ let DatePicker = React.createClass({
       props.defaultValue = this.props.defaultValue;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
     
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -320,10 +388,19 @@ let Dropdown = React.createClass({
       props.defaultValue = this.props.defaultValue;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -368,10 +445,19 @@ let Signature = React.createClass({
       pad_props.defaultValue = this.props.defaultValue;
       pad_props.ref = 'canvas_'+this.props.data.field_name;
     }
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -412,10 +498,19 @@ let Tags = React.createClass({
       props.value = this.state.value;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -438,10 +533,18 @@ let Checkboxes = React.createClass({
     let classNames = 'checkbox-label';
     if (this.props.data.inline) { classNames += ' option-inline'; }
 
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label className="form-label">
@@ -479,12 +582,19 @@ let RadioButtons = React.createClass({
     let self = this;
     let classNames = 'radio-label';
     if (this.props.data.inline) { classNames += ' option-inline'; }
-    console.log(this.props.data.inline);
+    
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label className="form-label">
@@ -521,8 +631,11 @@ let Image = React.createClass({
   render() {
     var style = (this.props.data.center) ? { textAlign: 'center' } : '';
 
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item" style={style}>
+      <div className={baseClasses} style={style}>
         { !this.props.mutable &&
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} required={this.props.data.required} />
         }
@@ -549,10 +662,19 @@ let Rating = React.createClass({
       props.editing = true;
       props.ref = "child_ref_" + this.props.data.field_name;
     }
+
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -571,10 +693,18 @@ let Rating = React.createClass({
 let HyperLink = React.createClass({
   mixins: [SortableItemMixin],
   render() {
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <a target="_blank" href={this.props.data.href}>{this.props.data.content}</a>
@@ -587,10 +717,18 @@ let HyperLink = React.createClass({
 let Download = React.createClass({
   mixins: [SortableItemMixin],
   render() {
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <a href={this.props.download_path + '?id=' + this.props.data.file_path}>{this.props.data.content}</a>
@@ -632,10 +770,18 @@ let Camera = React.createClass({
   },
 
   render() {
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>
@@ -712,10 +858,18 @@ let Range = React.createClass({
       return <label {...option_props}>{d}</label>
     })
 
+    let baseClasses = 'rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
     return this.renderWithSortable(
-      <div className="rfb-item">
+      <div className={baseClasses}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <label>

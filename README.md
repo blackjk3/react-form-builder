@@ -5,6 +5,9 @@ A complete react form builder that interfaces with a json endpoint to load and s
 
 ![](screenshot.png)
 
+### Editing Items
+![](screenshot2.png)
+
 # Basic Usage
 
 ```javascript
@@ -61,6 +64,19 @@ React.render(
 )
 ```
 
+### Form Params
+
+Name | Type | Required? | Description
+--- | --- | --- | ---
+form_action | string | Required | URL path to submit the form
+form_method | string | Rquired | Verb used in the form submission.
+data | array | Required | Question data retrieved from the database
+back_action | string | Optional | URL path to go back if needed.
+task_id | integer | Optional | User to submit a hidden variable with id to the form on the backend database.
+answer_data | array | Optional | Answer data, only used if loading a pre-existing form with values.
+authenticity_token | string | Optional | If using Rails and need an auth token to submit form.
+hide_actions | boolean | Optional | If you would like to hide the submit / cancel buttons set to true.
+display_short | boolean | Options | Display an optional "shorter form" which is common for legal documents or situations where the user will just have to sign or fill out a shorter form with only the critical elements.
 
 # Vendor Dependencies
 In order to make the form builder look pretty, there are a few dependencies other than React.  See the example code in index.html for more details.
