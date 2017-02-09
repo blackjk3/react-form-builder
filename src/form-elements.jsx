@@ -16,8 +16,16 @@ let myxss = new xss.FilterXSS({
     br: [],
     b: [],
     i: [],
-    ul: [],
-    li: []
+    ol:['style'],
+    ul: ['style'],
+    li: [],
+    p: ['style'],
+    sub: [],
+    sup: [],
+    div: ['style'],
+    em: [],
+    strong: [],
+    span: ['style']
   }
 });
 
@@ -42,7 +50,7 @@ let Header = React.createClass({
             <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
           </div>
         }
-        <h3 className={classNames}>{this.props.data.content}</h3>
+        <h3 className={classNames} dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.content) }} />
       </div>
     );
   }

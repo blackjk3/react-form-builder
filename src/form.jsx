@@ -198,6 +198,9 @@ export default class ReactForm extends React.Component {
       display: 'none'
     }
 
+    let actionName = (this.props.action_name) ? this.props.action_name : 'Submit';
+    let backName = (this.props.back_name) ? this.props.back_name : 'Cancel';
+
     return (
       <div>
         <FormValidator emitter={this.emitter} />
@@ -212,10 +215,10 @@ export default class ReactForm extends React.Component {
             }
             {items}
             { !this.props.hide_actions &&
-              <input type="submit" className="btn btn-school btn-big btn-agree" value="Submit" />
+              <input type="submit" className="btn btn-school btn-big btn-agree" value={actionName} />
             }
             { !this.props.hide_actions && this.props.back_action &&
-              <a href={this.props.back_action} className="btn btn-default btn-cancel btn-big"> Cancel</a>
+              <a href={this.props.back_action} className="btn btn-default btn-cancel btn-big"> {backName}</a>
             }
           </form>
         </div>

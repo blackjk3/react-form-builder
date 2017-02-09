@@ -61,7 +61,7 @@ export default class Demobar extends React.Component {
           <div className={modalClass}>
             <div className="modal-dialog">
               <div className="modal-content">
-                <ReactFormGenerator download_path="" back_action="/" answer_data={{}} form_action="/" form_method="POST" data={this.state.data} />
+                <ReactFormGenerator download_path="" back_action="/" back_name="Back" answer_data={{}} action_name="Save" form_action="/" form_method="POST" data={this.state.data} />
                 
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>

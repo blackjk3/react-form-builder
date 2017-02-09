@@ -2,6 +2,19 @@ import React from 'react';
 import DynamicOptionList from './dynamic-option-list';
 import TextAreaAutosize from 'react-textarea-autosize';
 
+import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import { Editor } from 'react-draft-wysiwyg';
+
+let toolbar = {
+  options: ['inline', 'list', 'textAlign', 'fontSize', 'link', 'history'],
+  inline: {
+    inDropdown: false, 
+    className: undefined, 
+    options: ['bold', 'italic', 'underline', 'superscript', 'subscript'], 
+  },
+};
+
 export default class FormElementsEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -27,6 +40,19 @@ export default class FormElementsEdit extends React.Component {
       if (targProperty === 'checked') {this.updateElement();};
     });
   }
+
+  onEditorStateChange(index, property, editorContent) {
+    
+    let html = draftToHtml(convertToRaw(editorContent.getCurrentContent())).replace(/<p>/g, '<div>').replace(/<\/p>/g, '</div>');
+    console.log(html);
+    let this_element = this.state.element;
+    this_element[property] = html;
+
+    this.setState({
+      element: this_element
+    });
+  }
+
   updateElement() {
     let this_element = this.state.element;
     // to prevent ajax calls with no change
@@ -49,6 +75,16 @@ export default class FormElementsEdit extends React.Component {
     let this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || this_files.length > 0 && this_files[0].id !== "")
       this_files.unshift({id: '', file_name: ''});
+
+    if(this.props.element.hasOwnProperty('content')) {
+      var contentState = ContentState.createFromBlockArray(convertFromHTML(this.props.element.content));
+      var editorState = EditorState.createWithContent(contentState);
+    }
+    if(this.props.element.hasOwnProperty('label')) {
+      var contentState = ContentState.createFromBlockArray(convertFromHTML(this.props.element.label));
+      var editorState = EditorState.createWithContent(contentState);
+    }
+
     return (
       <div>
         <div className="clearfix">
@@ -58,7 +94,11 @@ export default class FormElementsEdit extends React.Component {
         { this.props.element.hasOwnProperty('content') &&
           <div className="form-group">
             <label>Text to display:</label>
-            <TextAreaAutosize type="text" className="form-control" defaultValue={this.props.element.content} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'content', 'value')} />
+            
+            <Editor
+              toolbar={toolbar}
+              defaultEditorState={editorState}
+              onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'content')} />
           </div>
         }
         { this.props.element.hasOwnProperty('file_path') &&
@@ -73,8 +113,7 @@ export default class FormElementsEdit extends React.Component {
           </div>
         }
         { this.props.element.hasOwnProperty('href') &&
-          <div className="form-group">
-          
+          <div className="form-group">          
             <TextAreaAutosize type="text" className="form-control" defaultValue={this.props.element.href} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'href', 'value')} />
           </div>
         }
@@ -103,7 +142,11 @@ export default class FormElementsEdit extends React.Component {
         { this.props.element.hasOwnProperty('label') &&
           <div className="form-group">
             <label>Display Label</label>
-            <input type="text" className="form-control" defaultValue={this.props.element.label} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'label', 'value')} />
+            <Editor
+              toolbar={toolbar}
+              defaultEditorState={editorState}
+              onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'label')} />
+
             <br />
             <label>
               <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} /> Required

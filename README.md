@@ -69,9 +69,11 @@ React.render(
 Name | Type | Required? | Description
 --- | --- | --- | ---
 form_action | string | Required | URL path to submit the form
-form_method | string | Rquired | Verb used in the form submission.
+form_method | string | Required | Verb used in the form submission.
+action_name | string | Optional | Defines form submit button text.  Defaults to "Submit"
 data | array | Required | Question data retrieved from the database
 back_action | string | Optional | URL path to go back if needed.
+back_name | string | Optional | Button text for back action.  Defaults to "Cancel".
 task_id | integer | Optional | User to submit a hidden variable with id to the form on the backend database.
 answer_data | array | Optional | Answer data, only used if loading a pre-existing form with values.
 authenticity_token | string | Optional | If using Rails and need an auth token to submit form.
