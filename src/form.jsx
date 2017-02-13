@@ -129,8 +129,13 @@ export default class ReactForm extends React.Component {
 
   validateForm() {
     let errors = [];
+    let data_items = this.props.data;
 
-    this.props.data.forEach(item => {
+    if(this.props.display_short) {
+      data_items = this.props.data.filter(function(i) {  return i.alternateForm === true; });
+    }
+
+    data_items.forEach(item => {
       if (item.element === "Signature")
         this._getSignatureImg(item);
 
