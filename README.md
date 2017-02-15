@@ -78,7 +78,8 @@ task_id | integer | Optional | User to submit a hidden variable with id to the f
 answer_data | array | Optional | Answer data, only used if loading a pre-existing form with values.
 authenticity_token | string | Optional | If using Rails and need an auth token to submit form.
 hide_actions | boolean | Optional | If you would like to hide the submit / cancel buttons set to true.
-display_short | boolean | Options | Display an optional "shorter form" which is common for legal documents or situations where the user will just have to sign or fill out a shorter form with only the critical elements.
+display_short | boolean | Optional | Display an optional "shorter page/form" which is common for legal documents or situations where the user will just have to sign or fill out a shorter form with only the critical elements.
+read_only | boolean | Optional | Shows a read only version which has fields disabled and removes "required" labels.
 
 # Vendor Dependencies
 In order to make the form builder look pretty, there are a few dependencies other than React.  See the example code in index.html for more details.

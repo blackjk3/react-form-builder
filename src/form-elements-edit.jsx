@@ -49,7 +49,8 @@ export default class FormElementsEdit extends React.Component {
     this_element[property] = html;
 
     this.setState({
-      element: this_element
+      element: this_element,
+      dirty: true
     });
   }
 
@@ -171,7 +172,7 @@ export default class FormElementsEdit extends React.Component {
         </div>
 
         <div className="form-group">
-          <label>Alternate/Short Form</label>
+          <label>Alternate/Signature Page</label>
           <div>
             <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} /> Display on alternate/shorter form?
           </div>

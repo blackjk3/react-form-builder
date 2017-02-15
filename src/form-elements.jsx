@@ -148,6 +148,10 @@ let TextInput = React.createClass({
     let baseClasses = 'rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
+    if(this.props.read_only) {
+      props.disabled = "disabled";
+    }
+
     return this.renderWithSortable(
       <div className={baseClasses}>
         { !this.props.mutable &&
@@ -162,7 +166,7 @@ let TextInput = React.createClass({
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
 
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -186,6 +190,10 @@ let NumberInput = React.createClass({
       props.ref = "child_ref_" + this.props.data.field_name;
     }
 
+    if(this.props.read_only) {
+      props.disabled = "disabled";
+    }
+
     let baseClasses = 'rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
@@ -203,7 +211,7 @@ let NumberInput = React.createClass({
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
 
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -220,6 +228,10 @@ let TextArea = React.createClass({
     let props = {};
     props.className = "form-control";
     props.name = this.props.data.field_name;
+
+    if(this.props.read_only) {
+      props.disabled = "disabled";
+    }
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
@@ -242,7 +254,7 @@ let TextArea = React.createClass({
         <div className="form-group">
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -325,6 +337,10 @@ let DatePicker = React.createClass({
       props.ref = "child_ref_" + this.props.data.field_name;
     }
 
+    if(this.props.read_only) {
+      props.disabled = "disabled";
+    }
+
     let baseClasses = 'rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
     
@@ -341,7 +357,7 @@ let DatePicker = React.createClass({
         <div className="form-group">
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -397,6 +413,10 @@ let Dropdown = React.createClass({
       props.ref = "child_ref_" + this.props.data.field_name;
     }
 
+    if(this.props.read_only) {
+      props.disabled = "disabled";
+    }
+
     let baseClasses = 'rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
@@ -413,7 +433,7 @@ let Dropdown = React.createClass({
         <div className="form-group">
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true  && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -470,7 +490,7 @@ let Signature = React.createClass({
         <div className="form-group">
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true  && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -523,7 +543,7 @@ let Tags = React.createClass({
         <div className="form-group">
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -557,7 +577,7 @@ let Checkboxes = React.createClass({
         <div className="form-group">
           <label className="form-label">
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -607,7 +627,7 @@ let RadioButtons = React.createClass({
         <div className="form-group">
           <label className="form-label">
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -687,7 +707,7 @@ let Rating = React.createClass({
         <div className="form-group">
           <label>
             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -794,7 +814,7 @@ let Camera = React.createClass({
         <div className="form-group">
           <label>
             {this.props.data.label}
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true  && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>
@@ -882,7 +902,7 @@ let Range = React.createClass({
         <div className="form-group">
           <label>
             {this.props.data.label}
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true) &&
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
               <span className="label-required label label-danger">Required</span>
             }
           </label>

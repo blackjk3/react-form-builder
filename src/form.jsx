@@ -167,13 +167,17 @@ export default class ReactForm extends React.Component {
         case "LineBreak":
           return <LineBreak mutable={true} key={'form_'+item.id} data={item} />
         case "TextInput":
-          return <TextInput ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+          return <TextInput ref={item.field_name} handleChange={this.handleChange} mutable={true} 
+            key={'form_'+item.id}
+            data={item} 
+            read_only={this.props.read_only}
+            defaultValue={this.props.answer_data[item.field_name]} />
         case "NumberInput":
-          return <NumberInput ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+          return <NumberInput ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case "TextArea":
-          return <TextArea ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+          return <TextArea ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case "Dropdown":
-          return <Dropdown ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+          return <Dropdown ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case "Checkboxes":
           return <Checkboxes ref={item.field_name} handleChange={this.handleChange} mutable={true} key={'form_'+item.id} data={item} defaultValue={this._checkboxesDefaultValue(item)} />
         case "DatePicker":
