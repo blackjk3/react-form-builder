@@ -44,7 +44,6 @@ export default class FormElementsEdit extends React.Component {
   onEditorStateChange(index, property, editorContent) {
     
     let html = draftToHtml(convertToRaw(editorContent.getCurrentContent())).replace(/<p>/g, '<div>').replace(/<\/p>/g, '</div>');
-    console.log(html);
     let this_element = this.state.element;
     this_element[property] = html;
 
@@ -99,6 +98,7 @@ export default class FormElementsEdit extends React.Component {
             <Editor
               toolbar={toolbar}
               defaultEditorState={editorState}
+              onBlur={this.updateElement.bind(this)}
               onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'content')} />
           </div>
         }
@@ -146,6 +146,7 @@ export default class FormElementsEdit extends React.Component {
             <Editor
               toolbar={toolbar}
               defaultEditorState={editorState}
+              onBlur={this.updateElement.bind(this)}
               onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'label')} />
 
             <br />
