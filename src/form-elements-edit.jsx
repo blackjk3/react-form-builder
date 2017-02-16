@@ -175,7 +175,7 @@ export default class FormElementsEdit extends React.Component {
         <div className="form-group">
           <label>Alternate/Signature Page</label>
           <div>
-            <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} /> Display on alternate/shorter form?
+            <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} /> Display on alternate/signature Page?
           </div>
         </div>
         
