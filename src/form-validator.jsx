@@ -3,6 +3,26 @@
   */
 
 import React from 'react';
+import xss from 'xss';
+
+let myxss = new xss.FilterXSS({
+  whiteList: {
+    u: [],
+    br: [],
+    b: [],
+    i: [],
+    ol:['style'],
+    ul: ['style'],
+    li: [],
+    p: ['style'],
+    sub: [],
+    sup: [],
+    div: ['style'],
+    em: [],
+    strong: [],
+    span: ['style']
+  }
+});
 
 export default class FormValidator extends React.Component {
 
@@ -30,7 +50,7 @@ export default class FormValidator extends React.Component {
 
   render() {
     let errors = this.state.errors.map((error,index) => {
-      return <li key={'error_'+index}>{error}</li>
+      return <li key={'error_'+index} dangerouslySetInnerHTML={{__html: myxss.process(error) }} />
     })
 
     return (
