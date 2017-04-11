@@ -3,7 +3,7 @@ import ElementStore from './src/stores/ElementStore';
 import ReactFormGenerator from './src/form';
 
 export default class Demobar extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -47,7 +47,7 @@ export default class Demobar extends React.Component {
       data: data
     });
   }
-  
+
   render() {
     var modalClass = 'modal';
     if(this.state.previewVisible) {
@@ -70,14 +70,23 @@ export default class Demobar extends React.Component {
         <button className="btn btn-primary pull-right" style={{ marginRight: '10px'}} onClick={this.showPreview.bind(this)}>Preview Form</button>
         <button className="btn btn-default pull-right" style={{ marginRight: '10px'}} onClick={this.showShortPreview.bind(this)}>Alternate/Short Form</button>
         <button className="btn btn-default pull-right" style={{ marginRight: '10px'}} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
-        
+
 
         { this.state.previewVisible &&
           <div className={modalClass}>
             <div className="modal-dialog">
               <div className="modal-content">
-                <ReactFormGenerator download_path="" back_action="/" back_name="Back" answer_data={{}} action_name="Save" form_action="/" form_method="POST" data={this.state.data} />
-                
+                <ReactFormGenerator
+                  download_path=""
+                  back_action="/"
+                  back_name="Back"
+                  answer_data={{}}
+                  action_name="Save"
+                  form_action="/"
+                  form_method="POST"
+                  variables={this.props.variables}
+                  data={this.state.data} />
+
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
                 </div>
@@ -90,9 +99,18 @@ export default class Demobar extends React.Component {
           <div className={roModalClass}>
             <div className="modal-dialog">
               <div className="modal-content">
-                <ReactFormGenerator download_path="" back_action="/" back_name="Back" 
-                  answer_data={{}} action_name="Save" form_action="/" form_method="POST" read_only={true} hide_actions={true} data={this.state.data} />
-                
+                <ReactFormGenerator
+                  download_path=""
+                  back_action="/"
+                  back_name="Back"
+                  answer_data={{}}
+                  action_name="Save"
+                  form_action="/"
+                  form_method="POST"
+                  read_only={true}
+                  variables={this.props.variables}
+                  hide_actions={true} data={this.state.data} />
+
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
                 </div>
@@ -106,11 +124,17 @@ export default class Demobar extends React.Component {
           <div className={shortModalClass}>
             <div className="modal-dialog">
               <div className="modal-content">
-                <ReactFormGenerator download_path="" back_action="" 
-                  answer_data={{}} form_action="/" form_method="POST"
+                <ReactFormGenerator
+                  download_path=""
+                  back_action=""
+                  answer_data={{}}
+                  form_action="/"
+                  form_method="POST"
                   data={this.state.data}
-                  display_short={true} hide_actions={false} />
-                
+                  display_short={true}
+                  variables={this.props.variables}
+                  hide_actions={false} />
+
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
                 </div>

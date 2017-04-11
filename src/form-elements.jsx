@@ -276,15 +276,15 @@ let DatePicker = React.createClass({
       internalValue = moment();
     } else {
       value = this.props.defaultValue;
-      
+
       if(this.props.defaultValue !== '' && this.props.defaultValue !== undefined) {
         internalValue = moment(value, 'MM/DD/YYYY');
-      }  
+      }
     }
-    
+
     return {
-      value: value, 
-      internalValue: internalValue, 
+      value: value,
+      internalValue: internalValue,
       placeholder: 'mm/dd/yyyy',
       defaultToday: this.props.data.defaultToday
     };
@@ -343,7 +343,7 @@ let DatePicker = React.createClass({
 
     let baseClasses = 'rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
-    
+
     return this.renderWithSortable(
       <div className={baseClasses}>
         { !this.props.mutable &&
@@ -363,7 +363,7 @@ let DatePicker = React.createClass({
           </label>
           <div>
             { this.props.data.readOnly &&
-              <input type="text" 
+              <input type="text"
                 name={props.name}
                 ref={props.ref}
                 readOnly="true"
@@ -453,7 +453,7 @@ let Dropdown = React.createClass({
 let Signature = React.createClass({
   mixins: [SortableItemMixin],
   componentDidMount() {
-    if (this.props.defaultValue !== undefined && this.props.defaultValue.length > 0) {
+    if (this.props.defaultValue !== undefined && this.props.defaultValue.length > 0 && !this.props.read_only) {
       let canvas = this.refs['canvas_'+this.props.data.field_name];
       canvas.fromDataURL('data:image/png;base64,' + this.props.defaultValue);
     }
@@ -477,6 +477,11 @@ let Signature = React.createClass({
     let baseClasses = 'rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
+    let sourceDataURL
+    if (this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0) {
+      sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`
+    }
+
     return this.renderWithSortable(
       <div className={baseClasses}>
         { !this.props.mutable &&
@@ -494,7 +499,10 @@ let Signature = React.createClass({
               <span className="label-required label label-danger">Required</span>
             }
           </label>
-          <SignaturePad {...pad_props} />
+          {this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0
+            ? (<div><img src={sourceDataURL} /></div>)
+            : (<SignaturePad {...pad_props} />)
+          }
           <input {...props} />
         </div>
       </div>
@@ -610,7 +618,7 @@ let RadioButtons = React.createClass({
     let self = this;
     let classNames = 'radio-label';
     if (this.props.data.inline) { classNames += ' option-inline'; }
-    
+
     let baseClasses = 'rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 

@@ -38,7 +38,7 @@ var items = [{
   content: 'Placeholder Text...'
 }];
 
-<FormBuilder.ReactFormBuilder 
+<FormBuilder.ReactFormBuilder
   url='path/to/GET/initial.json'
   toolbarItems={items}
   saveUrl='path/to/POST/built/form.json' />
@@ -80,6 +80,19 @@ authenticity_token | string | Optional | If using Rails and need an auth token t
 hide_actions | boolean | Optional | If you would like to hide the submit / cancel buttons set to true.
 display_short | boolean | Optional | Display an optional "shorter page/form" which is common for legal documents or situations where the user will just have to sign or fill out a shorter form with only the critical elements.
 read_only | boolean | Optional | Shows a read only version which has fields disabled and removes "required" labels.
+variables | object | Optional | Key/value object that can be used for Signature variable replacement.
+
+### Read only Signatures
+
+Read only signatures allow you to use a saved/canned signature to be placed into the form. The signature will be passed in through the `variables` property to `ReactFormGenerator` and `ReactFormBuilder`.
+
+To use a read only signature, choose the "Read only" option and enter the key value of the variable that will be used to pass in the signature.
+
+![](screenshot3.png)
+
+The signature data should be in base 64 format.
+
+There is a `variables.js` file that contains a sample base 64 signature. This variable is passed into the demo builder and generator for testing. Use the variable key "JOHN" to test the variable replacement.
 
 # Vendor Dependencies
 In order to make the form builder look pretty, there are a few dependencies other than React.  See the example code in index.html for more details.
