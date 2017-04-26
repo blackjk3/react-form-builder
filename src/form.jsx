@@ -168,7 +168,7 @@ export default class ReactForm extends React.Component {
     }
 
     data_items.forEach((item) => {
-      if (item.readOnly && this.props.variables[item.variableKey]) {
+      if (item.readOnly && item.variableKey && this.props.variables[item.variableKey]) {
         this.props.answer_data[item.field_name] = this.props.variables[item.variableKey];
       }
     });
