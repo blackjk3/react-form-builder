@@ -48,64 +48,90 @@ function updateInputElement(element) {
 }
 
 describe('<FormElementsEdit /> Testing static element edit', function() {
+  var formElementEdit;
+
   jsdom({ skipWindowCheck: true });
 
-  before('render and locate element', function() {});
+  beforeEach(function(done) {
+
+    formElementEdit = React.render(
+      <FormElementsEdit
+        showCorrectColumn={true}
+        files={staticState.files}
+        manualEditModeOff={false}
+        preview={this}
+        element={staticState.editElement}
+        updateElement={updateStaticElement} />,
+      document.body, function () {
+        setTimeout(done);
+      }
+    );
+
+  });
+
+  afterEach(function(done) {
+    React.unmountComponentAtNode(document.body);
+    setTimeout(done);
+  });
 
   it('should set the state of the element that is being edited', function() {
-    var formElementEdit = TestUtils.renderIntoDocument(
-      <FormElementsEdit showCorrectColumn={true} files={staticState.files} manualEditModeOff={false} preview={this} element={staticState.editElement} updateElement={updateStaticElement} />
-    );
-    
     assert.equal(formElementEdit.state.element.id, staticState.editElement.id);
   });
 
   it('should update the state when element content is changed', function() {
-    var formElementEdit = TestUtils.renderIntoDocument(
-      <FormElementsEdit showCorrectColumn={true} files={staticState.files} manualEditModeOff={false} preview={this} element={staticState.editElement} updateElement={updateStaticElement} />
-    );
-
     var editElement = ReactDOM.findDOMNode(formElementEdit);
-    var contentBox = editElement.querySelector('textarea');
-    contentBox.value = 'Changed content';
+    var contentBox = editElement.getElementsByClassName('public-DraftEditor-content')[0];
 
-    TestUtils.Simulate.change(contentBox);
+    TestUtils.Simulate.beforeInput(contentBox, {data: 'a'});
     assert.equal(formElementEdit.state.dirty, true);
-
-    TestUtils.Simulate.blur(contentBox);
-    assert.equal(updatedStaticElement.content, contentBox.value);
+    assert.equal(updatedStaticElement.content, '<div>aPlaceholder Text...</div>\n');
   });
 
 });
 
 describe('<FormElementsEdit /> Testing text input element edit', function() {
+  var formElementEdit;
+
   jsdom({ skipWindowCheck: true });
 
-  it('should set the state of the element that is being edited', function() {
-    var formElementEdit = TestUtils.renderIntoDocument(
-      <FormElementsEdit showCorrectColumn={true} files={inputState.files} manualEditModeOff={false} preview={this} element={inputState.editElement} updateElement={updateInputElement} />
+  beforeEach(function(done) {
+
+    formElementEdit = React.render(
+      <FormElementsEdit
+        showCorrectColumn={true}
+        files={inputState.files}
+        manualEditModeOff={false}
+        preview={this}
+        element={inputState.editElement}
+        updateElement={updateInputElement} />,
+      document.body, function () {
+        setTimeout(done);
+      }
     );
-    
+
+  });
+
+  afterEach(function(done) {
+    React.unmountComponentAtNode(document.body);
+    setTimeout(done);
+  });
+
+  it('should set the state of the element that is being edited', function() {
+
     assert.equal(formElementEdit.state.element.id, inputState.editElement.id);
   });
 
   it('should update the state when element label is changed', function() {
-    var formElementEdit = TestUtils.renderIntoDocument(
-      <FormElementsEdit showCorrectColumn={true} files={inputState.files} manualEditModeOff={false} preview={this} element={inputState.editElement} updateElement={updateInputElement} />
-    );
 
     var editElement = ReactDOM.findDOMNode(formElementEdit);
     var requiredCheckbox = editElement.querySelector('input[type=checkbox]');
-    var label = editElement.querySelector('input[type=text]');
 
-    label.value = 'New Label';
-    TestUtils.Simulate.change(label);
+    var label = editElement.getElementsByClassName('public-DraftEditor-content')[0];
+    TestUtils.Simulate.beforeInput(label, {data: 'a'});
+    assert.equal(updatedInputElement.label, '<div>aPlaceholder Label</div>\n');
 
     TestUtils.Simulate.change(requiredCheckbox, {"target": {"checked": true}});
     assert.equal(updatedInputElement.required, true);
 
-    assert.equal(updatedInputElement.label, label.value);
-
   });
 });
-
