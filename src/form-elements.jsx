@@ -468,7 +468,7 @@ let Signature = React.createClass({
       props.ref = "child_ref_" + this.props.data.field_name;
     }
     let pad_props = {};
-    pad_props.clearButton = {true};
+    pad_props.clearButton = true;
     if (this.props.mutable) {
       pad_props.defaultValue = this.props.defaultValue;
       pad_props.ref = 'canvas_'+this.props.data.field_name;
