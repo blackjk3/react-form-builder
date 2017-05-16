@@ -14,7 +14,8 @@ export default class Preview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      answer_data: {}
     }
 
     var loadData = (this.props.url) ? this.props.url : (this.props.data) ? this.props.data : [];
@@ -31,7 +32,7 @@ export default class Preview extends React.Component {
   updateElement(element) {
     let data = this.state.data;
     let found = false;
-    
+
     for(var i=0, len=data.length; i < len; i++) {
       if (element.id === data[i].id) {
         data[i] = element;
@@ -46,8 +47,18 @@ export default class Preview extends React.Component {
   }
 
   _onChange(data) {
+
+    let answer_data = {};
+
+    data.forEach((item) => {
+      if (item.readOnly && this.props.variables[item.variableKey]) {
+        answer_data[item.field_name] = this.props.variables[item.variableKey];
+      }
+    });
+
     this.setState({
-      data: data
+      data,
+      answer_data
     });
   }
 
@@ -99,11 +110,21 @@ export default class Preview extends React.Component {
         case "Rating":
           return <Rating mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
         case "Image":
-          return <Image mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />        
+          return <Image mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
         case "Tags":
           return <Tags mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
         case "Signature":
-          return <Signature mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
+          return <Signature
+            mutable={false}
+            parent={this.props.parent}
+            editModeOn={this.props.editModeOn}
+            isDraggable={true}
+            key={item.id}
+            sortData={item.id}
+            data={item}
+            read_only={item.readOnly}
+            defaultValue={this.state.answer_data[item.field_name]}
+            _onDestroy={this._onDestroy} />
         case "HyperLink":
           return <HyperLink mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
         case "Download":

@@ -166,6 +166,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'Signature',
+        canReadOnly: true,
         name: 'Signature',
         icon: 'fa fa-pencil-square-o',
         label: 'Signature',

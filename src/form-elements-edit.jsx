@@ -9,9 +9,9 @@ import { Editor } from 'react-draft-wysiwyg';
 let toolbar = {
   options: ['inline', 'list', 'textAlign', 'fontSize', 'link', 'history'],
   inline: {
-    inDropdown: false, 
-    className: undefined, 
-    options: ['bold', 'italic', 'underline', 'superscript', 'subscript'], 
+    inDropdown: false,
+    className: undefined,
+    options: ['bold', 'italic', 'underline', 'superscript', 'subscript'],
   },
 };
 
@@ -42,7 +42,7 @@ export default class FormElementsEdit extends React.Component {
   }
 
   onEditorStateChange(index, property, editorContent) {
-    
+
     let html = draftToHtml(convertToRaw(editorContent.getCurrentContent())).replace(/<p>/g, '<div>').replace(/<\/p>/g, '</div>');
     let this_element = this.state.element;
     this_element[property] = html;
@@ -93,8 +93,8 @@ export default class FormElementsEdit extends React.Component {
         </div>
         { this.props.element.hasOwnProperty('content') &&
           <div className="form-group">
-            <label>Text to display:</label>
-            
+            <label className="control-label">Text to display:</label>
+
             <Editor
               toolbar={toolbar}
               defaultEditorState={editorState}
@@ -104,8 +104,8 @@ export default class FormElementsEdit extends React.Component {
         }
         { this.props.element.hasOwnProperty('file_path') &&
           <div className="form-group">
-            <label>Choose file:</label>
-            <select className="form-control" defaultValue={this.props.element.file_path} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'file_path', 'value')}>
+            <label className="control-label" htmlFor="fileSelect">Choose file:</label>
+            <select id="fileSelect" className="form-control" defaultValue={this.props.element.file_path} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'file_path', 'value')}>
               {this_files.map(function (file) {
                 let this_key = 'file_' + file.id;
                 return <option value={file.id} key={this_key}>{file.file_name}</option>;
@@ -114,29 +114,33 @@ export default class FormElementsEdit extends React.Component {
           </div>
         }
         { this.props.element.hasOwnProperty('href') &&
-          <div className="form-group">          
+          <div className="form-group">
             <TextAreaAutosize type="text" className="form-control" defaultValue={this.props.element.href} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'href', 'value')} />
           </div>
         }
         { this.props.element.hasOwnProperty('src') &&
           <div>
             <div className="form-group">
-              <label>Link to:</label>
-              <input type="text" className="form-control" defaultValue={this.props.element.src} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'src', 'value')} />
+              <label className="control-label" htmlFor="srcInput">Link to:</label>
+              <input id="srcInput" type="text" className="form-control" defaultValue={this.props.element.src} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'src', 'value')} />
             </div>
             <div className="form-group">
-              <input type="checkbox" checked={this_checked_center} value={true} onChange={this.editElementProp.bind(this, 'center', 'checked')} />
-              <label>&nbsp;Center?</label>
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" checked={this_checked_center} value={true} onChange={this.editElementProp.bind(this, 'center', 'checked')} />
+                  Center?
+                </label>
+              </div>
             </div>
             <div className="row">
               <div className="col-sm-3">
-                <label>Width:</label>
-                <input type="text" className="form-control" defaultValue={this.props.element.width} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'width', 'value')} />
+                <label className="control-label" htmlFor="elementWidth">Width:</label>
+                <input id="elementWidth" type="text" className="form-control" defaultValue={this.props.element.width} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'width', 'value')} />
               </div>
               <div className="col-sm-3">
-                <label>Height:</label>
-                <input type="text" className="form-control" defaultValue={this.props.element.height} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'height', 'value')} />
-              </div>              
+                <label className="control-label" htmlFor="elementHeight">Height:</label>
+                <input id="elementHeight" type="text" className="form-control" defaultValue={this.props.element.height} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'height', 'value')} />
+              </div>
             </div>
           </div>
         }
@@ -150,48 +154,84 @@ export default class FormElementsEdit extends React.Component {
               onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'label')} />
 
             <br />
-            <label>
-              <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} /> Required
-              { this.props.element.hasOwnProperty('readOnly') && 
-                <div><input type="checkbox" checked={this_read_only} value={true} onChange={this.editElementProp.bind(this, 'readOnly', 'checked')} /> Read only</div>
-              }
-              { this.props.element.hasOwnProperty('defaultToday') && 
-                <div><input type="checkbox" checked={this_default_today} value={true} onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} /> Default to Today?</div>
-              }
-            </label>
+            <div className="checkbox">
+              <label>
+                <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} />
+                Required
+              </label>
+            </div>
+            { this.props.element.hasOwnProperty('readOnly') &&
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" checked={this_read_only} value={true} onChange={this.editElementProp.bind(this, 'readOnly', 'checked')} />
+                  Read only
+                </label>
+              </div>
+            }
+            { this.props.element.hasOwnProperty('defaultToday') &&
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" checked={this_default_today} value={true} onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} />
+                  Default to Today?
+                </label>
+              </div>
+            }
             { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') &&
-              <div>
-                <input type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} /> Display horizonal
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} />
+                  Display horizonal
+                </label>
               </div>
             }
           </div>
         }
 
+        {this.state.element.element === 'Signature' && this.props.element.readOnly
+          ? (
+            <div className="form-group">
+              <label className="control-label" htmlFor="variableKey">Variable Key:</label>
+              <input id="variableKey" type="text" className="form-control" defaultValue={this.props.element.variableKey} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'variableKey', 'value')} />
+              <p className="help-block">This will give the element a key that can be used to replace the content with a runtime value.</p>
+            </div>
+          )
+          : (<div/>)
+        }
+
+
         <div className="form-group">
-          <label>Print Options</label>
-          <div><input type="checkbox" checked={this_checked_page_break} value={true} onChange={this.editElementProp.bind(this, 'pageBreakBefore', 'checked')} /> Page Break Before Element?</div>
+          <label className="control-label">Print Options</label>
+          <div className="checkbox">
+            <label>
+              <input type="checkbox" checked={this_checked_page_break} value={true} onChange={this.editElementProp.bind(this, 'pageBreakBefore', 'checked')} />
+              Page Break Before Element?
+            </label>
+          </div>
         </div>
 
         <div className="form-group">
-          <label>Alternate/Signature Page</label>
-          <div>
-            <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} /> Display on alternate/signature Page?
+          <label className="control-label">Alternate/Signature Page</label>
+          <div className="checkbox">
+            <label>
+              <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} />
+              Display on alternate/signature Page?
+            </label>
           </div>
         </div>
-        
+
         { this.props.element.hasOwnProperty('step') &&
           <div className="form-group">
             <div className="form-group-range">
-              <label>Step</label>
-              <input type="number" className="form-control" defaultValue={this.props.element.step} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'step', 'value')} />
+              <label className="control-label" htmlFor="rangeStep">Step</label>
+              <input id="rangeStep" type="number" className="form-control" defaultValue={this.props.element.step} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'step', 'value')} />
             </div>
           </div>
         }
         { this.props.element.hasOwnProperty('min_value') &&
           <div className="form-group">
             <div className="form-group-range">
-              <label>Min</label>
-              <input type="number" className="form-control" defaultValue={this.props.element.min_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'min_value', 'value')} />
+              <label className="control-label" htmlFor="rangeMin">Min</label>
+              <input id="rangeMin" type="number" className="form-control" defaultValue={this.props.element.min_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'min_value', 'value')} />
               <input type="text" className="form-control" defaultValue={this.props.element.min_label} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'min_label', 'value')} />
             </div>
           </div>
@@ -199,8 +239,8 @@ export default class FormElementsEdit extends React.Component {
         { this.props.element.hasOwnProperty('max_value') &&
           <div className="form-group">
             <div className="form-group-range">
-              <label>Max</label>
-              <input type="number" className="form-control" defaultValue={this.props.element.max_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'max_value', 'value')} />
+              <label className="control-label" htmlFor="rangeMax">Max</label>
+              <input id="rangeMax" type="number" className="form-control" defaultValue={this.props.element.max_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'max_value', 'value')} />
               <input type="text" className="form-control" defaultValue={this.props.element.max_label} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'max_label', 'value')} />
             </div>
           </div>
@@ -208,23 +248,33 @@ export default class FormElementsEdit extends React.Component {
         { this.props.element.hasOwnProperty('default_value') &&
           <div className="form-group">
             <div className="form-group-range">
-              <label>Default Selected</label>
-              <input type="number" className="form-control" defaultValue={this.props.element.default_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'default_value', 'value')} />
+              <label className="control-label" htmlFor="defaultSelected">Default Selected</label>
+              <input id="defaultSelected" type="number" className="form-control" defaultValue={this.props.element.default_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'default_value', 'value')} />
             </div>
           </div>
         }
         { this.props.element.hasOwnProperty('static') && this.props.element.static &&
           <div className="form-group">
-            <label>Text Style</label>
-            <div><input type="checkbox" checked={this_checked_bold} value={true} onChange={this.editElementProp.bind(this, 'bold', 'checked')} /> Bold</div>
-            <div><input type="checkbox" checked={this_checked_italic} value={true} onChange={this.editElementProp.bind(this, 'italic', 'checked')} /> Italic</div>
+            <label className="control-label">Text Style</label>
+            <div className="checkbox">
+              <label>
+                <input type="checkbox" checked={this_checked_bold} value={true} onChange={this.editElementProp.bind(this, 'bold', 'checked')} />
+                Bold
+              </label>
+            </div>
+            <div className="checkbox">
+              <label>
+                <input type="checkbox" checked={this_checked_italic} value={true} onChange={this.editElementProp.bind(this, 'italic', 'checked')} />
+                Italic
+              </label>
+            </div>
           </div>
         }
 
         { this.props.showCorrectColumn && this.props.element.canHaveAnswer && !this.props.element.hasOwnProperty('options') &&
           <div className="form-group">
-            <label>Correct Answer</label>
-            <input type="text" className="form-control" defaultValue={this.props.element.correct} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'correct', 'value')} />
+            <label className="control-label" htmlFor="correctAnswer">Correct Answer</label>
+            <input id="correctAnswer" type="text" className="form-control" defaultValue={this.props.element.correct} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'correct', 'value')} />
           </div>
         }
         { this.props.element.hasOwnProperty('options') &&
