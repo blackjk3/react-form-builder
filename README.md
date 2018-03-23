@@ -1,119 +1,120 @@
-[![npm package](https://img.shields.io/badge/npm-0.0.3-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-forms-builder)
-[![Build Status](https://api.travis-ci.org/blackjk3/react-form-builder.svg?branch=master)](https://travis-ci.org/blackjk3/react-form-builder)
-# React Form Builder
-A complete react form builder that interfaces with a json endpoint to load and save generated forms.  The toolbox contains 16 items for gathering data.  Everything from star ratings to signature boxes!
+# grommet-standalone
 
-![](screenshot.png)
+This project has been created to help understand what is the minimum
+set of dependencies for Grommet to work inside your existing app.
 
-### Editing Items
-![](screenshot2.png)
+If you are using a module bundler such as Webpack or Browserify, you
+will need two loaders: a Javascript loader and a SCSS loader.
 
-# Basic Usage
+Although you can use the minified css in production, sometimes it is useful
+to access the SCSS version, specially if you want to override the variables,
+or create a new theme.
+
+In this project we are using Webpack, here is the required configuration for
+the loaders:
 
 ```javascript
-var React = require('react');
-var FormBuilder = require('react-forms-builder');
-
-React.render(
-  <FormBuilder.ReactFormBuilder />,
-  document.body
-)
+module: {
+  rules: [
+    {
+      exclude: /node_modules/,
+      test: /\.js/,
+      use: [
+        { loader: 'babel-loader' }
+      ]
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        {
+          loader: 'style-loader'
+        },
+        {
+          loader: 'css-loader'
+        },
+        {
+          loader: 'sass-loader', options: {
+            includePaths: ['./node_modules', './node_modules/grommet/node_modules']
+          }
+        }
+      ]
+    },
+  ]
+}
 ```
 
-# Props
+The SASS loader requires you to include the paths you want them to look for
+modules. Please note that `./node_modules/grommet/node_modules` is only required
+if you are using an old NPM version (< 3).
+
+The next step is to include the SASS import into your javascript file:
 
 ```javascript
-var items = [{
-  key: 'Header',
-  name: 'Header Text',
-  icon: 'fa fa-header',
-  static: true,
-  content: 'Placeholder Text...'
-},
+import 'grommet/scss/vanilla/index';
+
+const Main = () => <div>Hi</div>;
+
+let element = document.getElementById('content');
+ReactDOM.render(React.createElement(Main), element);
+
+document.body.classList.remove('loading');
+```
+
+In this project we are using the style loader, which means that the bundle will
+inject the css as a style tag in the document header.
+But this configuration is not the only way to generate the styles.
+For example, this SASS loader configuration outputs a css file
+in the dist folder:
+
+```javascript
 {
-  key: 'Paragraph',
-  name: 'Paragraph',
-  static: true,
-  icon: 'fa fa-paragraph',
-  content: 'Placeholder Text...'
-}];
-
-<FormBuilder.ReactFormBuilder
-  url='path/to/GET/initial.json'
-  toolbarItems={items}
-  saveUrl='path/to/POST/built/form.json' />
+  test: /\.scss$/,
+  use: [
+    { loader: 'file-loader'
+      options: {
+        name: 'assets/css/[name].css'
+      }
+    },
+    { 
+      loader: 'sass-loader' 
+    }
+  ]
+}
 ```
 
-# React Form Generator
-Now that a form is built and saved, let's generate it from the saved json.
+Now in your server there will be two requests, one to get the Javascript and
+another one to get the css. So, there is an architectural decision that you
+need to make depending on the size of your bundle.
 
-```javascript
-var React = require('react');
-var FormBuilder = require('react-forms-builder');
+Please join our Slack channel if you have any questions regarding Grommet or
+this project: http://slackin.grommet.io
 
-React.render(
-  <FormBuilder.ReactFormGenerator
-    form_action="/path/to/form/submit"
-    form_method="POST"
-    task_id={12} // Used to submit a hidden variable with the id to the form from the database.
-    answer_data={JSON_ANSWERS} // Answer data, only used if loading a pre-existing form with values.
-    authenticity_token={AUTH_TOKEN} // If using Rails and need an auth token to submit form.
-    data={JSON_QUESTION_DATA} // Question data
-  />,
-  document.body
-)
-```
+## Usage
 
-### Form Params
+  * Install npm dependencies
+  
+  ```command
+  npm install
+  ```
+  
+  * To build the app, execute:
+  
+  ```command
+  npm run build
+  ```
+  
+  * To build the app and automatically rebuild upon file changes, execute:
+  
+  ```command
+  npm run watch
+  ```
 
-Name | Type | Required? | Description
---- | --- | --- | ---
-form_action | string | Required | URL path to submit the form
-form_method | string | Required | Verb used in the form submission.
-action_name | string | Optional | Defines form submit button text.  Defaults to "Submit"
-data | array | Required | Question data retrieved from the database
-back_action | string | Optional | URL path to go back if needed.
-back_name | string | Optional | Button text for back action.  Defaults to "Cancel".
-task_id | integer | Optional | User to submit a hidden variable with id to the form on the backend database.
-answer_data | array | Optional | Answer data, only used if loading a pre-existing form with values.
-authenticity_token | string | Optional | If using Rails and need an auth token to submit form.
-hide_actions | boolean | Optional | If you would like to hide the submit / cancel buttons set to true.
-display_short | boolean | Optional | Display an optional "shorter page/form" which is common for legal documents or situations where the user will just have to sign or fill out a shorter form with only the critical elements.
-read_only | boolean | Optional | Shows a read only version which has fields disabled and removes "required" labels.
-variables | object | Optional | Key/value object that can be used for Signature variable replacement.
+  * To build the app, serve the app, automatically rebuild and reload the browser upon file changes, execute:
+  
+  ```command
+  npm run serve
+  ```
 
-### Read only Signatures
+## grommet-toolbox is your friend
 
-Read only signatures allow you to use a saved/canned signature to be placed into the form. The signature will be passed in through the `variables` property to `ReactFormGenerator` and `ReactFormBuilder`.
-
-To use a read only signature, choose the "Read only" option and enter the key value of the variable that will be used to pass in the signature.
-
-![](screenshot3.png)
-
-The signature data should be in base 64 format.
-
-There is a `variables.js` file that contains a sample base 64 signature. This variable is passed into the demo builder and generator for testing. Use the variable key "JOHN" to test the variable replacement.
-
-# Vendor Dependencies
-In order to make the form builder look pretty, there are a few dependencies other than React.  See the example code in index.html for more details.
-
-- Bootstrap
-- FontAwesome
-- jQuery
-
-
-# SASS
-All relevant styles are located in css/application.css.scss.
-
-# DEMO
-```bash
-$ npm install
-$ npm start
-```
-Then navigate to http://localhost:8080/ in your browser and you should be able to see the form builder in action.
-
-# Tests
-```bash
-$ npm test
-```
-In order to run tests you will need to install Cairo which is needed for node-canvas. Go to https://www.npmjs.com/package/canvas for more details.
+If you need sass linting, javascript linting, dev server, minification, ... Grommet toolbox is a project that offers a developer environment for Grommet apps. Check it out: https://github.com/grommet/grommet-toolbox

@@ -71,7 +71,6 @@ export default class Demobar extends React.Component {
         <button className="btn btn-default pull-right" style={{ marginRight: '10px'}} onClick={this.showShortPreview.bind(this)}>Alternate/Short Form</button>
         <button className="btn btn-default pull-right" style={{ marginRight: '10px'}} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
 
-
         { this.state.previewVisible &&
           <div className={modalClass}>
             <div className="modal-dialog">
