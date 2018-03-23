@@ -1,13 +1,23 @@
 {
-  "name": "grommet-standalone",
-  "version": "0.1.0",
-  "description": "Sample app using Grommet without the development stack.",
+  "name": "react-forms-builder",
+  "version": "0.0.3",
+  "description": "A complete form builder for react.",
   "main": "dist/app.js",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/grommet/grommet-standalone.git"
+    "url": "git+https://github.com/kiho/react-form-builder.git"
   },
+  "keywords": [
+    "react",
+    "react-component",
+    "form",
+    "builder",
+    "ui",
+    "drag",
+    "drop"
+  ],
+  "author": "Jason Kadrmas",
   "dependencies": {
     "classnames": "^2.2.5",
     "fbemitter": "^2.1.1",
