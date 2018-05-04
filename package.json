@@ -57,6 +57,6 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "serve": "webpack-dev-server --content-base ./dist"
+    "start": "webpack-dev-server --content-base ./dist"
   }
 }
