@@ -57,6 +57,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --content-base ./dist"
+    "start": "webpack-dev-server --content-base ./dist",
+    "dist": "webpack -p --config webpack.production.config.js"
   }
 }
