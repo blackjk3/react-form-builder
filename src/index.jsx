@@ -89,9 +89,9 @@ class ReactFormBuilder extends React.Component {
 
 }
 
-// FormBuilders.ReactFormBuilder = ReactFormBuilder;
-// FormBuilders.ReactFormGenerator = ReactFormGenerator;
+FormBuilders.ReactFormBuilder = ReactFormBuilder;
+FormBuilders.ReactFormGenerator = ReactFormGenerator;
 
-// module.exports = FormBuilders;
+module.exports = FormBuilders;
 
-export { ReactFormBuilder, ReactFormGenerator, ElementStore }
+export { ElementStore }
