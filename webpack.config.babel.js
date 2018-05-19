@@ -5,7 +5,7 @@ export default {
   entry: './app.js',
   devtool: 'source-map',
   output: {
-    path: path.resolve('./dist'),
+    path: path.resolve('./public'),
     filename: 'app.js'
   },
   resolve: {
