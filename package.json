@@ -1,6 +1,6 @@
 {
   "name": "react-form-builder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A complete form builder for react.",
   "main": "dist/app.js",
   "license": "MIT",
@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/kiho/react-form-builder.git"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "react",
     "react-component",

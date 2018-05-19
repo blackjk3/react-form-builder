@@ -12,11 +12,7 @@ export default {
     extensions: ['.js', '.jsx', '.scss', '.css', '.json']
   },
   plugins: [
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false
-    //   }
-    // })
+    //
   ],
   module: {
     rules: [

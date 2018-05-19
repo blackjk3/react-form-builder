@@ -5,10 +5,8 @@ module.exports = {
   entry: './src/index.jsx',
 
   output: {
-    path: path.resolve('./lib'),
-    filename: "app.js",
-    library: 'ReactFormBuilder',
-    libraryTarget: 'umd',
+    path: path.resolve('./dist'),
+    filename: 'app.js'
   },
 
   externals: {
@@ -16,8 +14,8 @@ module.exports = {
     //but get it from a global 'React' variable
     'react': 'react',
     'react-dom': 'react-dom',
-    'react-datepicker': 'react-datepicker',
-    'classnames': 'classnames',
+    // 'react-datepicker': 'react-datepicker',
+    // 'classnames': 'classnames',
     'jquery': 'jquery',
     'bootstrap': 'bootstrap'
   },
