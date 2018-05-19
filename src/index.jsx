@@ -6,6 +6,7 @@ import React from 'react';
 import Preview from './preview'
 import Toolbar from './toolbar'
 import ElementActions from './actions/ElementActions';
+import ElementStore from './stores/ElementStore';
 import ReactFormGenerator from './form';
 
 // import Container from './Container'
@@ -88,7 +89,9 @@ class ReactFormBuilder extends React.Component {
 
 }
 
-FormBuilders.ReactFormBuilder = ReactFormBuilder;
-FormBuilders.ReactFormGenerator = ReactFormGenerator;
+// FormBuilders.ReactFormBuilder = ReactFormBuilder;
+// FormBuilders.ReactFormGenerator = ReactFormGenerator;
 
-module.exports = FormBuilders;
+// module.exports = FormBuilders;
+
+export { ReactFormBuilder, ReactFormGenerator, ElementStore }

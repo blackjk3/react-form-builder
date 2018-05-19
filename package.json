@@ -1,6 +1,6 @@
 {
-  "name": "react-form-builder",
-  "version": "0.0.4",
+  "name": "react-form-builder2",
+  "version": "0.0.6",
   "description": "A complete form builder for react.",
   "main": "dist/app.js",
   "license": "MIT",
@@ -24,7 +24,6 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "fbemitter": "^2.1.1",
-    "grommet": "^1.0.0",
     "prop-types": "^15.6.1",
     "react": "~16.2.0",
     "react-datepicker": "^1.2.2",
@@ -58,9 +57,9 @@
     "webpack-dev-server": "^2.4.1"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack -p --config webpack.production.config.js",
+    "build:dev": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --content-base ./public",
-    "dist": "webpack -p --config webpack.production.config.js"
+    "start": "webpack-dev-server --content-base ./public"
   }
 }

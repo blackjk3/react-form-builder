@@ -1,6 +1,6 @@
 [![npm package](https://img.shields.io/badge/npm-0.0.3-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-forms-builder)
 [![Build Status](https://api.travis-ci.org/blackjk3/react-form-builder.svg?branch=master)](https://travis-ci.org/blackjk3/react-form-builder)
-# React Form Builder
+# React Form Builder 2
 A complete react form builder that interfaces with a json endpoint to load and save generated forms.
 - Upgraded to React 16
 - Use react-dnd for Drag & Drop 
