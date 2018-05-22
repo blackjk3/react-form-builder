@@ -24,6 +24,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "fbemitter": "^2.1.1",
+    "moment": "^2.22.1",
     "prop-types": "^15.6.1",
     "react": "~16.2.0",
     "react-datepicker": "^1.2.2",
