@@ -8,7 +8,10 @@ import * as variables from './variables'
 require('./css/application.css.scss');
 
 ReactDOM.render(
-  <FormBuilder.ReactFormBuilder variables={variables} />,
+  <FormBuilder.ReactFormBuilder variables={variables} 
+    url='http://localhost:5005/api/formdata'
+    saveUrl='http://localhost:5005/api/formdata'
+  />,
   document.getElementById('form-builder')
 )
 

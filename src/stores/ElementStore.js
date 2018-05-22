@@ -21,7 +21,7 @@ var ElementStore = Reflux.createStore({
       $.ajax({
         url: urlOrData,
         success: function(data) {
-          _data = data;
+          _data = JSON.parse(data);
           self.trigger(_data);
         }
       })

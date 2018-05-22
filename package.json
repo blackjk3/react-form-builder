@@ -60,6 +60,7 @@
     "build": "webpack -p --config webpack.production.config.js",
     "build:dev": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --content-base ./public"
+    "start": "webpack-dev-server --hot --inline",
+    "serve:api": "node server/index.js"
   }
 }
