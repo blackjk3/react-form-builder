@@ -21,6 +21,6 @@ FormElements.Tags = SortableElement(Tags);
 FormElements.HyperLink = SortableElement(HyperLink);
 FormElements.Download = SortableElement(Download);
 FormElements.Camera = SortableElement(Camera);
-// FormElements.Range = Range;
+FormElements.Range = Range;
 
 module.exports = FormElements;

@@ -23,7 +23,10 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.scss', '.css', '.json']
+    extensions: ['.js', '.jsx', '.scss', '.css', '.json'],
+    alias: {
+      "jquery": path.join(__dirname, "./jquery-stub.js")
+    }
   },
 
   plugins: [
