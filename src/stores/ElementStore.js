@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 var ElementActions = require('../actions/ElementActions');
 
-var _data;
+var _data = [];
 var _saveUrl;
 
 var ElementStore = Reflux.createStore({

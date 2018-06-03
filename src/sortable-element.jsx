@@ -23,12 +23,16 @@ const cardSource = {
 
 const cardTarget = {
 	hover(props, monitor, component) {
-		const dragIndex = monitor.getItem().index
+		const item = monitor.getItem()
+		const dragIndex = item.index
 		const hoverIndex = props.index
 
 		// Don't replace items with themselves
 		if (dragIndex === hoverIndex) {
 			return
+		} if (dragIndex === -1) {
+			item.index = hoverIndex
+			props.insertCard(item.onCreate(item.data), hoverIndex)
 		}
 
 		// Determine rectangle on screen
@@ -64,7 +68,7 @@ const cardTarget = {
 		// Generally it's better to avoid mutations,
 		// but it's good here for the sake of performance
 		// to avoid expensive index searches.
-		monitor.getItem().index = hoverIndex
+		item.index = hoverIndex
 	},
 }
 

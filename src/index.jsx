@@ -9,6 +9,15 @@ import ElementActions from './actions/ElementActions';
 import ElementStore from './stores/ElementStore';
 import ReactFormGenerator from './form';
 
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+@DragDropContext(HTML5Backend)
+class SortableContainer extends React.Component { 
+	render() {
+		return <div>{this.props.children}</div>;
+	}
+}
 // import Container from './Container'
 
 let FormBuilders = {};
@@ -60,30 +69,32 @@ class ReactFormBuilder extends React.Component {
     if (this.props.toolbarItems)
       toolbarProps.items = this.props.toolbarItems;
     return (
-      <div>
-        {/* <div>
-          <p>
-            It is easy to implement a sortable interface with React DnD. Just make
-            the same component both a drag source and a drop target, and reorder
-            the data in the <code>hover</code> handler.
-          </p>
-          <Container />
-        </div> */}
-        <div className="react-form-builder clearfix">
-          <div>
-            <Preview files={this.props.files}
-              manualEditModeOff={this.manualEditModeOff.bind(this)}
-              parent={this}
-              url={this.props.url}
-              saveUrl={this.props.saveUrl}
-              editModeOn={this.editModeOn}
-              editMode={this.state.editMode}
-              variables={this.props.variables}
-              editElement={this.state.editElement} />
-            <Toolbar {...toolbarProps} />
+      <SortableContainer>
+        <div>
+          {/* <div>
+            <p>
+              It is easy to implement a sortable interface with React DnD. Just make
+              the same component both a drag source and a drop target, and reorder
+              the data in the <code>hover</code> handler.
+            </p>
+            <Container />
+          </div> */}
+          <div className="react-form-builder clearfix">
+            <div>
+              <Preview files={this.props.files}
+                  manualEditModeOff={this.manualEditModeOff.bind(this)}
+                  parent={this}
+                  url={this.props.url}
+                  saveUrl={this.props.saveUrl}
+                  editModeOn={this.editModeOn}
+                  editMode={this.state.editMode}
+                  variables={this.props.variables}
+                  editElement={this.state.editElement} />
+              <Toolbar {...toolbarProps} />
+            </div>
           </div>
         </div>
-      </div>
+      </SortableContainer>
     );
   }
 

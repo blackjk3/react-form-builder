@@ -3,7 +3,8 @@
   */
 
 import React from 'react';
-import ToolbarItem from './toolbar-item';
+// import ToolbarItem from './toolbar-item';
+import ToolbarItem from './toolbar-draggable-item';
 import ID from './UUID';
 import ElementActions from './actions/ElementActions';
 
@@ -19,7 +20,7 @@ export default class Toolbar extends React.Component {
     };
   }
 
-  _defaultItemOptions(element) {
+  static _defaultItemOptions(element) {
     switch(element) {
       case "Dropdown":
         return [
@@ -213,8 +214,7 @@ export default class Toolbar extends React.Component {
     ]
   }
 
-  _onClick(item) {
-
+  create(item) {
     var elementOptions = {
       id: ID.uuid(),
       element: item.key,
@@ -271,10 +271,14 @@ export default class Toolbar extends React.Component {
       elementOptions['label'] = item.label;
 
     if (item.options) {
-      elementOptions['options'] = this._defaultItemOptions(elementOptions['element']);
+      elementOptions['options'] = Toolbar._defaultItemOptions(elementOptions['element']);
     }
 
-    ElementActions.createElement(elementOptions);
+    return elementOptions;
+  }
+
+  _onClick(item) {
+    ElementActions.createElement(this.create(item));
   }
 
   render() {
@@ -284,7 +288,7 @@ export default class Toolbar extends React.Component {
         <ul>
           {
             this.state.items.map(item => {
-              return <ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item) } />;
+              return <ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item)} onCreate={this.create} />;
             })
           }
         </ul>

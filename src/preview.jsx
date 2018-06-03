@@ -13,13 +13,6 @@ import update from 'immutability-helper';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-@DragDropContext(HTML5Backend)
-class SortableContainer extends React.Component { 
-	render() {
-		return <div className="Sortable">{this.props.items}</div>;
-	}
-}
-
 export default class Preview extends React.Component {
 
   constructor(props) {
@@ -37,6 +30,7 @@ export default class Preview extends React.Component {
     ElementStore.listen(this._onChange.bind(this));
 
     this.moveCard = this.moveCard.bind(this);
+    this.insertCard = this.insertCard.bind(this);
   }
 
   _setValue(text) {
@@ -61,7 +55,6 @@ export default class Preview extends React.Component {
   }
 
   _onChange(data) {
-
     let answer_data = {};
 
     data.forEach((item) => {
@@ -80,8 +73,24 @@ export default class Preview extends React.Component {
     ElementActions.deleteElement(item);
   }
   
+  insertCard(item, hoverIndex) {
+    const { data } = this.state
+    const dragCard = item
+    const dragIndex = hoverIndex
+
+    data.splice(hoverIndex, 0, item)
+
+		this.setState(
+			update(this.state, {
+				data: {
+					$splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
+				},
+			}),
+		)
+  }
+
   moveCard(dragIndex, hoverIndex) {
-		const { data } = this.state
+    const { data } = this.state
 		const dragCard = data[dragIndex]
 
 		this.setState(
@@ -95,7 +104,7 @@ export default class Preview extends React.Component {
 
   getElement(item, index) {
     const SortableFormElement = SortableFormElements[item.element]
-    return <SortableFormElement id={item.id} index={index} moveCard={this.moveCard} mutable={false}  parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
+    return <SortableFormElement id={item.id} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false}  parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
   }
 
   render() {
@@ -111,7 +120,8 @@ export default class Preview extends React.Component {
             <FormElementsEdit showCorrectColumn={this.props.showCorrectColumn} files={this.props.files} manualEditModeOff={this.props.manualEditModeOff} preview={this} element={this.props.editElement} updateElement={this.updateElement} />
           }
         </div>
-        <SortableContainer items={items} />
+        {/* <SortableContainer items={items} /> */}
+        <div className="Sortable">{items}</div>
       </div>
     )
   }
