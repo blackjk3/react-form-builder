@@ -75,31 +75,24 @@ export default class Preview extends React.Component {
   
   insertCard(item, hoverIndex) {
     const { data } = this.state
-    const dragCard = item
-    const dragIndex = hoverIndex
-
     data.splice(hoverIndex, 0, item)
-
-		this.setState(
-			update(this.state, {
-				data: {
-					$splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
-				},
-			}),
-		)
+    this.saveData(item, hoverIndex, hoverIndex)
   }
 
   moveCard(dragIndex, hoverIndex) {
     const { data } = this.state
 		const dragCard = data[dragIndex]
+    this.saveData(dragCard, dragIndex, hoverIndex)
+  }
 
-		this.setState(
-			update(this.state, {
-				data: {
-					$splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
-				},
-			}),
-		)
+  saveData(dragCard, dragIndex, hoverIndex) {
+    const newData =	update(this.state, {
+      data: {
+        $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
+      },
+    });
+    this.setState(newData)
+    ElementActions.saveData(newData.data);
   }
 
   getElement(item, index) {

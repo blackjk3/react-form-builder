@@ -3,7 +3,6 @@
   */
 
 import React from 'react';
-// import ToolbarItem from './toolbar-item';
 import ToolbarItem from './toolbar-draggable-item';
 import ID from './UUID';
 import ElementActions from './actions/ElementActions';
