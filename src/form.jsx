@@ -197,14 +197,7 @@ export default class ReactForm extends React.Component {
 
     let items = data_items.map( item => {
       switch (item.element) {
-        // case 'Header':
-        //   return <Header mutable={true} key={`form_${item.id}`} data={item} />
-        // case 'Paragraph':
-        //   return <Paragraph mutable={true} key={`form_${item.id}`} data={item} />
-        // case 'Label':
-        //   return <Label mutable={true} key={`form_${item.id}`} data={item} />
-        // case 'LineBreak':
-        //   return <LineBreak mutable={true} key={`form_${item.id}`} data={item} />
+
         case 'TextInput':
         case 'NumberInput':
         case 'TextArea':
@@ -215,47 +208,14 @@ export default class ReactForm extends React.Component {
         case 'Tags':
         case 'Range':
           return this.getInputElement(item);
-          // return <TextInput handleChange={this.handleChange} mutable={true}
-          //   key={`form_${item.id}`}
-          //   data={item}
-          //   read_only={this.props.read_only}
-          //   defaultValue={this.props.answer_data[item.field_name]} />
-        // case 'NumberInput':
-        //   return <NumberInput ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        // case 'TextArea':
-        //   return <TextArea ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        // case 'Dropdown':
-        //   return <Dropdown ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case 'Checkboxes':
           return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._checkboxesDefaultValue(item)} />
-        // case 'DatePicker':
-        //   return <DatePicker ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        // case 'RadioButtons':
-        //   return <RadioButtons ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        // case 'Rating':
-        //   return <Rating ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        case 'Image':
+         case 'Image':
           return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        // case 'Tags':
-        //   return <Tags ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        // case 'Signature':
-        //   return <Signature
-        //     ref={item.field_name}
-        //     read_only={this.props.read_only || item.readOnly}
-        //     mutable={true}
-        //     key={`form_${item.id}`}
-        //     data={item}
-        //     defaultValue={this.props.answer_data[item.field_name]} />
-        // case 'HyperLink':
-        //   return <HyperLink mutable={true} key={`form_${item.id}`} data={item} />
         case 'Download':
           return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />
-        // case 'Camera':
-        //   return <Camera mutable={true} key={`form_${item.id}`} data={item} />
         default: 
           return this.getSimpleElement(item);  
-        // case 'Range':
-        //   return <Range ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
       }
     })
 
