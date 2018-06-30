@@ -7,9 +7,12 @@ import ReactDOM from 'react-dom';
 import {EventEmitter} from 'fbemitter';
 import FormValidator from './form-validator';
 import {Header,Paragraph,Label,LineBreak,TextInput,NumberInput,TextArea,Dropdown,Image,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
-import moment from 'moment';
+import * as FormElements from './form-elements';
 
 export default class ReactForm extends React.Component {
+
+  form;
+  inputs = {};
 
   constructor(props) {
     super(props);
@@ -27,9 +30,10 @@ export default class ReactForm extends React.Component {
   _isIncorrect(item) {
     let incorrect = false;
     if (item.canHaveAnswer) {
+      const ref = this.inputs[item.field_name];
       if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
         item.options.forEach(option => {
-          let $option = ReactDOM.findDOMNode(this.refs[item.field_name].refs[`child_ref_${option.key}`]);
+          let $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
           if ((option.hasOwnProperty('correct') && !$option.checked) || (!option.hasOwnProperty('correct') && $option.checked)) {
             incorrect = true;
           }
@@ -38,19 +42,19 @@ export default class ReactForm extends React.Component {
         let $item = null
         if (item.element === 'Rating') {
           $item = {};
-          $item.value = this.refs[item.field_name].refs[`child_ref_${item.field_name}`].state.rating;
+          $item.value = ref.inputField.current.state.rating;
           if ($item.value.toString() !== item.correct) {
             incorrect = true;
           }
         } else {
           if (item.element === 'Tags') {
             $item = {};
-            $item.value = this.refs[item.field_name].refs[`child_ref_${item.field_name}`].state.value
+            $item.value = ref.inputField.current.state.value
           } else if(item.element === 'DatePicker') {
             $item = {};
-            $item.value = this.refs[item.field_name].state.value
+            $item.value = ref.inputField.current.state.value
           } else {
-            $item = ReactDOM.findDOMNode(this.refs[item.field_name].refs[`child_ref_${item.field_name}`]);
+            $item = ReactDOM.findDOMNode(ref.inputField.current);
             $item.value = $item.value.trim();
           }
 
@@ -66,10 +70,11 @@ export default class ReactForm extends React.Component {
   _isInvalid(item) {
     let invalid = false;
     if (item.required === true) {
+      const ref = this.inputs[item.field_name];
       if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
         let checked_options = 0;
         item.options.forEach(option => {
-          let $option = ReactDOM.findDOMNode(this.refs[item.field_name].refs[`child_ref_${option.key}`]);
+          let $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
           if ($option.checked) {
             checked_options += 1;
           }
@@ -82,19 +87,19 @@ export default class ReactForm extends React.Component {
         let $item = null
         if (item.element === 'Rating') {
           $item = {};
-          $item.value = this.refs[item.field_name].refs[`child_ref_${item.field_name}`].state.rating;
+          $item.value = ref.inputField.current.state.rating;
           if ($item.value === 0) {
             invalid = true;
           }
         } else {
           if (item.element === 'Tags') {
             $item = {};
-            $item.value = this.refs[item.field_name].refs[`child_ref_${item.field_name}`].state.value
+            $item.value = ref.inputField.current.state.value
           } else if(item.element === 'DatePicker') {
             $item = {};
-            $item.value = this.refs[item.field_name].state.value
+            $item.value = ref.inputField.current.state.value
           } else {
-            $item = ReactDOM.findDOMNode(this.refs[item.field_name].refs[`child_ref_${item.field_name}`]);
+            $item = ReactDOM.findDOMNode(ref.inputField.current);
             $item.value = $item.value.trim();
           }
 
@@ -111,7 +116,7 @@ export default class ReactForm extends React.Component {
     let $canvas_sig = this.refs[item.field_name].refs[`canvas_${item.field_name}`]
     let base64 = $canvas_sig.toDataURL().replace('data:image/png;base64,', '');
     let isEmpty = $canvas_sig.isEmpty();
-    let $input_sig = ReactDOM.findDOMNode(this.refs[item.field_name].refs[`child_ref_${item.field_name}`]);
+    let $input_sig = ReactDOM.findDOMNode(ref.inputField.current);
     if (isEmpty) {
       $input_sig.value = '';
     } else {
@@ -123,7 +128,7 @@ export default class ReactForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    let $form = ReactDOM.findDOMNode(this.refs.form);
+    let $form = ReactDOM.findDOMNode(this.form);
     let errors = this.validateForm();
 
     // Publish errors, if any.
@@ -160,6 +165,23 @@ export default class ReactForm extends React.Component {
     return errors;
   }
 
+  getInputElement(item) {
+    const Input = FormElements[item.element];
+    return (<Input 
+      handleChange={this.handleChange}
+      ref={c => this.inputs[item.field_name] = c}
+      mutable={true}
+      key={`form_${item.id}`}
+      data={item}
+      read_only={this.props.read_only}
+      defaultValue={this.props.answer_data[item.field_name]} />);
+  }
+
+  getSimpleElement(item) {
+    const Element = FormElements[item.element];
+    return (<Element mutable={true} key={`form_${item.id}`} data={item} />);
+  }
+
   render() {
     let data_items = this.props.data;
 
@@ -175,54 +197,65 @@ export default class ReactForm extends React.Component {
 
     let items = data_items.map( item => {
       switch (item.element) {
-        case 'Header':
-          return <Header mutable={true} key={`form_${item.id}`} data={item} />
-        case 'Paragraph':
-          return <Paragraph mutable={true} key={`form_${item.id}`} data={item} />
-        case 'Label':
-          return <Label mutable={true} key={`form_${item.id}`} data={item} />
-        case 'LineBreak':
-          return <LineBreak mutable={true} key={`form_${item.id}`} data={item} />
+        // case 'Header':
+        //   return <Header mutable={true} key={`form_${item.id}`} data={item} />
+        // case 'Paragraph':
+        //   return <Paragraph mutable={true} key={`form_${item.id}`} data={item} />
+        // case 'Label':
+        //   return <Label mutable={true} key={`form_${item.id}`} data={item} />
+        // case 'LineBreak':
+        //   return <LineBreak mutable={true} key={`form_${item.id}`} data={item} />
         case 'TextInput':
-          return <TextInput ref={item.field_name} handleChange={this.handleChange} mutable={true}
-            key={`form_${item.id}`}
-            data={item}
-            read_only={this.props.read_only}
-            defaultValue={this.props.answer_data[item.field_name]} />
         case 'NumberInput':
-          return <NumberInput ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case 'TextArea':
-          return <TextArea ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case 'Dropdown':
-          return <Dropdown ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        case 'Checkboxes':
-          return <Checkboxes ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._checkboxesDefaultValue(item)} />
         case 'DatePicker':
-          return <DatePicker ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case 'RadioButtons':
-          return <RadioButtons ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case 'Rating':
-          return <Rating ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        case 'Image':
-          return <Image ref={item.field_name} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
         case 'Tags':
-          return <Tags ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        case 'Signature':
-          return <Signature
-            ref={item.field_name}
-            read_only={this.props.read_only || item.readOnly}
-            mutable={true}
-            key={`form_${item.id}`}
-            data={item}
-            defaultValue={this.props.answer_data[item.field_name]} />
-        case 'HyperLink':
-          return <HyperLink mutable={true} key={`form_${item.id}`} data={item} />
+        case 'Range':
+          return this.getInputElement(item);
+          // return <TextInput handleChange={this.handleChange} mutable={true}
+          //   key={`form_${item.id}`}
+          //   data={item}
+          //   read_only={this.props.read_only}
+          //   defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'NumberInput':
+        //   return <NumberInput ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'TextArea':
+        //   return <TextArea ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'Dropdown':
+        //   return <Dropdown ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        case 'Checkboxes':
+          return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._checkboxesDefaultValue(item)} />
+        // case 'DatePicker':
+        //   return <DatePicker ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'RadioButtons':
+        //   return <RadioButtons ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'Rating':
+        //   return <Rating ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        case 'Image':
+          return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'Tags':
+        //   return <Tags ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'Signature':
+        //   return <Signature
+        //     ref={item.field_name}
+        //     read_only={this.props.read_only || item.readOnly}
+        //     mutable={true}
+        //     key={`form_${item.id}`}
+        //     data={item}
+        //     defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'HyperLink':
+        //   return <HyperLink mutable={true} key={`form_${item.id}`} data={item} />
         case 'Download':
           return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />
-        case 'Camera':
-          return <Camera mutable={true} key={`form_${item.id}`} data={item} />
-        case 'Range':
-          return <Range ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+        // case 'Camera':
+        //   return <Camera mutable={true} key={`form_${item.id}`} data={item} />
+        default: 
+          return this.getSimpleElement(item);  
+        // case 'Range':
+        //   return <Range ref={item.field_name} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
       }
     })
 
@@ -237,7 +270,7 @@ export default class ReactForm extends React.Component {
       <div>
         <FormValidator emitter={this.emitter} />
         <div className='react-form-builder-form'>
-          <form encType='multipart/form-data' ref='form' action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
+          <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
             { this.props.authenticity_token &&
               <div style={formTokenStyle}>
                 <input name='utf8' type='hidden' value='&#x2713;' />

@@ -68,8 +68,8 @@ export default class StarRating extends React.Component {
   }
 
   componentDidMount() {
-    this.root = ReactDOM.findDOMNode(this.refs.root);
-    this.ratingContainer = ReactDOM.findDOMNode(this.refs.ratingContainer);
+    this.root = ReactDOM.findDOMNode(this.rootNode);
+    this.ratingContainer = ReactDOM.findDOMNode(this.node);
   }
 
   componentWillUnmount() {
@@ -224,7 +224,7 @@ export default class StarRating extends React.Component {
     var starRating;
     if (this.state.editing) {
       starRating = (
-        <div ref="ratingContainer"
+        <div ref={c => this.node = c}
           className="rating-container rating-gly-star"
           data-content={this.state.glyph}
           onMouseMove={this.handleMouseMove.bind(this)}
@@ -236,7 +236,7 @@ export default class StarRating extends React.Component {
       );
     } else {
       starRating = (
-        <div ref="ratingContainer" className="rating-container rating-gly-star" data-content={this.state.glyph}>
+        <div ref={c => this.node = c} className="rating-container rating-gly-star" data-content={this.state.glyph}>
           <div className="rating-stars" data-content={this.state.glyph} style={{width: this.state.pos}}></div>
           <input type="number" name={this.props.name} value={this.state.ratingCache.rating} style={{display: 'none !important'}} min={this.min} max={this.max} readOnly />
         </div>
@@ -245,7 +245,7 @@ export default class StarRating extends React.Component {
 
     return (
       <span className="react-star-rating">
-        <span ref="root" style={{cursor: 'pointer'}} className={classes}>
+        <span ref={c => this.rootNode = c} style={{cursor: 'pointer'}} className={classes}>
           {starRating}
         </span>
       </span>

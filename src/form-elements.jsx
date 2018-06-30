@@ -132,16 +132,19 @@ class LineBreak extends React.Component {
 }
 
 class TextInput extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.inputField = React.createRef();
+  }
+
   render() {
     let props = {};
     props.type = "text";
     props.className = "form-control";
     props.name = this.props.data.field_name;
-
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
-      props.ref = "child_ref_" + this.props.data.field_name;
+      props.ref = this.inputField;
     }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -177,7 +180,11 @@ class TextInput extends React.Component {
 }
 
 class NumberInput extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.inputField = React.createRef();
+  }
+
   render() {
     let props = {};
     props.type = "number";
@@ -186,7 +193,7 @@ class NumberInput extends React.Component {
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
-      props.ref = "child_ref_" + this.props.data.field_name;
+      props.ref = this.inputField;
     }
 
     if(this.props.read_only) {
@@ -222,7 +229,11 @@ class NumberInput extends React.Component {
 }
 
 class TextArea extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.inputField = React.createRef();
+  }
+
   render() {
     let props = {};
     props.className = "form-control";
@@ -234,7 +245,7 @@ class TextArea extends React.Component {
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
-      props.ref = "child_ref_" + this.props.data.field_name;
+      props.ref = this.inputField;
     }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -267,7 +278,8 @@ class TextArea extends React.Component {
 class DatePicker extends React.Component {
   constructor(props) {
     super(props);
-    var value, internalValue;
+    this.inputField = React.createRef();
+    let value, internalValue;
 
     if(props.data.defaultToday && (props.defaultValue === '' ||  props.defaultValue === undefined) ) {
       value = moment().format('MM/DD/YYYY');
@@ -332,7 +344,7 @@ class DatePicker extends React.Component {
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
-      props.ref = "child_ref_" + this.props.data.field_name;
+      props.ref = this.inputField;
     }
 
     if(this.props.read_only) {
@@ -400,7 +412,11 @@ class DatePicker extends React.Component {
 }
 
 class Dropdown extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.inputField = React.createRef();
+  }
+
   render() {
     let props = {};
     props.className = "form-control";
@@ -408,7 +424,7 @@ class Dropdown extends React.Component {
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
-      props.ref = "child_ref_" + this.props.data.field_name;
+      props.ref = this.inputField;
     }
 
     if(this.props.read_only) {
@@ -462,6 +478,7 @@ class Dropdown extends React.Component {
 
 //     if (this.props.mutable) {
 //       props.defaultValue = this.props.defaultValue;
+         // props.ref = this.inputField;
 //       props.ref = "child_ref_" + this.props.data.field_name;
 //     }
 //     let pad_props = {};
@@ -508,7 +525,11 @@ class Dropdown extends React.Component {
 // })
 
 class Tags extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.inputField = React.createRef();
+  }
+
   state = {value: this.props.defaultValue !== undefined ? this.props.defaultValue.split(",") : []};
 
   handleChange = (e) => {
@@ -529,7 +550,7 @@ class Tags extends React.Component {
     if (!this.props.mutable) {props.value = options[0].text} // to show a sample of what tags looks like
     if (this.props.mutable) {
       props.value = this.state.value;
-      props.ref = "child_ref_" + this.props.data.field_name;
+      props.ref = this.inputField;
     }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -560,7 +581,11 @@ class Tags extends React.Component {
 }
 
 class Checkboxes extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.options = {};
+  }
+
   render() {
     let self = this;
     let classNames = 'checkbox-label';
@@ -586,20 +611,23 @@ class Checkboxes extends React.Component {
               <span className="label-required label label-danger">Required</span>
             }
           </label>
-          {this.props.data.options.map(function (option) {
+          {this.props.data.options.map((option) => {
             let this_key = 'preview_' + option.key;
             let props = {};
-            props.name = 'option_'+option.key;
+            props.name = 'option_' + option.key;
 
             props.type = "checkbox"
             props.value = option.value;
             if (self.props.mutable) {
               props.defaultChecked = self.props.defaultValue.indexOf(option.value) > -1 ? true : false;
-              props.ref = "child_ref_" + option.key;
             }
             return (
               <label className={classNames} key={this_key}>
-                <input {...props} /> {option.text}
+                <input ref={c => { 
+                  if (c && self.props.mutable) {
+                    self.options[`child_ref_${option.key}`] = c; 
+                  }
+                } } {...props} /> {option.text}
               </label>
             )
           })}
@@ -610,7 +638,11 @@ class Checkboxes extends React.Component {
 }
 
 class RadioButtons extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.options = {};
+  }
+
   render() {
     let self = this;
     let classNames = 'radio-label';
@@ -636,7 +668,7 @@ class RadioButtons extends React.Component {
               <span className="label-required label label-danger">Required</span>
             }
           </label>
-          {this.props.data.options.map(function (option) {
+          {this.props.data.options.map((option) => {
             let this_key = 'preview_' + option.key;
             let props = {};
             props.name = self.props.data.field_name;
@@ -645,11 +677,14 @@ class RadioButtons extends React.Component {
             props.value = option.value;
             if (self.props.mutable) {
               props.defaultChecked = (self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.value) > -1) ? true : false;
-              props.ref = "child_ref_" + option.key;
             }
             return (
               <label className={classNames} key={this_key}>
-                <input {...props} /> {option.text}
+                <input ref={c => { 
+                  if (c && self.props.mutable) {
+                    self.options[`child_ref_${option.key}`] = c; 
+                  } 
+                } } {...props} /> {option.text}
               </label>
             )
           })}
@@ -684,7 +719,11 @@ class Image extends React.Component {
 }
 
 class Rating extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.inputField = React.createRef();
+  }
+
   render() {
     let props = {};
     props.name = this.props.data.field_name;
@@ -693,7 +732,7 @@ class Rating extends React.Component {
     if (this.props.mutable) {
       props.rating = (this.props.defaultValue !== undefined && this.props.defaultValue.length) ? parseFloat(this.props.defaultValue, 10) : 0;
       props.editing = true;
-      props.ref = "child_ref_" + this.props.data.field_name;
+      props.ref = this.inputField;
     }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -850,7 +889,11 @@ class Camera extends React.Component {
 }
 
 class Range extends React.Component {
-  // mixins: [SortableItemMixin],
+  constructor(props) {
+    super(props);
+    this.inputField = React.createRef();
+  }
+
   render() {
     let props = {};
     props.type = "range";
@@ -863,7 +906,7 @@ class Range extends React.Component {
     props.defaultValue = this.props.defaultValue !== undefined ? parseInt(this.props.defaultValue, 10) : parseInt(this.props.data.default_value, 10);
 
     if (this.props.mutable) {
-      props.ref = "child_ref_" + this.props.data.field_name;
+      props.ref = this.inputField;
     }
 
     let datalist = [];
