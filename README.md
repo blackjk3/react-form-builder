@@ -2,9 +2,9 @@
 [![Build Status](https://api.travis-ci.org/blackjk3/react-form-builder.svg?branch=master)](https://travis-ci.org/blackjk3/react-form-builder)
 # React Form Builder 2
 A complete react form builder that interfaces with a json endpoint to load and save generated forms.
-- Upgraded to React 16
+- Upgraded to React 16.4.1
 - Use react-dnd for Drag & Drop 
-- Save form data with dummy api server. 
+- Save form data with dummy api server.
 
 ![](screenshot.png)
 
