@@ -61,6 +61,17 @@ export default class FormElementsEdit extends React.Component {
       this.setState({dirty: false});
     }
   }
+
+  convertFromHTML(content) {
+    const newContent = convertFromHTML(this.props.element.content);
+    if (!newContent.contentBlocks) {
+      // to prevent crash when no contents in editor
+      return EditorState.createEmpty();
+    }
+    const contentState = ContentState.createFromBlockArray(newContent);
+    return EditorState.createWithContent(contentState);
+  }
+
   render() {
     let this_checked = this.props.element.hasOwnProperty('required') ? this.props.element.required : false;
     let this_read_only = this.props.element.hasOwnProperty('readOnly') ? this.props.element.readOnly : false;
@@ -75,14 +86,13 @@ export default class FormElementsEdit extends React.Component {
     let this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || this_files.length > 0 && this_files[0].id !== "")
       this_files.unshift({id: '', file_name: ''});
-
+      
+    let editorState;
     if(this.props.element.hasOwnProperty('content')) {
-      var contentState = ContentState.createFromBlockArray(convertFromHTML(this.props.element.content));
-      var editorState = EditorState.createWithContent(contentState);
+      editorState = this.convertFromHTML(this.props.element.content);
     }
     if(this.props.element.hasOwnProperty('label')) {
-      var contentState = ContentState.createFromBlockArray(convertFromHTML(this.props.element.label));
-      var editorState = EditorState.createWithContent(contentState);
+      editorState = this.convertFromHTML(this.props.element.label);
     }
 
     return (
