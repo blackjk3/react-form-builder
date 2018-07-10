@@ -73,14 +73,6 @@ const cardTarget = {
 }
 
 export default function (ComposedComponent) {
-
-	@DropTarget(ItemTypes.CARD, cardTarget, connect => ({
-		connectDropTarget: connect.dropTarget(),
-	}))
-	@DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
-		connectDragSource: connect.dragSource(),
-		isDragging: monitor.isDragging(),
-	}))
 	class Card extends Component {
 		static propTypes = {
 			connectDragSource: PropTypes.func,
@@ -106,5 +98,11 @@ export default function (ComposedComponent) {
 		}
 	}
 	
-	return Card;
+	const x = DropTarget(ItemTypes.CARD, cardTarget, connect => ({
+		connectDropTarget: connect.dropTarget(),
+	}))(Card)
+	return DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
+		connectDragSource: connect.dragSource(),
+		isDragging: monitor.isDragging(),
+	}))(x)
 }

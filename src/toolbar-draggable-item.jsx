@@ -3,7 +3,6 @@
   */
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import { DragSource, ConnectDragSource } from 'react-dnd'
 import ItemTypes from './ItemTypes'
 
@@ -18,17 +17,18 @@ const cardSource = {
 	},
 }
 
-@DragSource(ItemTypes.CARD, cardSource, connect => ({
-	connectDragSource: connect.dragSource(),
-}))
-export default class ToolbarItem extends React.Component {
-
+class ToolbarItem extends React.Component {
 	render() {
-		const { connectDragSource, data, onClick } = this.props
+		const { connectDragSource, data, onClick } = this.props;
+		if (!connectDragSource) return;
 		return (
-			connectDragSource && connectDragSource(
+			connectDragSource(
         <li onClick={onClick}><i className={data.icon}></i>{data.name}</li>
       )
 		)
 	}
 }
+
+export default  DragSource(ItemTypes.CARD, cardSource, (connect) => ({
+	connectDragSource: connect.dragSource()
+}))(ToolbarItem);
