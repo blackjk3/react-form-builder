@@ -1,8 +1,7 @@
 import React from 'react';
 import HeaderBar from './header-bar';
 import Select from 'react-select';
-// import SignaturePad from 'react-signature-pad';
-// import SortableItemMixin from 'react-anything-sortable/SortableItemMixin';
+import SignaturePad from 'react-signature-canvas';
 import ReactBootstrapSlider from  'react-bootstrap-slider';
 import ReactDatePicker from 'react-datepicker';
 import StarRating from './star-rating';
@@ -30,7 +29,6 @@ let myxss = new xss.FilterXSS({
 });
 
 class Header extends React.Component {
-  // mixins: [SortableItemMixin],
   render() {
     let headerClasses = 'dynamic-input ' + this.props.data.element + '-input';
     let classNames = 'static';
@@ -57,7 +55,6 @@ class Header extends React.Component {
 }
 
 class Paragraph extends React.Component {
-  // mixins: [SortableItemMixin],
   render() {
     let classNames = 'static';
     if (this.props.data.bold) { classNames += ' bold'; }
@@ -83,7 +80,6 @@ class Paragraph extends React.Component {
 }
 
 class Label extends React.Component {
-  // mixins: [SortableItemMixin],
   render() {
     let classNames = 'static';
     if (this.props.data.bold) { classNames += ' bold'; }
@@ -109,7 +105,6 @@ class Label extends React.Component {
 }
 
 class LineBreak extends React.Component {
-  // mixins: [SortableItemMixin],
   render() {
 
     let baseClasses = 'SortableItem rfb-item';
@@ -463,66 +458,71 @@ class Dropdown extends React.Component {
   }
 }
 
-// let Signature = React.createClass({
-//   // mixins: [SortableItemMixin],
-//   componentDidMount() {
-//     if (this.props.defaultValue !== undefined && this.props.defaultValue.length > 0 && !this.props.read_only) {
-//       let canvas = this.refs['canvas_'+this.props.data.field_name];
-//       canvas.fromDataURL('data:image/png;base64,' + this.props.defaultValue);
-//     }
-//   },
-//   render() {
-//     let props = {};
-//     props.type = "hidden";
-//     props.name = this.props.data.field_name;
+class Signature extends React.Component {
+  constructor(props) {
+    super(props);
+    this.inputField = React.createRef();
+    this.canvas = React.createRef();
+  }
 
-//     if (this.props.mutable) {
-//       props.defaultValue = this.props.defaultValue;
-         // props.ref = this.inputField;
-//       props.ref = "child_ref_" + this.props.data.field_name;
-//     }
-//     let pad_props = {};
-//     pad_props.clearButton = true;
-//     if (this.props.mutable) {
-//       pad_props.defaultValue = this.props.defaultValue;
-//       pad_props.ref = 'canvas_'+this.props.data.field_name;
-//     }
+  componentDidMount() {
+    if (this.props.defaultValue !== undefined && this.props.defaultValue.length > 0 && !this.props.read_only) {
+      let canvas = this.canvas; // this.refs['canvas_'+this.props.data.field_name];
+      canvas.fromDataURL('data:image/png;base64,' + this.props.defaultValue);
+    }
+  }
 
-//     let baseClasses = 'SortableItem rfb-item';
-//     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+  render() {
+    let props = {};
+    props.type = "hidden";
+    props.name = this.props.data.field_name;
 
-//     let sourceDataURL
-//     if (this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0) {
-//       sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`
-//     }
+    if (this.props.mutable) {
+      props.defaultValue = this.props.defaultValue;
+      props.ref = this.inputField;
+    }
+    let pad_props = {};
+    pad_props.clearButton = true;
+    if (this.props.mutable) {
+      pad_props.defaultValue = this.props.defaultValue;
+      pad_props.ref = this.canvas;
+    }
 
-//     return (
-//       <div className={baseClasses}>
-//         { !this.props.mutable &&
-//           <div>
-//             { this.props.data.pageBreakBefore &&
-//               <div className="preview-page-break">Page Break</div>
-//             }
-//             <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-//           </div>
-//         }
-//         <div className="form-group">
-//           <label>
-//             <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-//             { (this.props.data.hasOwnProperty('required') && this.props.data.required === true  && !this.props.read_only) &&
-//               <span className="label-required label label-danger">Required</span>
-//             }
-//           </label>
-//           {this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0
-//             ? (<div><img src={sourceDataURL} /></div>)
-//             : (<SignaturePad {...pad_props} />)
-//           }
-//           <input {...props} />
-//         </div>
-//       </div>
-//     );
-//   }
-// })
+    let baseClasses = 'SortableItem rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
+    let sourceDataURL
+    if (this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0) {
+      sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`
+    }
+
+    return (
+      <div className={baseClasses}>
+        { !this.props.mutable &&
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
+        }
+        <div className="form-group">
+          <label>
+            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
+            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true  && !this.props.read_only) &&
+              <span className="label-required label label-danger">Required</span>
+            }
+          </label>
+          {this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0
+            ? (<div><img src={sourceDataURL} /></div>)
+            : (<SignaturePad {...pad_props} />)
+          }
+          <input {...props} />
+        </div>
+      </div>
+    );
+  }
+}
 
 class Tags extends React.Component {
   constructor(props) {
@@ -695,7 +695,7 @@ class RadioButtons extends React.Component {
 }
 
 class Image extends React.Component {
-  // mixins: [SortableItemMixin],
+
   render() {
     var style = (this.props.data.center) ? { textAlign: 'center' } : '';
 
@@ -763,7 +763,7 @@ class Rating extends React.Component {
 }
 
 class HyperLink extends React.Component {
-  // mixins: [SortableItemMixin],
+
   render() {
     let baseClasses = 'SortableItem rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
@@ -787,7 +787,7 @@ class HyperLink extends React.Component {
 }
 
 class Download extends React.Component {
-  // mixins: [SortableItemMixin],
+
   render() {
     let baseClasses = 'SortableItem rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
@@ -811,7 +811,7 @@ class Download extends React.Component {
 }
 
 class Camera extends React.Component {
-  // mixins: [SortableItemMixin],
+
 
   state = {img: null};
 
@@ -984,7 +984,7 @@ FormElements.TextInput = TextInput;
 FormElements.NumberInput = NumberInput;
 FormElements.TextArea = TextArea;
 FormElements.Dropdown = Dropdown;
-// FormElements.Signature = Signature;
+FormElements.Signature = Signature;
 FormElements.Checkboxes = Checkboxes;
 FormElements.DatePicker = DatePicker;
 FormElements.RadioButtons = RadioButtons;

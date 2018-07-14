@@ -10,8 +10,6 @@ import FormElementsEdit from './form-elements-edit';
 import * as SortableFormElements from './sortable-form-elements';
 
 import update from 'immutability-helper';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 export default class Preview extends React.Component {
 

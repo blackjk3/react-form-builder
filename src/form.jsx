@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {EventEmitter} from 'fbemitter';
 import FormValidator from './form-validator';
-import {Header,Paragraph,Label,LineBreak,TextInput,NumberInput,TextArea,Dropdown,Image,Checkboxes,DatePicker,RadioButtons,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
+import { Image, Checkboxes, Signature, Download } from './form-elements';
 import * as FormElements from './form-elements';
 
 export default class ReactForm extends React.Component {
@@ -113,7 +113,8 @@ export default class ReactForm extends React.Component {
   }
 
   _getSignatureImg(item) {
-    let $canvas_sig = this.refs[item.field_name].refs[`canvas_${item.field_name}`]
+    const ref = this.inputs[item.field_name];
+    let $canvas_sig = ref.canvas.current;
     let base64 = $canvas_sig.toDataURL().replace('data:image/png;base64,', '');
     let isEmpty = $canvas_sig.isEmpty();
     let $input_sig = ReactDOM.findDOMNode(ref.inputField.current);
@@ -208,6 +209,8 @@ export default class ReactForm extends React.Component {
         case 'Tags':
         case 'Range':
           return this.getInputElement(item);
+        case 'Signature':
+          return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />  
         case 'Checkboxes':
           return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._checkboxesDefaultValue(item)} />
          case 'Image':
