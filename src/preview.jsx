@@ -8,8 +8,9 @@ import ElementActions from './actions/ElementActions';
 import FormElementsEdit from './form-elements-edit';
 
 import * as SortableFormElements from './sortable-form-elements';
-
 import update from 'immutability-helper';
+
+const { PlaceHolder } = SortableFormElements;
 
 export default class Preview extends React.Component {
 
@@ -56,7 +57,7 @@ export default class Preview extends React.Component {
     let answer_data = {};
 
     data.forEach((item) => {
-      if (item.readOnly && this.props.variables[item.variableKey]) {
+      if (item && item.readOnly && this.props.variables[item.variableKey]) {
         answer_data[item.field_name] = this.props.variables[item.variableKey];
       }
     });
@@ -83,6 +84,10 @@ export default class Preview extends React.Component {
     this.saveData(dragCard, dragIndex, hoverIndex)
   }
 
+  cardPlaceHolder(dragIndex, hoverIndex) {
+    // Dummy
+  }
+
   saveData(dragCard, dragIndex, hoverIndex) {
     const newData =	update(this.state, {
       data: {
@@ -95,13 +100,14 @@ export default class Preview extends React.Component {
 
   getElement(item, index) {
     const SortableFormElement = SortableFormElements[item.element]
-    return <SortableFormElement id={item.id} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false}  parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
+    return <SortableFormElement id={item.id} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />
   }
 
   render() {
     let classes = this.props.className;
     if (this.props.editMode) { classes += ' is-editing'; }
-    let items = this.state.data.map((item, index) => {
+    const data = this.state.data.filter(x => !!x);
+    const items = data.map((item, index) => {
       return this.getElement(item, index);
     })
     return (
@@ -111,8 +117,10 @@ export default class Preview extends React.Component {
             <FormElementsEdit showCorrectColumn={this.props.showCorrectColumn} files={this.props.files} manualEditModeOff={this.props.manualEditModeOff} preview={this} element={this.props.editElement} updateElement={this.updateElement} />
           }
         </div>
-        {/* <SortableContainer items={items} /> */}
         <div className="Sortable">{items}</div>
+        { items.length == 0 &&
+          <PlaceHolder index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard}/>
+        }
       </div>
     )
   }

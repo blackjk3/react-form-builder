@@ -1,5 +1,6 @@
 import SortableElement from './sortable-element';
 import {Header,Paragraph,Label,LineBreak,TextInput,NumberInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Image,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
+import PlaceHolder from './form-place-holder';
 
 const FormElements = {};
 
@@ -21,6 +22,8 @@ FormElements.Tags = SortableElement(Tags);
 FormElements.HyperLink = SortableElement(HyperLink);
 FormElements.Download = SortableElement(Download);
 FormElements.Camera = SortableElement(Camera);
-FormElements.Range = Range;
+FormElements.Header = SortableElement(Header);
+FormElements.Range = SortableElement(Range);
+FormElements.PlaceHolder = SortableElement(PlaceHolder);
 
 module.exports = FormElements;
