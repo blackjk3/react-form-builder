@@ -22,7 +22,6 @@ FormElements.Tags = SortableElement(Tags);
 FormElements.HyperLink = SortableElement(HyperLink);
 FormElements.Download = SortableElement(Download);
 FormElements.Camera = SortableElement(Camera);
-FormElements.Header = SortableElement(Header);
 FormElements.Range = SortableElement(Range);
 FormElements.PlaceHolder = SortableElement(PlaceHolder);
 
