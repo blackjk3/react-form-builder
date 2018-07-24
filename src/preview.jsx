@@ -118,9 +118,7 @@ export default class Preview extends React.Component {
           }
         </div>
         <div className="Sortable">{items}</div>
-        { items.length == 0 &&
-          <PlaceHolder index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard}/>
-        }
+         <PlaceHolder id="form-place-holder" show={items.length == 0} index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard}/>
       </div>
     )
   }
