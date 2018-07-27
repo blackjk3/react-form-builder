@@ -697,7 +697,7 @@ class RadioButtons extends React.Component {
 class Image extends React.Component {
 
   render() {
-    var style = (this.props.data.center) ? { textAlign: 'center' } : '';
+    var style = (this.props.data.center) ? { textAlign: 'center' } : null;
 
     let baseClasses = 'SortableItem rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
