@@ -5,8 +5,6 @@
 import React from 'react';
 import Preview from './preview'
 import Toolbar from './toolbar'
-import ElementActions from './actions/ElementActions';
-import ElementStore from './stores/ElementStore';
 import ReactFormGenerator from './form';
 
 import { DragDropContext } from 'react-dnd';
@@ -94,4 +92,4 @@ FormBuilders.ReactFormGenerator = ReactFormGenerator;
 
 module.exports = FormBuilders;
 
-export { ElementStore }
+// export { ElementStore }

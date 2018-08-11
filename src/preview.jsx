@@ -3,10 +3,8 @@
   */
 
 import React from 'react';
-import ElementStore from './stores/ElementStore';
-import ElementActions from './actions/ElementActions';
+import store from './stores/store.js';
 import FormElementsEdit from './form-elements-edit';
-
 import * as SortableFormElements from './sortable-form-elements';
 import update from 'immutability-helper';
 
@@ -16,8 +14,9 @@ export default class Preview extends React.Component {
 
   constructor(props) {
     super(props);
+    const self = this;
 
-    this.state = {
+    self.state = {
       data: [],
       answer_data: {}
     }
@@ -25,8 +24,9 @@ export default class Preview extends React.Component {
     var loadData = (this.props.url) ? this.props.url : (this.props.data) ? this.props.data : [];
     var saveUrl = (this.props.saveUrl) ? this.props.saveUrl : '';
 
-    ElementStore.load(loadData, saveUrl);
-    ElementStore.listen(this._onChange.bind(this));
+    store.dispatch('load', { loadData,  saveUrl });
+    const update = this._onChange.bind(this);
+    store.subscribe(state => update(state.data));
 
     this.moveCard = this.moveCard.bind(this);
     this.insertCard = this.insertCard.bind(this);
@@ -49,7 +49,8 @@ export default class Preview extends React.Component {
     }
 
     if (found) {
-      ElementActions.saveData(data);
+      store.dispatch('save', data);
+      // ElementActions.saveData(data);
     }
   }
 
@@ -69,7 +70,8 @@ export default class Preview extends React.Component {
   }
 
   _onDestroy(item) {
-    ElementActions.deleteElement(item);
+    store.dispatch('delete', item);
+    // ElementActions.deleteElement(item);
   }
   
   insertCard(item, hoverIndex) {
@@ -95,7 +97,8 @@ export default class Preview extends React.Component {
       },
     });
     this.setState(newData)
-    ElementActions.saveData(newData.data);
+    store.dispatch('save', newData.data);
+    // ElementActions.saveData(newData.data);
   }
 
   getElement(item, index) {

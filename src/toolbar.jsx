@@ -5,18 +5,21 @@
 import React from 'react';
 import ToolbarItem from './toolbar-draggable-item';
 import ID from './UUID';
-import ElementActions from './actions/ElementActions';
+import store from './stores/store.js';
 
 export default class Toolbar extends React.Component {
 
   constructor(props) {
     super(props);
 
-    var items = (this.props.items) ? this.props.items : this._defaultItems();
+    const self = this;
+    const items = (this.props.items) ? this.props.items : this._defaultItems();
 
     this.state = {
       items: items
     };
+
+    store.subscribe(state => self.setState({ store: state }));
   }
 
   static _defaultItemOptions(element) {
@@ -277,7 +280,8 @@ export default class Toolbar extends React.Component {
   }
 
   _onClick(item) {
-    ElementActions.createElement(this.create(item));
+    // ElementActions.createElement(this.create(item));
+    store.dispatch('create', this.create(item));
   }
 
   render() {

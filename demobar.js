@@ -1,5 +1,5 @@
 import React from "react";
-import ElementStore from './src/stores/ElementStore';
+import store from './src/stores/store'
 import ReactFormGenerator from './src/form';
 
 export default class Demobar extends React.Component {
@@ -13,7 +13,8 @@ export default class Demobar extends React.Component {
       roPreviewVisible: false
     }
 
-    ElementStore.listen(this._onChange.bind(this));
+    const update = this._onChange.bind(this);
+    store.subscribe(state => update(state.data));
   }
 
   showPreview() {
