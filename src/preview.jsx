@@ -3,7 +3,7 @@
   */
 
 import React from 'react';
-import store from './stores/store.js';
+import store from './stores/store';
 import FormElementsEdit from './form-elements-edit';
 import * as SortableFormElements from './sortable-form-elements';
 import update from 'immutability-helper';
@@ -14,9 +14,8 @@ export default class Preview extends React.Component {
 
   constructor(props) {
     super(props);
-    const self = this;
 
-    self.state = {
+    this.state = {
       data: [],
       answer_data: {}
     }

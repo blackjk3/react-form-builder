@@ -12,14 +12,11 @@ export default class Toolbar extends React.Component {
   constructor(props) {
     super(props);
 
-    const self = this;
     const items = (this.props.items) ? this.props.items : this._defaultItems();
-
     this.state = {
       items: items
     };
-
-    store.subscribe(state => self.setState({ store: state }));
+    store.subscribe(state => this.setState({ store: state }));
   }
 
   static _defaultItemOptions(element) {
