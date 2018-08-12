@@ -1,4 +1,5 @@
 import Store from 'beedle';
+import { get, post} from './requests';
 
 let _data = [];
 let _saveUrl;
@@ -6,16 +7,12 @@ let _saveUrl;
 export default new Store({  
     actions: {
         load(context, { loadData: urlOrData,  saveUrl }) {
-            _saveUrl = saveUrl;
-        
+            _saveUrl = saveUrl;        
             if(typeof urlOrData == 'string' || urlOrData instanceof String) {
-                $.ajax({
-                    url: urlOrData,
-                    success: function(data) {
-                        _data = JSON.parse(data);
-                        context.commit('setData', _data);
-                    }
-                })
+                get(urlOrData).then(data => {
+                    _data = data;
+                    context.commit('setData', _data);
+                });
             } else {
                 _data = urlOrData;
                 context.commit('setData', _data);
@@ -43,17 +40,7 @@ export default new Store({
         
         save(context) {
             if (_saveUrl) {
-                $.ajax({
-                    type: 'POST',
-                        url: _saveUrl,
-                        data: {
-                        task_data: JSON.stringify(_data)
-                    },
-                    dataType: 'json',
-                        success: function(data) {
-                        console.log('Saved... ', arguments);
-                    }
-                })
+                post(_saveUrl, { task_data: _data });
             }
         },
     },

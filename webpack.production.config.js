@@ -18,7 +18,7 @@ module.exports = {
     'react-dom': 'react-dom',
     // 'react-datepicker': 'react-datepicker',
     // 'classnames': 'classnames',
-    'jquery': 'jquery',
+    // 'jquery': 'jquery',
     'bootstrap': 'bootstrap'
   },
 

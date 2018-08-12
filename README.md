@@ -102,7 +102,6 @@ In order to make the form builder look pretty, there are a few dependencies othe
 
 - Bootstrap
 - FontAwesome
-- jQuery
 
 
 # SASS

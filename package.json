@@ -41,6 +41,7 @@
     "react-signature-canvas": "^1.0.0-alpha.1",
     "react-star-rating": "^1.4.2",
     "react-textarea-autosize": "^6.0.0",
+    "whatwg-fetch": "^2.0.4",
     "xss": "^0.3.7"
   },
   "devDependencies": {
