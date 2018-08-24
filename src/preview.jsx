@@ -48,8 +48,7 @@ export default class Preview extends React.Component {
     }
 
     if (found) {
-      store.dispatch('save', data);
-      // ElementActions.saveData(data);
+      store.dispatch('updateOrder', data);
     }
   }
 
@@ -70,7 +69,6 @@ export default class Preview extends React.Component {
 
   _onDestroy(item) {
     store.dispatch('delete', item);
-    // ElementActions.deleteElement(item);
   }
   
   insertCard(item, hoverIndex) {
@@ -96,8 +94,7 @@ export default class Preview extends React.Component {
       },
     });
     this.setState(newData)
-    store.dispatch('save', newData.data);
-    // ElementActions.saveData(newData.data);
+    store.dispatch('updateOrder', newData.data)
   }
 
   getElement(item, index) {
