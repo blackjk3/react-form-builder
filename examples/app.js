@@ -4,8 +4,6 @@ import DemoBar from './demobar';
 import { ReactFormBuilder } from "react-form-builder2";
 import * as variables from './variables'
 
-require('react-form-builder2/lib/app.css');
-
 ReactDOM.render(
   <ReactFormBuilder variables={variables} 
     url='/api/formdata'
