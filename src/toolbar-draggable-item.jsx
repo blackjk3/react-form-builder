@@ -5,11 +5,12 @@
 import React from 'react'
 import { DragSource, ConnectDragSource } from 'react-dnd'
 import ItemTypes from './ItemTypes'
+import ID from './UUID'
 
 const cardSource = {
 	beginDrag(props) {
 		return {
-			id: '',
+			id: ID.uuid(),
       index: -1,
       data: props.data,
       onCreate: props.onCreate

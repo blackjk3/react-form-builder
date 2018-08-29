@@ -3,9 +3,10 @@
 */
 
 import React from 'react';
-import Preview from './preview'
-import Toolbar from './toolbar'
+import Preview from './preview';
+import Toolbar from './toolbar';
 import ReactFormGenerator from './form';
+import store from './stores/store';
 
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -90,5 +91,6 @@ const FormBuilders = {};
 
 FormBuilders.ReactFormBuilder = DragDropContext(HTML5Backend)(ReactFormBuilder);
 FormBuilders.ReactFormGenerator = ReactFormGenerator;
+FormBuilders.ElementStore = store;
 
 module.exports = FormBuilders;

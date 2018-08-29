@@ -94,7 +94,7 @@ export default class Preview extends React.Component {
       },
     });
     this.setState(newData)
-    store.dispatch('updateOrder', newData.data)
+    store.dispatch('updateOrder', newData.data);
   }
 
   getElement(item, index) {

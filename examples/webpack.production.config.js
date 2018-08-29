@@ -2,11 +2,11 @@ var path = require('path');
 var webpack = require( 'webpack');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './app.js',
 
   output: {
-    path: path.resolve('./dist'),
-    filename: 'app.js',
+    path: path.resolve('./lib'),
+    filename: 'main.js',
     library: 'ReactFormBuilder',
     libraryTarget: 'umd'
   },
