@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import DemoBar from './demobar';
-import FormBuilder from "./lib/index";
+import { ReactFormBuilder } from "react-form-builder2";
 import * as variables from './variables'
 
+require('react-form-builder2/lib/app.css');
+
 ReactDOM.render(
-  <FormBuilder.ReactFormBuilder variables={variables} 
+  <ReactFormBuilder variables={variables} 
     url='/api/formdata'
     saveUrl='/api/formdata'
   />,

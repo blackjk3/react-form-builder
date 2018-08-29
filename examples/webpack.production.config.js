@@ -5,7 +5,7 @@ module.exports = {
   entry: './app.js',
 
   output: {
-    path: path.resolve('./lib'),
+    path: path.resolve('.'),
     filename: 'main.js',
     library: 'ReactFormBuilder',
     libraryTarget: 'umd'
