@@ -44,7 +44,7 @@ class ReactFormBuilder extends React.Component {
   editModeOff(e) {
     //  const $menu = $(".edit-form");
     //  let click_is_outside_menu = (!$menu.is(e.target) && $menu.has(e.target).length === 0);
-    let click_is_outside_menu = !(e.target && e.target.closest(".edit-form"));
+    let click_is_outside_menu = !(e.target && e.target.closest(".edit-form")) && e.screenX > 0;
   
     if (this.state.editMode && click_is_outside_menu) {
       this.setState({
