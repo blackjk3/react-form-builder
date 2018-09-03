@@ -33,9 +33,9 @@ class FormGenerator extends React.Component {
   
     componentDidMount() {
         document.querySelector('#button-preview')
-            .addEventListener('click', this.showPreview, false);
+            .addEventListener('click', this.showPreview);
         document.querySelector('#button-close')
-            .addEventListener('click', this.closePreview, false);
+            .addEventListener('click', this.closePreview);
     }
 
     showPreview() {
