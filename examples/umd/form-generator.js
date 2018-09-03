@@ -61,7 +61,7 @@ class FormGenerator extends React.Component {
     render() {
         const previewVisible = this.state.previewVisible;
         if (!previewVisible) {
-            return 'HIDE';
+            return null;
         }    
         return e(
             ReactFormGenerator, {   
@@ -74,8 +74,7 @@ class FormGenerator extends React.Component {
                 form_method: 'POST',
                 variables: this.props.variables,
                 data: this.state.data
-            },
-            'Preview'
+            }
         );
     }
 }
