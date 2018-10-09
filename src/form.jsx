@@ -112,6 +112,44 @@ export default class ReactForm extends React.Component {
     return invalid;
   }
 
+  _collect(item) {
+    const itemData = { name: item.field_name }
+    let $item = {};
+    const ref = this.inputs[item.field_name];
+    if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
+      let checked_options = [];
+      item.options.forEach(option => {
+        let $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
+        if ($option.checked) {
+          checked_options.push(option.key);
+        }
+      });
+      itemData.value = checked_options;
+    } else {      
+      if (item.element === 'Rating') {
+        itemData.value = ref.inputField.current.state.rating;        
+      } else {
+        if (item.element === 'Tags') {
+          itemData.value = ref.inputField.current.state.value
+        } else if(item.element === 'DatePicker') {
+          itemData.value = ref.inputField.current.state.value
+        } else {
+          $item = ReactDOM.findDOMNode(ref.inputField.current);
+          itemData.value = $item.value.trim();
+        }
+      }
+    }
+    return itemData;
+  }
+
+  _collectFormData(data) {
+    const formData = [];
+    data.forEach(item => { 
+      formData.push(this._collect(item));
+    });
+    return formData;  
+  }
+
   _getSignatureImg(item) {
     const ref = this.inputs[item.field_name];
     let $canvas_sig = ref.canvas.current;
@@ -137,7 +175,8 @@ export default class ReactForm extends React.Component {
     if (errors.length < 1) {
       const { onSubmit } = this.props;
       if (onSubmit) {
-        onSubmit(this.props.data);       
+        const data = this._collectFormData(this.props.data);
+        onSubmit(data);       
       } else {
         let $form = ReactDOM.findDOMNode(this.form);
         $form.submit();
