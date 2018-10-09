@@ -14,6 +14,8 @@ export default class Demobar extends React.Component {
     }
 
     const update = this._onChange.bind(this);
+    this._onSubmit = this._onSubmit.bind(this);
+
     store.subscribe(state => update(state.data));
   }
 
@@ -47,6 +49,10 @@ export default class Demobar extends React.Component {
     this.setState({
       data: data
     });
+  }
+
+  _onSubmit(data) {
+    console.log('onSubmit', data);
   }
 
   render() {
@@ -84,7 +90,8 @@ export default class Demobar extends React.Component {
                   action_name="Save"
                   form_action="/"
                   form_method="POST"
-                  variables={this.props.variables}
+                  variables={this.props.variables}                  
+                  onSubmit={this._onSubmit}
                   data={this.state.data} />
 
                 <div className="modal-footer">
