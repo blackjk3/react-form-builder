@@ -125,7 +125,8 @@ export default class ReactForm extends React.Component {
         }
       });
       itemData.value = checked_options;
-    } else {      
+    } else { 
+      if (!ref) return;     
       if (item.element === 'Rating') {
         itemData.value = ref.inputField.current.state.rating;        
       } else {
@@ -144,10 +145,13 @@ export default class ReactForm extends React.Component {
 
   _collectFormData(data) {
     const formData = [];
-    data.forEach(item => { 
-      formData.push(this._collect(item));
+    data.forEach(item => {
+      const item_data = this._collect(item);
+      if (item_data) {
+        formData.push(item_data);
+      }
     });
-    return formData;  
+    return formData;
   }
 
   _getSignatureImg(item) {
