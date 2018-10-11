@@ -3,16 +3,25 @@ import { get, post} from './requests';
 
 let _data = [];
 let _saveUrl;
+let _onPost;
+let _onLoad;
 
-export default new Store({  
+const store = new Store({  
     actions: {
         load(context, { loadData: urlOrData,  saveUrl }) {
             _saveUrl = saveUrl;        
             if(typeof urlOrData == 'string' || urlOrData instanceof String) {
-                get(urlOrData).then(data => {
-                    _data = data;
-                    context.commit('setData', _data);
-                });
+                if (_onLoad) {
+                    _onLoad().then(data => {
+                        _data = data;
+                        context.commit('setData', _data);
+                    });
+                } else {
+                    get(urlOrData).then(data => {
+                        _data = data;
+                        context.commit('setData', _data);
+                    });
+                }
             } else {
                 _data = urlOrData;
                 context.commit('setData', _data);
@@ -40,7 +49,11 @@ export default new Store({
         
         save(context) {
             if (_saveUrl) {
-                post(_saveUrl, { task_data: _data });
+                if (_onPost) {
+                    _onPost({ task_data: _data });
+                } else {
+                    post(_saveUrl, { task_data: _data });
+                }               
             }
         },
     },
@@ -54,5 +67,12 @@ export default new Store({
 
     initialState: {
         data: []
-    }
+    },     
 });
+
+store.setExternalHandler = function(onLoad, onPost) {
+    _onLoad = onLoad;
+    _onPost = onPost;
+}
+
+export default store;

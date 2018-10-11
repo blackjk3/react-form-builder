@@ -15,6 +15,9 @@ export default class Preview extends React.Component {
   constructor(props) {
     super(props);
 
+    const { onLoad, onPost } = props;
+    store.setExternalHandler(onLoad, onPost);
+
     this.state = {
       data: [],
       answer_data: {}
