@@ -1,5 +1,4 @@
-[![npm package](https://img.shields.io/badge/npm-0.0.3-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-forms-builder)
-[![Build Status](https://api.travis-ci.org/blackjk3/react-form-builder.svg?branch=master)](https://travis-ci.org/blackjk3/react-form-builder)
+[![npm package](https://img.shields.io/badge/npm-0.0.3-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-form-builder2)
 # React Form Builder 2
 A complete react form builder that interfaces with a json endpoint to load and save generated forms.
 - Upgraded to React 16.4.1
@@ -15,7 +14,7 @@ A complete react form builder that interfaces with a json endpoint to load and s
 
 ```javascript
 var React = require('react');
-var FormBuilder = require('react-forms-builder');
+var FormBuilder = require('react-form-builder2');
 
 React.render(
   <FormBuilder.ReactFormBuilder />,
@@ -52,7 +51,7 @@ Now that a form is built and saved, let's generate it from the saved json.
 
 ```javascript
 var React = require('react');
-var FormBuilder = require('react-forms-builder');
+var FormBuilder = require('react-form-builder2');
 
 React.render(
   <FormBuilder.ReactFormGenerator
