@@ -8,8 +8,8 @@ import { get, post} from './requests';
 const url = '/api/formdata';
 const saveUrl ='/api/formdata';
 
-const onLoad = function(data) {
-  console.log('onLoad', data);
+const onLoad = function() {
+  console.log('onLoad');
   return get(url);
 }
 
@@ -19,7 +19,9 @@ const onPost = function(data) {
 }
 
 ReactDOM.render(
-  <ReactFormBuilder variables={variables}     
+  <ReactFormBuilder variables={variables}
+    url={url}
+    saveUrl={saveUrl}
     onLoad={onLoad}
     onPost={onPost}
   />,
