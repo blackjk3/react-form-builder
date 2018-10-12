@@ -7,15 +7,10 @@ import * as variables from './variables'
 // Add our stylesheets for the demo.
 require('./scss/application.scss');
 
-const onPost = function(data) {
-  console.log('onPost', data);
-}
-
 ReactDOM.render(
   <FormBuilder.ReactFormBuilder variables={variables} 
     url='/api/formdata'
     saveUrl='/api/formdata'
-    onPost={onPost}
   />,
   document.getElementById('form-builder')
 )

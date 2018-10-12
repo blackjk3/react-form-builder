@@ -1,5 +1,5 @@
 {
-  "name": "rfb2-example",
+  "name": "rfb2-example-custom",
   "version": "0.0.7",
   "description": "A complete form builder for react.",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "drag",
     "drop"
   ],
-  "author": "Jason Kadrmas",
+  "author": "Kiho Chang",
   "dependencies": {
     "react": "~16.4.1",
     "react-dom": "~16.4.1",

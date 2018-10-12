@@ -1,6 +1,5 @@
 import React from "react";
-import store from './src/stores/store'
-import ReactFormGenerator from './src/form';
+import { ReactFormGenerator, ElementStore } from 'react-form-builder2';
 
 export default class Demobar extends React.Component {
 
@@ -14,9 +13,7 @@ export default class Demobar extends React.Component {
     }
 
     const update = this._onChange.bind(this);
-    this._onSubmit = this._onSubmit.bind(this);
-
-    store.subscribe(state => update(state.data));
+    ElementStore.subscribe(state => update(state.data));
   }
 
   showPreview() {
@@ -49,6 +46,11 @@ export default class Demobar extends React.Component {
     this.setState({
       data: data
     });
+  }
+
+  _onSubmit(data) {
+    console.log('onSubmit', data);
+    // Place code to post json data to server here
   }
 
   render() {
@@ -86,6 +88,7 @@ export default class Demobar extends React.Component {
                   action_name="Save"
                   form_action="/"
                   form_method="POST"
+                  onSubmit={this._onSubmit}
                   variables={this.props.variables}
                   data={this.state.data} />
 
