@@ -51,6 +51,11 @@ export default class Demobar extends React.Component {
     });
   }
 
+  _onSubmit(data) {
+    console.log('onSubmit', data);
+    // Place code to post json data to server here
+  }
+
   render() {
     var modalClass = 'modal';
     if(this.state.previewVisible) {
@@ -86,6 +91,7 @@ export default class Demobar extends React.Component {
                   action_name="Save"
                   form_action="/"
                   form_method="POST"
+                  // onSubmit={this._onSubmit}
                   variables={this.props.variables}
                   data={this.state.data} />
 

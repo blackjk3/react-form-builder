@@ -8,23 +8,21 @@ let _onLoad;
 
 const store = new Store({  
     actions: {
+        setData(context, data) {
+            _data = data;
+            context.commit('setData', _data);
+        },
+
         load(context, { loadData: urlOrData,  saveUrl }) {
             _saveUrl = saveUrl;        
-            if(typeof urlOrData == 'string' || urlOrData instanceof String) {
-                if (_onLoad) {
-                    _onLoad().then(data => {
-                        _data = data;
-                        context.commit('setData', _data);
-                    });
-                } else {
-                    get(urlOrData).then(data => {
-                        _data = data;
-                        context.commit('setData', _data);
-                    });
-                }
+            if (_onLoad) {
+                _onLoad().then(x => this.setData(context, x));
             } else {
-                _data = urlOrData;
-                context.commit('setData', _data);
+                if (typeof urlOrData == 'string' || urlOrData instanceof String) {
+                    get(urlOrData).then(x => this.setData(context, x));
+                } else {
+                    this.setData(context, urlOrData);
+                }
             }
         },
         
@@ -47,13 +45,11 @@ const store = new Store({
             this.save();
         },
         
-        save(context) {
-            if (_saveUrl) {
-                if (_onPost) {
-                    _onPost({ task_data: _data });
-                } else {
-                    post(_saveUrl, { task_data: _data });
-                }               
+        save() {
+            if (_onPost) {
+                _onPost({ task_data: _data });
+            } else if (_saveUrl) {
+                post(_saveUrl, { task_data: _data });            
             }
         },
     },
