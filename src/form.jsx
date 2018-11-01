@@ -27,6 +27,25 @@ export default class ReactForm extends React.Component {
     return defaultChecked;
   }
 
+  _getItemValue(item, ref) {
+    let $item = {
+      element: item.element
+    };
+    if (item.element === 'Rating') {
+      $item.value = ref.inputField.current.state.rating;
+    } else {
+      if (item.element === 'Tags') {
+        $item.value = ref.inputField.current.state.value;
+      } else if(item.element === 'DatePicker') {
+        $item.value = ref.state.value;
+      } else {
+        $item = ReactDOM.findDOMNode(ref.inputField.current);
+        $item.value = $item.value.trim();
+      }
+    }
+    return $item;
+  }
+
   _isIncorrect(item) {
     let incorrect = false;
     if (item.canHaveAnswer) {
@@ -39,29 +58,36 @@ export default class ReactForm extends React.Component {
           }
         })
       } else {
-        let $item = null
-        if (item.element === 'Rating') {
-          $item = {};
-          $item.value = ref.inputField.current.state.rating;
+        let $item = this._getItemValue(item, ref);
+        if (item.element === 'Rating') { 
           if ($item.value.toString() !== item.correct) {
             incorrect = true;
-          }
-        } else {
-          if (item.element === 'Tags') {
-            $item = {};
-            $item.value = ref.inputField.current.state.value
-          } else if(item.element === 'DatePicker') {
-            $item = {};
-            $item.value = ref.inputField.current.state.value
-          } else {
-            $item = ReactDOM.findDOMNode(ref.inputField.current);
-            $item.value = $item.value.trim();
-          }
-
-          if ($item.value.toLowerCase() !== item.correct.trim().toLowerCase()) {
-            incorrect = true;
-          }
+          } 
+        } else if ($item.value.toLowerCase() !== item.correct.trim().toLowerCase()) {
+          incorrect = true;
         }
+        // if (item.element === 'Rating') {
+        //   $item = {};
+        //   $item.value = ref.inputField.current.state.rating;
+        //   if ($item.value.toString() !== item.correct) {
+        //     incorrect = true;
+        //   }
+        // } else {
+        //   if (item.element === 'Tags') {
+        //     $item = {};
+        //     $item.value = ref.inputField.current.state.value;
+        //   } else if(item.element === 'DatePicker') {
+        //     $item = {};
+        //     $item.value = ref.state.value;
+        //   } else {
+        //     $item = ReactDOM.findDOMNode(ref.inputField.current);
+        //     $item.value = $item.value.trim();
+        //   }
+
+        //   if ($item.value.toLowerCase() !== item.correct.trim().toLowerCase()) {
+        //     incorrect = true;
+        //   }
+        // }
       }
     }
     return incorrect;
@@ -84,29 +110,37 @@ export default class ReactForm extends React.Component {
           invalid = true;
         }
       } else {
-        let $item = null
-        if (item.element === 'Rating') {
-          $item = {};
-          $item.value = ref.inputField.current.state.rating;
+        let $item = this._getItemValue(item, ref);
+        if (item.element === 'Rating') { 
           if ($item.value === 0) {
             invalid = true;
-          }
-        } else {
-          if (item.element === 'Tags') {
-            $item = {};
-            $item.value = ref.inputField.current.state.value
-          } else if(item.element === 'DatePicker') {
-            $item = {};
-            $item.value = ref.inputField.current.state.value
-          } else {
-            $item = ReactDOM.findDOMNode(ref.inputField.current);
-            $item.value = $item.value.trim();
-          }
-
-          if ($item.value === undefined || $item.value.length < 1) {
-            invalid = true;
-          }
+          } 
+        } else if ($item.value === undefined || $item.value.length < 1) {
+          invalid = true;
         }
+
+        // if (item.element === 'Rating') {
+        //   $item = {};
+        //   $item.value = ref.inputField.current.state.rating;
+        //   if ($item.value === 0) {
+        //     invalid = true;
+        //   }
+        // } else {
+        //   if (item.element === 'Tags') {
+        //     $item = {};
+        //     $item.value = ref.inputField.current.state.value;
+        //   } else if(item.element === 'DatePicker') {
+        //     $item = {};
+        //     $item.value = ref.state.value;
+        //   } else {
+        //     $item = ReactDOM.findDOMNode(ref.inputField.current);
+        //     $item.value = $item.value.trim();
+        //   }
+
+        //   if ($item.value === undefined || $item.value.length < 1) {
+        //     invalid = true;
+        //   }
+        // }
       }
     }
     return invalid;
@@ -126,19 +160,21 @@ export default class ReactForm extends React.Component {
       });
       itemData.value = checked_options;
     } else { 
-      if (!ref) return;     
-      if (item.element === 'Rating') {
-        itemData.value = ref.inputField.current.state.rating;        
-      } else {
-        if (item.element === 'Tags') {
-          itemData.value = ref.inputField.current.state.value
-        } else if(item.element === 'DatePicker') {
-          itemData.value = ref.inputField.current.state.value
-        } else {
-          $item = ReactDOM.findDOMNode(ref.inputField.current);
-          itemData.value = $item.value.trim();
-        }
-      }
+      if (!ref) return;
+      itemData.value = this._getItemValue(item, ref).value;
+
+      // if (item.element === 'Rating') {
+      //   itemData.value = ref.inputField.current.state.rating;        
+      // } else {
+      //   if (item.element === 'Tags') {
+      //     itemData.value = ref.inputField.current.state.value
+      //   } else if(item.element === 'DatePicker') {
+      //     itemData.value = ref.state.value;
+      //   } else {
+      //     $item = ReactDOM.findDOMNode(ref.inputField.current);
+      //     itemData.value = $item.value.trim();
+      //   }
+      // }
     }
     return itemData;
   }

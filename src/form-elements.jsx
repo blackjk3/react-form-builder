@@ -542,7 +542,7 @@ class Tags extends React.Component {
       return option;
     })
     let props = {};
-    props.multi = true;
+    props.isMulti = true;
     props.name = this.props.data.field_name;
     props.onChange = this.handleChange;
 
@@ -892,25 +892,37 @@ class Range extends React.Component {
   constructor(props) {
     super(props);
     this.inputField = React.createRef();
+    this.state = {
+      value: props.defaultValue !== undefined ? parseInt(props.defaultValue, 10) : parseInt(props.data.default_value, 10)
+    }
+  }
+
+  changeValue = (e)=>{
+    const {target} = e;
+    this.setState({
+      value: target.value
+    });
   }
 
   render() {
-    let props = {};
+    const props = {};
+    const name = this.props.data.field_name;
+
     props.type = "range";
-    props.name = this.props.data.field_name;
-    props.list = "tickmarks_" + this.props.data.field_name;
+    props.list = "tickmarks_" + name;
     props.min = this.props.data.min_value;
     props.max = this.props.data.max_value;
     props.step = this.props.data.step;
 
-    props.defaultValue = this.props.defaultValue !== undefined ? parseInt(this.props.defaultValue, 10) : parseInt(this.props.data.default_value, 10);
+    props.value = this.state.value;
+    props.change = this.changeValue;
 
     if (this.props.mutable) {
       props.ref = this.inputField;
     }
 
     let datalist = [];
-    for (var i=parseInt(this.props.data.min_value, 10); i <= parseInt(this.props.data.max_value, 10); i += parseInt(this.props.data.step, 10)) {
+    for (var i = parseInt(props.min_value, 10); i <= parseInt(props.max_value, 10); i += parseInt(props.step, 10)) {
       datalist.push(i);
     }
 
@@ -957,16 +969,12 @@ class Range extends React.Component {
               <span className="pull-left">{this.props.data.min_label}</span>
               <span className="pull-right">{this.props.data.max_label}</span>
             </div>
-            <ReactBootstrapSlider
-              name={props.name}
-              value={props.defaultValue}
-              step={this.props.data.step}
-              max={this.props.data.max_value}
-              min={this.props.data.min_value} />
+            <ReactBootstrapSlider {...props} />
           </div>
           <div className="visible_marks">
             {visible_marks}
           </div>
+          <input name={name} value={this.state.value} type="hidden" />
           <datalist id={props.list}>
             {_datalist}
           </datalist>
