@@ -812,15 +812,17 @@ class Download extends React.Component {
 
 class Camera extends React.Component {
 
-
-  state = {img: null};
+  constructor(props) {
+    super(props);
+    this.state = { img: null };
+  }
 
   displayImage = (e) => {
     var self = this;
     var target = e.target;
     var file, reader;
 
-    if(target.files && target.files.length) {
+    if (target.files && target.files.length) {
       file = target.files[0];
       reader = new FileReader();
       reader.readAsDataURL(file);
@@ -841,6 +843,8 @@ class Camera extends React.Component {
 
   render() {
     let baseClasses = 'SortableItem rfb-item';
+    const name = this.props.data.field_name;
+    const fileInputStyle = this.state.img ? { display: 'none' } : null;
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
@@ -862,15 +866,13 @@ class Camera extends React.Component {
           </label>
           <div className="image-upload-container">
 
-            { !this.state.img &&
-              <div>
-                <input type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
-                <div className="image-upload-control">
-                  <div className="btn btn-default btn-school"><i className="fa fa-camera"></i> Upload Photo</div>
-                  <p>Select an image from your computer or device.</p>
-                </div>
+            <div style={fileInputStyle}>
+              <input name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
+              <div className="image-upload-control">
+                <div className="btn btn-default btn-school"><i className="fa fa-camera"></i> Upload Photo</div>
+                <p>Select an image from your computer or device.</p>
               </div>
-            }
+            </div>
 
             { this.state.img &&
               <div>
