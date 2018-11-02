@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {EventEmitter} from 'fbemitter';
 import FormValidator from './form-validator';
-import { Image, Checkboxes, Signature, Download, Camera } from './form-elements';
+import { Image, Checkboxes, Signature, Download } from './form-elements';
 import * as FormElements from './form-elements';
 
 export default class ReactForm extends React.Component {
@@ -241,8 +241,6 @@ export default class ReactForm extends React.Component {
           return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._checkboxesDefaultValue(item)} />
          case 'Image':
           return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
-        case 'Camera':
-          return <Camera mutable={true} key={`form_${item.id}`} data={item} />  
         case 'Download':
           return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />
         default: 
