@@ -73,6 +73,7 @@ Name | Type | Required? | Description
 form_action | string | Required | URL path to submit the form
 form_method | string | Required | Verb used in the form submission.
 action_name | string | Optional | Defines form submit button text.  Defaults to "Submit"
+onSubmit | function | optional | Invoke when submit data, if exists will override form post.
 data | array | Required | Question data retrieved from the database
 back_action | string | Optional | URL path to go back if needed.
 back_name | string | Optional | Button text for back action.  Defaults to "Cancel".
