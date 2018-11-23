@@ -20,8 +20,6 @@ const onPost = function(data) {
 
 ReactDOM.render(
   <ReactFormBuilder variables={variables}
-    url={url}
-    saveUrl={saveUrl}
     onLoad={onLoad}
     onPost={onPost}
   />,

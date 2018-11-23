@@ -110,7 +110,7 @@ All relevant styles are located in css/application.css.scss.
 ```bash
 $ npm install
 $ npm start
-$ npm serve:api
+$ npm run serve:api
 ```
 Then navigate to http://localhost:8080/ in your browser and you should be able to see the form builder in action.
 
