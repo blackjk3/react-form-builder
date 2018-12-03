@@ -54,12 +54,12 @@ class Header extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <h3 className={classNames} dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.content) }} />
       </div>
@@ -79,12 +79,12 @@ class Paragraph extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <p className={classNames} dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.content) }} />
       </div>
@@ -104,12 +104,12 @@ class Label extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <ComponentLabel className={classNames} {...this.props} />
       </div>
@@ -126,12 +126,12 @@ class LineBreak extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <hr />
       </div>
@@ -165,12 +165,12 @@ class TextInput extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -208,12 +208,12 @@ class NumberInput extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -250,12 +250,12 @@ class TextArea extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -348,47 +348,47 @@ class DatePicker extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
           <div>
             { this.props.data.readOnly &&
-            <input type="text"
-                   name={props.name}
-                   ref={props.ref}
-                   readOnly="true"
-                   dateFormat="MM/DD/YYYY"
-                   placeholder={this.state.placeholder}
-                   value={this.state.value}
-                   className="form-control" />
+              <input type="text"
+                     name={props.name}
+                     ref={props.ref}
+                     readOnly="true"
+                     dateFormat="MM/DD/YYYY"
+                     placeholder={this.state.placeholder}
+                     value={this.state.value}
+                     className="form-control" />
             }
             { iOS && !this.props.data.readOnly &&
-            <input type="date"
-                   name={props.name}
-                   ref={props.ref}
-                   onChange={this.handleChange}
-                   dateFormat="MM/DD/YYYY"
-                   placeholder={this.state.placeholder}
-                   value={this.state.value}
-                   className = "form-control" />
+              <input type="date"
+                     name={props.name}
+                     ref={props.ref}
+                     onChange={this.handleChange}
+                     dateFormat="MM/DD/YYYY"
+                     placeholder={this.state.placeholder}
+                     value={this.state.value}
+                     className = "form-control" />
             }
             { !iOS && !this.props.data.readOnly &&
-            <ReactDatePicker
-              name={props.name}
-              ref={props.ref}
-              onChange={this.handleChange}
-              selected={this.state.internalValue}
-              todayButton={'Today'}
-              className = "form-control"
-              isClearable={true}
-              dateFormat="MM/DD/YYYY"
-              placeholderText='mm/dd/yyyy' />
+              <ReactDatePicker
+                name={props.name}
+                ref={props.ref}
+                onChange={this.handleChange}
+                selected={this.state.internalValue}
+                todayButton={'Today'}
+                className = "form-control"
+                isClearable={true}
+                dateFormat="MM/DD/YYYY"
+                placeholderText='mm/dd/yyyy' />
             }
           </div>
         </div>
@@ -423,12 +423,12 @@ class Dropdown extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -485,12 +485,12 @@ class Signature extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -540,12 +540,12 @@ class Tags extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+              <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -573,12 +573,12 @@ class Checkboxes extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel className="form-label" {...this.props} />
@@ -625,16 +625,15 @@ class RadioButtons extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel className="form-label" {...this.props} />
-
           {this.props.data.options.map((option) => {
             let this_key = 'preview_' + option.key;
             let props = {};
@@ -672,13 +671,13 @@ class Image extends React.Component {
     return (
       <div className={baseClasses} style={style}>
         { !this.props.mutable &&
-        <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} required={this.props.data.required} />
+          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} required={this.props.data.required} />
         }
         { this.props.data.src &&
-        <img src={this.props.data.src} width={this.props.data.width} height={this.props.data.height} />
+          <img src={this.props.data.src} width={this.props.data.width} height={this.props.data.height} />
         }
         { !this.props.data.src &&
-        <div className="no-image">No Image</div>
+          <div className="no-image">No Image</div>
         }
       </div>
     );
@@ -708,12 +707,12 @@ class Rating extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -733,12 +732,12 @@ class HyperLink extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <a target="_blank" href={this.props.data.href}>{this.props.data.content}</a>
@@ -757,12 +756,12 @@ class Download extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <a href={this.props.download_path + '?id=' + this.props.data.file_path}>{this.props.data.content}</a>
@@ -812,12 +811,12 @@ class Camera extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -832,14 +831,13 @@ class Camera extends React.Component {
             </div>
 
             { this.state.img &&
-            <div>
-              <img src={ this.state.img } height="100" className="image-upload-preview" /><br />
-              <div className="btn btn-school btn-image-clear" onClick={this.clearImage}>
-                <i className="fa fa-times"></i> Clear Photo
+              <div>
+                <img src={ this.state.img } height="100" className="image-upload-preview" /><br />
+                <div className="btn btn-school btn-image-clear" onClick={this.clearImage}>
+                  <i className="fa fa-times"></i> Clear Photo
+                </div>
               </div>
-            </div>
             }
-
           </div>
         </div>
       </div>
@@ -909,12 +907,12 @@ class Range extends React.Component {
     return (
       <div className={baseClasses}>
         { !this.props.mutable &&
-        <div>
-          { this.props.data.pageBreakBefore &&
-          <div className="preview-page-break">Page Break</div>
-          }
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
-        </div>
+          <div>
+            { this.props.data.pageBreakBefore &&
+              <div className="preview-page-break">Page Break</div>
+            }
+            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+          </div>
         }
         <div className="form-group">
           <ComponentLabel {...this.props} />
