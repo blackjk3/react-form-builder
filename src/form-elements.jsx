@@ -28,7 +28,7 @@ let myxss = new xss.FilterXSS({
   }
 });
 
-class LabelHelper extends React.Component {
+class ComponentLabel extends React.Component {
   render () {
     const hasRequiredLabel = (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only);
 
@@ -111,7 +111,7 @@ class Label extends React.Component {
           <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
         </div>
         }
-        <LabelHelper className={classNames} {...this.props} />
+        <ComponentLabel className={classNames} {...this.props} />
       </div>
     );
   }
@@ -173,7 +173,7 @@ class TextInput extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <input {...props} />
         </div>
       </div>
@@ -216,7 +216,7 @@ class NumberInput extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <input {...props} />
         </div>
       </div>
@@ -258,7 +258,7 @@ class TextArea extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <textarea {...props} />
         </div>
       </div>
@@ -356,7 +356,7 @@ class DatePicker extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <div>
             { this.props.data.readOnly &&
             <input type="text"
@@ -431,7 +431,7 @@ class Dropdown extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <select {...props}>
             {this.props.data.options.map(function (option) {
               let this_key = 'preview_' + option.key;
@@ -493,7 +493,7 @@ class Signature extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           {this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0
             ? (<div><img src={sourceDataURL} /></div>)
             : (<SignaturePad {...pad_props} />)
@@ -548,7 +548,7 @@ class Tags extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <Select {...props} />
         </div>
       </div>
@@ -581,7 +581,7 @@ class Checkboxes extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper className="form-label" {...this.props} />
+          <ComponentLabel className="form-label" {...this.props} />
           {this.props.data.options.map((option) => {
             let this_key = 'preview_' + option.key;
             let props = {};
@@ -633,7 +633,7 @@ class RadioButtons extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper className="form-label" {...this.props} />
+          <ComponentLabel className="form-label" {...this.props} />
 
           {this.props.data.options.map((option) => {
             let this_key = 'preview_' + option.key;
@@ -716,7 +716,7 @@ class Rating extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <StarRating {...props} />
         </div>
       </div>
@@ -820,7 +820,7 @@ class Camera extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <div className="image-upload-container">
 
             <div style={fileInputStyle}>
@@ -917,7 +917,7 @@ class Range extends React.Component {
         </div>
         }
         <div className="form-group">
-          <LabelHelper {...this.props} />
+          <ComponentLabel {...this.props} />
           <div className="range">
             <div className="clearfix">
               <span className="pull-left">{this.props.data.min_label}</span>
