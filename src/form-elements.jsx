@@ -28,6 +28,19 @@ let myxss = new xss.FilterXSS({
   }
 });
 
+class ComponentLabel extends React.Component {
+  render () {
+    const hasRequiredLabel = (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only);
+
+    return (
+      <label className={this.props.className || ''}>
+        <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label)}}/>
+        {hasRequiredLabel && <span className="label-required label label-danger">Required</span>}
+      </label>
+    );
+  }
+};
+
 class Header extends React.Component {
   render() {
     let headerClasses = 'dynamic-input ' + this.props.data.element + '-input';
@@ -98,7 +111,7 @@ class Label extends React.Component {
             <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
           </div>
         }
-        <label className={classNames} dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.content) }} />
+        <ComponentLabel className={classNames} {...this.props} />
       </div>
     );
   }
@@ -160,13 +173,7 @@ class TextInput extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <input {...props} />
         </div>
       </div>
@@ -209,13 +216,7 @@ class NumberInput extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <input {...props} />
         </div>
       </div>
@@ -257,12 +258,7 @@ class TextArea extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <textarea {...props} />
         </div>
       </div>
@@ -360,32 +356,27 @@ class DatePicker extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <div>
             { this.props.data.readOnly &&
               <input type="text"
-                name={props.name}
-                ref={props.ref}
-                readOnly="true"
-                dateFormat="MM/DD/YYYY"
-                placeholder={this.state.placeholder}
-                value={this.state.value}
-                className="form-control" />
+                     name={props.name}
+                     ref={props.ref}
+                     readOnly="true"
+                     dateFormat="MM/DD/YYYY"
+                     placeholder={this.state.placeholder}
+                     value={this.state.value}
+                     className="form-control" />
             }
             { iOS && !this.props.data.readOnly &&
               <input type="date"
-                name={props.name}
-                ref={props.ref}
-                onChange={this.handleChange}
-                dateFormat="MM/DD/YYYY"
-                placeholder={this.state.placeholder}
-                value={this.state.value}
-                className = "form-control" />
+                     name={props.name}
+                     ref={props.ref}
+                     onChange={this.handleChange}
+                     dateFormat="MM/DD/YYYY"
+                     placeholder={this.state.placeholder}
+                     value={this.state.value}
+                     className = "form-control" />
             }
             { !iOS && !this.props.data.readOnly &&
               <ReactDatePicker
@@ -440,12 +431,7 @@ class Dropdown extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true  && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <select {...props}>
             {this.props.data.options.map(function (option) {
               let this_key = 'preview_' + option.key;
@@ -507,12 +493,7 @@ class Signature extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true  && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           {this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0
             ? (<div><img src={sourceDataURL} /></div>)
             : (<SignaturePad {...pad_props} />)
@@ -563,16 +544,11 @@ class Tags extends React.Component {
             { this.props.data.pageBreakBefore &&
               <div className="preview-page-break">Page Break</div>
             }
-            <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+              <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
           </div>
         }
         <div className="form-group">
-          <label>
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <Select {...props} />
         </div>
       </div>
@@ -605,12 +581,7 @@ class Checkboxes extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label className="form-label">
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel className="form-label" {...this.props} />
           {this.props.data.options.map((option) => {
             let this_key = 'preview_' + option.key;
             let props = {};
@@ -623,9 +594,9 @@ class Checkboxes extends React.Component {
             }
             return (
               <label className={classNames} key={this_key}>
-                <input ref={c => { 
+                <input ref={c => {
                   if (c && self.props.mutable) {
-                    self.options[`child_ref_${option.key}`] = c; 
+                    self.options[`child_ref_${option.key}`] = c;
                   }
                 } } {...props} /> {option.text}
               </label>
@@ -662,12 +633,7 @@ class RadioButtons extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label className="form-label">
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel className="form-label" {...this.props} />
           {this.props.data.options.map((option) => {
             let this_key = 'preview_' + option.key;
             let props = {};
@@ -680,10 +646,10 @@ class RadioButtons extends React.Component {
             }
             return (
               <label className={classNames} key={this_key}>
-                <input ref={c => { 
+                <input ref={c => {
                   if (c && self.props.mutable) {
-                    self.options[`child_ref_${option.key}`] = c; 
-                  } 
+                    self.options[`child_ref_${option.key}`] = c;
+                  }
                 } } {...props} /> {option.text}
               </label>
             )
@@ -749,12 +715,7 @@ class Rating extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            <span dangerouslySetInnerHTML={{__html: myxss.process(this.props.data.label) }} />
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <StarRating {...props} />
         </div>
       </div>
@@ -858,12 +819,7 @@ class Camera extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            {this.props.data.label}
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true  && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <div className="image-upload-container">
 
             <div style={fileInputStyle}>
@@ -882,7 +838,6 @@ class Camera extends React.Component {
                 </div>
               </div>
             }
-
           </div>
         </div>
       </div>
@@ -960,12 +915,7 @@ class Range extends React.Component {
           </div>
         }
         <div className="form-group">
-          <label>
-            {this.props.data.label}
-            { (this.props.data.hasOwnProperty('required') && this.props.data.required === true && !this.props.read_only) &&
-              <span className="label-required label label-danger">Required</span>
-            }
-          </label>
+          <ComponentLabel {...this.props} />
           <div className="range">
             <div className="clearfix">
               <span className="pull-left">{this.props.data.min_label}</span>
