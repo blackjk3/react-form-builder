@@ -1,12 +1,14 @@
 import React from 'react';
-import DynamicOptionList from './dynamic-option-list';
 import TextAreaAutosize from 'react-textarea-autosize';
-
-import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js';
+import {
+  ContentState, EditorState, convertFromHTML, convertToRaw,
+} from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 
-let toolbar = {
+import DynamicOptionList from './dynamic-option-list';
+
+const toolbar = {
   options: ['inline', 'list', 'textAlign', 'fontSize', 'link', 'history'],
   inline: {
     inDropdown: false,
@@ -21,44 +23,45 @@ export default class FormElementsEdit extends React.Component {
     this.state = {
       element: this.props.element,
       data: this.props.data,
-      dirty: false
-    }
+      dirty: false,
+    };
   }
+
   toggleRequired() {
-    let this_element = this.state.element;
+    // const this_element = this.state.element;
   }
+
   editElementProp(elemProperty, targProperty, e) {
     // elemProperty could be content or label
     // targProperty could be value or checked
-    let this_element = this.state.element;
+    const this_element = this.state.element;
     this_element[elemProperty] = e.target[targProperty];
 
     this.setState({
       element: this_element,
-      dirty: true
+      dirty: true,
     }, () => {
-      if (targProperty === 'checked') {this.updateElement();};
+      if (targProperty === 'checked') { this.updateElement(); }
     });
   }
 
   onEditorStateChange(index, property, editorContent) {
-
-    let html = draftToHtml(convertToRaw(editorContent.getCurrentContent())).replace(/<p>/g, '<div>').replace(/<\/p>/g, '</div>');
-    let this_element = this.state.element;
+    const html = draftToHtml(convertToRaw(editorContent.getCurrentContent())).replace(/<p>/g, '<div>').replace(/<\/p>/g, '</div>');
+    const this_element = this.state.element;
     this_element[property] = html;
 
     this.setState({
       element: this_element,
-      dirty: true
+      dirty: true,
     });
   }
 
   updateElement() {
-    let this_element = this.state.element;
+    const this_element = this.state.element;
     // to prevent ajax calls with no change
     if (this.state.dirty) {
       this.props.updateElement.call(this.props.preview, this_element);
-      this.setState({dirty: false});
+      this.setState({ dirty: false });
     }
   }
 
@@ -73,25 +76,24 @@ export default class FormElementsEdit extends React.Component {
   }
 
   render() {
-    let this_checked = this.props.element.hasOwnProperty('required') ? this.props.element.required : false;
-    let this_read_only = this.props.element.hasOwnProperty('readOnly') ? this.props.element.readOnly : false;
-    let this_default_today = this.props.element.hasOwnProperty('defaultToday') ? this.props.element.defaultToday : false;
-    let this_checked_inline = this.props.element.hasOwnProperty('inline') ? this.props.element.inline : false;
-    let this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
-    let this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
-    let this_checked_center = this.props.element.hasOwnProperty('center') ? this.props.element.center : false;
-    let this_checked_page_break = this.props.element.hasOwnProperty('pageBreakBefore') ? this.props.element.pageBreakBefore : false;
-    let this_checked_alternate_form = this.props.element.hasOwnProperty('alternateForm') ? this.props.element.alternateForm : false;
+    const this_checked = this.props.element.hasOwnProperty('required') ? this.props.element.required : false;
+    const this_read_only = this.props.element.hasOwnProperty('readOnly') ? this.props.element.readOnly : false;
+    const this_default_today = this.props.element.hasOwnProperty('defaultToday') ? this.props.element.defaultToday : false;
+    const this_checked_inline = this.props.element.hasOwnProperty('inline') ? this.props.element.inline : false;
+    const this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
+    const this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
+    const this_checked_center = this.props.element.hasOwnProperty('center') ? this.props.element.center : false;
+    const this_checked_page_break = this.props.element.hasOwnProperty('pageBreakBefore') ? this.props.element.pageBreakBefore : false;
+    const this_checked_alternate_form = this.props.element.hasOwnProperty('alternateForm') ? this.props.element.alternateForm : false;
 
-    let this_files = this.props.files.length ? this.props.files : [];
-    if (this_files.length < 1 || this_files.length > 0 && this_files[0].id !== "")
-      this_files.unshift({id: '', file_name: ''});
-      
+    const this_files = this.props.files.length ? this.props.files : [];
+    if (this_files.length < 1 || this_files.length > 0 && this_files[0].id !== '') { this_files.unshift({ id: '', file_name: '' }); }
+
     let editorState;
-    if(this.props.element.hasOwnProperty('content')) {
+    if (this.props.element.hasOwnProperty('content')) {
       editorState = this.convertFromHTML(this.props.element.content);
     }
-    if(this.props.element.hasOwnProperty('label')) {
+    if (this.props.element.hasOwnProperty('label')) {
       editorState = this.convertFromHTML(this.props.element.label);
     }
 
@@ -116,8 +118,8 @@ export default class FormElementsEdit extends React.Component {
           <div className="form-group">
             <label className="control-label" htmlFor="fileSelect">Choose file:</label>
             <select id="fileSelect" className="form-control" defaultValue={this.props.element.file_path} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'file_path', 'value')}>
-              {this_files.map(function (file) {
-                let this_key = 'file_' + file.id;
+              {this_files.map((file) => {
+                const this_key = `file_${  file.id}`;
                 return <option value={file.id} key={this_key}>{file.file_name}</option>;
               })}
             </select>
@@ -294,4 +296,4 @@ export default class FormElementsEdit extends React.Component {
     );
   }
 }
-FormElementsEdit.defaultProps = {className: 'edit-element-fields'}
+FormElementsEdit.defaultProps = { className: 'edit-element-fields' };

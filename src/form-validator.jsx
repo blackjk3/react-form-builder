@@ -5,13 +5,13 @@
 import React from 'react';
 import xss from 'xss';
 
-let myxss = new xss.FilterXSS({
+const myxss = new xss.FilterXSS({
   whiteList: {
     u: [],
     br: [],
     b: [],
     i: [],
-    ol:['style'],
+    ol: ['style'],
     ul: ['style'],
     li: [],
     p: ['style'],
@@ -20,22 +20,21 @@ let myxss = new xss.FilterXSS({
     div: ['style'],
     em: [],
     strong: [],
-    span: ['style']
-  }
+    span: ['style'],
+  },
 });
 
 export default class FormValidator extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      errors: []
-    }
+      errors: [],
+    };
   }
 
   componentWillMount() {
-    this.subscription = this.props.emitter.addListener('formValidation', errors => {
-      this.setState({errors: errors});
+    this.subscription = this.props.emitter.addListener('formValidation', (errors) => {
+      this.setState({ errors });
     });
   }
 
@@ -45,13 +44,11 @@ export default class FormValidator extends React.Component {
 
   dismissModal(e) {
     e.preventDefault();
-    this.setState({errors: []});
+    this.setState({ errors: [] });
   }
 
   render() {
-    let errors = this.state.errors.map((error,index) => {
-      return <li key={'error_'+index} dangerouslySetInnerHTML={{__html: myxss.process(error) }} />
-    })
+    const errors = this.state.errors.map((error, index) => <li key={`error_${index}`} dangerouslySetInnerHTML={{ __html: myxss.process(error) }} />);
 
     return (
       <div>
@@ -69,6 +66,6 @@ export default class FormValidator extends React.Component {
           </div>
         }
       </div>
-    )
+    );
   }
 }

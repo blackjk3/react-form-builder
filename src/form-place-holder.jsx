@@ -21,5 +21,5 @@ PlaceHolder.propTypes = {
 
 PlaceHolder.defaultProps = {
   text: 'Drop a item here....',
-  show: false
+  show: false,
 };

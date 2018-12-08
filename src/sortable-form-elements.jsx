@@ -1,5 +1,8 @@
 import SortableElement from './sortable-element';
-import {Header,Paragraph,Label,LineBreak,TextInput,NumberInput,TextArea,Dropdown,Checkboxes,DatePicker,RadioButtons,Image,Rating,Tags,Signature,HyperLink,Download,Camera,Range} from './form-elements';
+import {
+  // eslint-disable-next-line import/named
+  Header, Paragraph, Label, LineBreak, TextInput, NumberInput, TextArea, Dropdown, Checkboxes, DatePicker, RadioButtons, Image, Rating, Tags, Signature, HyperLink, Download, Camera, Range,
+} from './form-elements';
 import PlaceHolder from './form-place-holder';
 
 const FormElements = {};

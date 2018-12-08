@@ -1,0 +1,31 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base"],
+  "plugins": [
+    "react"
+  ],
+  "globals": {
+    "window": true,
+    "document": true
+  },
+  "rules": {
+    "max-len": [1, 120, 2, {"ignoreComments": true}],
+    "semi": [2, "always"],
+    "comma-dangle": "warn",
+    "camelcase": "warn",
+    "linebreak-style": 0,
+    "operator-linebreak": "off",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "no-plusplus": "off",    
+    "react/jsx-uses-vars": [2],
+    "react/jsx-uses-react": 1
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  }
+}
