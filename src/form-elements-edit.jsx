@@ -87,7 +87,9 @@ export default class FormElementsEdit extends React.Component {
     const this_checked_alternate_form = this.props.element.hasOwnProperty('alternateForm') ? this.props.element.alternateForm : false;
 
     const this_files = this.props.files.length ? this.props.files : [];
-    if (this_files.length < 1 || this_files.length > 0 && this_files[0].id !== '') { this_files.unshift({ id: '', file_name: '' }); }
+    if (this_files.length < 1 || (this_files.length > 0 && this_files[0].id !== '')) {
+      this_files.unshift({ id: '', file_name: '' });
+    }
 
     let editorState;
     if (this.props.element.hasOwnProperty('content')) {
@@ -119,7 +121,7 @@ export default class FormElementsEdit extends React.Component {
             <label className="control-label" htmlFor="fileSelect">Choose file:</label>
             <select id="fileSelect" className="form-control" defaultValue={this.props.element.file_path} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'file_path', 'value')}>
               {this_files.map((file) => {
-                const this_key = `file_${  file.id}`;
+                const this_key = `file_${file.id}`;
                 return <option value={file.id} key={this_key}>{file.file_name}</option>;
               })}
             </select>

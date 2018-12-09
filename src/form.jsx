@@ -4,14 +4,17 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {EventEmitter} from 'fbemitter';
+import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
-import { Image, Checkboxes, Signature, Download } from './form-elements';
 import * as FormElements from './form-elements';
 
-export default class ReactForm extends React.Component {
+const {
+  Image, Checkboxes, Signature, Download,
+} = FormElements;
 
+export default class ReactForm extends React.Component {
   form;
+
   inputs = {};
 
   constructor(props) {
@@ -20,29 +23,27 @@ export default class ReactForm extends React.Component {
   }
 
   _checkboxesDefaultValue(item) {
-    let defaultChecked = [];
+    const defaultChecked = [];
     item.options.forEach(option => {
-      defaultChecked.push(this.props.answer_data[`option_${option.key}`])
-    })
+      defaultChecked.push(this.props.answer_data[`option_${option.key}`]);
+    });
     return defaultChecked;
   }
 
   _getItemValue(item, ref) {
     let $item = {
       element: item.element,
-      value: ''
+      value: '',
     };
     if (item.element === 'Rating') {
       $item.value = ref.inputField.current.state.rating;
-    } else {
-      if (item.element === 'Tags') {
-        $item.value = ref.inputField.current.state.value;
-      } else if (item.element === 'DatePicker') {
-        $item.value = ref.state.value;
-      } else if (ref && ref.inputField) {
-        $item = ReactDOM.findDOMNode(ref.inputField.current);
-        $item.value = $item.value.trim();
-      }
+    } else if (item.element === 'Tags') {
+      $item.value = ref.inputField.current.state.value;
+    } else if (item.element === 'DatePicker') {
+      $item.value = ref.state.value;
+    } else if (ref && ref.inputField) {
+      $item = ReactDOM.findDOMNode(ref.inputField.current);
+      $item.value = $item.value.trim();
     }
     return $item;
   }
@@ -53,17 +54,17 @@ export default class ReactForm extends React.Component {
       const ref = this.inputs[item.field_name];
       if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
         item.options.forEach(option => {
-          let $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
+          const $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
           if ((option.hasOwnProperty('correct') && !$option.checked) || (!option.hasOwnProperty('correct') && $option.checked)) {
             incorrect = true;
           }
-        })
+        });
       } else {
-        let $item = this._getItemValue(item, ref);
-        if (item.element === 'Rating') { 
+        const $item = this._getItemValue(item, ref);
+        if (item.element === 'Rating') {
           if ($item.value.toString() !== item.correct) {
             incorrect = true;
-          } 
+          }
         } else if ($item.value.toLowerCase() !== item.correct.trim().toLowerCase()) {
           incorrect = true;
         }
@@ -79,21 +80,21 @@ export default class ReactForm extends React.Component {
       if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
         let checked_options = 0;
         item.options.forEach(option => {
-          let $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
+          const $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
           if ($option.checked) {
             checked_options += 1;
           }
-        })
+        });
         if (checked_options < 1) {
           // errors.push(item.label + ' is required!');
           invalid = true;
         }
       } else {
-        let $item = this._getItemValue(item, ref);
-        if (item.element === 'Rating') { 
+        const $item = this._getItemValue(item, ref);
+        if (item.element === 'Rating') {
           if ($item.value === 0) {
             invalid = true;
-          } 
+          }
         } else if ($item.value === undefined || $item.value.length < 1) {
           invalid = true;
         }
@@ -103,20 +104,19 @@ export default class ReactForm extends React.Component {
   }
 
   _collect(item) {
-    const itemData = { name: item.field_name }
-    let $item = {};
+    const itemData = { name: item.field_name };
     const ref = this.inputs[item.field_name];
     if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
-      let checked_options = [];
+      const checked_options = [];
       item.options.forEach(option => {
-        let $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
+        const $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
         if ($option.checked) {
           checked_options.push(option.key);
         }
       });
       itemData.value = checked_options;
-    } else { 
-      if (!ref) return;
+    } else {
+      if (!ref) return null;
       itemData.value = this._getItemValue(item, ref).value;
     }
     return itemData;
@@ -135,10 +135,10 @@ export default class ReactForm extends React.Component {
 
   _getSignatureImg(item) {
     const ref = this.inputs[item.field_name];
-    let $canvas_sig = ref.canvas.current;
-    let base64 = $canvas_sig.toDataURL().replace('data:image/png;base64,', '');
-    let isEmpty = $canvas_sig.isEmpty();
-    let $input_sig = ReactDOM.findDOMNode(ref.inputField.current);
+    const $canvas_sig = ref.canvas.current;
+    const base64 = $canvas_sig.toDataURL().replace('data:image/png;base64,', '');
+    const isEmpty = $canvas_sig.isEmpty();
+    const $input_sig = ReactDOM.findDOMNode(ref.inputField.current);
     if (isEmpty) {
       $input_sig.value = '';
     } else {
@@ -150,7 +150,7 @@ export default class ReactForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    let errors = this.validateForm();
+    const errors = this.validateForm();
     // Publish errors, if any.
     this.emitter.emit('formValidation', errors);
 
@@ -159,19 +159,19 @@ export default class ReactForm extends React.Component {
       const { onSubmit } = this.props;
       if (onSubmit) {
         const data = this._collectFormData(this.props.data);
-        onSubmit(data);       
+        onSubmit(data);
       } else {
-        let $form = ReactDOM.findDOMNode(this.form);
+        const $form = ReactDOM.findDOMNode(this.form);
         $form.submit();
       }
     }
   }
 
   validateForm() {
-    let errors = [];
+    const errors = [];
     let data_items = this.props.data;
 
-    if(this.props.display_short) {
+    if (this.props.display_short) {
       data_items = this.props.data.filter((i) => i.alternateForm === true);
     }
 
@@ -194,7 +194,7 @@ export default class ReactForm extends React.Component {
 
   getInputElement(item) {
     const Input = FormElements[item.element];
-    return (<Input 
+    return (<Input
       handleChange={this.handleChange}
       ref={c => this.inputs[item.field_name] = c}
       mutable={true}
@@ -222,9 +222,8 @@ export default class ReactForm extends React.Component {
       }
     });
 
-    let items = data_items.map( item => {
+    const items = data_items.map(item => {
       switch (item.element) {
-
         case 'TextInput':
         case 'NumberInput':
         case 'TextArea':
@@ -236,24 +235,24 @@ export default class ReactForm extends React.Component {
         case 'Range':
           return this.getInputElement(item);
         case 'Signature':
-          return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />  
+          return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Checkboxes':
-          return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._checkboxesDefaultValue(item)} />
-         case 'Image':
-          return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />
+          return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._checkboxesDefaultValue(item)} />;
+        case 'Image':
+          return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Download':
-          return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />
-        default: 
-          return this.getSimpleElement(item);  
+          return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />;
+        default:
+          return this.getSimpleElement(item);
       }
-    })
+    });
 
-    let formTokenStyle = {
-      display: 'none'
-    }
+    const formTokenStyle = {
+      display: 'none',
+    };
 
-    let actionName = (this.props.action_name) ? this.props.action_name : 'Submit';
-    let backName = (this.props.back_name) ? this.props.back_name : 'Cancel';
+    const actionName = (this.props.action_name) ? this.props.action_name : 'Submit';
+    const backName = (this.props.back_name) ? this.props.back_name : 'Cancel';
 
     return (
       <div>
@@ -279,7 +278,7 @@ export default class ReactForm extends React.Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 

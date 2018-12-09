@@ -41,6 +41,7 @@ export default class DynamicOptionList extends React.Component {
     });
   }
 
+  // eslint-disable-next-line no-unused-vars
   editOptionCorrect(option_index, e) {
     const this_element = this.state.element;
     if (this_element.options[option_index].hasOwnProperty('correct')) {
@@ -86,7 +87,7 @@ export default class DynamicOptionList extends React.Component {
           </li>
           {
             this.props.element.options.map((option, index) => {
-              const this_key = `edit_${  option.key}`;
+              const this_key = `edit_${option.key}`;
               const val = (option.value !== this._setValue(option.text)) ? option.value : '';
               return (
                 <li className="clearfix" key={this_key}>

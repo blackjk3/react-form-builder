@@ -213,7 +213,7 @@ export default class Toolbar extends React.Component {
   }
 
   create(item) {
-    let elementOptions = {
+    const elementOptions = {
       id: ID.uuid(),
       element: item.key,
       text: item.name,
@@ -226,15 +226,15 @@ export default class Toolbar extends React.Component {
       elementOptions.italic = false;
     }
 
-    if (item.canHaveAnswer) {elementOptions['canHaveAnswer'] = item.canHaveAnswer;}
+    if (item.canHaveAnswer) { elementOptions.canHaveAnswer = item.canHaveAnswer; }
 
-    if (item.canReadOnly) {elementOptions['readOnly'] = false;}
+    if (item.canReadOnly) { elementOptions.readOnly = false; }
 
-    if (item.canDefaultToday) {elementOptions['defaultToday'] = false;}
+    if (item.canDefaultToday) { elementOptions.defaultToday = false; }
 
-    if (item.content) {elementOptions['content'] = item.content;}
+    if (item.content) { elementOptions.content = item.content; }
 
-    if (item.href) {elementOptions['href'] = item.href;}
+    if (item.href) { elementOptions.href = item.href; }
 
     if (item.key === 'Image') {
       elementOptions.src = item.src;
@@ -254,11 +254,11 @@ export default class Toolbar extends React.Component {
       elementOptions.max_label = item.max_label;
     }
 
-    if (item.defaultValue) {elementOptions['defaultValue'] = item.defaultValue;}
+    if (item.defaultValue) { elementOptions.defaultValue = item.defaultValue; }
 
-    if (item.field_name) {elementOptions['field_name'] = item.field_name + ID.uuid();}
+    if (item.field_name) { elementOptions.field_name = item.field_name + ID.uuid(); }
 
-    if (item.label) {elementOptions['label'] = item.label;}
+    if (item.label) { elementOptions.label = item.label; }
 
     if (item.options) {
       elementOptions.options = Toolbar._defaultItemOptions(elementOptions.element);
