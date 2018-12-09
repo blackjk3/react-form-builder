@@ -1,5 +1,4 @@
-'use strict';
-
+/* eslint-disable no-undef */
 // const e = React.createElement;
 const FormBuilder = ReactFormBuilder.ReactFormBuilder;
 const domContainer = document.querySelector('#form-builder');

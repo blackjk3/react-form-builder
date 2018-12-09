@@ -7,7 +7,7 @@ module.exports = {
     path: path.resolve('.'),
     filename: 'bundle.js',
     library: 'ReactFormBuilder',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
 
   externals: {

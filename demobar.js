@@ -1,17 +1,16 @@
-import React from "react";
-import store from './src/stores/store'
+import React from 'react';
+import store from './src/stores/store';
 import ReactFormGenerator from './src/form';
 
 export default class Demobar extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       data: [],
       previewVisible: false,
       shortPreviewVisible: false,
-      roPreviewVisible: false
-    }
+      roPreviewVisible: false,
+    };
 
     const update = this._onChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
@@ -21,63 +20,64 @@ export default class Demobar extends React.Component {
 
   showPreview() {
     this.setState({
-      previewVisible: true
-    })
+      previewVisible: true,
+    });
   }
 
   showShortPreview() {
     this.setState({
-      shortPreviewVisible: true
-    })
+      shortPreviewVisible: true,
+    });
   }
 
   showRoPreview() {
     this.setState({
-      roPreviewVisible: true
-    })
+      roPreviewVisible: true,
+    });
   }
 
   closePreview() {
     this.setState({
       previewVisible: false,
       shortPreviewVisible: false,
-      roPreviewVisible: false
-    })
+      roPreviewVisible: false,
+    });
   }
 
   _onChange(data) {
     this.setState({
-      data: data
+      data,
     });
   }
 
+  // eslint-disable-next-line no-unused-vars
   _onSubmit(data) {
-    console.log('onSubmit', data);
+    // console.log('onSubmit', data);
     // Place code to post json data to server here
   }
 
   render() {
-    var modalClass = 'modal';
-    if(this.state.previewVisible) {
+    let modalClass = 'modal';
+    if (this.state.previewVisible) {
       modalClass += ' show';
     }
 
-    var shortModalClass = 'modal short-modal';
-    if(this.state.shortPreviewVisible) {
+    let shortModalClass = 'modal short-modal';
+    if (this.state.shortPreviewVisible) {
       shortModalClass += ' show';
     }
 
-    var roModalClass = 'modal ro-modal';
-    if(this.state.roPreviewVisible) {
+    let roModalClass = 'modal ro-modal';
+    if (this.state.roPreviewVisible) {
       roModalClass += ' show';
     }
 
-    return(
-      <div className="clearfix" style={{margin:'10px', width:'70%'}}>
+    return (
+      <div className="clearfix" style={{ margin: '10px', width: '70%' }}>
         <h4 className="pull-left">Preview</h4>
-        <button className="btn btn-primary pull-right" style={{ marginRight: '10px'}} onClick={this.showPreview.bind(this)}>Preview Form</button>
-        <button className="btn btn-default pull-right" style={{ marginRight: '10px'}} onClick={this.showShortPreview.bind(this)}>Alternate/Short Form</button>
-        <button className="btn btn-default pull-right" style={{ marginRight: '10px'}} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
+        <button className="btn btn-primary pull-right" style={{ marginRight: '10px' }} onClick={this.showPreview.bind(this)}>Preview Form</button>
+        <button className="btn btn-default pull-right" style={{ marginRight: '10px' }} onClick={this.showShortPreview.bind(this)}>Alternate/Short Form</button>
+        <button className="btn btn-default pull-right" style={{ marginRight: '10px' }} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
 
         { this.state.previewVisible &&
           <div className={modalClass}>
@@ -127,7 +127,6 @@ export default class Demobar extends React.Component {
           </div>
         }
 
-
         { this.state.shortPreviewVisible &&
           <div className={shortModalClass}>
             <div className="modal-dialog">
@@ -153,5 +152,4 @@ export default class Demobar extends React.Component {
       </div>
     );
   }
-
 }
