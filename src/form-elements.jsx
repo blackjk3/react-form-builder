@@ -507,9 +507,22 @@ class Tags extends React.Component {
   constructor(props) {
     super(props);
     this.inputField = React.createRef();
+    const { defaultValue, data } = props;
+    this.state = { value: this.getDefaultValue(defaultValue, data.options) };
   }
 
-  state = { value: this.props.defaultValue !== undefined ? this.props.defaultValue.split(',') : [] };
+  getDefaultValue(defaultValue, options) {
+    if (defaultValue) {
+      if (typeof defaultValue === 'string') {
+        const vals = defaultValue.split(',').map(x => x.trim());
+        return options.filter(x => vals.indexOf(x.value) > -1);
+      }
+      return defaultValue;
+    }
+    return [];
+  }
+
+  // state = { value: this.props.defaultValue !== undefined ? this.props.defaultValue.split(',') : [] };
 
   handleChange = (e) => {
     this.setState({ value: e });
