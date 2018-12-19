@@ -111,7 +111,7 @@ class Label extends React.Component {
             <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
           </div>
         }
-        <ComponentLabel className={classNames} {...this.props} />
+        <label className={classNames} dangerouslySetInnerHTML={{ __html: myxss.process(this.props.data.content) }} />
       </div>
     );
   }
