@@ -17,6 +17,9 @@ export default class Preview extends React.Component {
     const { onLoad, onPost } = props;
     store.setExternalHandler(onLoad, onPost);
 
+    this.editForm = React.createRef();
+    this.manualEditModeOff = props.manualEditModeOff;
+
     this.state = {
       data: [],
       answer_data: {},
@@ -32,6 +35,20 @@ export default class Preview extends React.Component {
 
     this.moveCard = this.moveCard.bind(this);
     this.insertCard = this.insertCard.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.editModeOff);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.editModeOff);
+  }
+
+  editModeOff = (e) => {
+    if (this.editForm.current && !this.editForm.current.contains(e.target)) {
+      this.manualEditModeOff();
+    }
   }
 
   _setValue(text) {
@@ -113,7 +130,7 @@ export default class Preview extends React.Component {
     const items = data.map((item, index) => this.getElement(item, index));
     return (
       <div className={classes}>
-        <div className="edit-form">
+        <div className="edit-form" ref={this.editForm}>
           { this.props.editElement !== null &&
             <FormElementsEdit showCorrectColumn={this.props.showCorrectColumn} files={this.props.files} manualEditModeOff={this.props.manualEditModeOff} preview={this} element={this.props.editElement} updateElement={this.updateElement} />
           }

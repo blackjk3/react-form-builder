@@ -18,12 +18,6 @@ class ReactFormBuilder extends React.Component {
       editMode: false,
       editElement: null,
     };
-    this.onDocumentClick = this.editModeOff.bind(this);
-    document.addEventListener('click', this.onDocumentClick, false);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.onDocumentClick, false);
   }
 
   editModeOn(data, e) {
@@ -42,14 +36,6 @@ class ReactFormBuilder extends React.Component {
         editMode: false,
         editElement: null,
       });
-    }
-  }
-
-  editModeOff(e) {
-    const click_is_outside_menu = !(e.target && e.target.closest('.edit-form')) && e.screenX > 0;
-
-    if (click_is_outside_menu) {
-      this.manualEditModeOff();
     }
   }
 
