@@ -18,8 +18,6 @@ export default class Preview extends React.Component {
     store.setExternalHandler(onLoad, onPost);
 
     this.editForm = React.createRef();
-    this.manualEditModeOff = props.manualEditModeOff;
-
     this.state = {
       data: [],
       answer_data: {},
@@ -47,7 +45,7 @@ export default class Preview extends React.Component {
 
   editModeOff = (e) => {
     if (this.editForm.current && !this.editForm.current.contains(e.target)) {
-      this.manualEditModeOff();
+      this.props.manualEditModeOff();
     }
   }
 
