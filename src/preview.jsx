@@ -23,11 +23,6 @@ export default class Preview extends React.Component {
       answer_data: {},
     };
 
-    // eslint-disable-next-line no-nested-ternary
-    const loadData = (this.props.url) ? this.props.url : (this.props.data) ? this.props.data : [];
-    const saveUrl = (this.props.saveUrl) ? this.props.saveUrl : '';
-
-    store.dispatch('load', { loadData, saveUrl });
     const onUpdate = this._onChange.bind(this);
     store.subscribe(state => onUpdate(state.data));
 
@@ -36,6 +31,8 @@ export default class Preview extends React.Component {
   }
 
   componentDidMount() {
+    const { data, url, saveUrl } = this.props;
+    store.dispatch('load', { loadUrl: url, saveUrl, data: data || [] });
     document.addEventListener('mousedown', this.editModeOff);
   }
 

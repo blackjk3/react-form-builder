@@ -13,14 +13,21 @@ const store = new Store({
       context.commit('setData', _data);
     },
 
-    load(context, { loadData: urlOrData, saveUrl }) {
+    load(context, { loadUrl, saveUrl, data }) {
       _saveUrl = saveUrl;
       if (_onLoad) {
         _onLoad().then(x => this.setData(context, x));
-      } else if (typeof urlOrData === 'string' || urlOrData instanceof String) {
-        get(urlOrData).then(x => this.setData(context, x));
+      } else if (loadUrl) {
+        get(loadUrl).then(x => {
+          if (data && data.length > 0 && x.length === 0) {
+            data.forEach(y => {
+              x.push(y);
+            });
+          }
+          this.setData(context, x);
+        });
       } else {
-        this.setData(context, urlOrData);
+        this.setData(context, data);
       }
     },
 

@@ -57,6 +57,7 @@ class ReactFormBuilder extends React.Component {
              <Preview files={this.props.files}
                  manualEditModeOff={this.manualEditModeOff.bind(this)}
                  parent={this}
+                 data={this.props.data}
                  url={this.props.url}
                  saveUrl={this.props.saveUrl}
                  onLoad={this.props.onLoad}
