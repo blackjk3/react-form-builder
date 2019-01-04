@@ -1,16 +1,15 @@
 import Store from 'beedle';
 import { get, post } from './requests';
 
-let _data = [];
 let _saveUrl;
 let _onPost;
 let _onLoad;
 
 const store = new Store({
   actions: {
-    setData(context, data) {
-      _data = data;
-      context.commit('setData', _data);
+    setData(context, data, saveData) {
+      context.commit('setData', data);
+      if (saveData) this.save(data);
     },
 
     load(context, { loadUrl, saveUrl, data }) {
@@ -20,9 +19,7 @@ const store = new Store({
       } else if (loadUrl) {
         get(loadUrl).then(x => {
           if (data && data.length > 0 && x.length === 0) {
-            data.forEach(y => {
-              x.push(y);
-            });
+            data.forEach(y => x.push(y));
           }
           this.setData(context, x);
         });
@@ -32,29 +29,26 @@ const store = new Store({
     },
 
     create(context, element) {
-      _data.push(element);
-      context.commit('setData', _data);
-      this.save();
+      const { data } = context.state;
+      data.push(element);
+      this.setData(context, data, true);
     },
 
     delete(context, element) {
-      const index = _data.indexOf(element);
-      _data.splice(index, 1);
-      context.commit('setData', _data);
-      this.save();
+      const { data } = context.state;
+      data.splice(data.indexOf(element), 1);
+      this.setData(context, data, true);
     },
 
     updateOrder(context, elements) {
-      _data = elements;
-      context.commit('setData', _data);
-      this.save();
+      this.setData(context, elements, true);
     },
 
-    save() {
+    save(data) {
       if (_onPost) {
-        _onPost({ task_data: _data });
+        _onPost({ task_data: data });
       } else if (_saveUrl) {
-        post(_saveUrl, { task_data: _data });
+        post(_saveUrl, { task_data: data });
       }
     },
   },

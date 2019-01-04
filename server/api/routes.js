@@ -11,9 +11,8 @@ app.route('/formdata/')
     res.send(formData.task_data);
   })
   .post((req, res) => {
-    var data = req.body;
+    formData = req.body;
     console.log('post formdata: ', formData);
-    formData = data;
     res.status(200).send();
   });
 
