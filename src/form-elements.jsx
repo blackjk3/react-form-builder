@@ -291,16 +291,12 @@ class DatePicker extends React.Component {
     props.type = 'date';
     props.className = 'form-control';
     props.name = this.props.data.field_name;
-
+    const readOnly = this.props.data.readOnly || this.props.read_only;
     const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
       props.ref = this.inputField;
-    }
-
-    if (this.props.read_only) {
-      props.disabled = 'disabled';
     }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -312,17 +308,16 @@ class DatePicker extends React.Component {
         <div className="form-group">
           <ComponentLabel {...this.props} />
           <div>
-            { this.props.data.readOnly &&
+            { readOnly &&
               <input type="text"
                      name={props.name}
                      ref={props.ref}
-                     readOnly="true"
-                     dateFormat="MM/DD/YYYY"
+                     readOnly
                      placeholder={this.state.placeholder}
                      value={this.state.value}
                      className="form-control" />
             }
-            { iOS && !this.props.data.readOnly &&
+            { iOS && !readOnly &&
               <input type="date"
                      name={props.name}
                      ref={props.ref}
@@ -330,9 +325,10 @@ class DatePicker extends React.Component {
                      dateFormat="MM/DD/YYYY"
                      placeholder={this.state.placeholder}
                      value={this.state.value}
-                     className = "form-control" />
+                     className = "form-control"
+                     readOnly={this.props.read_only} />
             }
-            { !iOS && !this.props.data.readOnly &&
+            { !iOS && !readOnly &&
               <ReactDatePicker
                 name={props.name}
                 ref={props.ref}
@@ -576,6 +572,11 @@ class RadioButtons extends React.Component {
             if (self.props.mutable) {
               props.defaultChecked = !!((self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.value) > -1));
             }
+            if (this.props.read_only) {
+              props.disabled = 'disabled';
+              props.defaultChecked = (self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1);
+            }
+
             return (
               <label className={classNames} key={this_key}>
                 <input ref={c => {
