@@ -312,7 +312,7 @@ class DatePicker extends React.Component {
               <input type="text"
                      name={props.name}
                      ref={props.ref}
-                     readOnly
+                     readonly={readOnly}
                      placeholder={this.state.placeholder}
                      value={this.state.value}
                      className="form-control" />
@@ -325,8 +325,7 @@ class DatePicker extends React.Component {
                      dateFormat="MM/DD/YYYY"
                      placeholder={this.state.placeholder}
                      value={this.state.value}
-                     className = "form-control"
-                     readOnly={this.props.read_only} />
+                     className = "form-control" />
             }
             { !iOS && !readOnly &&
               <ReactDatePicker
@@ -525,7 +524,10 @@ class Checkboxes extends React.Component {
             props.type = 'checkbox';
             props.value = option.value;
             if (self.props.mutable) {
-              props.defaultChecked = self.props.defaultValue.indexOf(option.value) > -1;
+              props.defaultChecked = self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1;
+            }
+            if (this.props.read_only) {
+              props.disabled = 'disabled';
             }
             return (
               <label className={classNames} key={this_key}>
@@ -570,11 +572,10 @@ class RadioButtons extends React.Component {
             props.type = 'radio';
             props.value = option.value;
             if (self.props.mutable) {
-              props.defaultChecked = !!((self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.value) > -1));
+              props.defaultChecked = !!((self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1));
             }
             if (this.props.read_only) {
               props.disabled = 'disabled';
-              props.defaultChecked = (self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1);
             }
 
             return (
@@ -628,8 +629,9 @@ class Rating extends React.Component {
     props.ratingAmount = 5;
 
     if (this.props.mutable) {
-      props.rating = (this.props.defaultValue !== undefined && this.props.defaultValue.length) ? parseFloat(this.props.defaultValue, 10) : 0;
+      props.rating = (this.props.defaultValue !== undefined) ? parseFloat(this.props.defaultValue, 10) : 0;
       props.editing = true;
+      props.disabled = this.props.read_only;
       props.ref = this.inputField;
     }
 
