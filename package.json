@@ -80,7 +80,7 @@
     "build:dev": "webpack --mode development",
     "build:style": "node-sass ./scss/application.scss dist/app.css --output-style compressed",
     "build:lib": "npm run transpile && npm run build:style",
-    "prepublish": "npm run build:lib",
+    "prepublish": "npm run build:lib && npm run build",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --hot --inline --mode development",
     "serve:api": "node server/index.js",

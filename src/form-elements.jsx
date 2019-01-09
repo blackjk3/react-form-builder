@@ -478,6 +478,7 @@ class Tags extends React.Component {
     props.options = options;
     if (!this.props.mutable) { props.value = options[0].text; } // to show a sample of what tags looks like
     if (this.props.mutable) {
+      props.isDisabled = this.props.read_only;
       props.value = this.state.value;
       props.ref = this.inputField;
     }
