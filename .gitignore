@@ -42,6 +42,7 @@ jspm_packages
 dist/
 lib/
 public/app.*
+public/uploads/
 
 # bundles
 bundle.js

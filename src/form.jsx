@@ -8,9 +8,7 @@ import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import * as FormElements from './form-elements';
 
-const {
-  Image, Checkboxes, Signature, Download,
-} = FormElements;
+const { Image, Download } = FormElements;
 
 export default class ReactForm extends React.Component {
   form;
@@ -41,6 +39,8 @@ export default class ReactForm extends React.Component {
       $item.value = ref.inputField.current.state.value;
     } else if (item.element === 'DatePicker') {
       $item.value = ref.state.value;
+    } else if (item.element === 'Camera') {
+      $item.value = ref.state.img ? ref.state.img.replace('data:image/png;base64,', '') : '';
     } else if (ref && ref.inputField) {
       $item = ReactDOM.findDOMNode(ref.inputField.current);
       if (typeof $item.value === 'string') {
@@ -194,15 +194,15 @@ export default class ReactForm extends React.Component {
     return errors;
   }
 
-  getInputElement(item) {
+  getInputElement(item, handleChange) {
     const Input = FormElements[item.element];
     return (<Input
-      handleChange={this.handleChange}
+      handleChange={handleChange}
       ref={c => this.inputs[item.field_name] = c}
       mutable={true}
       key={`form_${item.id}`}
       data={item}
-      read_only={this.props.read_only}
+      read_only={this.props.read_only || item.readOnly}
       defaultValue={this.props.answer_data[item.field_name]} />);
   }
 
@@ -235,11 +235,11 @@ export default class ReactForm extends React.Component {
         case 'Rating':
         case 'Tags':
         case 'Range':
-          return this.getInputElement(item);
-        case 'Signature':
-          return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Checkboxes':
-          return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
+          return this.getInputElement(item, this.handleChange);
+        case 'Camera':
+        case 'Signature':
+          return this.getInputElement(item);
         case 'Image':
           return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Download':

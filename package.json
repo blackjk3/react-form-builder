@@ -65,6 +65,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "express": "^4.16.3",
+    "multer": "^1.4.1",
     "node-sass": "^4.7.2",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",

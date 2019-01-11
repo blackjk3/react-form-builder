@@ -102,7 +102,7 @@ export default class Demobar extends React.Component {
                   back_name="Back"
                   answer_data={answers}
                   action_name="Save"
-                  form_action="/"
+                  form_action="/api/form"
                   form_method="POST"
                   // onSubmit={this._onSubmit}
                   variables={this.props.variables}
