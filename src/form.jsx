@@ -9,7 +9,7 @@ import FormValidator from './form-validator';
 import * as FormElements from './form-elements';
 
 const {
-  Image, Checkboxes, Signature, Download,
+  Image, Checkboxes, Signature, Download, Camera
 } = FormElements;
 
 export default class ReactForm extends React.Component {
@@ -41,6 +41,8 @@ export default class ReactForm extends React.Component {
       $item.value = ref.inputField.current.state.value;
     } else if (item.element === 'DatePicker') {
       $item.value = ref.state.value;
+    } else if (item.element === 'Camera') {
+      $item.value = ref.state.img.replace('data:image/png;base64,', '');
     } else if (ref && ref.inputField) {
       $item = ReactDOM.findDOMNode(ref.inputField.current);
       if (typeof $item.value === 'string') {
@@ -244,6 +246,8 @@ export default class ReactForm extends React.Component {
           return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Download':
           return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />;
+        case 'Camera':
+          return <Camera ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         default:
           return this.getSimpleElement(item);
       }

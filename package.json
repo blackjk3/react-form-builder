@@ -1,6 +1,6 @@
 {
-  "name": "react-form-builder2",
-  "version": "0.1.15",
+  "name": "react-form-builder5",
+  "version": "0.0.6",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "drag",
     "drop"
   ],
-  "author": "Kiho Chang",
+  "author": "Avni Raiyani",
   "dependencies": {
     "beedle": "^0.6.8",
     "classnames": "^2.2.5",
