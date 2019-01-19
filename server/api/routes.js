@@ -1,27 +1,21 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-var */
 // eslint-disable-next-line import/no-extraneous-dependencies
 var express = require('express');
-var handleForm = require('./form');
+// var handleForm = require('./form');
+var formData = require('./formData');
 
 var app = express();
-let formData = require('./dummyFormData.json');
 
 app.route('/formdata/')
   .get((req, res) => {
-    console.log('get formdata: ', formData);
-    res.send(formData.task_data);
+    console.log('get formdata: ', formData.data);
+    res.send(formData.data.task_data);
   })
   .post((req, res) => {
-    formData = req.body;
-    console.log('post formdata: ', formData);
+    formData.data = req.body;
+    console.log('post formdata: ', formData.data);
     res.status(200).send();
   });
-
-app.route('/form/')
-  .get((req, res) => {
-    console.log('get form: ', formData);
-    res.send('GET FORM');
-  })
-  .post(handleForm);
 
 module.exports = app;

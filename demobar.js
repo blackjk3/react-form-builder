@@ -130,7 +130,8 @@ export default class Demobar extends React.Component {
                   form_method="POST"
                   read_only={true}
                   variables={this.props.variables}
-                  hide_actions={true} data={this.state.data} />
+                  hide_actions={true}
+                  data={this.state.data} />
 
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>

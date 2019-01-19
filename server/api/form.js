@@ -4,6 +4,7 @@
 var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
+var formData = require('./formData');
 
 var handleError = (err, res) => {
   res
@@ -22,10 +23,11 @@ var handleUpload = (req, res) => {
       // An unknown error occurred when uploading.
       console.log('multer.MulterError', error);
     } else {
-      console.log('req.body', req.body);
+      formData.answers = req.body;
+      console.log('form answers', formData.answers);
       const file = req.files[0];
       if (!file) {
-        res.status(200).send();
+        res.redirect('/api/form');
         return;
       }
       const tempPath = file.path;
