@@ -8,7 +8,9 @@ import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import * as FormElements from './form-elements';
 
-const { Image, Download } = FormElements;
+const {
+  Image, Checkboxes, Signature, Download, Camera
+} = FormElements;
 
 export default class ReactForm extends React.Component {
   form;
@@ -194,15 +196,15 @@ export default class ReactForm extends React.Component {
     return errors;
   }
 
-  getInputElement(item, handleChange) {
+  getInputElement(item) {
     const Input = FormElements[item.element];
     return (<Input
-      handleChange={handleChange}
+      handleChange={this.handleChange}
       ref={c => this.inputs[item.field_name] = c}
       mutable={true}
       key={`form_${item.id}`}
       data={item}
-      read_only={this.props.read_only || item.readOnly}
+      read_only={this.props.read_only}
       defaultValue={this.props.answer_data[item.field_name]} />);
   }
 
@@ -235,15 +237,17 @@ export default class ReactForm extends React.Component {
         case 'Rating':
         case 'Tags':
         case 'Range':
-        case 'Checkboxes':
-          return this.getInputElement(item, this.handleChange);
-        case 'Camera':
-        case 'Signature':
           return this.getInputElement(item);
+        case 'Signature':
+          return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
+        case 'Checkboxes':
+          return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Image':
           return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Download':
           return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />;
+        case 'Camera':
+          return <Camera ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         default:
           return this.getSimpleElement(item);
       }
