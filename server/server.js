@@ -36,8 +36,8 @@ app.use('/api/', api);
 
 app.route('/api/form/')
   .get((req, res) => {
-    console.log('get form: ', formData.data);
-    console.log('get form answers: ', formData.answers);
+    // console.log('get form: ', formData.data);
+    // console.log('get form answers: ', formData.answers);
     res.render('index', {
       data: JSON.stringify(formData.data),
       answers: JSON.stringify(formData.answers),

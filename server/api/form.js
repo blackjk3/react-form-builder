@@ -27,7 +27,7 @@ var handleUpload = (req, res) => {
       console.log('multer.MulterError', error);
     } else {
       formData.answers = req.body;
-      console.log('form answers', formData.answers);
+      // console.log('form answers', formData.answers);
       const file = req.files[0];
       if (!file) {
         res.redirect('/api/form');
@@ -35,7 +35,6 @@ var handleUpload = (req, res) => {
       }
 
       // TODO - handle multiple files
-      console.log('file', file);
       const tempFilePath = file.path;
       const fieldname = file.fieldname;
       const targetPath = path.join(__dirname, '../../public/uploads');
@@ -44,7 +43,6 @@ var handleUpload = (req, res) => {
         const targetFilePath = path.join(targetPath, `${fieldname}${extn}`);
         fs.rename(tempFilePath, targetFilePath, err => {
           if (err) return handleError(err, res);
-          console.log('formData.data', formData.data);
           formData.answers[fieldname] = `/uploads/${fieldname}${extn}`;
           res.redirect('/api/form');
         });
