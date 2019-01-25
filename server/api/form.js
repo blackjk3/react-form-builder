@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable consistent-return */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-var */
@@ -6,14 +7,16 @@ var path = require('path');
 var fs = require('fs');
 var formData = require('./formData');
 
+var extensions = ['.png', '.gif', '.jpg', '.jpeg'];
 var handleError = (err, res) => {
   res
     .status(500)
     .contentType('text/plain')
     .end('Oops! Something went wrong!');
 };
+var tempPath = path.join(__dirname, '../../public/temp');
+var upload = multer({ dest: tempPath }).any();
 
-var upload = multer({ dest: '/uploads' }).any();
 var handleUpload = (req, res) => {
   upload(req, res, (error) => {
     if (error instanceof multer.MulterError) {
@@ -30,16 +33,20 @@ var handleUpload = (req, res) => {
         res.redirect('/api/form');
         return;
       }
-      const tempPath = file.path;
-      const targetPath = path.join(__dirname, '../../public/uploads/image.png');
 
-      if (path.extname(file.originalname).toLowerCase() === '.png') {
-        fs.rename(tempPath, targetPath, err => {
+      // TODO - handle multiple files
+      console.log('file', file);
+      const tempFilePath = file.path;
+      const fieldname = file.fieldname;
+      const targetPath = path.join(__dirname, '../../public/uploads');
+      const extn = path.extname(file.originalname).toLowerCase();
+      if (extensions.indexOf(extn) > -1) {
+        const targetFilePath = path.join(targetPath, `${fieldname}${extn}`);
+        fs.rename(tempFilePath, targetFilePath, err => {
           if (err) return handleError(err, res);
-          res
-            .status(200)
-            .contentType('text/plain')
-            .end('File uploaded!');
+          console.log('formData.data', formData.data);
+          formData.answers[fieldname] = `/uploads/${fieldname}${extn}`;
+          res.redirect('/api/form');
         });
       } else {
         fs.unlink(tempPath, err => {
@@ -47,7 +54,7 @@ var handleUpload = (req, res) => {
           res
             .status(403)
             .contentType('text/plain')
-            .end('Only .png files are allowed!');
+            .end('File type is not allowed!');
         });
       }
     }

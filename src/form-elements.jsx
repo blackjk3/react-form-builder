@@ -722,8 +722,13 @@ class Camera extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
     let sourceDataURL;
     if (this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0) {
-      sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`;
+      if (this.props.defaultValue.indexOf(name > -1)) {
+        sourceDataURL = this.props.defaultValue;
+      } else {
+        sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`;
+      }
     }
+    console.log('sourceDataURL', sourceDataURL);
     return (
       <div className={baseClasses}>
         <ComponentHeader {...this.props} />
