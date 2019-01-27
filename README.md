@@ -1,9 +1,10 @@
-[![npm package](https://img.shields.io/badge/npm-0.1.17-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-form-builder2)
+[![npm package](https://img.shields.io/badge/npm-0.1.18-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-form-builder2)
 # React Form Builder 2
 A complete react form builder that interfaces with a json endpoint to load and save generated forms.
 - Upgraded to React 16.4.1
 - Use react-dnd for Drag & Drop
-- Save form data with dummy api server.
+- Save form data with dummy api server
+- Show posted data on readonly form
 
 ![](screenshot.png)
 
@@ -110,9 +111,9 @@ All relevant styles are located in css/application.css.scss.
 # DEMO
 ```bash
 $ npm install
-$ npm start
 $ npm run build:dist
 $ npm run serve:api
+$ npm start
 ```
 Then navigate to http://localhost:8080/ in your browser and you should be able to see the form builder in action.
 
