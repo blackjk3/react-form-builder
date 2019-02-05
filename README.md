@@ -1,4 +1,4 @@
-[![npm package](https://img.shields.io/badge/npm-0.1.19-orange.svg?style=flat-square)](https://www.npmjs.com/package/react-form-builder2)
+[![npm version](https://badge.fury.io/js/react-form-builder2.svg)](//npmjs.com/package/react-form-builder2)
 # React Form Builder 2
 A complete react form builder that interfaces with a json endpoint to load and save generated forms.
 - Upgraded to React 16.4.1
