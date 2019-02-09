@@ -393,13 +393,6 @@ class Signature extends React.Component {
     this.canvas = React.createRef();
   }
 
-  componentDidMount() {
-    if (this.props.defaultValue !== undefined && this.props.defaultValue.length > 0 && !this.props.read_only) {
-      const canvas = this.canvas; // this.refs['canvas_'+this.props.data.field_name];
-      canvas.fromDataURL(`data:image/png;base64,${this.props.defaultValue}`);
-    }
-  }
-
   render() {
     const props = {};
     props.type = 'hidden';
@@ -420,7 +413,7 @@ class Signature extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     let sourceDataURL;
-    if (this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0) {
+    if (this.props.defaultValue && this.props.defaultValue.length > 0) {
       sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`;
     }
 
@@ -429,7 +422,7 @@ class Signature extends React.Component {
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
-          {this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0
+          {this.props.read_only === true || !!sourceDataURL
             ? (<div><img src={sourceDataURL} /></div>)
             : (<SignaturePad {...pad_props} />)
           }
