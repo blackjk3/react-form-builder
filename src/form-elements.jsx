@@ -389,23 +389,31 @@ class Dropdown extends React.Component {
 class Signature extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      defaultValue: props.defaultValue,
+    };
     this.inputField = React.createRef();
     this.canvas = React.createRef();
   }
 
+  clear = () => {
+    this.setState({ defaultValue: '' });
+  }
+
   render() {
+    const { defaultValue } = this.state;
     const props = {};
     props.type = 'hidden';
     props.name = this.props.data.field_name;
 
     if (this.props.mutable) {
-      props.defaultValue = this.props.defaultValue;
+      props.defaultValue = defaultValue;
       props.ref = this.inputField;
     }
     const pad_props = {};
     pad_props.clearButton = true;
     if (this.props.mutable) {
-      pad_props.defaultValue = this.props.defaultValue;
+      pad_props.defaultValue = defaultValue;
       pad_props.ref = this.canvas;
     }
 
@@ -413,8 +421,8 @@ class Signature extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     let sourceDataURL;
-    if (this.props.defaultValue && this.props.defaultValue.length > 0) {
-      sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`;
+    if (defaultValue && defaultValue.length > 0) {
+      sourceDataURL = `data:image/png;base64,${defaultValue}`;
     }
 
     return (
@@ -423,7 +431,13 @@ class Signature extends React.Component {
         <div className="form-group">
           <ComponentLabel {...this.props} />
           {this.props.read_only === true || !!sourceDataURL
-            ? (<div><img src={sourceDataURL} /></div>)
+            ? (
+              <div>
+                <img src={sourceDataURL} />
+                { !this.props.read_only && (
+                  <i className="fa fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>
+                )}
+              </div>)
             : (<SignaturePad {...pad_props} />)
           }
           <input {...props} />
