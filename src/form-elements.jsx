@@ -397,11 +397,16 @@ class Signature extends React.Component {
   }
 
   clear = () => {
-    this.setState({ defaultValue: '' });
+    if (this.state.defaultValue) {
+      this.setState({ defaultValue: '' });
+    } else if (this.canvas.current) {
+      this.canvas.current.clear();
+    }
   }
 
   render() {
     const { defaultValue } = this.state;
+    let canClear = !!defaultValue;
     const props = {};
     props.type = 'hidden';
     props.name = this.props.data.field_name;
@@ -411,10 +416,10 @@ class Signature extends React.Component {
       props.ref = this.inputField;
     }
     const pad_props = {};
-    pad_props.clearButton = true;
     if (this.props.mutable) {
       pad_props.defaultValue = defaultValue;
       pad_props.ref = this.canvas;
+      canClear = !this.props.read_only;
     }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -431,15 +436,11 @@ class Signature extends React.Component {
         <div className="form-group">
           <ComponentLabel {...this.props} />
           {this.props.read_only === true || !!sourceDataURL
-            ? (
-              <div>
-                <img src={sourceDataURL} />
-                { !this.props.read_only && (
-                  <i className="fa fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>
-                )}
-              </div>)
+            ? (<img src={sourceDataURL} />)
             : (<SignaturePad {...pad_props} />)
           }
+          { canClear && (
+            <i className="fa fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>) }
           <input {...props} />
         </div>
       </div>
