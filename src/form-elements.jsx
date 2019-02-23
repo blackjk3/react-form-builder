@@ -312,7 +312,7 @@ class DatePicker extends React.Component {
               <input type="text"
                      name={props.name}
                      ref={props.ref}
-                     readonly={readOnly}
+                     readOnly={readOnly}
                      placeholder={this.state.placeholder}
                      value={this.state.value}
                      className="form-control" />
