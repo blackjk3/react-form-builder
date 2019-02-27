@@ -140,15 +140,16 @@ export default class ReactForm extends React.Component {
   _getSignatureImg(item) {
     const ref = this.inputs[item.field_name];
     const $canvas_sig = ref.canvas.current;
-    const base64 = $canvas_sig.toDataURL().replace('data:image/png;base64,', '');
-    const isEmpty = $canvas_sig.isEmpty();
-    const $input_sig = ReactDOM.findDOMNode(ref.inputField.current);
-    if (isEmpty) {
-      $input_sig.value = '';
-    } else {
-      $input_sig.value = base64;
+    if ($canvas_sig) {
+      const base64 = $canvas_sig.toDataURL().replace('data:image/png;base64,', '');
+      const isEmpty = $canvas_sig.isEmpty();
+      const $input_sig = ReactDOM.findDOMNode(ref.inputField.current);
+      if (isEmpty) {
+        $input_sig.value = '';
+      } else {
+        $input_sig.value = base64;
+      }
     }
-    return true;
   }
 
   handleSubmit(e) {
