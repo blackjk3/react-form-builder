@@ -1,7 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
 import xss from 'xss';
-import moment from 'moment';
+import { format } from 'date-fns';
+// import moment from 'moment';
 import SignaturePad from 'react-signature-canvas';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 import ReactDatePicker from 'react-datepicker';
@@ -236,13 +237,13 @@ class DatePicker extends React.Component {
     let internalValue;
 
     if (props.data.defaultToday && (props.defaultValue === '' || props.defaultValue === undefined)) {
-      value = moment().format('MM/DD/YYYY');
-      internalValue = moment();
+      value = format(new Date(), 'MM/dd/yyyy'); // moment().format('MM/DD/YYYY');
+      internalValue = new Date(); // moment();
     } else {
       value = props.defaultValue;
 
       if (props.defaultValue !== '' && props.defaultValue !== undefined) {
-        internalValue = moment(value, 'MM/DD/YYYY');
+        internalValue = new Date(value); //  moment(value, 'MM/DD/YYYY');
       }
     }
 
@@ -258,8 +259,8 @@ class DatePicker extends React.Component {
     let placeholder;
     if (dt && dt.target) {
       placeholder = (dt && dt.target && dt.target.value === '') ? 'mm/dd/yyyy' : '';
-      const formattedDate = (dt.target.value) ? moment(dt.target.value).format('YYYY-MM-DD') : '';
-
+      // const formattedDate = (dt.target.value) ? moment(dt.target.value).format('YYYY-MM-DD') : '';
+      const formattedDate = (dt.target.value) ? format(dt.target.value, 'yyyy-MM-dd') : '';
       this.setState({
         value: formattedDate,
         internalValue: formattedDate,
@@ -267,7 +268,7 @@ class DatePicker extends React.Component {
       });
     } else {
       this.setState({
-        value: (dt) ? dt.format('MM/DD/YYYY') : '',
+        value: (dt) ? format(dt, 'MM/dd/yyyy') : '', // (dt) ? dt.format('MM/DD/YYYY') : '',
         internalValue: dt,
         placeholder,
       });
@@ -276,8 +277,8 @@ class DatePicker extends React.Component {
 
   componentWillReceiveProps() {
     if (this.props.data.defaultToday && !this.state.defaultToday) {
-      this.state.value = moment().format('MM/DD/YYYY');
-      this.state.internalValue = moment(this.state.value);
+      this.state.value = format(new Date(), 'MM/dd/yyyy'); // moment().format('MM/DD/YYYY');
+      this.state.internalValue = new Date(this.state.value); // moment(this.state.value);
     } else if (!this.props.data.defaultToday && this.state.defaultToday) {
       this.state.value = '';
       this.state.internalValue = undefined;
@@ -336,7 +337,7 @@ class DatePicker extends React.Component {
                 todayButton={'Today'}
                 className = "form-control"
                 isClearable={true}
-                dateFormat="MM/DD/YYYY"
+                dateFormat="MM/dd/yyyy"
                 placeholderText='mm/dd/yyyy' />
             }
           </div>
