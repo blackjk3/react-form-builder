@@ -79,6 +79,8 @@ export default class FormElementsEdit extends React.Component {
     const this_checked = this.props.element.hasOwnProperty('required') ? this.props.element.required : false;
     const this_read_only = this.props.element.hasOwnProperty('readOnly') ? this.props.element.readOnly : false;
     const this_default_today = this.props.element.hasOwnProperty('defaultToday') ? this.props.element.defaultToday : false;
+    const this_show_time_select = this.props.element.hasOwnProperty('showTimeSelect') ? this.props.element.showTimeSelect : false;
+    const this_show_time_select_only = this.props.element.hasOwnProperty('showTimeSelectOnly') ? this.props.element.showTimeSelectOnly : false;
     const this_checked_inline = this.props.element.hasOwnProperty('inline') ? this.props.element.inline : false;
     const this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
     const this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
@@ -187,6 +189,22 @@ export default class FormElementsEdit extends React.Component {
                 <label>
                   <input type="checkbox" checked={this_default_today} value={true} onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} />
                   Default to Today?
+                </label>
+              </div>
+            }
+            { this.props.element.hasOwnProperty('showTimeSelect') &&
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" checked={this_show_time_select} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelect', 'checked')} />
+                  Show Time Select?
+                </label>
+              </div>
+            }
+            { this_show_time_select && this.props.element.hasOwnProperty('showTimeSelectOnly') &&
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" checked={this_show_time_select_only} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelectOnly', 'checked')} />
+                  Show Time Select Only?
                 </label>
               </div>
             }

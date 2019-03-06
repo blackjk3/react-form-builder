@@ -158,6 +158,10 @@ export default class Toolbar extends React.Component {
         key: 'DatePicker',
         canDefaultToday: true,
         canReadOnly: true,
+        dateFormat: 'MM/dd/yyyy',
+        timeFormat: 'hh:mm aa',
+        showTimeSelect: false,
+        showTimeSelectOnly: false,
         name: 'Date',
         icon: 'fa fa-calendar',
         label: 'Placeholder Label',
@@ -238,6 +242,13 @@ export default class Toolbar extends React.Component {
 
     if (item.key === 'Image') {
       elementOptions.src = item.src;
+    }
+
+    if (item.key === 'DatePicker') {
+      elementOptions.dateFormat = item.dateFormat;
+      elementOptions.timeFormat = item.timeFormat;
+      elementOptions.showTimeSelect = item.showTimeSelect;
+      elementOptions.showTimeSelectOnly = item.showTimeSelectOnly;
     }
 
     if (item.key === 'Download') {

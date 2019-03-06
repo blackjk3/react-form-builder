@@ -31,7 +31,7 @@
     "fbemitter": "^2.1.1",
     "immutability-helper": "^2.6.6",
     "isomorphic-fetch": "^2.2.1",
-    "date-fns": "^1.30.1",
+    "date-fns": "^2.0.0-alpha.27",
     "prop-types": "^15.6.1",
     "react-bootstrap-slider": "~2.1.5",
     "react-datepicker": "^2.1.0",
