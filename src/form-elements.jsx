@@ -233,27 +233,9 @@ class DatePicker extends React.Component {
   constructor(props) {
     super(props);
     this.inputField = React.createRef();
-    let value;
-    let internalValue;
+
     this.updateFormat(props);
-
-    if (props.data.defaultToday && (props.defaultValue === '' || props.defaultValue === undefined)) {
-      value = format(new Date(), this.formatMask);
-      internalValue = new Date();
-    } else {
-      value = props.defaultValue;
-
-      if (props.defaultValue !== '' && props.defaultValue !== undefined) {
-        internalValue = parse(value, this.formatMask, new Date());
-      }
-    }
-
-    this.state = {
-      formatMask: this.formatMask,
-      value,
-      internalValue,
-      placeholder: 'hh:mm',
-    };
+    this.state = this.updateDateTime(props, this.formatMask);
   }
 
   formatMask = '';
@@ -261,7 +243,7 @@ class DatePicker extends React.Component {
   handleChange = (dt) => {
     let placeholder;
     if (dt && dt.target) {
-      placeholder = (dt && dt.target && dt.target.value === '') ? 'hh:mm' : '';
+      placeholder = (dt && dt.target && dt.target.value === '') ? this.formatMask.toLowerCase() : '';
       const formattedDate = (dt.target.value) ? format(dt.target.value, this.formatMask) : '';
       this.setState({
         value: formattedDate,
@@ -287,24 +269,36 @@ class DatePicker extends React.Component {
     return updated;
   }
 
-  componentWillReceiveProps() {
-    const formatUpdated = this.updateFormat(this.props);
-    if ((this.props.data.defaultToday && !this.state.defaultToday) || formatUpdated) {
-      const value = this.props.defaultValue;
-      let internalValue;
+  updateDateTime(props, formatMask) {
+    let value;
+    let internalValue;
+
+    if (props.data.defaultToday && (props.defaultValue === '' || props.defaultValue === undefined)) {
+      value = format(new Date(), formatMask);
+      internalValue = new Date();
+    } else {
+      value = props.defaultValue;
+
       if (value === '' || value === undefined) {
         internalValue = new Date();
       } else {
         internalValue = parse(value, this.formatMask, new Date());
       }
-      this.state.value = format(internalValue, this.formatMask);
-      this.state.internalValue = internalValue;
-    } else if (!this.props.data.defaultToday && this.state.defaultToday) {
-      this.state.value = '';
-      this.state.internalValue = undefined;
     }
+    return {
+      value,
+      internalValue,
+      placeholder: formatMask.toLowerCase(),
+    };
+  }
 
-    this.state.defaultToday = this.props.data.defaultToday;
+  componentWillReceiveProps(props) {
+    const formatUpdated = this.updateFormat(props);
+    if ((props.data.defaultToday !== !this.state.defaultToday) || formatUpdated) {
+      const state = this.updateDateTime(props, this.formatMask);
+      state.defaultToday = props.data.defaultToday;
+      this.setState(state);
+    }
   }
 
   render() {
