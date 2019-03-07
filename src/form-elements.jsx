@@ -244,7 +244,7 @@ class DatePicker extends React.Component {
       value = props.defaultValue;
 
       if (props.defaultValue !== '' && props.defaultValue !== undefined) {
-        internalValue = new Date(value);
+        internalValue = parse(value, this.formatMask, new Date());
       }
     }
 
@@ -288,10 +288,17 @@ class DatePicker extends React.Component {
   }
 
   componentWillReceiveProps() {
-    const updated = this.updateFormat(this.props);
-    if ((this.props.data.defaultToday && !this.state.defaultToday) || updated) {
-      this.state.value = format(new Date(), this.formatMask);
-      this.state.internalValue = new Date();
+    const formatUpdated = this.updateFormat(this.props);
+    if ((this.props.data.defaultToday && !this.state.defaultToday) || formatUpdated) {
+      const value = this.props.defaultValue;
+      let internalValue;
+      if (value === '' || value === undefined) {
+        internalValue = new Date();
+      } else {
+        internalValue = parse(value, this.formatMask, new Date());
+      }
+      this.state.value = format(internalValue, this.formatMask);
+      this.state.internalValue = internalValue;
     } else if (!this.props.data.defaultToday && this.state.defaultToday) {
       this.state.value = '';
       this.state.internalValue = undefined;
