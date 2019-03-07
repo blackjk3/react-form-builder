@@ -272,15 +272,15 @@ class DatePicker extends React.Component {
   updateDateTime(props, formatMask) {
     let value;
     let internalValue;
-
-    if (props.data.defaultToday && (props.defaultValue === '' || props.defaultValue === undefined)) {
+    const { defaultToday } = props.data;
+    if (defaultToday && (props.defaultValue === '' || props.defaultValue === undefined)) {
       value = format(new Date(), formatMask);
       internalValue = new Date();
     } else {
       value = props.defaultValue;
 
       if (value === '' || value === undefined) {
-        internalValue = new Date();
+        internalValue = undefined;
       } else {
         internalValue = parse(value, this.formatMask, new Date());
       }
@@ -289,6 +289,7 @@ class DatePicker extends React.Component {
       value,
       internalValue,
       placeholder: formatMask.toLowerCase(),
+      defaultToday,
     };
   }
 
@@ -296,7 +297,6 @@ class DatePicker extends React.Component {
     const formatUpdated = this.updateFormat(props);
     if ((props.data.defaultToday !== !this.state.defaultToday) || formatUpdated) {
       const state = this.updateDateTime(props, this.formatMask);
-      state.defaultToday = props.data.defaultToday;
       this.setState(state);
     }
   }
