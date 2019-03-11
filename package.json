@@ -39,7 +39,7 @@
     "react-dnd-html5-backend": "^2.5.4",
     "react-draft-wysiwyg": "^1.12.13",
     "react-select": "^2.0.0",
-    "react-signature-canvas": "^1.0.0-alpha.1",
+    "react-signature-canvas": "^1.0.1",
     "react-star-rating": "^1.4.2",
     "react-textarea-autosize": "^6.0.0",
     "xss": "^1.0.3"

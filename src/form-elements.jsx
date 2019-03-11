@@ -435,6 +435,7 @@ class Signature extends React.Component {
       props.ref = this.inputField;
     }
     const pad_props = {};
+    // umd requires canvasProps={{ width: 400, height: 150 }}
     if (this.props.mutable) {
       pad_props.defaultValue = defaultValue;
       pad_props.ref = this.canvas;
