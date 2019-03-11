@@ -67,7 +67,7 @@ class FormGenerator extends React.Component {
     return e(
       ReactFormGenerator, {
         download_path: '',
-        back_action: '/',
+        back_action: '/react-form-builder/index.html',
         back_name: 'Back',
         answer_data: {},
         action_name: 'Save',
