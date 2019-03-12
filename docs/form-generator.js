@@ -66,7 +66,7 @@ class FormGenerator extends React.Component {
     }
     const { cid } = this.props;
     const query = cid ? `?cid=${cid}` : '';
-    const postUrl = `/api/form${query}`;
+    const postUrl = `https://safe-springs-35306.herokuapp.com/api/form${query}`;
     return e(
       ReactFormGenerator, {
         download_path: '',
