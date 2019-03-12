@@ -19,4 +19,4 @@ if (!cid) {
 const url = `https://safe-springs-35306.herokuapp.com/api/formdata?cid=${cid}`;
 const saveUrl = `https://safe-springs-35306.herokuapp.com/api/formdata?cid=${cid}`;
 
-ReactDOM.render(e(FormBuilder, { url, saveUrl, cid }), domContainer);
+ReactDOM.render(e(FormBuilder, { url, saveUrl }), domContainer);

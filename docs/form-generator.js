@@ -64,7 +64,7 @@ class FormGenerator extends React.Component {
     if (!previewVisible) {
       return null;
     }
-    const { cid } = this.props;
+    const cid = window.localStorage.getItem('cid');
     const query = cid ? `?cid=${cid}` : '';
     const postUrl = `https://safe-springs-35306.herokuapp.com/api/form${query}`;
     return e(
