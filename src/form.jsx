@@ -205,7 +205,6 @@ export default class ReactForm extends React.Component {
   }
 
   getInputElement(item) {
-    const defaultValue = this._optionsDefaultValue(item);
     const Input = FormElements[item.element];
     return (<Input
       handleChange={this.handleChange}
@@ -214,7 +213,7 @@ export default class ReactForm extends React.Component {
       key={`form_${item.id}`}
       data={item}
       read_only={this.props.read_only}
-      defaultValue={defaultValue} />);
+      defaultValue={this.props.answer_data[item.field_name]} />);
   }
 
   getSimpleElement(item) {
