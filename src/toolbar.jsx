@@ -111,7 +111,7 @@ export default class Toolbar extends React.Component {
         name: 'Multiple Choice',
         icon: 'fa fa-dot-circle-o',
         label: 'Placeholder Label',
-        field_name: 'radio_buttons_',
+        field_name: 'radiobuttons_',
         options: [],
       },
       {

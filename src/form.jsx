@@ -22,10 +22,17 @@ export default class ReactForm extends React.Component {
     this.emitter = new EventEmitter();
   }
 
-  _checkboxesDefaultValue(item) {
+  _optionsDefaultValue(item) {
+    const defaultValue = this.props.answer_data[item.field_name];
+    if (defaultValue) {
+      return defaultValue;
+    }
+
     const defaultChecked = [];
     item.options.forEach(option => {
-      defaultChecked.push(this.props.answer_data[`option_${option.key}`]);
+      if (this.props.answer_data[`option_${option.key}`]) {
+        defaultChecked.push(option.key);
+      }
     });
     return defaultChecked;
   }
@@ -198,6 +205,7 @@ export default class ReactForm extends React.Component {
   }
 
   getInputElement(item) {
+    const defaultValue = this._optionsDefaultValue(item);
     const Input = FormElements[item.element];
     return (<Input
       handleChange={this.handleChange}
@@ -206,7 +214,7 @@ export default class ReactForm extends React.Component {
       key={`form_${item.id}`}
       data={item}
       read_only={this.props.read_only}
-      defaultValue={this.props.answer_data[item.field_name]} />);
+      defaultValue={defaultValue} />);
   }
 
   getSimpleElement(item) {
@@ -242,7 +250,7 @@ export default class ReactForm extends React.Component {
         case 'Signature':
           return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Checkboxes':
-          return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
+          return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._optionsDefaultValue(item)} />;
         case 'Image':
           return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
         case 'Download':
