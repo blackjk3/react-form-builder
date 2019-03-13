@@ -27,7 +27,6 @@ var handleUpload = (req, res) => {
       console.log('multer.MulterError', error);
     } else {
       formData.answers = req.body;
-      console.log('form answers', formData.answers);
       const file = req.files[0];
       if (!file) {
         res.redirect('/api/form');
