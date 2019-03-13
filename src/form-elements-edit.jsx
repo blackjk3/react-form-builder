@@ -46,7 +46,8 @@ export default class FormElementsEdit extends React.Component {
   }
 
   onEditorStateChange(index, property, editorContent) {
-    const html = draftToHtml(convertToRaw(editorContent.getCurrentContent())).replace(/<p>/g, '<div>').replace(/<\/p>/g, '</div>');
+    // const html = draftToHtml(convertToRaw(editorContent.getCurrentContent())).replace(/<p>/g, '<div>').replace(/<\/p>/g, '</div>');
+    const html = draftToHtml(convertToRaw(editorContent.getCurrentContent())).replace(/<p>/g, '').replace(/<\/p>/g, '');
     const this_element = this.state.element;
     this_element[property] = html;
 
