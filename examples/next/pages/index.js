@@ -8,17 +8,18 @@ const saveUrl = '/api/formdata';
 const postUrl = '/api/form';
 
 class Index extends React.Component {
-    render(){
-        return(
-            <div>
-                <DemoBar postUrl={postUrl} />
+  render() {
+    return (
+      <div>
+        <DemoBar postUrl={postUrl} />
 
-                <FormBuilder.ReactFormBuilder
-                    url={url} //i dont know how put the url
-                    saveUrl={saveUrl} />
-            </div>
-        )
-    }
+        <FormBuilder.ReactFormBuilder
+          url={url}
+          saveUrl={saveUrl} />
+      </div>
+    );
+  }
 }
 
 export default Index
+;

@@ -1,24 +1,24 @@
-import React from 'react'
-import App, { Container } from 'next/app'
+import React from 'react';
+import App, { Container } from 'next/app';
 import Head from 'next/head';
 
-//stylings
+// stylings
 import 'react-form-builder2/dist/app.css';
 import '../styles/site.css';
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {    
-    let pageProps = { }
- 
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = { };
+
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
+      pageProps = await Component.getInitialProps(ctx);
     }
 
-    return { pageProps }
+    return { pageProps };
   }
 
-  render () {
-    const { Component, pageProps } = this.props
+  render() {
+    const { Component, pageProps } = this.props;
 
     return (
       <Container>
@@ -28,8 +28,8 @@ class MyApp extends App {
         </Head>
         <Component {...pageProps} />
       </Container>
-    )
+    );
   }
 }
 
-export default MyApp
+export default MyApp;
