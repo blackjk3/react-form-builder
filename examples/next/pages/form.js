@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactFormGenerator, ElementStore } from 'react-form-builder2';
-import { get, post } from '../components/requests';
+import { ReactFormGenerator } from 'react-form-builder2';
+import { get } from '../components/requests';
 
 export default class Demobar extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export default class Demobar extends React.Component {
   }
 
   render() {
-    const  { answers, data } = this.state;
+    const { answers, data } = this.state;
 
     let roModalClass = 'modal ro-modal';
     if (this.state.roPreviewVisible) {
@@ -52,7 +52,7 @@ export default class Demobar extends React.Component {
                     form_method="POST"
                     read_only={true}
                     variables={this.props.variables}
-                    hide_actions={true} 
+                    hide_actions={true}
                     data={data} />
               </div>
               <div className="modal-footer">
@@ -70,25 +70,27 @@ function convert(arr) {
   const result = {};
   if (arr.forEach) {
     arr.forEach(x => {
-      if (x.name.indexOf('tags_') > -1)
+      if (x.name.indexOf('tags_') > -1) {
         result[x.name] = x.value.map(y => y.value);
-      else
+      } else {
         result[x.name] = x.value;
+      }
     });
   }
   return result;
 }
 
-Demobar.getInitialProps = async function({ req }) {
-  const hostUrl = `http://${req.headers.host}`;
-  const url = hostUrl + '/api/formdata';
-  const getUrl = hostUrl + '/api/form';
-
+// eslint-disable-next-line func-names
+Demobar.getInitialProps = async function ({ req }) {
+  const protocol = req.headers.referer.split('://')[0];
+  const hostUrl = `${protocol}://${req.headers.host}`;
+  const url = `${hostUrl}/api/formdata`;
+  const getUrl = `${hostUrl}/api/form`;
   const answers = await get(getUrl);
   const data = await get(url);
   return {
     data,
     answers: convert(answers),
     roPreviewVisible: true,
-  }
-}
+  };
+};
