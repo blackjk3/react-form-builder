@@ -24,10 +24,8 @@ ReactDOM.render(e(FormBuilder, { url, saveUrl }), domContainer);
 let show = false;
 
 function clearMessage() {
-  if (show) {
-    show = false;
-    toastr.clear();
-  }
+  toastr.clear();
+  show = false;
 }
 
 const headers = {
@@ -37,9 +35,11 @@ const headers = {
 };
 
 function checkBackEnd() {
+  show = true;
   setTimeout(() => {
-    show = true;
-    toastr.warning('Loading.... Please Wait.');
+    if (show) {
+      toastr.warning('Loading.... Please Wait.');
+    }
   }, 1000);
   fetch(url, {
     method: 'GET',
