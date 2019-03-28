@@ -6,6 +6,8 @@ A complete react form builder that interfaces with a json endpoint to load and s
 - Save form data with dummy api server
 - Show posted data on readonly form
 
+[DEMO](https://kiho.github.io/react-form-builder/) Slow Loading....
+
 ![](screenshot.png)
 
 ### Editing Items
@@ -108,7 +110,7 @@ In order to make the form builder look pretty, there are a few dependencies othe
 # SASS
 All relevant styles are located in css/application.css.scss.
 
-# DEMO
+# Develop
 ```bash
 $ npm install
 $ npm run build:dist
