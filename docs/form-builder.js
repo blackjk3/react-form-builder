@@ -19,11 +19,15 @@ if (!cid) {
 const url = `https://safe-springs-35306.herokuapp.com/api/formdata?cid=${cid}`;
 const saveUrl = `https://safe-springs-35306.herokuapp.com/api/formdata?cid=${cid}`;
 
-function render() {
-  const element = document.querySelector('#loading');
-  element.style.display = 'none';
-  // Delay loading, wait until slow heroku back-end is waking up.
-  ReactDOM.render(e(FormBuilder, { url, saveUrl }), domContainer);
+ReactDOM.render(e(FormBuilder, { url, saveUrl }), domContainer);
+
+let show = false;
+
+function clearMessage() {
+  if (show) {
+    show = false;
+    toastr.clear();
+  }
 }
 
 const headers = {
@@ -32,7 +36,15 @@ const headers = {
   OPTIONS: '',
 };
 
-fetch(url, {
-  method: 'GET',
-  headers,
-}).then(render);
+function checkBackEnd() {
+  setTimeout(() => {
+    show = true;
+    toastr.warning('Loading.... Please Wait.');
+  }, 1000);
+  fetch(url, {
+    method: 'GET',
+    headers,
+  }).then(clearMessage);
+}
+
+checkBackEnd();
