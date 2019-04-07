@@ -6,7 +6,7 @@ A complete react form builder that interfaces with a json endpoint to load and s
 - Save form data with dummy api server
 - Show posted data on readonly form
 
-[DEMO](https://kiho.github.io/react-form-builder/) Slow Loading....
+[DEMO](https://kiho.github.io/react-form-builder/) Slow Loading.... back-end is running at FREE Heroku.
 
 ![](screenshot.png)
 
