@@ -9,7 +9,7 @@ import FormValidator from './form-validator';
 import * as FormElements from './form-elements';
 
 const {
-  Image, Checkboxes, Signature, Download, Camera
+  Image, Checkboxes, Signature, Download, Camera,
 } = FormElements;
 
 export default class ReactForm extends React.Component {
@@ -17,20 +17,42 @@ export default class ReactForm extends React.Component {
 
   inputs = {};
 
+  answerData;
+
   constructor(props) {
     super(props);
+    this.answerData = this._convert(props.answer_data);
     this.emitter = new EventEmitter();
   }
 
+  _convert(answers) {
+    if (Array.isArray(answers)) {
+      const result = {};
+      answers.forEach(x => {
+        if (x.name.indexOf('tags_') > -1) {
+          result[x.name] = x.value.map(y => y.value);
+        } else {
+          result[x.name] = x.value;
+        }
+      });
+      return result;
+    }
+    return answers;
+  }
+
+  _getDefaultValue(item) {
+    return this.answerData[item.field_name];
+  }
+
   _optionsDefaultValue(item) {
-    const defaultValue = this.props.answer_data[item.field_name];
+    const defaultValue = this._getDefaultValue(item);
     if (defaultValue) {
       return defaultValue;
     }
 
     const defaultChecked = [];
     item.options.forEach(option => {
-      if (this.props.answer_data[`option_${option.key}`]) {
+      if (this.answerData[`option_${option.key}`]) {
         defaultChecked.push(option.key);
       }
     });
@@ -213,7 +235,7 @@ export default class ReactForm extends React.Component {
       key={`form_${item.id}`}
       data={item}
       read_only={this.props.read_only}
-      defaultValue={this.props.answer_data[item.field_name]} />);
+      defaultValue={this._getDefaultValue(item)} />);
   }
 
   getSimpleElement(item) {
@@ -230,7 +252,7 @@ export default class ReactForm extends React.Component {
 
     data_items.forEach((item) => {
       if (item.readOnly && item.variableKey && this.props.variables[item.variableKey]) {
-        this.props.answer_data[item.field_name] = this.props.variables[item.variableKey];
+        this.answerData[item.field_name] = this.props.variables[item.variableKey];
       }
     });
 
@@ -247,15 +269,15 @@ export default class ReactForm extends React.Component {
         case 'Range':
           return this.getInputElement(item);
         case 'Signature':
-          return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
+          return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
         case 'Checkboxes':
           return <Checkboxes ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._optionsDefaultValue(item)} />;
         case 'Image':
-          return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
+          return <Image ref={c => this.inputs[item.field_name] = c} handleChange={this.handleChange} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
         case 'Download':
           return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />;
         case 'Camera':
-          return <Camera ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this.props.answer_data[item.field_name]} />;
+          return <Camera ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
         default:
           return this.getSimpleElement(item);
       }

@@ -1,5 +1,5 @@
 var path = require('path');
-var webpack = require( 'webpack');
+var webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.jsx',
@@ -55,5 +55,9 @@ module.exports = {
         ]
       },
     ]
+  },
+  performance: {
+    maxEntrypointSize: 1250000,
+    maxAssetSize: 1250000
   }
 };
