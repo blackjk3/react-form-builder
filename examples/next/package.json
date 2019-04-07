@@ -15,7 +15,7 @@
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
-    "react-form-builder2": "^0.1.28",
+    "react-form-builder2": "^0.1.29",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.5",
     "jquery": "^3.3.1",

@@ -66,20 +66,6 @@ export default class Demobar extends React.Component {
   }
 }
 
-function convert(arr) {
-  const result = {};
-  if (arr.forEach) {
-    arr.forEach(x => {
-      if (x.name.indexOf('tags_') > -1) {
-        result[x.name] = x.value.map(y => y.value);
-      } else {
-        result[x.name] = x.value;
-      }
-    });
-  }
-  return result;
-}
-
 // eslint-disable-next-line func-names
 Demobar.getInitialProps = async function ({ req }) {
   const protocol = req.headers.referer.split('://')[0];
@@ -90,7 +76,7 @@ Demobar.getInitialProps = async function ({ req }) {
   const data = await get(url);
   return {
     data,
-    answers: convert(answers),
+    answers,
     roPreviewVisible: true,
   };
 };
