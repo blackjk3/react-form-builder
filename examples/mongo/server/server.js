@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable arrow-body-style */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-unused-vars */
@@ -31,13 +32,19 @@ MongoClient.connect(MONGO_URL, (err, client) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    app.use((req, res, next) => {
+      // Also expose the MongoDB database handle so Next.js can access it.
+      req.db = db;
+      next();
+    });
+
     app.use('/api/', api);
 
     app.route('/api/form/')
       .get((req, res) => {
         res.send(formData.answers);
       })
-      .post(handleForm(db));
+      .post(handleForm);
 
     app.get('*', (req, res) =>
       // for all the react stuff

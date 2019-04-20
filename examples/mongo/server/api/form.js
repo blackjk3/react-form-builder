@@ -16,14 +16,10 @@ var handleError = (err, res) => {
     .end('Oops! Something went wrong!');
 };
 
-var wrapAsync = handler => (req, res) => handler(req)
-  .then(result => res.json(result))
-  .catch(error => res.status(500).json({ error: error.message }));
-
 var tempPath = path.join(__dirname, '../../public/temp');
 var upload = multer({ dest: tempPath }).any();
 
-module.exports = db => (req, res) => {
+module.exports = (req, res) => {
   upload(req, res, (error) => {
     if (error instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
@@ -34,9 +30,7 @@ module.exports = db => (req, res) => {
     } else {
       formData.answers = req.body;
       const file = req.files && req.files.length ? req.files[0] : null;
-      // wrapAsync(() => saveAnswers(req.db, req.body));
-      saveAnswers(db, req.body);
-      // console.log('saveAnswers', r);
+      saveAnswers(req.db, req.body);
       if (!file) {
         res.status(201).send();
         return;
