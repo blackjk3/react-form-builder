@@ -35,7 +35,7 @@ module.exports = db => (req, res) => {
       formData.answers = req.body;
       const file = req.files && req.files.length ? req.files[0] : null;
       // wrapAsync(() => saveAnswers(req.db, req.body));
-      // const r = saveAnswers(db, req.body);
+      saveAnswers(db, req.body);
       // console.log('saveAnswers', r);
       if (!file) {
         res.status(201).send();
@@ -68,6 +68,6 @@ module.exports = db => (req, res) => {
 };
 
 function saveAnswers(db, answers) {
-  db.collection('Answers').save(answers);
+  db.collection('Answers').insertMany(answers);
   return { answers };
 }
