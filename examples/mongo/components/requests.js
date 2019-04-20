@@ -18,5 +18,8 @@ export function get(url) {
   return fetch(url, {
     method: 'GET',
     headers,
-  }).then(response => response.json());
+  }).then(response => {
+    const r = response.json();
+    return r;
+  });
 }

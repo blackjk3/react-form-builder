@@ -8,16 +8,22 @@ var fs = require('fs');
 var formData = require('./formData');
 
 var extensions = ['.png', '.gif', '.jpg', '.jpeg'];
+
 var handleError = (err, res) => {
   res
     .status(500)
     .contentType('text/plain')
     .end('Oops! Something went wrong!');
 };
+
+var wrapAsync = handler => (req, res) => handler(req)
+  .then(result => res.json(result))
+  .catch(error => res.status(500).json({ error: error.message }));
+
 var tempPath = path.join(__dirname, '../../public/temp');
 var upload = multer({ dest: tempPath }).any();
 
-var handleUpload = (req, res) => {
+module.exports = db => (req, res) => {
   upload(req, res, (error) => {
     if (error instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
@@ -28,6 +34,9 @@ var handleUpload = (req, res) => {
     } else {
       formData.answers = req.body;
       const file = req.files && req.files.length ? req.files[0] : null;
+      // wrapAsync(() => saveAnswers(req.db, req.body));
+      // const r = saveAnswers(db, req.body);
+      // console.log('saveAnswers', r);
       if (!file) {
         res.status(201).send();
         return;
@@ -58,4 +67,7 @@ var handleUpload = (req, res) => {
   });
 };
 
-module.exports = handleUpload;
+function saveAnswers(db, answers) {
+  db.collection('Answers').save(answers);
+  return { answers };
+}
