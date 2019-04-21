@@ -119,6 +119,12 @@ $ npm start
 ```
 Then navigate to http://localhost:8080/ in your browser and you should be able to see the form builder in action.
 
+# Examples
+- [Basic](https://github.com/Kiho/react-form-builder/tree/master/examples/demo)
+- [JSON Post](https://github.com/Kiho/react-form-builder/tree/master/examples/custom)
+- [UMD](https://github.com/Kiho/react-form-builder/tree/master/examples/umd)
+- [NEXT](https://github.com/Kiho/react-form-builder/tree/master/examples/next)
+
 # Tests
 ```bash
 $ npm test

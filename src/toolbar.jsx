@@ -22,9 +22,9 @@ export default class Toolbar extends React.Component {
     switch (element) {
       case 'Dropdown':
         return [
-          { value: '', text: '', key: `dropdown_option_${ID.uuid()}` },
-          { value: '', text: '', key: `dropdown_option_${ID.uuid()}` },
-          { value: '', text: '', key: `dropdown_option_${ID.uuid()}` },
+          { value: 'place_holder_option_1', text: 'Place holder option 1', key: `dropdown_option_${ID.uuid()}` },
+          { value: 'place_holder_option_2', text: 'Place holder option 2', key: `dropdown_option_${ID.uuid()}` },
+          { value: 'place_holder_option_3', text: 'Place holder option 3', key: `dropdown_option_${ID.uuid()}` },
         ];
       case 'Tags':
         return [

@@ -29,8 +29,8 @@ module.exports = (req, res) => {
       console.log('multer.MulterError', error);
     } else {
       formData.answers = req.body;
-      const file = req.files && req.files.length ? req.files[0] : null;
       saveAnswers(req.db, req.body);
+      const file = req.files && req.files.length ? req.files[0] : null;
       if (!file) {
         res.status(201).send();
         return;
@@ -63,6 +63,6 @@ module.exports = (req, res) => {
 
 function saveAnswers(db, answers) {
   if (answers && answers.length) {
-    db.collection('Answers').insertMany(answers);
+    db.collection('answers').insertMany(answers);
   }
 }

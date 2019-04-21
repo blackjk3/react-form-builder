@@ -1,15 +1,14 @@
 const formData = require('./dummyFormData.json');
 
 async function saveFormData(db, doc) {
-  // const o = await db.collection('form').findOne({ id: doc.id });
-  if (doc._id != null) {
+  const o = await db.collection('form').findOne({ id: doc.id });
+  if (o != null) {
     // console.log('update: ', doc);
-    const id = doc._id;
     // eslint-disable-next-line no-param-reassign
     delete doc._id;
-    db.collection('form').findOneAndUpdate({ _id: id },
+    db.collection('form').findOneAndUpdate({ _id: o._id },
       { $set: doc },
-      { upsert: true },
+      { upsert: false },
       (err) => {
         if (err) console.log('findOneAndUpdate error: ', err);
       });
