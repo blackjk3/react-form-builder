@@ -15,19 +15,20 @@ const api = require('./api/routes');
 const handleForm = require('./api/form');
 const formData = require('./api/formData');
 
-const MONGO_URL = 'mongodb://localhost:27017';
 const PORT = process.env.PORT || 3000;
 const dev = process.env.NODE_DEV !== 'production'; // true false
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler(); // part of next config
+
+const MONGO_URL = 'mongodb://localhost:27017';
 const dbName = 'test';
 
+// Fix crash with react-datepicker
 global.navigator = {
   userAgent: 'node.js',
 };
 
 MongoClient.connect(MONGO_URL, (err, client) => {
-  // assert.equal(null, err);
   console.log('Connected successfully to server', MONGO_URL);
   const db = client.db(dbName);
   nextApp.prepare().then(() => {

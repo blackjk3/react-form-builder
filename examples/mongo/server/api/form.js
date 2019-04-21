@@ -62,6 +62,7 @@ module.exports = (req, res) => {
 };
 
 function saveAnswers(db, answers) {
-  db.collection('Answers').insertMany(answers);
-  return { answers };
+  if (answers && answers.length) {
+    db.collection('Answers').insertMany(answers);
+  }
 }
