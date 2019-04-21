@@ -22,6 +22,10 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler(); // part of next config
 const dbName = 'test';
 
+global.navigator = {
+  userAgent: 'node.js',
+};
+
 MongoClient.connect(MONGO_URL, (err, client) => {
   // assert.equal(null, err);
   console.log('Connected successfully to server', MONGO_URL);

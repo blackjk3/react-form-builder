@@ -29,7 +29,7 @@
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-form-builder2": "^0.1.29"
+    "react-form-builder2": "^0.1.30"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
