@@ -124,6 +124,7 @@ Then navigate to http://localhost:8080/ in your browser and you should be able t
 - [JSON Post](https://github.com/Kiho/react-form-builder/tree/master/examples/custom)
 - [UMD](https://github.com/Kiho/react-form-builder/tree/master/examples/umd)
 - [NEXT](https://github.com/Kiho/react-form-builder/tree/master/examples/next)
+- [NEXT-Mongo](https://github.com/Kiho/react-form-builder/tree/master/examples/mongo)
 
 # Tests
 ```bash
