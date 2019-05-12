@@ -37,6 +37,7 @@
   },
   "scripts": {
     "build": "webpack -p --config webpack.production.config.js",
+    "build:dev": "webpack --mode development",
     "start": "live-server --cors --port=8007 --proxy=/api:http://127.0.0.1:5005/api --watch=./bundle.js,./index.html ."
   }
 }
