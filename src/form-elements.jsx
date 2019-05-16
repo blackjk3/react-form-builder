@@ -601,7 +601,7 @@ class RadioButtons extends React.Component {
             props.type = 'radio';
             props.value = option.value;
             if (self.props.mutable) {
-              props.defaultChecked = (self.props.defaultValue !== undefined && 
+              props.defaultChecked = (self.props.defaultValue !== undefined &&
                 (self.props.defaultValue.indexOf(option.key) > -1 || self.props.defaultValue.indexOf(option.value) > -1));
             }
             if (this.props.read_only) {
@@ -891,4 +891,4 @@ FormElements.Download = Download;
 FormElements.Camera = Camera;
 FormElements.Range = Range;
 
-module.exports = FormElements;
+export default FormElements;

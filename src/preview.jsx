@@ -6,7 +6,7 @@ import React from 'react';
 import update from 'immutability-helper';
 import store from './stores/store';
 import FormElementsEdit from './form-elements-edit';
-import * as SortableFormElements from './sortable-form-elements';
+import SortableFormElements from './sortable-form-elements';
 
 const { PlaceHolder } = SortableFormElements;
 

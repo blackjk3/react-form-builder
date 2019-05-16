@@ -30,4 +30,4 @@ FormElements.Camera = SortableElement(Camera);
 FormElements.Range = SortableElement(Range);
 FormElements.PlaceHolder = SortableElement(PlaceHolder);
 
-module.exports = FormElements;
+export default FormElements;

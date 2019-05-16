@@ -80,4 +80,4 @@ FormBuilders.ReactFormBuilder = DragDropContext(HTML5Backend)(ReactFormBuilder);
 FormBuilders.ReactFormGenerator = ReactFormGenerator;
 FormBuilders.ElementStore = store;
 
-module.exports = FormBuilders;
+export default FormBuilders;
