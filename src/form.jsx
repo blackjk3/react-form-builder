@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
-import * as FormElements from './form-elements';
+import FormElements from './form-elements';
 
 const {
   Image, Checkboxes, Signature, Download, Camera,
