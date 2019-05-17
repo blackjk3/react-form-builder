@@ -3,8 +3,8 @@
 /* eslint-disable no-undef */
 const e = React.createElement;
 
-const ReactFormGenerator = ReactFormBuilder.ReactFormGenerator;
-const ElementStore = ReactFormBuilder.ElementStore;
+const ReactFormGenerator = ReactFormBuilder.default.ReactFormGenerator;
+const ElementStore = ReactFormBuilder.default.ElementStore;
 const formContainer = document.querySelector('#form-generator');
 
 function setClass(element, name, remove) {
