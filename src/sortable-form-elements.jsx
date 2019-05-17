@@ -1,6 +1,6 @@
 import SortableElement from './sortable-element';
 import PlaceHolder from './form-place-holder';
-import * as BaseFormElements from './form-elements';
+import BaseFormElements from './form-elements';
 
 const {
   Header, Paragraph, Label, LineBreak, TextInput, NumberInput, TextArea, Dropdown, Checkboxes,
@@ -30,4 +30,4 @@ FormElements.Camera = SortableElement(Camera);
 FormElements.Range = SortableElement(Range);
 FormElements.PlaceHolder = SortableElement(PlaceHolder);
 
-module.exports = FormElements;
+export default FormElements;
