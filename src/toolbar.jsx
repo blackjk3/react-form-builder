@@ -240,6 +240,10 @@ export default class Toolbar extends React.Component {
 
     if (item.href) { elementOptions.href = item.href; }
 
+    elementOptions.canHavePageBreakBefore = item.canHavePageBreakBefore !== false;
+
+    elementOptions.canHaveAlternateForm = item.canHaveAlternateForm !== false;
+
     if (item.key === 'Image') {
       elementOptions.src = item.src;
     }

@@ -89,6 +89,8 @@ export default class FormElementsEdit extends React.Component {
     const this_checked_page_break = this.props.element.hasOwnProperty('pageBreakBefore') ? this.props.element.pageBreakBefore : false;
     const this_checked_alternate_form = this.props.element.hasOwnProperty('alternateForm') ? this.props.element.alternateForm : false;
 
+    const { canHavePageBreakBefore, canHaveAlternateForm } = this.props.element;
+
     const this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || (this_files.length > 0 && this_files[0].id !== '')) {
       this_files.unshift({ id: '', file_name: '' });
@@ -231,26 +233,29 @@ export default class FormElementsEdit extends React.Component {
           : (<div/>)
         }
 
-
-        <div className="form-group">
-          <label className="control-label">Print Options</label>
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" checked={this_checked_page_break} value={true} onChange={this.editElementProp.bind(this, 'pageBreakBefore', 'checked')} />
-              Page Break Before Element?
-            </label>
+        {canHavePageBreakBefore &&
+          <div className="form-group">
+            <label className="control-label">Print Options</label>
+            <div className="checkbox">
+              <label>
+                <input type="checkbox" checked={this_checked_page_break} value={true} onChange={this.editElementProp.bind(this, 'pageBreakBefore', 'checked')} />
+                Page Break Before Element?
+              </label>
+            </div>
           </div>
-        </div>
+        }
 
-        <div className="form-group">
-          <label className="control-label">Alternate/Signature Page</label>
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} />
-              Display on alternate/signature Page?
-            </label>
+        {canHaveAlternateForm &&
+          <div className="form-group">
+            <label className="control-label">Alternate/Signature Page</label>
+            <div className="checkbox">
+              <label>
+                <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} />
+                Display on alternate/signature Page?
+              </label>
+            </div>
           </div>
-        </div>
+        }
 
         { this.props.element.hasOwnProperty('step') &&
           <div className="form-group">
