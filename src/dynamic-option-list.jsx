@@ -83,7 +83,7 @@ export default class DynamicOptionList extends React.Component {
               <div className="col-sm-6"><b>Options</b></div>
               { this.props.canHaveOptionValue &&
               <div className="col-sm-2"><b>Value</b></div> }
-              { this.props.canHaveOptionCorrect &&
+              { this.props.canHaveOptionValue && this.props.canHaveOptionCorrect &&
               <div className="col-sm-4"><b>Correct</b></div> }
             </div>
           </li>
@@ -101,7 +101,7 @@ export default class DynamicOptionList extends React.Component {
                     <div className="col-sm-2">
                       <input className="form-control" type="text" name={`value_${index}`} value={val} onChange={this.editValue.bind(this, index)} />
                     </div> }
-                    { this.props.canHaveOptionCorrect &&
+                    { this.props.canHaveOptionValue && this.props.canHaveOptionCorrect &&
                     <div className="col-sm-1">
                       <input className="form-control" type="checkbox" value="1" onChange={this.editOptionCorrect.bind(this, index)} checked={option.hasOwnProperty('correct')} />
                     </div> }

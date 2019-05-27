@@ -90,7 +90,7 @@ export default class FormElementsEdit extends React.Component {
     const this_checked_alternate_form = this.props.element.hasOwnProperty('alternateForm') ? this.props.element.alternateForm : false;
 
     const {
-      canHavePageBreakBefore, canHaveAlternateForm, canHaveDisplayHorizontal, canHaveOptionCorrect, canHaveOptionValue 
+      canHavePageBreakBefore, canHaveAlternateForm, canHaveDisplayHorizontal, canHaveOptionCorrect, canHaveOptionValue,
     } = this.props.element;
 
     const this_files = this.props.files.length ? this.props.files : [];
@@ -318,13 +318,13 @@ export default class FormElementsEdit extends React.Component {
           </div>
         }
         { this.props.element.hasOwnProperty('options') &&
-          <DynamicOptionList showCorrectColumn={this.props.showCorrectColumn} 
+          <DynamicOptionList showCorrectColumn={this.props.showCorrectColumn}
             canHaveOptionCorrect={canHaveOptionCorrect}
             canHaveOptionValue={canHaveOptionValue}
             data={this.props.preview.state.data}
-            updateElement={this.props.updateElement} 
-            preview={this.props.preview} 
-            element={this.props.element} 
+            updateElement={this.props.updateElement}
+            preview={this.props.preview}
+            element={this.props.element}
             key={this.props.element.options.length} />
         }
       </div>

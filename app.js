@@ -110,9 +110,40 @@ const saveUrl = '/api/formdata';
 //   post(saveUrl, data);
 // }
 
+const items = [
+  {
+    key: 'TextInput',
+    canHaveAnswer: true,
+    canHaveAlternateForm: false,
+    name: 'Text Input',
+    label: 'Placeholder Label',
+    icon: 'fa fa-font',
+    field_name: 'text_input_',
+  },
+  {
+    key: 'Dropdown',
+    canHaveAnswer: true,
+    name: 'Dropdown',
+    icon: 'fa fa-caret-square-o-down',
+    label: 'Placeholder Label',
+    field_name: 'dropdown_',
+    options: [],
+  },
+  {
+    key: 'RadioButtons',
+    canHaveOptionValue: false,
+    name: 'Multiple Choice',
+    icon: 'fa fa-dot-circle-o',
+    label: 'Placeholder Label',
+    field_name: 'radiobuttons_',
+    options: [],
+  },
+];
+
 ReactDOM.render(
   <FormBuilder.ReactFormBuilder variables={variables}
     url={url}
+    toolbarItems={items}
     saveUrl={saveUrl}
   />,
   document.getElementById('form-builder'),
