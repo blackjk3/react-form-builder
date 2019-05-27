@@ -89,7 +89,9 @@ export default class FormElementsEdit extends React.Component {
     const this_checked_page_break = this.props.element.hasOwnProperty('pageBreakBefore') ? this.props.element.pageBreakBefore : false;
     const this_checked_alternate_form = this.props.element.hasOwnProperty('alternateForm') ? this.props.element.alternateForm : false;
 
-    const { canHavePageBreakBefore, canHaveAlternateForm } = this.props.element;
+    const {
+      canHavePageBreakBefore, canHaveAlternateForm, canHaveDisplayHorizontal, canHaveOptionCorrect, canHaveOptionValue 
+    } = this.props.element;
 
     const this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || (this_files.length > 0 && this_files[0].id !== '')) {
@@ -211,7 +213,7 @@ export default class FormElementsEdit extends React.Component {
                 </label>
               </div>
             }
-            { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') &&
+            { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') && canHaveDisplayHorizontal &&
               <div className="checkbox">
                 <label>
                   <input type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} />
@@ -316,7 +318,14 @@ export default class FormElementsEdit extends React.Component {
           </div>
         }
         { this.props.element.hasOwnProperty('options') &&
-          <DynamicOptionList showCorrectColumn={this.props.showCorrectColumn} data={this.props.preview.state.data} updateElement={this.props.updateElement} preview={this.props.preview} element={this.props.element} key={this.props.element.options.length} />
+          <DynamicOptionList showCorrectColumn={this.props.showCorrectColumn} 
+            canHaveOptionCorrect={canHaveOptionCorrect}
+            canHaveOptionValue={canHaveOptionValue}
+            data={this.props.preview.state.data}
+            updateElement={this.props.updateElement} 
+            preview={this.props.preview} 
+            element={this.props.element} 
+            key={this.props.element.options.length} />
         }
       </div>
     );

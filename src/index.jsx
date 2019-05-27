@@ -56,6 +56,7 @@ class ReactFormBuilder extends React.Component {
            <div>
              <Preview files={this.props.files}
                  manualEditModeOff={this.manualEditModeOff.bind(this)}
+                 showCorrectColumn={this.props.showCorrectColumn}
                  parent={this}
                  data={this.props.data}
                  url={this.props.url}
