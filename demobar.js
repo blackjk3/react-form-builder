@@ -104,6 +104,7 @@ export default class Demobar extends React.Component {
                   action_name="Save"
                   form_action="/api/form"
                   form_method="POST"
+                  // skip_validations={true}
                   // onSubmit={this._onSubmit}
                   variables={this.props.variables}
                   data={this.state.data} />

@@ -184,9 +184,12 @@ export default class ReactForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const errors = this.validateForm();
-    // Publish errors, if any.
-    this.emitter.emit('formValidation', errors);
+    let errors = [];
+    if (!this.props.skip_validations) {
+      errors = this.validateForm();
+      // Publish errors, if any.
+      this.emitter.emit('formValidation', errors);
+    }
 
     // Only submit if there are no errors.
     if (errors.length < 1) {
