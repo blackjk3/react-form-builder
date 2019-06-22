@@ -42,6 +42,10 @@ export default class Preview extends React.Component {
 
   editModeOff = (e) => {
     if (this.editForm.current && !this.editForm.current.contains(e.target)) {
+      if (this.props.editElement && this.props.editElement.dirty) {
+        this.props.editElement.dirty = false;
+        this.updateElement(this.props.editElement);
+      }
       this.props.manualEditModeOff();
     }
   }
