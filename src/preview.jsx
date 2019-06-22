@@ -42,12 +42,17 @@ export default class Preview extends React.Component {
 
   editModeOff = (e) => {
     if (this.editForm.current && !this.editForm.current.contains(e.target)) {
-      if (this.props.editElement && this.props.editElement.dirty) {
-        this.props.editElement.dirty = false;
-        this.updateElement(this.props.editElement);
-      }
-      this.props.manualEditModeOff();
+      this.manualEditModeOff();
     }
+  }
+
+  manualEditModeOff = () => {
+    const { editElement } = this.props;
+    if (editElement && editElement.dirty) {
+      editElement.dirty = false;
+      this.updateElement(editElement);
+    }
+    this.props.manualEditModeOff();
   }
 
   _setValue(text) {
@@ -131,7 +136,7 @@ export default class Preview extends React.Component {
       <div className={classes}>
         <div className="edit-form" ref={this.editForm}>
           { this.props.editElement !== null &&
-            <FormElementsEdit showCorrectColumn={this.props.showCorrectColumn} files={this.props.files} manualEditModeOff={this.props.manualEditModeOff} preview={this} element={this.props.editElement} updateElement={this.updateElement} />
+            <FormElementsEdit showCorrectColumn={this.props.showCorrectColumn} files={this.props.files} manualEditModeOff={this.manualEditModeOff} preview={this} element={this.props.editElement} updateElement={this.updateElement} />
           }
         </div>
         <div className="Sortable">{items}</div>
