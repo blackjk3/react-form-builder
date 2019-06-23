@@ -1,6 +1,6 @@
 {
   "name": "rfb2-example",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "A complete form builder for react.",
   "license": "MIT",
   "keywords": [
@@ -19,13 +19,17 @@
     "react-form-builder2": "^0.1.3"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.3",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
-    "babel-runtime": "^6.26.0",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/runtime-corejs2": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.0",
     "css-loader": "^0.28.10",
     "live-server": "^1.2.0",
     "style-loader": "^0.20.2",
@@ -35,7 +39,7 @@
     "webpack-dev-server": "^3.1.5"
   },
   "scripts": {
-    "build": "webpack -p --config webpack.production.config.js",
+    "build": "webpack",
     "start": "live-server --cors --port=8007 --proxy=/api:http://127.0.0.1:5005/api --watch=./bundle.js,./index.html ."
   }
 }

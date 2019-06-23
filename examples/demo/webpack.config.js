@@ -7,7 +7,7 @@ module.exports = {
     path: path.resolve('.'),
     filename: 'bundle.js',
     library: 'ReactFormBuilder',
-    libraryTarget: 'umd',
+    libraryTarget: 'umd'
   },
 
   externals: {
@@ -29,7 +29,17 @@ module.exports = {
         use: [
           { loader: 'babel-loader' }
         ]
-      },
+      }, {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+        ]
+      }
     ]
   }
 };
