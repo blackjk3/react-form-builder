@@ -30,6 +30,12 @@ export default class Preview extends React.Component {
     this.insertCard = this.insertCard.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data !== nextProps.data) {
+      store.dispatch('updateOrder', nextProps.data);
+    }
+  }
+
   componentDidMount() {
     const { data, url, saveUrl } = this.props;
     store.dispatch('load', { loadUrl: url, saveUrl, data: data || [] });
