@@ -56,7 +56,7 @@ function checkBackEnd() {
   show = true;
   setTimeout(() => {
     if (show) showBackdrop();
-  }, 100);
+  }, 300);
   setTimeout(() => {
     if (show) toastr.warning('Loading.... Please Wait.');
   }, 1000);
