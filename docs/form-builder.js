@@ -21,9 +21,27 @@ const saveUrl = `https://safe-springs-35306.herokuapp.com/api/formdata?cid=${cid
 
 ReactDOM.render(e(FormBuilder, { url, saveUrl }), domContainer);
 
+let backdropElement;
+const classBackdrop = 'modal-backdrop';
+
+function showBackdrop() {
+  if (!backdropElement) {
+    backdropElement = document.createElement('div');
+    backdropElement.className = `${classBackdrop} show`;
+    document.body.appendChild(backdropElement);
+  }
+}
+
+function destroyBackdrop() {
+  if (backdropElement) {
+    backdropElement.parentNode.removeChild(backdropElement);
+  }
+}
+
 let show = false;
 
 function clearMessage() {
+  destroyBackdrop();
   toastr.clear();
   show = false;
 }
@@ -37,9 +55,10 @@ const headers = {
 function checkBackEnd() {
   show = true;
   setTimeout(() => {
-    if (show) {
-      toastr.warning('Loading.... Please Wait.');
-    }
+    if (show) showBackdrop();
+  }, 100);
+  setTimeout(() => {
+    if (show) toastr.warning('Loading.... Please Wait.');
   }, 1000);
   fetch(url, {
     method: 'GET',
