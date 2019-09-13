@@ -75,10 +75,7 @@ class ReactFormBuilder extends React.Component {
   }
 }
 
-const FormBuilders = {};
+const FormBuilder = DragDropContext(HTML5Backend)(ReactFormBuilder);
 
-FormBuilders.ReactFormBuilder = DragDropContext(HTML5Backend)(ReactFormBuilder);
-FormBuilders.ReactFormGenerator = ReactFormGenerator;
-FormBuilders.ElementStore = store;
-
-export default FormBuilders;
+export default FormBuilder;
+export { FormBuilder as ReactFormBuilder, ReactFormGenerator, store as ElementStore };
