@@ -4,6 +4,11 @@
 var express = require('express');
 // var handleForm = require('./form');
 var formData = require('./formData');
+var optionsData = [
+  { "text": "Text 1", "value": "1" },
+  { "text": "Text 2", "value": "2" },
+  { "text": "Text 3", "value": "3" }
+];
 
 var app = express();
 
@@ -16,6 +21,10 @@ app.route('/formdata/')
     formData.data = req.body;
     // console.log('post formdata: ', formData.data);
     res.status(200).send();
+  });
+app.route('/optionsdata/')
+  .get((req, res) => {
+    res.send(optionsData);
   });
 
 module.exports = app;
