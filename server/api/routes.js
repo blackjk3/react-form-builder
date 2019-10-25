@@ -2,12 +2,12 @@
 /* eslint-disable no-var */
 // eslint-disable-next-line import/no-extraneous-dependencies
 var express = require('express');
-// var handleForm = require('./form');
 var formData = require('./formData');
+
 var optionsData = [
-  { "text": "Text 1", "value": "1" },
-  { "text": "Text 2", "value": "2" },
-  { "text": "Text 3", "value": "3" }
+  { text: 'Text 1', value: '1' },
+  { text: 'Text 2', value: '2' },
+  { text: 'Text 3', value: '3' },
 ];
 
 var app = express();
