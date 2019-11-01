@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-import { DragDropContext } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Preview from './preview';
 import Toolbar from './toolbar';
@@ -43,6 +43,7 @@ class ReactFormBuilder extends React.Component {
     const toolbarProps = {};
     if (this.props.toolbarItems) { toolbarProps.items = this.props.toolbarItems; }
     return (
+      <DndProvider backend={HTML5Backend}>
        <div>
          {/* <div>
            <p>
@@ -71,17 +72,16 @@ class ReactFormBuilder extends React.Component {
            </div>
          </div>
        </div>
+       </DndProvider>
     );
   }
 }
 
 const FormBuilders = {};
-const FormBuilder = DragDropContext(HTML5Backend)(ReactFormBuilder);
-
-FormBuilders.ReactFormBuilder = FormBuilder;
+FormBuilders.ReactFormBuilder = ReactFormBuilder;
 FormBuilders.ReactFormGenerator = ReactFormGenerator;
 FormBuilders.ElementStore = store;
 
 export default FormBuilders;
 
-export { FormBuilder as ReactFormBuilder, ReactFormGenerator, store as ElementStore };
+export { ReactFormBuilder, ReactFormGenerator, store as ElementStore };
