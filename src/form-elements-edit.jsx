@@ -7,6 +7,8 @@ import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 
 import DynamicOptionList from './dynamic-option-list';
+import { get } from './stores/requests';
+import ID from './UUID';
 
 const toolbar = {
   options: ['inline', 'list', 'textAlign', 'fontSize', 'link', 'history'],
@@ -74,6 +76,26 @@ export default class FormElementsEdit extends React.Component {
     }
     const contentState = ContentState.createFromBlockArray(newContent);
     return EditorState.createWithContent(contentState);
+  }
+
+  addOptions() {
+    const optionsApiUrl = document.getElementById('optionsApiUrl').value;
+    if (optionsApiUrl) {
+      get(optionsApiUrl).then(data => {
+        this.props.element.options = [];
+        const { options } = this.props.element;
+        data.forEach(x => {
+          // eslint-disable-next-line no-param-reassign
+          x.key = ID.uuid();
+          options.push(x);
+        });
+        const this_element = this.state.element;
+        this.setState({
+          element: this_element,
+          dirty: true,
+        });
+      });
+    }
   }
 
   render() {
@@ -314,11 +336,23 @@ export default class FormElementsEdit extends React.Component {
             </div>
           </div>
         }
-
         { this.props.showCorrectColumn && this.props.element.canHaveAnswer && !this.props.element.hasOwnProperty('options') &&
           <div className="form-group">
             <label className="control-label" htmlFor="correctAnswer">Correct Answer</label>
             <input id="correctAnswer" type="text" className="form-control" defaultValue={this.props.element.correct} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'correct', 'value')} />
+          </div>
+        }
+        { this.props.element.hasOwnProperty('options') &&
+          <div className="form-group">
+            <label className="control-label" htmlFor="optionsApiUrl">Populate Options from API</label>
+            <div className="row">
+              <div className="col-sm-6">
+                <input className="form-control" style={{ width: '100%' }} type="text" id="optionsApiUrl" placeholder="http://localhost:8080/api/optionsdata" />
+              </div>
+              <div className="col-sm-6">
+                <button onClick={this.addOptions.bind(this)} className="btn btn-success">Populate</button>
+              </div>
+            </div>
           </div>
         }
         { this.props.element.hasOwnProperty('options') &&
