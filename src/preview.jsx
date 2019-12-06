@@ -22,6 +22,7 @@ export default class Preview extends React.Component {
       data: [],
       answer_data: {},
     };
+    this.seq = 0;
 
     const onUpdate = this._onChange.bind(this);
     store.subscribe(state => onUpdate(state.data));
@@ -78,6 +79,7 @@ export default class Preview extends React.Component {
     }
 
     if (found) {
+      this.seq = this.seq > 100000 ? 0 : this.seq + 1;
       store.dispatch('updateOrder', data);
     }
   }
@@ -130,7 +132,7 @@ export default class Preview extends React.Component {
 
   getElement(item, index) {
     const SortableFormElement = SortableFormElements[item.element];
-    return <SortableFormElement id={item.id} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />;
+    return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />;
   }
 
   render() {

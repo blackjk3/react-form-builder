@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import React from 'react';
 import Select from 'react-select';
 import xss from 'xss';
