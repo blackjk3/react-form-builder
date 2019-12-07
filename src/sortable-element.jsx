@@ -83,8 +83,12 @@ export default function (ComposedComponent) {
       id: PropTypes.any.isRequired,
       // text: PropTypes.string.isRequired,
       moveCard: PropTypes.func.isRequired,
-      seq: PropTypes.number.isRequired,
+      seq: PropTypes.number,
     }
+
+    static defaultProps = {
+      seq: -1,
+    };
 
     render() {
       const {
