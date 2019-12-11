@@ -70,7 +70,7 @@ export default class FormElementsEdit extends React.Component {
 
   convertFromHTML(content) {
     const newContent = convertFromHTML(content);
-    if (!newContent.contentBlocks) {
+    if (!newContent.contentBlocks || !newContent.contentBlocks.length) {
       // to prevent crash when no contents in editor
       return EditorState.createEmpty();
     }
