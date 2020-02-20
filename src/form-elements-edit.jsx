@@ -146,7 +146,8 @@ export default class FormElementsEdit extends React.Component {
               toolbar={toolbar}
               defaultEditorState={editorState}
               onBlur={this.updateElement.bind(this)}
-              onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'content')} />
+              onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'content')}
+              stripPastedStyles={true} />
           </div>
         }
         { this.props.element.hasOwnProperty('file_path') &&
@@ -198,7 +199,8 @@ export default class FormElementsEdit extends React.Component {
               toolbar={toolbar}
               defaultEditorState={editorState}
               onBlur={this.updateElement.bind(this)}
-              onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'label')} />
+              onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'label')}
+              stripPastedStyles={true} />
 
             <br />
             <div className="checkbox">
