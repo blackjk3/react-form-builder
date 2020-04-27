@@ -461,7 +461,7 @@ class Signature extends React.Component {
             : (<SignaturePad {...pad_props} />)
           }
           { canClear && (
-            <i className="fa fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>) }
+            <i className="fas fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>) }
           <input {...props} />
         </div>
       </div>
@@ -771,7 +771,7 @@ class Camera extends React.Component {
             <div style={fileInputStyle}>
               <input name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
               <div className="image-upload-control">
-                <div className="btn btn-default btn-school"><i className="fa fa-camera"></i> Upload Photo</div>
+                <div className="btn btn-default btn-school"><i className="fas fa-camera"></i> Upload Photo</div>
                 <p>Select an image from your computer or device.</p>
               </div>
             </div>
@@ -780,7 +780,7 @@ class Camera extends React.Component {
               <div>
                 <img src={ this.state.img } height="100" className="image-upload-preview" /><br />
                 <div className="btn btn-school btn-image-clear" onClick={this.clearImage}>
-                  <i className="fa fa-times"></i> Clear Photo
+                  <i className="fas fa-times"></i> Clear Photo
                 </div>
               </div>
             }

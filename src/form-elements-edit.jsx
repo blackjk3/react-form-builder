@@ -136,7 +136,7 @@ export default class FormElementsEdit extends React.Component {
       <div>
         <div className="clearfix">
           <h4 className="pull-left">{this.props.element.text}</h4>
-          <i className="pull-right fa fa-times dismiss-edit" onClick={this.props.manualEditModeOff}></i>
+          <i className="pull-right fas fa-times dismiss-edit" onClick={this.props.manualEditModeOff}></i>
         </div>
         { this.props.element.hasOwnProperty('content') &&
           <div className="form-group">
