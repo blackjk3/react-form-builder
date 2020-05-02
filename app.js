@@ -117,7 +117,7 @@ const saveUrl = '/api/formdata';
 //     canHaveAlternateForm: false,
 //     name: 'Text Input',
 //     label: 'Placeholder Label',
-//     icon: 'fa fa-font',
+//     icon: 'fas fa-font',
 //     field_name: 'text_input_',
 //   },
 //   {
@@ -133,7 +133,7 @@ const saveUrl = '/api/formdata';
 //     key: 'RadioButtons',
 //     canHaveOptionValue: false,
 //     name: 'Multiple Choice',
-//     icon: 'fa fa-dot-circle-o',
+//     icon: 'fas fa-dot-circle',
 //     label: 'Placeholder Label',
 //     field_name: 'radiobuttons_',
 //     options: [],

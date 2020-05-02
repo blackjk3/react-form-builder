@@ -135,8 +135,8 @@ export default class FormElementsEdit extends React.Component {
     return (
       <div>
         <div className="clearfix">
-          <h4 className="pull-left">{this.props.element.text}</h4>
-          <i className="pull-right fa fa-times dismiss-edit" onClick={this.props.manualEditModeOff}></i>
+          <h4 className="float-left">{this.props.element.text}</h4>
+          <i className="float-right fas fa-times dismiss-edit" onClick={this.props.manualEditModeOff}></i>
         </div>
         { this.props.element.hasOwnProperty('content') &&
           <div className="form-group">
@@ -173,9 +173,9 @@ export default class FormElementsEdit extends React.Component {
               <input id="srcInput" type="text" className="form-control" defaultValue={this.props.element.src} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'src', 'value')} />
             </div>
             <div className="form-group">
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" checked={this_checked_center} value={true} onChange={this.editElementProp.bind(this, 'center', 'checked')} />
+              <div className="custom-control custom-checkbox">
+                <input id="do-center" className="custom-control-input" type="checkbox" checked={this_checked_center} value={true} onChange={this.editElementProp.bind(this, 'center', 'checked')} />
+                <label className="custom-control-label" htmlFor="do-center">
                   Center?
                 </label>
               </div>
@@ -203,48 +203,48 @@ export default class FormElementsEdit extends React.Component {
               stripPastedStyles={true} />
 
             <br />
-            <div className="checkbox">
-              <label>
-                <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} />
+            <div className="custom-control custom-checkbox">
+              <input id="is-required" className="custom-control-input" type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} />
+              <label className="custom-control-label" htmlFor="is-required">
                 Required
               </label>
             </div>
             { this.props.element.hasOwnProperty('readOnly') &&
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" checked={this_read_only} value={true} onChange={this.editElementProp.bind(this, 'readOnly', 'checked')} />
+              <div className="custom-control custom-checkbox">
+                <input id="is-read-only" className="custom-control-input" type="checkbox" checked={this_read_only} value={true} onChange={this.editElementProp.bind(this, 'readOnly', 'checked')} />
+                <label className="custom-control-label" htmlFor="is-read-only">
                   Read only
                 </label>
               </div>
             }
             { this.props.element.hasOwnProperty('defaultToday') &&
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" checked={this_default_today} value={true} onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} />
+              <div className="custom-control custom-checkbox">
+                <input id="is-default-to-today" className="custom-control-input" type="checkbox" checked={this_default_today} value={true} onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} />
+                <label className="custom-control-label" htmlFor="is-default-to-today">
                   Default to Today?
                 </label>
               </div>
             }
             { this.props.element.hasOwnProperty('showTimeSelect') &&
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" checked={this_show_time_select} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelect', 'checked')} />
+              <div className="custom-control custom-checkbox">
+                <input id="show-time-select" className="custom-control-input" type="checkbox" checked={this_show_time_select} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelect', 'checked')} />
+                <label className="custom-control-label" htmlFor="show-time-select">
                   Show Time Select?
                 </label>
               </div>
             }
             { this_show_time_select && this.props.element.hasOwnProperty('showTimeSelectOnly') &&
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" checked={this_show_time_select_only} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelectOnly', 'checked')} />
+              <div className="custom-control custom-checkbox">
+                <input id="show-time-select-only" className="custom-control-input" type="checkbox" checked={this_show_time_select_only} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelectOnly', 'checked')} />
+                <label className="custom-control-label" htmlFor="show-time-select-only">
                   Show Time Select Only?
                 </label>
               </div>
             }
             { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') && canHaveDisplayHorizontal &&
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} />
+              <div className="custom-control custom-checkbox">
+                <input id="display-horizontal" className="custom-control-input" type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} />
+                <label className="custom-control-label" htmlFor="display-horizontal">
                   Display horizonal
                 </label>
               </div>
@@ -266,9 +266,9 @@ export default class FormElementsEdit extends React.Component {
         {canHavePageBreakBefore &&
           <div className="form-group">
             <label className="control-label">Print Options</label>
-            <div className="checkbox">
-              <label>
-                <input type="checkbox" checked={this_checked_page_break} value={true} onChange={this.editElementProp.bind(this, 'pageBreakBefore', 'checked')} />
+            <div className="custom-control custom-checkbox">
+              <input id="page-break-before-element" className="custom-control-input" type="checkbox" checked={this_checked_page_break} value={true} onChange={this.editElementProp.bind(this, 'pageBreakBefore', 'checked')} />
+              <label className="custom-control-label" htmlFor="page-break-before-element">
                 Page Break Before Element?
               </label>
             </div>
@@ -278,9 +278,9 @@ export default class FormElementsEdit extends React.Component {
         {canHaveAlternateForm &&
           <div className="form-group">
             <label className="control-label">Alternate/Signature Page</label>
-            <div className="checkbox">
-              <label>
-                <input type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} />
+            <div className="custom-control custom-checkbox">
+              <input id="display-on-alternate" className="custom-control-input" type="checkbox" checked={this_checked_alternate_form} value={true} onChange={this.editElementProp.bind(this, 'alternateForm', 'checked')} />
+              <label className="custom-control-label" htmlFor="display-on-alternate">
                 Display on alternate/signature Page?
               </label>
             </div>
@@ -324,15 +324,15 @@ export default class FormElementsEdit extends React.Component {
         { this.props.element.hasOwnProperty('static') && this.props.element.static &&
           <div className="form-group">
             <label className="control-label">Text Style</label>
-            <div className="checkbox">
-              <label>
-                <input type="checkbox" checked={this_checked_bold} value={true} onChange={this.editElementProp.bind(this, 'bold', 'checked')} />
+            <div className="custom-control custom-checkbox">
+              <input id="do-bold" className="custom-control-input" type="checkbox" checked={this_checked_bold} value={true} onChange={this.editElementProp.bind(this, 'bold', 'checked')} />
+              <label className="custom-control-label" htmlFor="do-bold">
                 Bold
               </label>
             </div>
-            <div className="checkbox">
-              <label>
-                <input type="checkbox" checked={this_checked_italic} value={true} onChange={this.editElementProp.bind(this, 'italic', 'checked')} />
+            <div className="custom-control custom-checkbox">
+              <input id="do-italic" className="custom-control-input" type="checkbox" checked={this_checked_italic} value={true} onChange={this.editElementProp.bind(this, 'italic', 'checked')} />
+              <label className="custom-control-label" htmlFor="do-italic">
                 Italic
               </label>
             </div>

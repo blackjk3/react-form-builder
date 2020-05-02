@@ -254,12 +254,13 @@ export default class ReactForm extends React.Component {
     }
 
     data_items.forEach((item) => {
-      if (item.readOnly && item.variableKey && this.props.variables[item.variableKey]) {
+      if (item && item.readOnly && item.variableKey && this.props.variables[item.variableKey]) {
         this.answerData[item.field_name] = this.props.variables[item.variableKey];
       }
     });
 
     const items = data_items.map(item => {
+      if(!item) return null;
       switch (item.element) {
         case 'TextInput':
         case 'NumberInput':

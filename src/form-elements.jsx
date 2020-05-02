@@ -36,7 +36,7 @@ const ComponentLabel = (props) => {
   return (
     <label className={props.className || ''}>
       <span dangerouslySetInnerHTML={{ __html: myxss.process(props.data.label) }}/>
-      {hasRequiredLabel && <span className="label-required label label-danger">Required</span>}
+      {hasRequiredLabel && <span className="label-required badge badge-danger">Required</span>}
     </label>
   );
 };
@@ -461,7 +461,7 @@ class Signature extends React.Component {
             : (<SignaturePad {...pad_props} />)
           }
           { canClear && (
-            <i className="fa fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>) }
+            <i className="fas fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>) }
           <input {...props} />
         </div>
       </div>
@@ -535,7 +535,7 @@ class Checkboxes extends React.Component {
 
   render() {
     const self = this;
-    let classNames = 'checkbox-label';
+    let classNames = 'custom-control-label';
     if (this.props.data.inline) { classNames += ' option-inline'; }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -545,30 +545,31 @@ class Checkboxes extends React.Component {
       <div className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel className="form-label" {...this.props} />
-          {this.props.data.options.map((option) => {
-            const this_key = `preview_${option.key}`;
-            const props = {};
-            props.name = `option_${option.key}`;
+            <ComponentLabel className="form-label" {...this.props} />
+            {this.props.data.options.map((option) => {
+              const this_key = `preview_${option.key}`;
+              const props = {};
+              props.name = `option_${option.key}`;
 
-            props.type = 'checkbox';
-            props.value = option.value;
-            if (self.props.mutable) {
-              props.defaultChecked = self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1;
-            }
-            if (this.props.read_only) {
-              props.disabled = 'disabled';
-            }
-            return (
-              <label className={classNames} key={this_key}>
-                <input ref={c => {
-                  if (c && self.props.mutable) {
-                    self.options[`child_ref_${option.key}`] = c;
-                  }
-                } } {...props} /> {option.text}
-              </label>
-            );
-          })}
+              props.type = 'checkbox';
+              props.value = option.value;
+              if (self.props.mutable) {
+                props.defaultChecked = self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1;
+              }
+              if (this.props.read_only) {
+                props.disabled = 'disabled';
+              }
+              return (
+                <div className="custom-control custom-checkbox" key={this_key}>
+                  <input id={"fid_"+this_key} className="custom-control-input" ref={c => {
+                    if (c && self.props.mutable) {
+                      self.options[`child_ref_${option.key}`] = c;
+                    }
+                  } } {...props} />
+                  <label className={classNames} htmlFor={"fid_"+this_key}>{option.text}</label>
+                </div>
+              );
+            })}
         </div>
       </div>
     );
@@ -583,7 +584,7 @@ class RadioButtons extends React.Component {
 
   render() {
     const self = this;
-    let classNames = 'radio-label';
+    let classNames = 'custom-control-label';
     if (this.props.data.inline) { classNames += ' option-inline'; }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -610,13 +611,14 @@ class RadioButtons extends React.Component {
             }
 
             return (
-              <label className={classNames} key={this_key}>
-                <input ref={c => {
+              <div className="custom-control custom-radio" key={this_key}>
+                <input id={"fid_"+this_key} className="custom-control-input" ref={c => {
                   if (c && self.props.mutable) {
                     self.options[`child_ref_${option.key}`] = c;
                   }
-                } } {...props} /> {option.text}
-              </label>
+                } } {...props} />
+                <label className={classNames} htmlFor={"fid_"+this_key}>{option.text}</label>
+              </div>
             );
           })}
         </div>
@@ -771,7 +773,7 @@ class Camera extends React.Component {
             <div style={fileInputStyle}>
               <input name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
               <div className="image-upload-control">
-                <div className="btn btn-default btn-school"><i className="fa fa-camera"></i> Upload Photo</div>
+                <div className="btn btn-default btn-school"><i className="fas fa-camera"></i> Upload Photo</div>
                 <p>Select an image from your computer or device.</p>
               </div>
             </div>
@@ -780,7 +782,7 @@ class Camera extends React.Component {
               <div>
                 <img src={ this.state.img } height="100" className="image-upload-preview" /><br />
                 <div className="btn btn-school btn-image-clear" onClick={this.clearImage}>
-                  <i className="fa fa-times"></i> Clear Photo
+                  <i className="fas fa-times"></i> Clear Photo
                 </div>
               </div>
             }
@@ -854,8 +856,8 @@ class Range extends React.Component {
           <ComponentLabel {...this.props} />
           <div className="range">
             <div className="clearfix">
-              <span className="pull-left">{this.props.data.min_label}</span>
-              <span className="pull-right">{this.props.data.max_label}</span>
+              <span className="float-left">{this.props.data.min_label}</span>
+              <span className="float-right">{this.props.data.max_label}</span>
             </div>
             <ReactBootstrapSlider {...props} />
           </div>
