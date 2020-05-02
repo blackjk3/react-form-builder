@@ -15,7 +15,7 @@
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
-    "react-form-builder2": "^0.1.29",
+    "react-form-builder2": "~0.5.1",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.5",
     "jquery": "^3.3.1",
@@ -26,8 +26,8 @@
     "next": "^8.0.3",
     "next-routes": "^1.4.2",
     "node-sass": "^4.11.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"

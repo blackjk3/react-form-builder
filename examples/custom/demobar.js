@@ -55,29 +55,29 @@ export default class Demobar extends React.Component {
   render() {
     let modalClass = 'modal';
     if (this.state.previewVisible) {
-      modalClass += ' show';
+      modalClass += ' show d-block';
     }
 
     let shortModalClass = 'modal short-modal';
     if (this.state.shortPreviewVisible) {
-      shortModalClass += ' show';
+      shortModalClass += ' show d-block';
     }
 
     let roModalClass = 'modal ro-modal';
     if (this.state.roPreviewVisible) {
-      roModalClass += ' show';
+      roModalClass += ' show d-block';
     }
 
     return (
       <div className="clearfix" style={{ margin: '10px', width: '70%' }}>
-        <h4 className="pull-left">Preview</h4>
-        <button className="btn btn-primary pull-right" style={{ marginRight: '10px' }} onClick={this.showPreview.bind(this)}>Preview Form</button>
-        <button className="btn btn-default pull-right" style={{ marginRight: '10px' }} onClick={this.showShortPreview.bind(this)}>Alternate/Short Form</button>
-        <button className="btn btn-default pull-right" style={{ marginRight: '10px' }} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
+        <h4 className="float-left">Preview</h4>
+        <button className="btn btn-primary float-right" style={{ marginRight: '10px' }} onClick={this.showPreview.bind(this)}>Preview Form</button>
+        <button className="btn btn-default float-right" style={{ marginRight: '10px' }} onClick={this.showShortPreview.bind(this)}>Alternate/Short Form</button>
+        <button className="btn btn-default float-right" style={{ marginRight: '10px' }} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
 
         { this.state.previewVisible &&
-          <div className={modalClass}>
-            <div className="modal-dialog">
+          <div className={modalClass} role="dialog">
+            <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <ReactFormGenerator
                   download_path=""
