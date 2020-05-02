@@ -30,13 +30,13 @@ export default class Demobar extends React.Component {
 
     let roModalClass = 'modal ro-modal';
     if (this.state.roPreviewVisible) {
-      roModalClass += ' show';
+      roModalClass += ' show d-block';
     }
 
     return (
       <div className="clearfix" style={{ margin: '10px', width: '70%' }}>
-        <h4 className="pull-left">Preview</h4>
-        <button className="btn btn-default pull-right" style={{ marginRight: '10px' }} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
+        <h4 className="float-left">Preview</h4>
+        <button className="btn btn-default float-right" style={{ marginRight: '10px' }} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
         { this.state.roPreviewVisible &&
         <div className={roModalClass}>
           <div className="modal-dialog">
