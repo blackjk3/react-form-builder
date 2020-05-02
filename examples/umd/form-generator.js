@@ -3,8 +3,8 @@
 /* eslint-disable no-undef */
 const e = React.createElement;
 
-const ReactFormGenerator = ReactFormBuilder.default.ReactFormGenerator;
-const ElementStore = ReactFormBuilder.default.ElementStore;
+const ReactFormGenerator = ReactFormBuilder.ReactFormGenerator;
+const ElementStore = ReactFormBuilder.ElementStore;
 const formContainer = document.querySelector('#form-generator');
 
 function setClass(element, name, remove) {
@@ -44,6 +44,7 @@ class FormGenerator extends React.Component {
       previewVisible: true,
     });
     setClass('#preview-dialog', 'show', false);
+    setClass('#preview-dialog', 'd-block', false);
   }
 
   closePreview() {
@@ -51,6 +52,7 @@ class FormGenerator extends React.Component {
       previewVisible: false,
     });
     setClass('#preview-dialog', 'show', true);
+    setClass('#preview-dialog', 'd-block', true);
   }
 
   _onChange(data) {
