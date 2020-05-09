@@ -245,6 +245,7 @@ export default class Toolbar extends React.Component {
     elementOptions.canHaveDisplayHorizontal = item.canHaveDisplayHorizontal !== false;
     elementOptions.canHaveOptionCorrect = item.canHaveOptionCorrect !== false;
     elementOptions.canHaveOptionValue = item.canHaveOptionValue !== false;
+    elementOptions.canPopulateFromApi = item.canPopulateFromApi !== false;
 
     if (item.key === 'Image') {
       elementOptions.src = item.src;
