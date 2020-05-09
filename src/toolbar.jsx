@@ -236,6 +236,8 @@ export default class Toolbar extends React.Component {
 
     if (item.canDefaultToday) { elementOptions.defaultToday = false; }
 
+    if (item.canPopulateFromApi) { elementOptions.canPopulateFromApi = true; }
+
     if (item.content) { elementOptions.content = item.content; }
 
     if (item.href) { elementOptions.href = item.href; }
