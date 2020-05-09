@@ -236,8 +236,6 @@ export default class Toolbar extends React.Component {
 
     if (item.canDefaultToday) { elementOptions.defaultToday = false; }
 
-    if (item.canPopulateFromApi) { elementOptions.canPopulateFromApi = true; }
-
     if (item.content) { elementOptions.content = item.content; }
 
     if (item.href) { elementOptions.href = item.href; }
@@ -247,6 +245,7 @@ export default class Toolbar extends React.Component {
     elementOptions.canHaveDisplayHorizontal = item.canHaveDisplayHorizontal !== false;
     elementOptions.canHaveOptionCorrect = item.canHaveOptionCorrect !== false;
     elementOptions.canHaveOptionValue = item.canHaveOptionValue !== false;
+    elementOptions.canPopulateFromApi = item.canPopulateFromApi !== false;
 
     if (item.key === 'Image') {
       elementOptions.src = item.src;
