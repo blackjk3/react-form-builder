@@ -14,8 +14,11 @@
   ],
   "author": "Kiho Chang",
   "devDependencies": {
-    "react-form-builder2": "^0.1.2",
-    "live-server": "^1.2.0"
+    "live-server": "^1.2.0",
+    "react-dnd": "^10.0.2",
+    "react-dnd-html5-backend": "^10.0.2",
+    "react-form-builder2": "^0.5.6",
+    "react-textarea-autosize": "^7.1.2"
   },
   "scripts": {
     "start": "live-server --cors --port=8007 --proxy=/api:http://127.0.0.1:5005/api --watch=./bundle.js,./index.html ."

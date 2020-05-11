@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-undef */
+// const e = React.createElement;
+const React = ReactFormBuilder.default.React;
 const e = React.createElement;
 
 const ReactFormGenerator = ReactFormBuilder.ReactFormGenerator;
@@ -82,4 +84,4 @@ class FormGenerator extends React.Component {
   }
 }
 
-ReactDOM.render(e(FormGenerator), formContainer);
+ReactFormBuilder.default.ReactDOM.render(e(FormGenerator), formContainer);

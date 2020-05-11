@@ -8,7 +8,8 @@ module.exports = {
     path: path.resolve('./dist'),
     filename: 'app.js',
     library: 'ReactFormBuilder',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
   },
 
   externals: {
@@ -16,6 +17,9 @@ module.exports = {
     //but get it from a global 'React' variable
     // 'react': 'react',
     // 'react-dom': 'react-dom',
+    // 'react-dnd': 'react-dnd',
+    // 'react-dnd-html5-backend': 'react-dnd-html5-backend',
+    // 'react-textarea-autosize': 'react-textarea-autosize',
     // 'react-datepicker': 'react-datepicker',
     // 'classnames': 'classnames',
     // 'jquery': 'jquery',
@@ -23,7 +27,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.scss', '.css', '.json'],
+    extensions: ['./mjs', '.js', '.jsx', '.scss', '.css', '.json'],
     alias: {
       "jquery": path.join(__dirname, "./jquery-stub.js")
     }

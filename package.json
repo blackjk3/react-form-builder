@@ -84,6 +84,7 @@
   "scripts": {
     "build": "webpack -p --config webpack.production.config.js",
     "build:dev": "webpack --mode development",
+    "build:umd": "webpack --mode development --config webpack.production.config.js",
     "build:style": "node-sass ./scss/application.scss dist/app.css --output-style compressed",
     "build:lib": "npm run transpile && npm run build:style",
     "build:dist": "npm run build && npm run copy:dist",
