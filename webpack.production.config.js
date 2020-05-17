@@ -15,11 +15,18 @@ module.exports = {
   externals: {
     //don't bundle the 'react' npm package with our bundle.js
     //but get it from a global 'React' variable
-    // 'react': 'react',
-    // 'react-dom': 'react-dom',
-    // 'react-dnd': 'react-dnd',
-    // 'react-dnd-html5-backend': 'react-dnd-html5-backend',
-    // 'react-textarea-autosize': 'react-textarea-autosize',
+    'react': {
+      'commonjs': 'react',
+      'commonjs2': 'react',
+      'amd': 'react',
+      'root': 'React'
+    },
+    'react-dom': {
+      'commonjs': 'react-dom',
+      'commonjs2': 'react-dom',
+      'amd': 'react-dom',
+      'root': 'ReactDOM'
+    },
     // 'react-datepicker': 'react-datepicker',
     // 'classnames': 'classnames',
     // 'jquery': 'jquery',

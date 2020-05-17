@@ -83,9 +83,6 @@ FormBuilders.ReactFormBuilder = ReactFormBuilder;
 FormBuilders.ReactFormGenerator = ReactFormGenerator;
 FormBuilders.ElementStore = store;
 
-FormBuilders.React = React;
-FormBuilders.ReactDOM = ReactDOM;
-
 export default FormBuilders;
 
 export { ReactFormBuilder, ReactFormGenerator, store as ElementStore };
