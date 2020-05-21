@@ -68,8 +68,7 @@ export default class Demobar extends React.Component {
 
 // eslint-disable-next-line func-names
 Demobar.getInitialProps = async function ({ req }) {
-  const protocol = req.headers.referer.split('://')[0];
-  const hostUrl = `${protocol}://${req.headers.host}`;
+  const hostUrl = `${req.protocol}://${req.headers.host}`;
   const url = `${hostUrl}/api/formdata`;
   const getUrl = `${hostUrl}/api/form`;
   const answers = await get(getUrl);
