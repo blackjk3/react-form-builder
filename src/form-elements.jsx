@@ -535,7 +535,7 @@ class Checkboxes extends React.Component {
 
   render() {
     const self = this;
-    let classNames = 'custom-control-label';
+    let classNames = 'custom-control custom-checkbox';
     if (this.props.data.inline) { classNames += ' option-inline'; }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -560,13 +560,13 @@ class Checkboxes extends React.Component {
                 props.disabled = 'disabled';
               }
               return (
-                <div className="custom-control custom-checkbox" key={this_key}>
+                <div className={classNames} key={this_key}>
                   <input id={"fid_"+this_key} className="custom-control-input" ref={c => {
                     if (c && self.props.mutable) {
                       self.options[`child_ref_${option.key}`] = c;
                     }
                   } } {...props} />
-                  <label className={classNames} htmlFor={"fid_"+this_key}>{option.text}</label>
+                  <label className="custom-control-label" htmlFor={"fid_"+this_key}>{option.text}</label>
                 </div>
               );
             })}
@@ -584,7 +584,7 @@ class RadioButtons extends React.Component {
 
   render() {
     const self = this;
-    let classNames = 'custom-control-label';
+    let classNames = 'custom-control custom-radio';
     if (this.props.data.inline) { classNames += ' option-inline'; }
 
     let baseClasses = 'SortableItem rfb-item';
@@ -611,13 +611,13 @@ class RadioButtons extends React.Component {
             }
 
             return (
-              <div className="custom-control custom-radio" key={this_key}>
+              <div className={classNames} key={this_key}>
                 <input id={"fid_"+this_key} className="custom-control-input" ref={c => {
                   if (c && self.props.mutable) {
                     self.options[`child_ref_${option.key}`] = c;
                   }
                 } } {...props} />
-                <label className={classNames} htmlFor={"fid_"+this_key}>{option.text}</label>
+                <label className="custom-control-label" htmlFor={"fid_"+this_key}>{option.text}</label>
               </div>
             );
           })}
