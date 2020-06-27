@@ -201,7 +201,6 @@ export default class FormElementsEdit extends React.Component {
               onBlur={this.updateElement.bind(this)}
               onEditorStateChange={this.onEditorStateChange.bind(this, 0, 'label')}
               stripPastedStyles={true} />
-
             <br />
             <div className="custom-control custom-checkbox">
               <input id="is-required" className="custom-control-input" type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} />
@@ -336,6 +335,12 @@ export default class FormElementsEdit extends React.Component {
                 Italic
               </label>
             </div>
+          </div>
+        }
+        { this.props.element.showDescription &&
+          <div className="form-group">
+            <label className="control-label" htmlFor="questionDescription">Description</label>
+            <TextAreaAutosize type="text" className="form-control" id="questionDescription" defaultValue={this.props.element.description} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'description', 'value')} />
           </div>
         }
         { this.props.showCorrectColumn && this.props.element.canHaveAnswer && !this.props.element.hasOwnProperty('options') &&

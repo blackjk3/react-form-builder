@@ -141,7 +141,8 @@ const saveUrl = '/api/formdata';
 // ];
 
 ReactDOM.render(
-  <FormBuilder.ReactFormBuilder variables={variables}
+  <FormBuilder.ReactFormBuilder
+    variables={variables}
     url={url}
     saveUrl={saveUrl}
   />,
