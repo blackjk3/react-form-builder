@@ -16,6 +16,7 @@ export default class Toolbar extends React.Component {
       items,
     };
     store.subscribe(state => this.setState({ store: state }));
+    this.create = this.create.bind(this);
   }
 
   static _defaultItemOptions(element) {
@@ -216,14 +217,19 @@ export default class Toolbar extends React.Component {
     ];
   }
 
-  create = (item) => {
+  create(item) {
     const elementOptions = {
       id: ID.uuid(),
       element: item.element || item.key,
       text: item.name,
       static: item.static,
       required: false,
+      showDescription: item.showDescription,
     };
+
+    if (this.props.showDescription === true && !item.static) {
+      elementOptions.showDescription = true;
+    }
 
     if (item.static) {
       elementOptions.bold = false;
