@@ -260,7 +260,7 @@ export default class ReactForm extends React.Component {
     });
 
     const items = data_items.map(item => {
-      if(!item) return null;
+      if (!item) return null;
       switch (item.element) {
         case 'TextInput':
         case 'NumberInput':
@@ -309,7 +309,7 @@ export default class ReactForm extends React.Component {
             {items}
             <div className='btn-toolbar'>
               { !this.props.hide_actions &&
-                <input type='submit' className='btn btn-school btn-big btn-agree' value={actionName} />
+                <input type='submit' className='btn btn-school btn-big' value={actionName} />
               }
               { !this.props.hide_actions && this.props.back_action &&
                 <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
