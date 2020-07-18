@@ -104,7 +104,7 @@ The signature data should be in base 64 format.
 There is a `variables.js` file that contains a sample base 64 signature. This variable is passed into the demo builder and generator for testing. Use the variable key "JOHN" to test the variable replacement.
 
 # Vendor Dependencies
-In order to make the form builder look pretty, there are a few dependencies other than React.  See the example code in index.html for more details.
+In order to make the form builder look pretty, there are a few dependencies other than React. Style sheets from these library must be added to index.html. See the example code in [index.html](https://github.com/Kiho/react-form-builder/blob/master/public/index.html#L5) for more details.
 
 - Bootstrap
 - FontAwesome
