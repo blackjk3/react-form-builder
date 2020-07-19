@@ -18,11 +18,13 @@ A complete react form builder that interfaces with a json endpoint to load and s
 # Basic Usage
 
 ```javascript
-var React = require('react');
-var FormBuilder = require('react-form-builder2');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ReactFormBuilder } from 'react-form-builder2';
+import 'react-form-builder2/dist/app.css';
 
-React.render(
-  <FormBuilder.ReactFormBuilder />,
+ReactDOM.render(
+  <ReactFormBuilder />,
   document.body
 )
 ```
@@ -45,7 +47,7 @@ var items = [{
   content: 'Placeholder Text...'
 }];
 
-<FormBuilder.ReactFormBuilder
+<ReactFormBuilder
   url='path/to/GET/initial.json'
   toolbarItems={items}
   saveUrl='path/to/POST/built/form.json' />
@@ -55,11 +57,13 @@ var items = [{
 Now that a form is built and saved, let's generate it from the saved json.
 
 ```javascript
-var React = require('react');
-var FormBuilder = require('react-form-builder2');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ReactFormGenerator } from 'react-form-builder2';
+import 'react-form-builder2/dist/app.css';
 
-React.render(
-  <FormBuilder.ReactFormGenerator
+ReactDOM.render(
+  <ReactFormGenerator
     form_action="/path/to/form/submit"
     form_method="POST"
     task_id={12} // Used to submit a hidden variable with the id to the form from the database.
@@ -104,11 +108,10 @@ The signature data should be in base 64 format.
 There is a `variables.js` file that contains a sample base 64 signature. This variable is passed into the demo builder and generator for testing. Use the variable key "JOHN" to test the variable replacement.
 
 # Vendor Dependencies
-In order to make the form builder look pretty, there are a few dependencies other than React. Style sheets from these library must be added to index.html. See the example code in [index.html](https://github.com/Kiho/react-form-builder/blob/master/public/index.html#L5) for more details.
+In order to make the form builder look pretty, there are a few dependencies other than React. Style sheets from `Bootstrap` and `FontAwesome` must be added to index.html. See the example code in [index.html](https://github.com/Kiho/react-form-builder/blob/master/public/index.html#L5) for more details.
 
 - Bootstrap
 - FontAwesome
-
 
 # SASS
 All relevant styles are located in css/application.css.scss.
