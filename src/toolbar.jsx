@@ -104,13 +104,7 @@ export default class Toolbar extends React.Component {
         icon: 'far fa-check-square',
         label: 'Placeholder Label',
         field_name: 'checkboxes_',
-        options: [
-          {
-            value: 'eventWaiverValue',
-            text: 'I have read, understand and agree the waiver ',
-            key: `checkboxes_option_${ID.uuid()}`,
-          },
-        ],
+        options: [],
       },
       {
         key: 'RadioButtons',
