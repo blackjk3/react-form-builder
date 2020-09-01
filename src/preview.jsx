@@ -31,10 +31,11 @@ export default class Preview extends React.Component {
     this.insertCard = this.insertCard.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.data !== nextProps.data) {
-      store.dispatch('updateOrder', nextProps.data);
+  static getDerivedStateFromProps(props, state) {
+    if (props.data && props.data !== state.data) {
+      store.dispatch('updateOrder', props.data);
     }
+    return null;
   }
 
   componentDidMount() {
