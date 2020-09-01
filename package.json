@@ -71,7 +71,7 @@
     "eslint-plugin-react": "^7.16.0",
     "express": "^4.17.1",
     "multer": "^1.4.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.14.1",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "rimraf": "^3.0.0",
@@ -79,7 +79,7 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
     "build": "webpack -p --config webpack.production.config.js",
