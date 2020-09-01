@@ -357,6 +357,7 @@ class DatePicker extends React.Component {
                 showTimeSelect={showTimeSelect}
                 showTimeSelectOnly={showTimeSelectOnly}
                 dateFormat={this.formatMask}
+                portalId="root-portal"
                 placeholderText={placeholderText} />
             }
           </div>
