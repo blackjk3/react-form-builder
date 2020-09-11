@@ -9,18 +9,18 @@ class DatePicker extends React.Component {
     super(props);
     this.inputField = React.createRef();
 
-    const { newFormatMask } = DatePicker.updateFormat(props, null);
-    this.state = DatePicker.updateDateTime(props, { newFormatMask }, newFormatMask);
+    const { formatMask } = DatePicker.updateFormat(props, null);
+    this.state = DatePicker.updateDateTime(props, { formatMask }, formatMask);
   }
 
   // formatMask = '';
 
   handleChange = (dt) => {
     let placeholder;
-    const { newFormatMask } = this.state;
+    const { formatMask } = this.state;
     if (dt && dt.target) {
-      placeholder = (dt && dt.target && dt.target.value === '') ? newFormatMask.toLowerCase() : '';
-      const formattedDate = (dt.target.value) ? format(dt.target.value, newFormatMask) : '';
+      placeholder = (dt && dt.target && dt.target.value === '') ? formatMask.toLowerCase() : '';
+      const formattedDate = (dt.target.value) ? format(dt.target.value, formatMask) : '';
       this.setState({
         value: formattedDate,
         internalValue: formattedDate,
@@ -28,7 +28,7 @@ class DatePicker extends React.Component {
       });
     } else {
       this.setState({
-        value: (dt) ? format(dt, newFormatMask) : '',
+        value: (dt) ? format(dt, formatMask) : '',
         internalValue: dt,
         placeholder,
       });
@@ -39,10 +39,10 @@ class DatePicker extends React.Component {
     const { showTimeSelect, showTimeSelectOnly } = props.data;
     const dateFormat = showTimeSelect && showTimeSelectOnly ? '' : props.data.dateFormat;
     const timeFormat = showTimeSelect ? props.data.timeFormat : '';
-    const newFormatMask = (`${dateFormat} ${timeFormat}`).trim();
-    const updated = newFormatMask !== oldFormatMask; // this.formatMask;
-    // this.formatMask = newFormatMask;
-    return { updated, newFormatMask };
+    const formatMask = (`${dateFormat} ${timeFormat}`).trim();
+    const updated = formatMask !== oldFormatMask;
+
+    return { updated, formatMask };
   }
 
   static updateDateTime(props, state, formatMask) {
@@ -58,7 +58,7 @@ class DatePicker extends React.Component {
       if (value === '' || value === undefined) {
         internalValue = undefined;
       } else {
-        internalValue = parse(value, state.newFormatMask, new Date());
+        internalValue = parse(value, state.formatMask, new Date());
       }
     }
     return {
@@ -66,7 +66,7 @@ class DatePicker extends React.Component {
       internalValue,
       placeholder: formatMask.toLowerCase(),
       defaultToday,
-      newFormatMask: state.newFormatMask,
+      formatMask: state.formatMask,
     };
   }
 
@@ -79,9 +79,9 @@ class DatePicker extends React.Component {
   // }
 
   static getDerivedStateFromProps(props, state) {
-    const { updated, newFormatMask } = DatePicker.updateFormat(props, state.newFormatMask);
+    const { updated, formatMask } = DatePicker.updateFormat(props, state.formatMask);
     if ((props.data.defaultToday !== state.defaultToday) || updated) {
-      const newState = DatePicker.updateDateTime(props, state, newFormatMask);
+      const newState = DatePicker.updateDateTime(props, state, formatMask);
       return newState;
     }
     return null;
@@ -95,7 +95,7 @@ class DatePicker extends React.Component {
     props.name = this.props.data.field_name;
     const readOnly = this.props.data.readOnly || this.props.read_only;
     const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const placeholderText = this.state.newFormatMask.toLowerCase();
+    const placeholderText = this.state.formatMask.toLowerCase();
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
@@ -141,7 +141,7 @@ class DatePicker extends React.Component {
                 isClearable={true}
                 showTimeSelect={showTimeSelect}
                 showTimeSelectOnly={showTimeSelectOnly}
-                dateFormat={this.state.newFormatMask}
+                dateFormat={this.state.formatMask}
                 portalId="root-portal"
                 autoComplete="off"
                 placeholderText={placeholderText} />
