@@ -3,6 +3,7 @@ import React from 'react';
 import Select from 'react-select';
 import SignaturePad from 'react-signature-canvas';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
+
 import StarRating from './star-rating';
 import HeaderBar from './header-bar';
 import DatePicker from './date-picker';
