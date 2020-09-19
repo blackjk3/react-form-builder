@@ -1,59 +1,17 @@
 // eslint-disable-next-line max-classes-per-file
 import React from 'react';
 import Select from 'react-select';
-import xss from 'xss';
-import { format, parse } from 'date-fns';
-// import moment from 'moment';
 import SignaturePad from 'react-signature-canvas';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
-import ReactDatePicker from 'react-datepicker';
+
 import StarRating from './star-rating';
 import HeaderBar from './header-bar';
+import DatePicker from './date-picker';
+import ComponentHeader from './component-header';
+import ComponentLabel from './component-label';
+import myxss from './myxss';
 
 const FormElements = {};
-const myxss = new xss.FilterXSS({
-  whiteList: {
-    u: [],
-    br: [],
-    b: [],
-    i: [],
-    ol: ['style'],
-    ul: ['style'],
-    li: [],
-    p: ['style'],
-    sub: [],
-    sup: [],
-    div: ['style'],
-    em: [],
-    strong: [],
-    span: ['style'],
-  },
-});
-
-const ComponentLabel = (props) => {
-  const hasRequiredLabel = (props.data.hasOwnProperty('required') && props.data.required === true && !props.read_only);
-
-  return (
-    <label className={props.className || ''}>
-      <span dangerouslySetInnerHTML={{ __html: myxss.process(props.data.label) }}/>
-      {hasRequiredLabel && <span className="label-required badge badge-danger">Required</span>}
-    </label>
-  );
-};
-
-const ComponentHeader = (props) => {
-  if (props.mutable) {
-    return null;
-  }
-  return (
-    <div>
-    { props.data.pageBreakBefore &&
-      <div className="preview-page-break">Page Break</div>
-    }
-    <HeaderBar parent={props.parent} editModeOn={props.editModeOn} data={props.data} onDestroy={props._onDestroy} onEdit={props.onEdit} static={props.data.static} required={props.data.required} />
-  </div>
-  );
-};
 
 class Header extends React.Component {
   render() {
@@ -230,142 +188,6 @@ class TextArea extends React.Component {
   }
 }
 
-class DatePicker extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputField = React.createRef();
-
-    this.updateFormat(props);
-    this.state = this.updateDateTime(props, this.formatMask);
-  }
-
-  formatMask = '';
-
-  handleChange = (dt) => {
-    let placeholder;
-    if (dt && dt.target) {
-      placeholder = (dt && dt.target && dt.target.value === '') ? this.formatMask.toLowerCase() : '';
-      const formattedDate = (dt.target.value) ? format(dt.target.value, this.formatMask) : '';
-      this.setState({
-        value: formattedDate,
-        internalValue: formattedDate,
-        placeholder,
-      });
-    } else {
-      this.setState({
-        value: (dt) ? format(dt, this.formatMask) : '',
-        internalValue: dt,
-        placeholder,
-      });
-    }
-  };
-
-  updateFormat(props) {
-    const { showTimeSelect, showTimeSelectOnly } = props.data;
-    const dateFormat = showTimeSelect && showTimeSelectOnly ? '' : props.data.dateFormat;
-    const timeFormat = showTimeSelect ? props.data.timeFormat : '';
-    const formatMask = (`${dateFormat} ${timeFormat}`).trim();
-    const updated = formatMask !== this.formatMask;
-    this.formatMask = formatMask;
-    return updated;
-  }
-
-  updateDateTime(props, formatMask) {
-    let value;
-    let internalValue;
-    const { defaultToday } = props.data;
-    if (defaultToday && (props.defaultValue === '' || props.defaultValue === undefined)) {
-      value = format(new Date(), formatMask);
-      internalValue = new Date();
-    } else {
-      value = props.defaultValue;
-
-      if (value === '' || value === undefined) {
-        internalValue = undefined;
-      } else {
-        internalValue = parse(value, this.formatMask, new Date());
-      }
-    }
-    return {
-      value,
-      internalValue,
-      placeholder: formatMask.toLowerCase(),
-      defaultToday,
-    };
-  }
-
-  componentWillReceiveProps(props) {
-    const formatUpdated = this.updateFormat(props);
-    if ((props.data.defaultToday !== !this.state.defaultToday) || formatUpdated) {
-      const state = this.updateDateTime(props, this.formatMask);
-      this.setState(state);
-    }
-  }
-
-  render() {
-    const { showTimeSelect, showTimeSelectOnly } = this.props.data;
-    const props = {};
-    props.type = 'date';
-    props.className = 'form-control';
-    props.name = this.props.data.field_name;
-    const readOnly = this.props.data.readOnly || this.props.read_only;
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const placeholderText = this.formatMask.toLowerCase();
-
-    if (this.props.mutable) {
-      props.defaultValue = this.props.defaultValue;
-      props.ref = this.inputField;
-    }
-
-    let baseClasses = 'SortableItem rfb-item';
-    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
-
-    return (
-      <div className={baseClasses}>
-        <ComponentHeader {...this.props} />
-        <div className="form-group">
-          <ComponentLabel {...this.props} />
-          <div>
-            { readOnly &&
-              <input type="text"
-                     name={props.name}
-                     ref={props.ref}
-                     readOnly={readOnly}
-                     placeholder={this.state.placeholder}
-                     value={this.state.value}
-                     className="form-control" />
-            }
-            { iOS && !readOnly &&
-              <input type="date"
-                     name={props.name}
-                     ref={props.ref}
-                     onChange={this.handleChange}
-                     dateFormat="MM/DD/YYYY"
-                     placeholder={this.state.placeholder}
-                     value={this.state.value}
-                     className = "form-control" />
-            }
-            { !iOS && !readOnly &&
-              <ReactDatePicker
-                name={props.name}
-                ref={props.ref}
-                onChange={this.handleChange}
-                selected={this.state.internalValue}
-                todayButton={'Today'}
-                className = "form-control"
-                isClearable={true}
-                showTimeSelect={showTimeSelect}
-                showTimeSelectOnly={showTimeSelectOnly}
-                dateFormat={this.formatMask}
-                portalId="root-portal"
-                placeholderText={placeholderText} />
-            }
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
 
 class Dropdown extends React.Component {
   constructor(props) {

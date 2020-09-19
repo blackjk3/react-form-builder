@@ -32,7 +32,7 @@ export default class FormValidator extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.subscription = this.props.emitter.addListener('formValidation', (errors) => {
       this.setState({ errors });
     });
