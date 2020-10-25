@@ -37,7 +37,7 @@ export default class ReactForm extends React.Component {
       });
       return result;
     }
-    return answers;
+    return answers || {};
   }
 
   _getDefaultValue(item) {
