@@ -271,6 +271,8 @@ export default class ReactForm extends React.Component {
         case 'Rating':
         case 'Tags':
         case 'Range':
+        case 'TwoColumnRow':
+        case 'ThreeColumnRow':
           return this.getInputElement(item);
         case 'Signature':
           return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
@@ -299,7 +301,7 @@ export default class ReactForm extends React.Component {
         <FormValidator emitter={this.emitter} />
         <div className='react-form-builder-form'>
           <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
-            { this.props.authenticity_token &&
+            {this.props.authenticity_token &&
               <div style={formTokenStyle}>
                 <input name='utf8' type='hidden' value='&#x2713;' />
                 <input name='authenticity_token' type='hidden' value={this.props.authenticity_token} />
@@ -308,10 +310,10 @@ export default class ReactForm extends React.Component {
             }
             {items}
             <div className='btn-toolbar'>
-              { !this.props.hide_actions &&
+              {!this.props.hide_actions &&
                 <input type='submit' className='btn btn-school btn-big' value={actionName} />
               }
-              { !this.props.hide_actions && this.props.back_action &&
+              {!this.props.hide_actions && this.props.back_action &&
                 <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
               }
             </div>

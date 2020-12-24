@@ -140,6 +140,22 @@ export default class Toolbar extends React.Component {
         field_name: 'text_area_',
       },
       {
+        key: 'TwoColumnRow',
+        canHaveAnswer: false,
+        name: 'Two Column Row',
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'two_col_row_',
+      },
+      {
+        key: 'ThreeColumnRow',
+        canHaveAnswer: false,
+        name: 'Three Column Row',
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'three_col_row_',
+      },
+      {
         key: 'Image',
         name: 'Image',
         label: '',
