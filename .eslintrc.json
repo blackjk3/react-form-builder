@@ -21,6 +21,7 @@
     "no-underscore-dangle": "off",
     "class-methods-use-this": "off",
     "arrow-parens": "off",
+    "indent": "off",
     "no-plusplus": "off",   
     "no-return-assign": "off", 
     "no-prototype-builtins": "warn",

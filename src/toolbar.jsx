@@ -146,6 +146,7 @@ export default class Toolbar extends React.Component {
         label: '',
         icon: 'fas fa-columns',
         field_name: 'two_col_row_',
+        childItems: [null, null],
       },
       {
         key: 'ThreeColumnRow',
@@ -271,6 +272,10 @@ export default class Toolbar extends React.Component {
     elementOptions.canHaveOptionCorrect = item.canHaveOptionCorrect !== false;
     elementOptions.canHaveOptionValue = item.canHaveOptionValue !== false;
     elementOptions.canPopulateFromApi = item.canPopulateFromApi !== false;
+
+    if (item.key === 'TwoColumnRow') {
+      elementOptions.childItems = item.childItems;
+    }
 
     if (item.key === 'Image') {
       elementOptions.src = item.src;

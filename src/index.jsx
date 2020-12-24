@@ -3,13 +3,14 @@
 */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Preview from './preview';
 import Toolbar from './toolbar';
 import ReactFormGenerator from './form';
 import store from './stores/store';
+
+import { Container } from './multi-column';
 
 class ReactFormBuilder extends React.Component {
   constructor(props) {
@@ -74,8 +75,8 @@ class ReactFormBuilder extends React.Component {
              <Toolbar {...toolbarProps} />
            </div>
          </div>
-       </div>
-       </DndProvider>
+        </div>
+      </DndProvider>
     );
   }
 }

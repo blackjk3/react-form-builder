@@ -9,7 +9,7 @@ import FormValidator from './form-validator';
 import FormElements from './form-elements';
 
 const {
-  Image, Checkboxes, Signature, Download, Camera,
+  Image, Checkboxes, Signature, Download, Camera, TwoColumnRow,
 } = FormElements;
 
 export default class ReactForm extends React.Component {
@@ -271,9 +271,10 @@ export default class ReactForm extends React.Component {
         case 'Rating':
         case 'Tags':
         case 'Range':
-        case 'TwoColumnRow':
         case 'ThreeColumnRow':
           return this.getInputElement(item);
+        case 'TwoColumnRow':
+          return <TwoColumnRow key={`form_${item.id}`} data={item} />;
         case 'Signature':
           return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
         case 'Checkboxes':
