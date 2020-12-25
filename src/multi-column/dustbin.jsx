@@ -16,7 +16,7 @@ function getStyle(backgroundColor) {
   return {
     border: '1px solid rgba(0,0,0,0.2)',
     minHeight: '2rem',
-    minWidth: '8rem',
+    minWidth: '12rem',
     // color: 'white',
     backgroundColor,
     padding: 0,
@@ -31,11 +31,9 @@ function getStyle(backgroundColor) {
 
 const Dustbin = React.forwardRef(
   ({
-    greedy, isOver, isOverCurrent, connectDropTarget, items, col, ...rest
+    greedy, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
   }, ref) => {
-    // const [hasDropped, setHasDropped] = useState(false);
-    // const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
-    const [item, setItem] = useState(items && items[col]);
+    const [item, setItem] = useState(items && getDataById(items[col]));
 
     useImperativeHandle(
       ref,
@@ -45,8 +43,8 @@ const Dustbin = React.forwardRef(
           // setHasDroppedOnChild(onChild);
           // setHasDropped(true);
           setItem(data);
-          items[col] = data;
-          dropped.isChild = true;
+          // items[col] = data.id;
+          // dropped.isChild = true;
           console.log('onDrop', data);
         },
       }),
@@ -84,7 +82,7 @@ export default DropTarget(
 
       const item = monitor.getItem();
       (component).onDrop(item);
-      if (typeof item.setAsChild === 'function') item.setAsChild(props.data, item.data);
+      if (typeof item.setAsChild === 'function') item.setAsChild(props.data, item.data, props.col);
     },
   },
   (connect, monitor) => ({

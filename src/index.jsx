@@ -10,8 +10,6 @@ import Toolbar from './toolbar';
 import ReactFormGenerator from './form';
 import store from './stores/store';
 
-import { Container } from './multi-column';
-
 class ReactFormBuilder extends React.Component {
   constructor(props) {
     super(props);

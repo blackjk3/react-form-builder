@@ -24,6 +24,7 @@ export default class ReactForm extends React.Component {
     super(props);
     this.answerData = this._convert(props.answer_data);
     this.emitter = new EventEmitter();
+    this.getDataById = this.getDataById.bind(this);
   }
 
   _convert(answers) {
@@ -230,6 +231,11 @@ export default class ReactForm extends React.Component {
     return errors;
   }
 
+  getDataById(id) {
+    const { data } = this.props;
+    return data.find(x => x.id === id);
+  }
+
   getInputElement(item) {
     const Input = FormElements[item.element];
     return (<Input
@@ -243,7 +249,7 @@ export default class ReactForm extends React.Component {
   }
 
   getContainerElement(item, Element) {
-    const controls = item.childItems.map(x => this.getInputElement(x));
+    const controls = item.childItems.map(x => (x ? this.getInputElement(this.getDataById(x)) : <div>&nbsp;</div>));
     return (<Element mutable={true} key={`form_${item.id}`} data={item} controls={controls} />);
   }
 

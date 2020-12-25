@@ -17,7 +17,7 @@ class TwoColumnRow extends React.Component {
 
   render() {
     const {
-      controls, data, editModeOn, _onDestroy,
+      controls, data, editModeOn, _onDestroy, getDataById,
     } = this.props;
     const { childItems, pageBreakBefore } = this.props.data;
     let baseClasses = 'SortableItem rfb-item';
@@ -30,10 +30,10 @@ class TwoColumnRow extends React.Component {
           <ComponentLabel {...this.props} />
           <div className="row">
             <div className="col-md-6">
-            { controls ? controls[0] : <Dustbin data={data} accepts={accepts} items={childItems} col={0} editModeOn={editModeOn} _onDestroy={_onDestroy} />}
+            { controls ? controls[0] : <Dustbin data={data} accepts={accepts} items={childItems} col={0} editModeOn={editModeOn} _onDestroy={_onDestroy} getDataById={getDataById} />}
             </div>
             <div className="col-md-6">
-            { controls ? controls[1] : <Dustbin data={data} accepts={accepts} items={childItems} col={1} editModeOn={editModeOn} _onDestroy={_onDestroy} />}
+            { controls ? controls[1] : <Dustbin data={data} accepts={accepts} items={childItems} col={1} editModeOn={editModeOn} _onDestroy={_onDestroy} getDataById={getDataById} />}
             </div>
           </div>
         </div>

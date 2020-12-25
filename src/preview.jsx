@@ -27,6 +27,7 @@ export default class Preview extends React.Component {
     const onUpdate = this._onChange.bind(this);
     store.subscribe(state => onUpdate(state.data));
 
+    this.getDataById = this.getDataById.bind(this);
     this.moveCard = this.moveCard.bind(this);
     this.insertCard = this.insertCard.bind(this);
     this.setAsChild = this.setAsChild.bind(this);
@@ -102,18 +103,30 @@ export default class Preview extends React.Component {
   }
 
   _onDestroy(item) {
+    if (item.childItems) {
+      item.childItems.forEach(x => {
+        store.dispatch('delete', x);
+      });
+    }
     store.dispatch('delete', item);
   }
 
-  setAsChild(item, child) {
+  getDataById(id) {
     const { data } = this.state;
+    return data.find(x => x.id === id);
+  }
+
+  setAsChild(item, child, col) {
+    const { data } = this.state;
+    // eslint-disable-next-line no-param-reassign
+    item.childItems[col] = child.id;
     // eslint-disable-next-line no-param-reassign
     child.parentId = item.id;
     const list = data.filter(x => x.parentId === item.id);
-    const toRemove = list.filter(x => item.childItems.indexOf(x) === -1);
+    const toRemove = list.filter(x => item.childItems.indexOf(x.id) === -1);
     let newData = data;
     if (toRemove.length) {
-      console.log('toRemove', toRemove);
+      // console.log('toRemove', toRemove);
       newData = data.filter(x => toRemove.indexOf(x) === -1);
     }
     store.dispatch('updateOrder', newData);
@@ -148,7 +161,7 @@ export default class Preview extends React.Component {
 
   getElement(item, index) {
     const SortableFormElement = SortableFormElements[item.element];
-    return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} setAsChild={this.setAsChild} _onDestroy={this._onDestroy} />;
+    return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} getDataById={this.getDataById} setAsChild={this.setAsChild} _onDestroy={this._onDestroy} />;
   }
 
   render() {
