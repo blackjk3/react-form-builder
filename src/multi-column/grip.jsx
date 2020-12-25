@@ -12,11 +12,12 @@ const style = {
 
 const gripSource = {
   beginDrag(props) {
-    const { data, onDestroy } = props;
+    const { data, onDestroy, setAsChild } = props;
     return {
       id: data.id,
       index: data.index,
       onDestroy,
+      setAsChild,
       data,
     };
   },

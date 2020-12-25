@@ -29,6 +29,7 @@ export default class Preview extends React.Component {
 
     this.moveCard = this.moveCard.bind(this);
     this.insertCard = this.insertCard.bind(this);
+    this.setAsChild = this.setAsChild.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -104,6 +105,20 @@ export default class Preview extends React.Component {
     store.dispatch('delete', item);
   }
 
+  setAsChild(item, child) {
+    const { data } = this.state;
+    // eslint-disable-next-line no-param-reassign
+    child.parentId = item.id;
+    const list = data.filter(x => x.parentId === item.id);
+    const toRemove = list.filter(x => item.childItems.indexOf(x) === -1);
+    let newData = data;
+    if (toRemove.length) {
+      console.log('toRemove', toRemove);
+      newData = data.filter(x => toRemove.indexOf(x) === -1);
+    }
+    store.dispatch('updateOrder', newData);
+  }
+
   insertCard(item, hoverIndex) {
     const { data } = this.state;
     data.splice(hoverIndex, 0, item);
@@ -133,13 +148,13 @@ export default class Preview extends React.Component {
 
   getElement(item, index) {
     const SortableFormElement = SortableFormElements[item.element];
-    return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} _onDestroy={this._onDestroy} />;
+    return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} setAsChild={this.setAsChild} _onDestroy={this._onDestroy} />;
   }
 
   render() {
     let classes = this.props.className;
     if (this.props.editMode) { classes += ' is-editing'; }
-    const data = this.state.data.filter(x => !!x);
+    const data = this.state.data.filter(x => !!x && !x.parentId);
     const items = data.map((item, index) => this.getElement(item, index));
     return (
       <div className={classes}>

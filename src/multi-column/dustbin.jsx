@@ -32,7 +32,7 @@ const Dustbin = React.forwardRef(
   }, ref) => {
     // const [hasDropped, setHasDropped] = useState(false);
     // const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
-    const [item, setItem] = useState(null);
+    const [item, setItem] = useState(items && items[col]);
 
     useImperativeHandle(
       ref,
@@ -43,6 +43,7 @@ const Dustbin = React.forwardRef(
           // setHasDropped(true);
           setItem(data);
           items[col] = data;
+          dropped.isChild = true;
           console.log('onDrop', data);
         },
       }),
@@ -69,19 +70,6 @@ const Dustbin = React.forwardRef(
 export default DropTarget(
   (props) => props.accepts,
   {
-    hover(props, monitor, component) {
-      const item = monitor.getItem();
-      const dragIndex = item.index;
-      const hoverIndex = props.index;
-
-      // Don't replace items with themselves
-      // if (dragIndex === -1) {
-      //   item.index = hoverIndex;
-      //   console.log('DropTarget', item.onCreate(item.data), hoverIndex);
-      // }
-      // console.log('DropTarget', dragIndex, hoverIndex, component);
-      return null;
-    },
     drop(
       props,
       monitor,
@@ -90,14 +78,10 @@ export default DropTarget(
       if (!component) {
         return;
       }
-      // const hasDroppedOnChild = monitor.didDrop();
-      // if (hasDroppedOnChild && !props.greedy) {
-      //   return;
-      // }
 
       const item = monitor.getItem();
       (component).onDrop(item);
-      if (typeof item.onDestroy === 'function') item.onDestroy(item.data);
+      if (typeof item.setAsChild === 'function') item.setAsChild(props.data, item.data);
     },
   },
   (connect, monitor) => ({

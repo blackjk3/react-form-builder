@@ -1,1 +1,1 @@
-export default { CARD: 'card', COLUMN: 'column', BOX: 'box' };
+export default { CARD: 'card', BOX: 'box' };

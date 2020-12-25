@@ -16,6 +16,7 @@ class TwoColumnRow extends React.Component {
   // }
 
   render() {
+    const { controls } = this.props;
     const { childItems, pageBreakBefore } = this.props.data;
     let baseClasses = 'SortableItem rfb-item';
     if (pageBreakBefore) { baseClasses += ' alwaysbreak'; }
@@ -27,10 +28,10 @@ class TwoColumnRow extends React.Component {
           <ComponentLabel {...this.props} />
           <div className="row">
             <div className="col-md-6">
-              <Dustbin accepts={accepts} items={childItems} col={0} />
+            { controls ? controls[0] : <Dustbin data={this.props.data} accepts={accepts} items={childItems} col={0} />}
             </div>
             <div className="col-md-6">
-              <Dustbin accepts={accepts} items={childItems} col={1} />
+            { controls ? controls[1] : <Dustbin data={this.props.data} accepts={accepts} items={childItems} col={1} />}
             </div>
           </div>
         </div>

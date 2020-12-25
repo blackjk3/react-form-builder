@@ -7,9 +7,10 @@ import ReactDOM from 'react-dom';
 import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
+import { TwoColumnRow } from './multi-column';
 
 const {
-  Image, Checkboxes, Signature, Download, Camera, TwoColumnRow,
+  Image, Checkboxes, Signature, Download, Camera,
 } = FormElements;
 
 export default class ReactForm extends React.Component {
@@ -241,6 +242,11 @@ export default class ReactForm extends React.Component {
       defaultValue={this._getDefaultValue(item)} />);
   }
 
+  getContainerElement(item, Element) {
+    const controls = item.childItems.map(x => this.getInputElement(x));
+    return (<Element mutable={true} key={`form_${item.id}`} data={item} controls={controls} />);
+  }
+
   getSimpleElement(item) {
     const Element = FormElements[item.element];
     return (<Element mutable={true} key={`form_${item.id}`} data={item} />);
@@ -259,7 +265,7 @@ export default class ReactForm extends React.Component {
       }
     });
 
-    const items = data_items.map(item => {
+    const items = data_items.filter(x => !x.parentId).map(item => {
       if (!item) return null;
       switch (item.element) {
         case 'TextInput':
@@ -274,7 +280,7 @@ export default class ReactForm extends React.Component {
         case 'ThreeColumnRow':
           return this.getInputElement(item);
         case 'TwoColumnRow':
-          return <TwoColumnRow key={`form_${item.id}`} data={item} />;
+          return this.getContainerElement(item, TwoColumnRow);
         case 'Signature':
           return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
         case 'Checkboxes':
