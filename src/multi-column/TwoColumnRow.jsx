@@ -16,7 +16,9 @@ class TwoColumnRow extends React.Component {
   // }
 
   render() {
-    const { controls } = this.props;
+    const {
+      controls, data, editModeOn, _onDestroy,
+    } = this.props;
     const { childItems, pageBreakBefore } = this.props.data;
     let baseClasses = 'SortableItem rfb-item';
     if (pageBreakBefore) { baseClasses += ' alwaysbreak'; }
@@ -28,37 +30,15 @@ class TwoColumnRow extends React.Component {
           <ComponentLabel {...this.props} />
           <div className="row">
             <div className="col-md-6">
-            { controls ? controls[0] : <Dustbin data={this.props.data} accepts={accepts} items={childItems} col={0} />}
+            { controls ? controls[0] : <Dustbin data={data} accepts={accepts} items={childItems} col={0} editModeOn={editModeOn} _onDestroy={_onDestroy} />}
             </div>
             <div className="col-md-6">
-            { controls ? controls[1] : <Dustbin data={this.props.data} accepts={accepts} items={childItems} col={1} />}
+            { controls ? controls[1] : <Dustbin data={data} accepts={accepts} items={childItems} col={1} editModeOn={editModeOn} _onDestroy={_onDestroy} />}
             </div>
           </div>
         </div>
       </div>
     );
-
-    // return (
-    //   <div className={baseClasses}>
-    //     <ComponentHeader {...this.props} />
-    //     <div className="form-group">
-    //       <ComponentLabel {...this.props} />
-    //       <div className="row">
-    //         <div className="col-md-6" style={{ zIndex: 1000 }}>
-    //           <Dustbin greedy={true}>
-    //             <Dustbin greedy={true} />
-    //           </Dustbin>
-    //         </div>
-    //         <div className="col-md-6">
-    //           <Dustbin>
-    //             <Dustbin />
-    //           </Dustbin>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <Card />
-    //   </div>
-    // );
   }
 }
 

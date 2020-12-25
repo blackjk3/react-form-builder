@@ -1,12 +1,15 @@
-import React, { useState, useImperativeHandle } from 'react';
+import React, { useState, useImperativeHandle, Fragment } from 'react';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from '../ItemTypes';
 import FormElements from '../form-elements';
 
-function getSimpleElement(item) {
+function getSimpleElement(item, props) {
   if (!item) return null;
   const Element = FormElements[item.element || item.key];
-  return (<Element mutable={true} key={`form_${item.id}`} data={item} />);
+  return (
+    <Fragment>
+      <Element {...props} key={`form_${item.id}`} data={item} />
+    </Fragment>
+  );
 }
 
 function getStyle(backgroundColor) {
@@ -14,7 +17,7 @@ function getStyle(backgroundColor) {
     border: '1px solid rgba(0,0,0,0.2)',
     minHeight: '2rem',
     minWidth: '8rem',
-    color: 'white',
+    // color: 'white',
     backgroundColor,
     padding: 0,
     // padding: '2rem',
@@ -28,7 +31,7 @@ function getStyle(backgroundColor) {
 
 const Dustbin = React.forwardRef(
   ({
-    greedy, isOver, isOverCurrent, connectDropTarget, items, col, accepts, canDrop,
+    greedy, isOver, isOverCurrent, connectDropTarget, items, col, ...rest
   }, ref) => {
     // const [hasDropped, setHasDropped] = useState(false);
     // const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
@@ -51,13 +54,13 @@ const Dustbin = React.forwardRef(
     );
 
     // const text = greedy ? 'greedy' : 'not greedy';
-    let backgroundColor = 'rgba(0, 0, 0, .5)';
+    let backgroundColor = 'rgba(0, 0, 0, .03)';
 
     if (isOverCurrent || (isOver && greedy)) {
       backgroundColor = 'darkgreen';
     }
 
-    const element = getSimpleElement(item);
+    const element = getSimpleElement(item, rest);
     // console.log('accepts, canDrop', accepts, canDrop);
     return connectDropTarget(
       <div style={getStyle(backgroundColor)}>

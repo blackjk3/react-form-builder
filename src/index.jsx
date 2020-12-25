@@ -20,6 +20,7 @@ class ReactFormBuilder extends React.Component {
       editMode: false,
       editElement: null,
     };
+    this.editModeOn = this.editModeOn.bind(this);
   }
 
   editModeOn(data, e) {
