@@ -17,7 +17,7 @@ const gripSource = {
     } = props;
     return {
       id: data.id,
-      index: data.index,
+      col: data.col,
       onDestroy,
       setAsChild,
       getDataById,

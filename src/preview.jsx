@@ -116,10 +116,31 @@ export default class Preview extends React.Component {
     return data.find(x => x.id === id);
   }
 
+  swapChildren(data, item, child, col) {
+    if (!(child.col !== undefined && child.col !== col && item.childItems[col])) {
+      // No child was assigned yet in both source and target.
+      return false;
+    }
+    const oldId = item.childItems[col];
+    const oldItem = this.getDataById(oldId);
+    const oldCol = child.col;
+    // eslint-disable-next-line no-param-reassign
+    item.childItems[oldCol] = oldId; oldItem.col = oldCol;
+    // eslint-disable-next-line no-param-reassign
+    item.childItems[col] = child.id; child.col = col;
+    this.seq = this.seq > 100000 ? 0 : this.seq + 1;
+    this.setState(data);
+    store.dispatch('updateOrder', data);
+    return true;
+  }
+
   setAsChild(item, child, col) {
     const { data } = this.state;
+    if (this.swapChildren(data, item, child, col)) {
+      return;
+    }
     // eslint-disable-next-line no-param-reassign
-    item.childItems[col] = child.id;
+    item.childItems[col] = child.id; child.col = col;
     // eslint-disable-next-line no-param-reassign
     child.parentId = item.id;
     const list = data.filter(x => x.parentId === item.id);

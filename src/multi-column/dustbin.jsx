@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle, Fragment } from 'react';
+import React, { useImperativeHandle, Fragment } from 'react';
 import { DropTarget } from 'react-dnd';
 import FormElements from '../form-elements';
 
@@ -33,25 +33,18 @@ const Dustbin = React.forwardRef(
   ({
     greedy, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
   }, ref) => {
-    const [item, setItem] = useState(items && getDataById(items[col]));
-
+    const item = getDataById(items[col]);
     useImperativeHandle(
       ref,
       () => ({
-        onDrop: (dropped) => {
-          const { data } = dropped;
-          // setHasDroppedOnChild(onChild);
-          // setHasDropped(true);
-          setItem(data);
-          // items[col] = data.id;
-          // dropped.isChild = true;
-          console.log('onDrop', data);
+        onDrop: (/* dropped */) => {
+          // const { data } = dropped;
+          // console.log('onDrop', data);
         },
       }),
       [],
     );
 
-    // const text = greedy ? 'greedy' : 'not greedy';
     let backgroundColor = 'rgba(0, 0, 0, .03)';
 
     if (isOverCurrent || (isOver && greedy)) {
