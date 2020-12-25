@@ -5,7 +5,7 @@ import ComponentLabel from '../form-elements/component-label';
 import Dustbin from './dustbin';
 import ItemTypes from '../ItemTypes';
 
-const accepts = [ItemTypes.BOX, ItemTypes.COLUMN];
+const accepts = [ItemTypes.BOX, ItemTypes.CARD];
 
 class TwoColumnRow extends React.Component {
   // constructor(props) {

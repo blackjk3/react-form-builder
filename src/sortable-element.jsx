@@ -30,7 +30,11 @@ const cardTarget = {
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
       return;
-    } if (dragIndex === -1) {
+    }
+    if (dragIndex === -1) {
+      if (props.data.isContainer) {
+        return;
+      }
       item.index = hoverIndex;
       props.insertCard(item.onCreate(item.data), hoverIndex);
     }

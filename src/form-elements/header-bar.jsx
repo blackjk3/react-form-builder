@@ -15,7 +15,9 @@ export default class HeaderBar extends React.Component {
             <div className="btn is-isolated btn-school" onClick={this.props.editModeOn.bind(this.props.parent, this.props.data)}><i className="is-isolated fas fa-edit"></i></div>
           }
           <div className="btn is-isolated btn-school" onClick={this.props.onDestroy.bind(this, this.props.data)}><i className="is-isolated fas fa-trash"></i></div>
-          <Grip data={this.props.data}/>
+          { !this.props.data.isContainer &&
+            <Grip data={this.props.data} onDestroy={this.props.onDestroy} />
+          }
         </div>
       </div>
     );

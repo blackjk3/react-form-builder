@@ -5,7 +5,7 @@ import FormElements from '../form-elements';
 
 function getSimpleElement(item) {
   if (!item) return null;
-  const Element = FormElements[item.element];
+  const Element = FormElements[item.element || item.key];
   return (<Element mutable={true} key={`form_${item.id}`} data={item} />);
 }
 
@@ -37,7 +37,8 @@ const Dustbin = React.forwardRef(
     useImperativeHandle(
       ref,
       () => ({
-        onDrop: (data) => {
+        onDrop: (dropped) => {
+          const { data } = dropped;
           // setHasDroppedOnChild(onChild);
           // setHasDropped(true);
           setItem(data);
@@ -56,7 +57,7 @@ const Dustbin = React.forwardRef(
     }
 
     const element = getSimpleElement(item);
-    console.log('accepts, canDrop', accepts, canDrop);
+    // console.log('accepts, canDrop', accepts, canDrop);
     return connectDropTarget(
       <div style={getStyle(backgroundColor)}>
        {element}
@@ -68,6 +69,19 @@ const Dustbin = React.forwardRef(
 export default DropTarget(
   (props) => props.accepts,
   {
+    hover(props, monitor, component) {
+      const item = monitor.getItem();
+      const dragIndex = item.index;
+      const hoverIndex = props.index;
+
+      // Don't replace items with themselves
+      // if (dragIndex === -1) {
+      //   item.index = hoverIndex;
+      //   console.log('DropTarget', item.onCreate(item.data), hoverIndex);
+      // }
+      // console.log('DropTarget', dragIndex, hoverIndex, component);
+      return null;
+    },
     drop(
       props,
       monitor,
@@ -76,13 +90,14 @@ export default DropTarget(
       if (!component) {
         return;
       }
-      const hasDroppedOnChild = monitor.didDrop();
-      if (hasDroppedOnChild && !props.greedy) {
-        return;
-      }
+      // const hasDroppedOnChild = monitor.didDrop();
+      // if (hasDroppedOnChild && !props.greedy) {
+      //   return;
+      // }
 
       const item = monitor.getItem();
-      (component).onDrop(item.data, hasDroppedOnChild);
+      (component).onDrop(item);
+      if (typeof item.onDestroy === 'function') item.onDestroy(item.data);
     },
   },
   (connect, monitor) => ({

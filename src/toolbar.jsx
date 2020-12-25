@@ -275,6 +275,7 @@ export default class Toolbar extends React.Component {
 
     if (item.key === 'TwoColumnRow') {
       elementOptions.childItems = item.childItems;
+      elementOptions.isContainer = true;
     }
 
     if (item.key === 'Image') {
