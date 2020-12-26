@@ -128,8 +128,6 @@ export default class Preview extends React.Component {
     item.childItems[oldCol] = oldId; oldItem.col = oldCol;
     // eslint-disable-next-line no-param-reassign
     item.childItems[col] = child.id; child.col = col;
-    this.seq = this.seq > 100000 ? 0 : this.seq + 1;
-    this.setState(data);
     store.dispatch('updateOrder', data);
     return true;
   }

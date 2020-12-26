@@ -8,13 +8,6 @@ import ItemTypes from '../ItemTypes';
 const accepts = [ItemTypes.BOX, ItemTypes.CARD];
 
 class TwoColumnRow extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     items: props.data.childItems || [null, null],
-  //   };
-  // }
-
   render() {
     const {
       controls, data, editModeOn, _onDestroy, getDataById, setAsChild, seq,
