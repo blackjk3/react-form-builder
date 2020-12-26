@@ -1,11 +1,11 @@
 import SortableElement from './sortable-element';
 import PlaceHolder from './form-place-holder';
 import BaseFormElements from './form-elements';
-import { TwoColumnRow } from './multi-column';
+import { TwoColumnRow, ThreeColumnRow } from './multi-column';
 
 const {
   Header, Paragraph, Label, LineBreak, TextInput, NumberInput, TextArea, Dropdown, Checkboxes,
-  DatePicker, RadioButtons, Image, Rating, Tags, Signature, HyperLink, Download, Camera, Range, ThreeColumnRow,
+  DatePicker, RadioButtons, Image, Rating, Tags, Signature, HyperLink, Download, Camera, Range,
 } = BaseFormElements;
 
 const FormElements = {};

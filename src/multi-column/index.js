@@ -1,4 +1,3 @@
-import TwoColumnRow from './TwoColumnRow';
+import { TwoColumnRow, ThreeColumnRow } from './MultiColumnRow';
 
-// eslint-disable-next-line import/prefer-default-export
-export { TwoColumnRow };
+export { TwoColumnRow, ThreeColumnRow };

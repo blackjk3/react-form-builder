@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
-import { TwoColumnRow } from './multi-column';
+import { TwoColumnRow, ThreeColumnRow } from './multi-column';
 
 const {
   Image, Checkboxes, Signature, Download, Camera,
@@ -283,8 +283,9 @@ export default class ReactForm extends React.Component {
         case 'Rating':
         case 'Tags':
         case 'Range':
-        case 'ThreeColumnRow':
           return this.getInputElement(item);
+        case 'ThreeColumnRow':
+          return this.getContainerElement(item, ThreeColumnRow);
         case 'TwoColumnRow':
           return this.getContainerElement(item, TwoColumnRow);
         case 'Signature':
