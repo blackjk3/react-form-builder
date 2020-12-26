@@ -31,6 +31,7 @@ export default class Preview extends React.Component {
     this.moveCard = this.moveCard.bind(this);
     this.insertCard = this.insertCard.bind(this);
     this.setAsChild = this.setAsChild.bind(this);
+    this.removeChild = this.removeChild.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -151,6 +152,21 @@ export default class Preview extends React.Component {
     store.dispatch('updateOrder', newData);
   }
 
+  removeChild(item, col) {
+    const { data } = this.state;
+    const oldId = item.childItems[col];
+    const oldItem = this.getDataById(oldId);
+    if (oldItem) {
+      const newData = [...data]; // data.filter(x => x !== oldItem);
+      // eslint-disable-next-line no-param-reassign
+      item.childItems[col] = null;
+      delete oldItem.parentId;
+      this.seq = this.seq > 100000 ? 0 : this.seq + 1;
+      store.dispatch('updateOrder', newData);
+      this.setState({ data: newData });
+    }
+  }
+
   insertCard(item, hoverIndex) {
     const { data } = this.state;
     data.splice(hoverIndex, 0, item);
@@ -180,7 +196,7 @@ export default class Preview extends React.Component {
 
   getElement(item, index) {
     const SortableFormElement = SortableFormElements[item.element];
-    return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} getDataById={this.getDataById} setAsChild={this.setAsChild} _onDestroy={this._onDestroy} />;
+    return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} getDataById={this.getDataById} setAsChild={this.setAsChild} removeChild={this.removeChild} _onDestroy={this._onDestroy} />;
   }
 
   render() {

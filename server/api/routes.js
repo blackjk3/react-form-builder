@@ -14,7 +14,7 @@ var app = express();
 
 app.route('/formdata/')
   .get((req, res) => {
-    console.log('get formdata: ', formData.data);
+    // console.log('get formdata: ', formData.data);
     res.send(formData.data.task_data);
   })
   .post((req, res) => {
