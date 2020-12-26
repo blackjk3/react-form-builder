@@ -114,7 +114,7 @@ export default class Preview extends React.Component {
 
   getDataById(id) {
     const { data } = this.state;
-    return data.find(x => x.id === id);
+    return data.find(x => x && x.id === id);
   }
 
   swapChildren(data, item, child, col) {
@@ -142,12 +142,15 @@ export default class Preview extends React.Component {
     item.childItems[col] = child.id; child.col = col;
     // eslint-disable-next-line no-param-reassign
     child.parentId = item.id;
-    const list = data.filter(x => x.parentId === item.id);
+    const list = data.filter(x => x && x.parentId === item.id);
     const toRemove = list.filter(x => item.childItems.indexOf(x.id) === -1);
     let newData = data;
     if (toRemove.length) {
       // console.log('toRemove', toRemove);
       newData = data.filter(x => toRemove.indexOf(x) === -1);
+    }
+    if (!this.getDataById(child.id)) {
+      newData.push(child);
     }
     store.dispatch('updateOrder', newData);
   }

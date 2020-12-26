@@ -75,7 +75,11 @@ export default DropTarget(
 
       const item = monitor.getItem();
       (component).onDrop(item);
-      if (typeof item.setAsChild === 'function') item.setAsChild(props.data, item.data, props.col);
+      if (typeof props.setAsChild === 'function') {
+        const isNew = !item.data.id;
+        const data = isNew ? item.onCreate(item.data) : item.data;
+        props.setAsChild(props.data, data, props.col);
+      }
     },
   },
   (connect, monitor) => ({
