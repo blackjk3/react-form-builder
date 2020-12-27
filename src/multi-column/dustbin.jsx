@@ -75,7 +75,7 @@ export default DropTarget(
 
       const item = monitor.getItem();
       (component).onDrop(item);
-      if (typeof props.setAsChild === 'function') {
+      if (item.data && typeof props.setAsChild === 'function') {
         const isNew = !item.data.id;
         const data = isNew ? item.onCreate(item.data) : item.data;
         props.setAsChild(props.data, data, props.col);

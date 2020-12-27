@@ -7,6 +7,7 @@ import update from 'immutability-helper';
 import store from './stores/store';
 import FormElementsEdit from './form-elements-edit';
 import SortableFormElements from './sortable-form-elements';
+import ID from './UUID';
 
 const { PlaceHolder } = SortableFormElements;
 
@@ -32,6 +33,7 @@ export default class Preview extends React.Component {
     this.insertCard = this.insertCard.bind(this);
     this.setAsChild = this.setAsChild.bind(this);
     this.removeChild = this.removeChild.bind(this);
+    this._onDestroy = this._onDestroy.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -106,7 +108,10 @@ export default class Preview extends React.Component {
   _onDestroy(item) {
     if (item.childItems) {
       item.childItems.forEach(x => {
-        store.dispatch('delete', x);
+        const child = this.getDataById(x);
+        if (child) {
+          store.dispatch('delete', child);
+        }
       });
     }
     store.dispatch('delete', item);
@@ -170,10 +175,33 @@ export default class Preview extends React.Component {
     }
   }
 
-  insertCard(item, hoverIndex) {
+  showCard(item, hoverIndex, id) {
     const { data } = this.state;
-    data.splice(hoverIndex, 0, item);
-    this.saveData(item, hoverIndex, hoverIndex);
+    const parent = this.getDataById(item.data.parentId);
+    const oldItem = this.getDataById(id);
+    if (parent && oldItem) {
+      const newIndex = data.indexOf(oldItem);
+      const newData = [...data]; // data.filter(x => x !== oldItem);
+      // eslint-disable-next-line no-param-reassign
+      parent.childItems[oldItem.col] = null;
+      delete oldItem.parentId;
+      // eslint-disable-next-line no-param-reassign
+      delete item.setAsChild;
+      item.index = newIndex;
+      this.seq = this.seq > 100000 ? 0 : this.seq + 1;
+      store.dispatch('updateOrder', newData);
+      this.setState({ data: newData });
+    }
+  }
+
+  insertCard(item, hoverIndex, id) {
+    const { data } = this.state;
+    if (id) {
+      this.showCard(item, hoverIndex, id);
+    } else {
+      data.splice(hoverIndex, 0, item);
+      this.saveData(item, hoverIndex, hoverIndex);
+    }
   }
 
   moveCard(dragIndex, hoverIndex) {

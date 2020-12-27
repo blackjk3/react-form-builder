@@ -13,9 +13,10 @@ const style = {
 const gripSource = {
   beginDrag(props) {
     const {
-      data, onDestroy, setAsChild, getDataById,
+      data, index, onDestroy, setAsChild, getDataById,
     } = props;
     return {
+      index: data.parentId ? -1 : index,
       id: data.id,
       col: data.col,
       onDestroy,
