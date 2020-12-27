@@ -35,8 +35,9 @@ const cardTarget = {
       // console.log('BOX', item);
       if (dragIndex === -1) {
         props.insertCard(item, hoverIndex, item.id);
-      } else {
-        return;
+        if (item.parentIndex === hoverIndex) {
+          return;
+        }
       }
     }
     if (dragIndex === -1) {

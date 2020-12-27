@@ -147,6 +147,8 @@ export default class Preview extends React.Component {
     item.childItems[col] = child.id; child.col = col;
     // eslint-disable-next-line no-param-reassign
     child.parentId = item.id;
+    // eslint-disable-next-line no-param-reassign
+    child.parentIndex = data.indexOf(item);
     const list = data.filter(x => x && x.parentId === item.id);
     const toRemove = list.filter(x => item.childItems.indexOf(x.id) === -1);
     let newData = data;
@@ -175,7 +177,7 @@ export default class Preview extends React.Component {
     }
   }
 
-  showCard(item, id) {
+  restoreCard(item, id) {
     const { data } = this.state;
     const parent = this.getDataById(item.data.parentId);
     const oldItem = this.getDataById(id);
@@ -187,6 +189,9 @@ export default class Preview extends React.Component {
       delete oldItem.parentId;
       // eslint-disable-next-line no-param-reassign
       delete item.setAsChild;
+      // eslint-disable-next-line no-param-reassign
+      delete item.parentIndex;
+      // eslint-disable-next-line no-param-reassign
       item.index = newIndex;
       this.seq = this.seq > 100000 ? 0 : this.seq + 1;
       store.dispatch('updateOrder', newData);
@@ -197,7 +202,7 @@ export default class Preview extends React.Component {
   insertCard(item, hoverIndex, id) {
     const { data } = this.state;
     if (id) {
-      this.showCard(item, id);
+      this.restoreCard(item, id);
     } else {
       data.splice(hoverIndex, 0, item);
       this.saveData(item, hoverIndex, hoverIndex);

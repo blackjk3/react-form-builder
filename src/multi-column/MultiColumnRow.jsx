@@ -11,7 +11,7 @@ const accepts = [ItemTypes.BOX, ItemTypes.CARD];
 class MultiColumnRow extends React.Component {
   render() {
     const {
-      controls, data, editModeOn, getDataById, setAsChild, removeChild, seq, className,
+      controls, data, editModeOn, getDataById, setAsChild, removeChild, seq, className, index,
     } = this.props;
     const { childItems, pageBreakBefore } = data;
     let baseClasses = 'SortableItem rfb-item';
@@ -31,6 +31,7 @@ class MultiColumnRow extends React.Component {
                   accepts={accepts}
                   items={childItems}
                   col={i}
+                  parentIndex={index}
                   editModeOn={editModeOn}
                   _onDestroy={() => removeChild(data, i)}
                   getDataById={getDataById}
