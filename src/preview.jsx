@@ -123,6 +123,9 @@ export default class Preview extends React.Component {
   }
 
   swapChildren(data, item, child, col) {
+    if (child.col !== undefined && item.id !== child.parentId) {
+      return false;
+    }
     if (!(child.col !== undefined && child.col !== col && item.childItems[col])) {
       // No child was assigned yet in both source and target.
       return false;
@@ -143,12 +146,17 @@ export default class Preview extends React.Component {
     if (this.swapChildren(data, item, child, col)) {
       return;
     }
+    const oldParent = this.getDataById(child.parentId);
+    const oldCol = child.col;
     // eslint-disable-next-line no-param-reassign
     item.childItems[col] = child.id; child.col = col;
     // eslint-disable-next-line no-param-reassign
     child.parentId = item.id;
     // eslint-disable-next-line no-param-reassign
     child.parentIndex = data.indexOf(item);
+    if (oldParent) {
+      oldParent.childItems[oldCol] = null;
+    }
     const list = data.filter(x => x && x.parentId === item.id);
     const toRemove = list.filter(x => item.childItems.indexOf(x.id) === -1);
     let newData = data;

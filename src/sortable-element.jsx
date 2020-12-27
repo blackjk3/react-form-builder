@@ -15,6 +15,7 @@ const style = {
 const cardSource = {
   beginDrag(props) {
     return {
+      itemType: ItemTypes.CARD,
       id: props.id,
       index: props.index,
     };
@@ -22,23 +23,47 @@ const cardSource = {
 };
 
 const cardTarget = {
-  hover(props, monitor, component) {
+  drop(
+    props,
+    monitor,
+    component,
+  ) {
+    if (!component) {
+      return;
+    }
+
     const item = monitor.getItem();
     const dragIndex = item.index;
     const hoverIndex = props.index;
-
-    // Don't replace items with themselves
-    if (dragIndex === hoverIndex) {
+    if (props.data.isContainer || item.itemType === item.itemType.CARD) {
+      // console.log('cardTarget -  Drop', item.itemType);
       return;
     }
     if (item.data && typeof item.setAsChild === 'function') {
       // console.log('BOX', item);
       if (dragIndex === -1) {
         props.insertCard(item, hoverIndex, item.id);
-        if (item.parentIndex === hoverIndex) {
-          return;
-        }
       }
+    }
+  },
+  hover(props, monitor, component) {
+    const item = monitor.getItem();
+    const dragIndex = item.index;
+    const hoverIndex = props.index;
+
+    if (item.data && typeof item.setAsChild === 'function') {
+      // console.log('BOX', item);
+      return;
+      // if (dragIndex === -1) {
+      //   props.insertCard(item, hoverIndex, item.id);
+      //   if (item.parentIndex === hoverIndex) {
+      //     return;
+      //   }
+      // }
+    }
+    // Don't replace items with themselves
+    if (dragIndex === hoverIndex) {
+      return;
     }
     if (dragIndex === -1) {
       if (props.data && props.data.isContainer) {

@@ -16,6 +16,7 @@ const gripSource = {
       data, index, onDestroy, setAsChild, getDataById,
     } = props;
     return {
+      itemType: ItemTypes.BOX,
       index: data.parentId ? -1 : index,
       parentIndex: data.parentIndex,
       id: data.id,
