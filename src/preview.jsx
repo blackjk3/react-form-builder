@@ -165,17 +165,17 @@ export default class Preview extends React.Component {
     const oldId = item.childItems[col];
     const oldItem = this.getDataById(oldId);
     if (oldItem) {
-      const newData = [...data]; // data.filter(x => x !== oldItem);
+      const newData = data.filter(x => x !== oldItem);
       // eslint-disable-next-line no-param-reassign
       item.childItems[col] = null;
-      delete oldItem.parentId;
+      // delete oldItem.parentId;
       this.seq = this.seq > 100000 ? 0 : this.seq + 1;
       store.dispatch('updateOrder', newData);
       this.setState({ data: newData });
     }
   }
 
-  showCard(item, hoverIndex, id) {
+  showCard(item, id) {
     const { data } = this.state;
     const parent = this.getDataById(item.data.parentId);
     const oldItem = this.getDataById(id);
@@ -197,7 +197,7 @@ export default class Preview extends React.Component {
   insertCard(item, hoverIndex, id) {
     const { data } = this.state;
     if (id) {
-      this.showCard(item, hoverIndex, id);
+      this.showCard(item, id);
     } else {
       data.splice(hoverIndex, 0, item);
       this.saveData(item, hoverIndex, hoverIndex);
