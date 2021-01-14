@@ -1,71 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>React Form Builder - UMD</title>
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" type="text/css" href="app.css">
-    <style>
-      body {
-        font-size: 14px;
-        font-weight: 300;
-        color: #404d5b;
-        width: 900px;
-        margin: 0 auto;
-      }
-      .modal { background: rgba(0,0,0, 0.3);}
-      .modal-content { padding: 30px; }
-      .modal-backdrop {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 11;
-        opacity: 0.5;
-        background-color: #000000;
-      }
-    </style>
-  </head>
-  <body>
-    <script>
-      var FORM_ACTION = "/testing";
-      var FORM_METHOD = "POST";
-    </script>
-  
-    <div class="clearfix" style="margin: 10px; width:70%">
-      <a href="https://github.com/Kiho/react-form-builder"><h4 class="pull-left">React Form Builder 2</h4></a>
-      <button class="btn btn-primary pull-right" style="margin-right: 10px" id="button-preview">Preview Form</button>
-      <div class="modal" id="preview-dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">                
-              <div id="form-generator"></div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" id="button-close">Close</button>
-            </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>React Form Builder - UMD</title>
+  <link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" type="text/css" href="app.css">
+  <style>
+    body {
+      font-size: 14px;
+      font-weight: 300;
+      color: #404d5b;
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    .modal {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-content {
+      padding: 30px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 11;
+      opacity: 0.5;
+      background-color: #000000;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    var FORM_ACTION = "/testing";
+    var FORM_METHOD = "POST";
+  </script>
+
+  <div class="clearfix" style="margin: 10px; width:70%">
+    <a href="https://github.com/Kiho/react-form-builder">
+      <h4 class="pull-left">React Form Builder 2</h4>
+    </a>
+    <button class="btn btn-primary pull-right" style="margin-right: 10px" id="button-preview">Preview Form</button>
+    <div class="modal" id="preview-dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div id="form-generator"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="button-close">Close</button>
           </div>
         </div>
       </div>
     </div>
-    <div id="form-builder"></div>
-    <!-- Load React. -->
-    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-    <script src="https://unpkg.com/react@16.4.2/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16.4.2/umd/react-dom.development.js" crossorigin></script>
+  </div>
+  <div id="form-builder"></div>
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16.4.2/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16.4.2/umd/react-dom.development.js" crossorigin></script>
 
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    <!-- Load our React component. -->
-    <script src="app.js"></script>
-    <script src="form-generator.js"></script>
-    <script src="form-builder.js"></script>    
-  </body>
+  <!-- Load our React component. -->
+  <script src="app.js"></script>
+  <script src="form-generator.js"></script>
+  <script src="form-builder.js"></script>
+</body>
+
 </html>

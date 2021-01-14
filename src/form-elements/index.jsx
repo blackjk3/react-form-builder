@@ -89,7 +89,7 @@ class TwoColumnRow extends React.Component {
 
     return (
       <div className={baseClasses}>
-        <ComponentHeader {...this.props} />
+        {/* <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
           <div className="row">
@@ -100,7 +100,7 @@ class TwoColumnRow extends React.Component {
               Col 2
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -113,7 +113,7 @@ class ThreeColumnRow extends React.Component {
 
     return (
       <div className={baseClasses}>
-        <ComponentHeader {...this.props} />
+        {/* <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
           <div className="row">
@@ -127,7 +127,7 @@ class ThreeColumnRow extends React.Component {
               Col 3
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

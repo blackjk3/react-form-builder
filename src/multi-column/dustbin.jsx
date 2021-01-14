@@ -17,15 +17,10 @@ function getStyle(backgroundColor) {
     border: '1px solid rgba(0,0,0,0.2)',
     minHeight: '2rem',
     minWidth: '12rem',
-    // color: 'white',
+    width: '100%',
     backgroundColor,
     padding: 0,
-    // padding: '2rem',
-    // paddingTop: '1rem',
-    // margin: '1rem',
-    // textAlign: 'center',
-    float: 'left',
-    // fontSize: '1rem',
+    float: 'left'
   };
 }
 
@@ -55,7 +50,7 @@ const Dustbin = React.forwardRef(
     // console.log('accepts, canDrop', accepts, canDrop);
     return connectDropTarget(
       <div style={getStyle(backgroundColor)}>
-       {element}
+        {element}
       </div>,
     );
   },
