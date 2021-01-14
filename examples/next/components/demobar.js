@@ -84,20 +84,20 @@ export default class Demobar extends React.Component {
 
         { this.state.previewVisible &&
           <div className={modalClass}>
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-lg">
               <div className="modal-content">
                 <div className="modal-body">
-                    <ReactFormGenerator
-                        download_path=""
-                        back_action="/"
-                        back_name="Back"
-                        answer_data={{}}
-                        action_name="Save"
-                        form_action="/"
-                        form_method="POST"
-                        onSubmit={this.submit}
-                        variables={this.props.variables}
-                        data={this.state.data} />
+                  <ReactFormGenerator
+                    download_path=""
+                    back_action="/"
+                    back_name="Back"
+                    answer_data={{}}
+                    action_name="Save"
+                    form_action="/"
+                    form_method="POST"
+                    onSubmit={this.submit}
+                    variables={this.props.variables}
+                    data={this.state.data} />
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
@@ -109,20 +109,20 @@ export default class Demobar extends React.Component {
 
         { this.state.roPreviewVisible &&
           <div className={roModalClass}>
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-lg">
               <div className="modal-content">
                 <div className="modal-body">
-                    <ReactFormGenerator
-                        download_path=""
-                        back_action="/"
-                        back_name="Back"
-                        answer_data={{}}
-                        action_name="Save"
-                        form_action="/"
-                        form_method="POST"
-                        read_only={true}
-                        variables={this.props.variables}
-                        hide_actions={true} data={this.state.data} />
+                  <ReactFormGenerator
+                    download_path=""
+                    back_action="/"
+                    back_name="Back"
+                    answer_data={{}}
+                    action_name="Save"
+                    form_action="/"
+                    form_method="POST"
+                    read_only={true}
+                    variables={this.props.variables}
+                    hide_actions={true} data={this.state.data} />
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
@@ -134,19 +134,19 @@ export default class Demobar extends React.Component {
 
         { this.state.shortPreviewVisible &&
           <div className={shortModalClass}>
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-lg">
               <div className="modal-content">
                 <div className="modal-body">
-                    <ReactFormGenerator
-                        download_path=""
-                        back_action=""
-                        answer_data={{}}
-                        form_action="/"
-                        form_method="POST"
-                        data={this.state.data}
-                        display_short={true}
-                        variables={this.props.variables}
-                        hide_actions={false} />
+                  <ReactFormGenerator
+                    download_path=""
+                    back_action=""
+                    answer_data={{}}
+                    form_action="/"
+                    form_method="POST"
+                    data={this.state.data}
+                    display_short={true}
+                    variables={this.props.variables}
+                    hide_actions={false} />
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>

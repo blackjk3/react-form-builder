@@ -23,21 +23,22 @@ class MultiColumnRow extends React.Component {
         <div>
           <ComponentLabel {...this.props} />
           <div className="row">
-            { childItems.map((x, i) => (
+            {childItems.map((x, i) => (
               <div key={`${i}_${x || '_'}`} className={className}>{
                 controls ? controls[i] :
-                <Dustbin
-                  data={data}
-                  accepts={accepts}
-                  items={childItems}
-                  col={i}
-                  parentIndex={index}
-                  editModeOn={editModeOn}
-                  _onDestroy={() => removeChild(data, i)}
-                  getDataById={getDataById}
-                  setAsChild={setAsChild}
-                  seq={seq}
-                />}
+                  <Dustbin
+                    style={{ width: '100%' }}
+                    data={data}
+                    accepts={accepts}
+                    items={childItems}
+                    col={i}
+                    parentIndex={index}
+                    editModeOn={editModeOn}
+                    _onDestroy={() => removeChild(data, i)}
+                    getDataById={getDataById}
+                    setAsChild={setAsChild}
+                    seq={seq}
+                  />}
               </div>))}
           </div>
         </div>
