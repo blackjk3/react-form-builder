@@ -7,6 +7,7 @@
     padding: 10px;
     box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
     // min-height: 750px;
+    width:100%;
 
     .preview-page-break {
       padding: 5px 0;
@@ -222,7 +223,7 @@
   }
 
   .react-form-builder-toolbar {
-    width: 250px;
+    width: 100%;
     background: #fff;
     margin-top: -30px;
 
