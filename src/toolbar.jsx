@@ -140,6 +140,22 @@ export default class Toolbar extends React.Component {
         field_name: 'text_area_',
       },
       {
+        key: 'TwoColumnRow',
+        canHaveAnswer: false,
+        name: 'Two Column Row',
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'two_col_row_',
+      },
+      {
+        key: 'ThreeColumnRow',
+        canHaveAnswer: false,
+        name: 'Three Column Row',
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'three_col_row_',
+      },
+      {
         key: 'Image',
         name: 'Image',
         label: '',
@@ -256,6 +272,10 @@ export default class Toolbar extends React.Component {
     elementOptions.canHaveOptionValue = item.canHaveOptionValue !== false;
     elementOptions.canPopulateFromApi = item.canPopulateFromApi !== false;
 
+    if (item.class_name) {
+      elementOptions.class_name = item.class_name;
+    }
+
     if (item.key === 'Image') {
       elementOptions.src = item.src;
     }
@@ -305,7 +325,7 @@ export default class Toolbar extends React.Component {
 
   render() {
     return (
-      <div className="react-form-builder-toolbar float-right">
+      <div className="col-md-3 react-form-builder-toolbar float-right">
         <h4>Toolbox</h4>
         <ul>
           {

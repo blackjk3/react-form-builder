@@ -94,7 +94,7 @@ export default class Demobar extends React.Component {
 
         { this.state.previewVisible &&
           <div className={modalClass} role="dialog">
-            <div className="modal-dialog" role="document">
+            <div className="modal-dialog modal-lg" role="document">
               <div className="modal-content">
                 <ReactFormGenerator
                   download_path=""
@@ -119,7 +119,7 @@ export default class Demobar extends React.Component {
 
         { this.state.roPreviewVisible &&
           <div className={roModalClass}>
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-lg">
               <div className="modal-content">
                 <ReactFormGenerator
                   download_path=""
@@ -144,8 +144,8 @@ export default class Demobar extends React.Component {
 
         { this.state.shortPreviewVisible &&
           <div className={shortModalClass}>
-            <div className="modal-dialog">
-              <div className="modal-content">
+            <div className="modal-dialog modal-lg">
+              <div className="modal-content border border-light p-3 mb-4">
                 <ReactFormGenerator
                   download_path=""
                   back_action=""

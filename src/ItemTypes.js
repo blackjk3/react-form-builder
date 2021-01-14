@@ -1,1 +1,1 @@
-export default { CARD: 'card' };
+export default { CARD: 'card', BOX: 'box' };

@@ -1,12 +1,13 @@
 .react-form-builder {
   .react-form-builder-preview {
-    position: relative;
-    width: 70%;
+    // position: relative;
+    // width: 70%;
     border: 1px solid #ddd;
     background: #fafafa;
     padding: 10px;
     box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
     min-height: 750px;
+    width:100%;
 
     .preview-page-break {
       padding: 5px 0;
@@ -189,6 +190,7 @@
           .toolbar-header-buttons {
             position: absolute;
             right: 20px;
+            margin-top:-20px;
           }
         }
         &:hover {
@@ -221,7 +223,7 @@
   }
 
   .react-form-builder-toolbar {
-    width: 250px;
+    width: 100%;
     background: #fff;
     margin-top: -30px;
 

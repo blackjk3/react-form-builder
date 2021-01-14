@@ -3,7 +3,6 @@
 */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Preview from './preview';
@@ -19,6 +18,7 @@ class ReactFormBuilder extends React.Component {
       editMode: false,
       editElement: null,
     };
+    this.editModeOn = this.editModeOn.bind(this);
   }
 
   editModeOn(data, e) {
@@ -74,8 +74,8 @@ class ReactFormBuilder extends React.Component {
              <Toolbar {...toolbarProps} />
            </div>
          </div>
-       </div>
-       </DndProvider>
+        </div>
+      </DndProvider>
     );
   }
 }

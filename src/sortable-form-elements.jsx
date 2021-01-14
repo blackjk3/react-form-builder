@@ -1,6 +1,7 @@
 import SortableElement from './sortable-element';
 import PlaceHolder from './form-place-holder';
 import BaseFormElements from './form-elements';
+import { TwoColumnRow, ThreeColumnRow } from './multi-column';
 
 const {
   Header, Paragraph, Label, LineBreak, TextInput, NumberInput, TextArea, Dropdown, Checkboxes,
@@ -29,5 +30,7 @@ FormElements.Download = SortableElement(Download);
 FormElements.Camera = SortableElement(Camera);
 FormElements.Range = SortableElement(Range);
 FormElements.PlaceHolder = SortableElement(PlaceHolder);
+FormElements.TwoColumnRow = SortableElement(TwoColumnRow);
+FormElements.ThreeColumnRow = SortableElement(ThreeColumnRow);
 
 export default FormElements;

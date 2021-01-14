@@ -82,6 +82,57 @@ class LineBreak extends React.Component {
   }
 }
 
+class TwoColumnRow extends React.Component {
+  render() {
+    let baseClasses = 'SortableItem rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
+    return (
+      <div className={baseClasses}>
+        {/* <ComponentHeader {...this.props} />
+        <div className="form-group">
+          <ComponentLabel {...this.props} />
+          <div className="row">
+            <div className="col-md-6">
+              Col 1
+            </div>
+            <div className="col-md-6">
+              Col 2
+            </div>
+          </div>
+        </div> */}
+      </div>
+    );
+  }
+}
+
+class ThreeColumnRow extends React.Component {
+  render() {
+    let baseClasses = 'SortableItem rfb-item';
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+
+    return (
+      <div className={baseClasses}>
+        {/* <ComponentHeader {...this.props} />
+        <div className="form-group">
+          <ComponentLabel {...this.props} />
+          <div className="row">
+            <div className="col-md-4">
+              Col 1
+            </div>
+            <div className="col-md-4">
+              Col 2
+            </div>
+            <div className="col-md-4">
+              Col 3
+            </div>
+          </div>
+        </div> */}
+      </div>
+    );
+  }
+}
+
 class TextInput extends React.Component {
   constructor(props) {
     super(props);
@@ -283,8 +334,8 @@ class Signature extends React.Component {
             ? (<img src={sourceDataURL} />)
             : (<SignaturePad {...pad_props} />)
           }
-          { canClear && (
-            <i className="fas fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>) }
+          {canClear && (
+            <i className="fas fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>)}
           <input {...props} />
         </div>
       </div>
@@ -368,31 +419,31 @@ class Checkboxes extends React.Component {
       <div className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-            <ComponentLabel className="form-label" {...this.props} />
-            {this.props.data.options.map((option) => {
-              const this_key = `preview_${option.key}`;
-              const props = {};
-              props.name = `option_${option.key}`;
+          <ComponentLabel className="form-label" {...this.props} />
+          {this.props.data.options.map((option) => {
+            const this_key = `preview_${option.key}`;
+            const props = {};
+            props.name = `option_${option.key}`;
 
-              props.type = 'checkbox';
-              props.value = option.value;
-              if (self.props.mutable) {
-                props.defaultChecked = self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1;
-              }
-              if (this.props.read_only) {
-                props.disabled = 'disabled';
-              }
-              return (
-                <div className={classNames} key={this_key}>
-                  <input id={"fid_"+this_key} className="custom-control-input" ref={c => {
-                    if (c && self.props.mutable) {
-                      self.options[`child_ref_${option.key}`] = c;
-                    }
-                  } } {...props} />
-                  <label className="custom-control-label" htmlFor={"fid_"+this_key}>{option.text}</label>
-                </div>
-              );
-            })}
+            props.type = 'checkbox';
+            props.value = option.value;
+            if (self.props.mutable) {
+              props.defaultChecked = self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1;
+            }
+            if (this.props.read_only) {
+              props.disabled = 'disabled';
+            }
+            return (
+              <div className={classNames} key={this_key}>
+                <input id={"fid_" + this_key} className="custom-control-input" ref={c => {
+                  if (c && self.props.mutable) {
+                    self.options[`child_ref_${option.key}`] = c;
+                  }
+                }} {...props} />
+                <label className="custom-control-label" htmlFor={"fid_" + this_key}>{option.text}</label>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -435,12 +486,12 @@ class RadioButtons extends React.Component {
 
             return (
               <div className={classNames} key={this_key}>
-                <input id={"fid_"+this_key} className="custom-control-input" ref={c => {
+                <input id={"fid_" + this_key} className="custom-control-input" ref={c => {
                   if (c && self.props.mutable) {
                     self.options[`child_ref_${option.key}`] = c;
                   }
-                } } {...props} />
-                <label className="custom-control-label" htmlFor={"fid_"+this_key}>{option.text}</label>
+                }} {...props} />
+                <label className="custom-control-label" htmlFor={"fid_" + this_key}>{option.text}</label>
               </div>
             );
           })}
@@ -593,24 +644,24 @@ class Camera extends React.Component {
             ? (<div><img src={sourceDataURL} /></div>)
             : (<div className="image-upload-container">
 
-            <div style={fileInputStyle}>
-              <input name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
-              <div className="image-upload-control">
-                <div className="btn btn-default btn-school"><i className="fas fa-camera"></i> Upload Photo</div>
-                <p>Select an image from your computer or device.</p>
-              </div>
-            </div>
-
-            { this.state.img &&
-              <div>
-                <img src={ this.state.img } height="100" className="image-upload-preview" /><br />
-                <div className="btn btn-school btn-image-clear" onClick={this.clearImage}>
-                  <i className="fas fa-times"></i> Clear Photo
+              <div style={fileInputStyle}>
+                <input name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
+                <div className="image-upload-control">
+                  <div className="btn btn-default btn-school"><i className="fas fa-camera"></i> Upload Photo</div>
+                  <p>Select an image from your computer or device.</p>
                 </div>
               </div>
-            }
-          </div>)
-        }
+
+              { this.state.img &&
+                <div>
+                  <img src={this.state.img} height="100" className="image-upload-preview" /><br />
+                  <div className="btn btn-school btn-image-clear" onClick={this.clearImage}>
+                    <i className="fas fa-times"></i> Clear Photo
+                </div>
+                </div>
+              }
+            </div>)
+          }
         </div>
       </div>
     );
@@ -716,5 +767,7 @@ FormElements.HyperLink = HyperLink;
 FormElements.Download = Download;
 FormElements.Camera = Camera;
 FormElements.Range = Range;
+FormElements.TwoColumnRow = TwoColumnRow;
+FormElements.ThreeColumnRow = ThreeColumnRow;
 
 export default FormElements;

@@ -38,11 +38,11 @@ export default class Demobar extends React.Component {
         <h4 className="float-left">Preview</h4>
         <button className="btn btn-default float-right" style={{ marginRight: '10px' }} onClick={this.showRoPreview.bind(this)}>Read Only Form</button>
         { this.state.roPreviewVisible &&
-        <div className={roModalClass}>
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-body">
-                <ReactFormGenerator
+          <div className={roModalClass}>
+            <div className="modal-dialog modal-lg">
+              <div className="modal-content">
+                <div className="modal-body">
+                  <ReactFormGenerator
                     download_path=""
                     back_action="/"
                     back_name="Back"
@@ -54,13 +54,13 @@ export default class Demobar extends React.Component {
                     variables={this.props.variables}
                     hide_actions={true}
                     data={data} />
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
+                </div>
               </div>
             </div>
-          </div>
-        </div> }
+          </div>}
       </div>
     );
   }

@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
+import { TwoColumnRow, ThreeColumnRow } from './multi-column';
 
 const {
   Image, Checkboxes, Signature, Download, Camera,
@@ -23,6 +24,7 @@ export default class ReactForm extends React.Component {
     super(props);
     this.answerData = this._convert(props.answer_data);
     this.emitter = new EventEmitter();
+    this.getDataById = this.getDataById.bind(this);
   }
 
   _convert(answers) {
@@ -229,6 +231,11 @@ export default class ReactForm extends React.Component {
     return errors;
   }
 
+  getDataById(id) {
+    const { data } = this.props;
+    return data.find(x => x.id === id);
+  }
+
   getInputElement(item) {
     const Input = FormElements[item.element];
     return (<Input
@@ -239,6 +246,11 @@ export default class ReactForm extends React.Component {
       data={item}
       read_only={this.props.read_only}
       defaultValue={this._getDefaultValue(item)} />);
+  }
+
+  getContainerElement(item, Element) {
+    const controls = item.childItems.map(x => (x ? this.getInputElement(this.getDataById(x)) : <div>&nbsp;</div>));
+    return (<Element mutable={true} key={`form_${item.id}`} data={item} controls={controls} />);
   }
 
   getSimpleElement(item) {
@@ -259,7 +271,7 @@ export default class ReactForm extends React.Component {
       }
     });
 
-    const items = data_items.map(item => {
+    const items = data_items.filter(x => !x.parentId).map(item => {
       if (!item) return null;
       switch (item.element) {
         case 'TextInput':
@@ -272,6 +284,10 @@ export default class ReactForm extends React.Component {
         case 'Tags':
         case 'Range':
           return this.getInputElement(item);
+        case 'ThreeColumnRow':
+          return this.getContainerElement(item, ThreeColumnRow);
+        case 'TwoColumnRow':
+          return this.getContainerElement(item, TwoColumnRow);
         case 'Signature':
           return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
         case 'Checkboxes':
@@ -299,7 +315,7 @@ export default class ReactForm extends React.Component {
         <FormValidator emitter={this.emitter} />
         <div className='react-form-builder-form'>
           <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
-            { this.props.authenticity_token &&
+            {this.props.authenticity_token &&
               <div style={formTokenStyle}>
                 <input name='utf8' type='hidden' value='&#x2713;' />
                 <input name='authenticity_token' type='hidden' value={this.props.authenticity_token} />
@@ -308,10 +324,10 @@ export default class ReactForm extends React.Component {
             }
             {items}
             <div className='btn-toolbar'>
-              { !this.props.hide_actions &&
+              {!this.props.hide_actions &&
                 <input type='submit' className='btn btn-school btn-big' value={actionName} />
               }
-              { !this.props.hide_actions && this.props.back_action &&
+              {!this.props.hide_actions && this.props.back_action &&
                 <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
               }
             </div>
