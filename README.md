@@ -7,6 +7,7 @@ A complete react form builder that interfaces with a json endpoint to load and s
 - Use react-dnd for Drag & Drop
 - Save form data with dummy api server
 - Show posted data on readonly form
+- Multi column row
 
 [DEMO](https://kiho.github.io/react-form-builder/) Slow Loading.... back-end is running at FREE Heroku.
 
