@@ -82,57 +82,6 @@ class LineBreak extends React.Component {
   }
 }
 
-class TwoColumnRow extends React.Component {
-  render() {
-    let baseClasses = 'SortableItem rfb-item';
-    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
-
-    return (
-      <div className={baseClasses}>
-        {/* <ComponentHeader {...this.props} />
-        <div className="form-group">
-          <ComponentLabel {...this.props} />
-          <div className="row">
-            <div className="col-md-6">
-              Col 1
-            </div>
-            <div className="col-md-6">
-              Col 2
-            </div>
-          </div>
-        </div> */}
-      </div>
-    );
-  }
-}
-
-class ThreeColumnRow extends React.Component {
-  render() {
-    let baseClasses = 'SortableItem rfb-item';
-    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
-
-    return (
-      <div className={baseClasses}>
-        {/* <ComponentHeader {...this.props} />
-        <div className="form-group">
-          <ComponentLabel {...this.props} />
-          <div className="row">
-            <div className="col-md-4">
-              Col 1
-            </div>
-            <div className="col-md-4">
-              Col 2
-            </div>
-            <div className="col-md-4">
-              Col 3
-            </div>
-          </div>
-        </div> */}
-      </div>
-    );
-  }
-}
-
 class TextInput extends React.Component {
   constructor(props) {
     super(props);
@@ -647,7 +596,7 @@ class Camera extends React.Component {
               <div style={fileInputStyle}>
                 <input name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
                 <div className="image-upload-control">
-                  <div className="btn btn-default btn-school"><i className="fas fa-camera"></i> Upload Photo</div>
+                  <div className="btn btn-default"><i className="fas fa-camera"></i> Upload Photo</div>
                   <p>Select an image from your computer or device.</p>
                 </div>
               </div>
@@ -655,7 +604,7 @@ class Camera extends React.Component {
               { this.state.img &&
                 <div>
                   <img src={this.state.img} height="100" className="image-upload-preview" /><br />
-                  <div className="btn btn-school btn-image-clear" onClick={this.clearImage}>
+                  <div className="btn btn-image-clear" onClick={this.clearImage}>
                     <i className="fas fa-times"></i> Clear Photo
                 </div>
                 </div>
@@ -767,7 +716,5 @@ FormElements.HyperLink = HyperLink;
 FormElements.Download = Download;
 FormElements.Camera = Camera;
 FormElements.Range = Range;
-FormElements.TwoColumnRow = TwoColumnRow;
-FormElements.ThreeColumnRow = ThreeColumnRow;
 
 export default FormElements;
