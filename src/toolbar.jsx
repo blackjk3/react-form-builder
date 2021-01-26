@@ -156,6 +156,14 @@ export default class Toolbar extends React.Component {
         field_name: 'three_col_row_',
       },
       {
+        key: 'FourColumnRow',
+        canHaveAnswer: false,
+        name: 'Four Column Row',
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'four_col_row_',
+      },
+      {
         key: 'Image',
         name: 'Image',
         label: '',
