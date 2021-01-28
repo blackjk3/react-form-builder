@@ -69,4 +69,14 @@ const ThreeColumnRow = ({ data, class_name, ...rest }) => {
   );
 };
 
-export { TwoColumnRow, ThreeColumnRow };
+const FourColumnRow = ({ data, class_name, ...rest }) => {
+  const className = class_name || "col-md-3";
+  if (!data.childItems) {
+    // eslint-disable-next-line no-param-reassign
+    data.childItems = [null, null, null, null];
+    data.isContainer = true;
+  }
+  return <MultiColumnRow {...rest} className={className} data={data} />;
+};
+
+export { TwoColumnRow, ThreeColumnRow, FourColumnRow };
