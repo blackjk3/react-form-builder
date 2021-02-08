@@ -2,6 +2,7 @@ import xss from 'xss';
 
 const myxss = new xss.FilterXSS({
   whiteList: {
+    a: ['href', 'title', 'target'],
     u: [],
     br: [],
     b: [],
