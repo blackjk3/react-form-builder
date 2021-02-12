@@ -34,12 +34,23 @@ if (isProduction) {
 
 app.use('/api/', api);
 
+function fixLabelLink(data) {
+  const task_data = data.task_data.map(x => ({ ...x }));
+  for (let i = 0; i < task_data.length; i++) {
+    if (data.task_data[i].label) {
+      task_data[i].label = task_data[i].label.replace(/"/g, '\\"');
+    }
+  }
+  return { task_data };
+}
+
 app.route('/api/form/')
   .get((req, res) => {
-    // console.log('get form: ', formData.data);
+    const data = fixLabelLink(formData.data);
+    // console.log('get form: ', data);
     // console.log('get form answers: ', formData.answers);
     res.render('index', {
-      data: JSON.stringify(formData.data),
+      data: JSON.stringify(data),
       answers: JSON.stringify(formData.answers),
     });
   })
