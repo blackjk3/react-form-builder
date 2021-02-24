@@ -37,7 +37,7 @@
     "react-datepicker": "^3.4.1",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
-    "react-draft-wysiwyg": "^1.14.5",
+    "react-draft-wysiwyg": "~1.13.2",
     "react-select": "^3.2.0",
     "react-signature-canvas": "^1.0.3",
     "react-star-rating": "^1.4.2",
