@@ -37,7 +37,7 @@ export default class Preview extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.data && props.data !== state.data) {
+    if (props.data && JSON.stringify(props.data) !== JSON.stringify(state.data)) {
       store.dispatch('updateOrder', props.data);
     }
     return null;
