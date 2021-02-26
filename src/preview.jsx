@@ -7,7 +7,6 @@ import update from 'immutability-helper';
 import store from './stores/store';
 import FormElementsEdit from './form-elements-edit';
 import SortableFormElements from './sortable-form-elements';
-import ID from './UUID';
 
 const { PlaceHolder } = SortableFormElements;
 
@@ -20,7 +19,7 @@ export default class Preview extends React.Component {
 
     this.editForm = React.createRef();
     this.state = {
-      data: [],
+      data: props.data || [],
       answer_data: {},
     };
     this.seq = 0;
@@ -34,13 +33,6 @@ export default class Preview extends React.Component {
     this.setAsChild = this.setAsChild.bind(this);
     this.removeChild = this.removeChild.bind(this);
     this._onDestroy = this._onDestroy.bind(this);
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.data && JSON.stringify(props.data) !== JSON.stringify(state.data)) {
-      store.dispatch('updateOrder', props.data);
-    }
-    return null;
   }
 
   componentDidMount() {
