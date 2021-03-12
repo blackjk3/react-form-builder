@@ -40,6 +40,9 @@ function fixLabelLink(data) {
     if (data.task_data[i].label) {
       task_data[i].label = task_data[i].label.replace(/"/g, '\\"');
     }
+    if (data.task_data[i].component) {
+      task_data[i].component = null;
+    }
   }
   return { task_data };
 }

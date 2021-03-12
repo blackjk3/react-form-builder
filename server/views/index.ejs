@@ -69,7 +69,29 @@
 
     const ReactFormGenerator = ReactFormBuilder.default.ReactFormGenerator;
     const ElementStore = ReactFormBuilder.default.ElementStore;
+    const Registry = ReactFormBuilder.default.Registry;
     const formContainer = document.querySelector('#form-generator');
+    
+    // *********************************************
+    const TestComponent = function TestComponent() {
+      return React.createElement("h2", null, "Hello");
+    };
+
+    const MyInput = React.forwardRef(function (props, ref) {
+      const name = props.name,
+          defaultValue = props.defaultValue,
+          disabled = props.disabled;
+      return React.createElement("input", {
+        ref: ref,
+        name: name,
+        defaultValue: defaultValue,
+        disabled: disabled
+      });
+    });
+
+    Registry.register('MyInput', MyInput);
+    Registry.register('TestComponent', TestComponent);
+    // *********************************************
 
     function setClass(element, name, remove) {
       if (typeof element === 'string') {

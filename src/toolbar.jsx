@@ -7,11 +7,29 @@ import ToolbarItem from './toolbar-draggable-item';
 import ID from './UUID';
 import store from './stores/store';
 
+function isDefaultItem(item) {
+  const keys = Object.keys(item);
+  return keys.filter(x => x !== 'element' && x !== 'key').length === 0;
+}
+
+function buildItems(items, defaultItems) {
+  if (!items) {
+    return defaultItems;
+  }
+  return items.map(x => {
+    let found;
+    if (isDefaultItem(x)) {
+      found = defaultItems.find(y => (x.element || x.key) === (y.element || y.key));
+    }
+    return found || x;
+  });
+}
+
 export default class Toolbar extends React.Component {
   constructor(props) {
     super(props);
 
-    const items = (this.props.items) ? this.props.items : this._defaultItems();
+    const items = buildItems(props.items, this._defaultItems());
     this.state = {
       items,
     };
@@ -253,6 +271,15 @@ export default class Toolbar extends React.Component {
 
     if (this.props.showDescription === true && !item.static) {
       elementOptions.showDescription = true;
+    }
+
+    if (item.type === 'custom') {
+      elementOptions.key = item.key;
+      elementOptions.custom = true;
+      elementOptions.forwardRef = item.forwardRef;
+      elementOptions.props = item.props;
+      elementOptions.component = item.component || null;
+      elementOptions.custom_options = item.custom_options || [];
     }
 
     if (item.static) {

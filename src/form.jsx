@@ -7,7 +7,9 @@ import ReactDOM from 'react-dom';
 import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
-import { TwoColumnRow, ThreeColumnRow, FourColumnRow } from "./multi-column";
+import { TwoColumnRow, ThreeColumnRow, FourColumnRow } from './multi-column';
+import CustomElement from './form-elements/custom-element';
+import Registry from './stores/registry';
 
 const {
   Image, Checkboxes, Signature, Download, Camera,
@@ -258,6 +260,26 @@ export default class ReactForm extends React.Component {
     return (<Element mutable={true} key={`form_${item.id}`} data={item} />);
   }
 
+  getCustomElement(item) {
+    if (!item.component || typeof item.component !== 'function') {
+      item.component = Registry.get(item.key);
+      if (!item.component) {
+        console.error(`${item.element} was not registered`);
+      }
+    }
+    return (
+      <CustomElement
+        handleChange={this.handleChange}
+        ref={c => this.inputs[item.field_name] = c}
+        mutable={true}
+        read_only={this.props.read_only}
+        key={`form_${item.id}`}
+        data={item}
+        defaultValue={this._getDefaultValue(item)}
+      />
+    );
+  }
+
   render() {
     let data_items = this.props.data;
 
@@ -284,6 +306,8 @@ export default class ReactForm extends React.Component {
         case 'Tags':
         case 'Range':
           return this.getInputElement(item);
+        case 'CustomElement':
+          return this.getCustomElement(item);
         case 'FourColumnRow':
           return this.getContainerElement(item, FourColumnRow);
         case 'ThreeColumnRow':

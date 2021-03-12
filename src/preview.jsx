@@ -231,7 +231,17 @@ export default class Preview extends React.Component {
   }
 
   getElement(item, index) {
+    if (item.custom) {
+      if (!item.component || typeof item.component !== 'function') {
+        // eslint-disable-next-line no-param-reassign
+        item.component = this.props.registry.get(item.key);
+      }
+    }
     const SortableFormElement = SortableFormElements[item.element];
+
+    if (SortableFormElement === null) {
+      return null;
+    }
     return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} getDataById={this.getDataById} setAsChild={this.setAsChild} removeChild={this.removeChild} _onDestroy={this._onDestroy} />;
   }
 
