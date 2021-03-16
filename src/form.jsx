@@ -76,9 +76,9 @@ export default class ReactForm extends React.Component {
       $item.value = ref.state.value;
     } else if (item.element === 'Camera') {
       $item.value = ref.state.img ? ref.state.img.replace('data:image/png;base64,', '') : '';
-    } else if (ref && ref.inputField) {
+    } else if (ref && ref.inputField && ref.inputField.current) {
       $item = ReactDOM.findDOMNode(ref.inputField.current);
-      if (typeof $item.value === 'string') {
+      if ($item && typeof $item.value === 'string') {
         $item.value = $item.value.trim();
       }
     }
