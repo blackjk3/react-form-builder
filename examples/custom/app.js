@@ -1,11 +1,59 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ReactFormBuilder, ElementStore } from 'react-form-builder2';
+import { ReactFormBuilder, ElementStore, Registry } from 'react-form-builder2';
 import DemoBar from './demobar';
 import * as variables from './variables';
 import { get, post } from './requests';
 
 const getUrl = (cid) => `https://safe-springs-35306.herokuapp.com/api/formdata?cid=${cid}`;
+
+const TestComponent = () => <h2>Hello</h2>;
+
+const MyInput = React.forwardRef((props, ref) => {
+  const { name, defaultValue, disabled } = props;
+  return <input ref={ref} name={name} defaultValue={defaultValue} disabled={disabled} />;
+});
+
+Registry.register('MyInput', MyInput);
+Registry.register('TestComponent', TestComponent);
+
+const items = [{
+  key: 'Header',
+}, {
+  key: 'TextInput',
+}, {
+  key: 'TextArea',
+}, {
+  key: 'RadioButtons',
+}, {
+  key: 'Checkboxes',
+}, {
+  key: 'Image',
+},
+{
+  key: 'TestComponent',
+  element: 'CustomElement',
+  component: TestComponent,
+  type: 'custom',
+  field_name: 'test_component',
+  name: 'Something You Want',
+  icon: 'fa fa-cog',
+  static: true,
+  props: { test: 'test_comp' },
+  label: 'Label Test',
+},
+{
+  key: 'MyInput',
+  element: 'CustomElement',
+  component: MyInput,
+  type: 'custom',
+  forwardRef: true,
+  field_name: 'my_input_',
+  name: 'My Input',
+  icon: 'fa fa-cog',
+  props: { test: 'test_input' },
+  label: 'Label Input',
+}];
 
 class App extends React.Component {
   constructor(props) {
@@ -41,7 +89,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <label>
-          Select your form:          
+          Select your form:
         </label>
         <select className="form-control" 
             value={this.state.formId} 
@@ -53,6 +101,7 @@ class App extends React.Component {
         <ReactFormBuilder
           onLoad={this.onLoad}
           onPost={this.onPost}
+          toolbarItems={items}
         />,
       </div>
     );

@@ -267,15 +267,19 @@ export default class ReactForm extends React.Component {
         console.error(`${item.element} was not registered`);
       }
     }
+    
+    const inputProps = item.forwardRef && {
+      handleChange: this.handleChange,
+      defaultValue: this._getDefaultValue(item),
+      ref: c => this.inputs[item.field_name] = c,
+    };
     return (
       <CustomElement
-        handleChange={this.handleChange}
-        ref={c => this.inputs[item.field_name] = c}
         mutable={true}
         read_only={this.props.read_only}
         key={`form_${item.id}`}
         data={item}
-        defaultValue={this._getDefaultValue(item)}
+        {...inputProps}
       />
     );
   }

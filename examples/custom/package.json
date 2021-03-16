@@ -17,7 +17,7 @@
     "isomorphic-fetch": "^2.2.1",
     "react": "~16.8.6",
     "react-dom": "~16.8.6",
-    "react-form-builder2": "^0.5.8"
+    "react-form-builder2": "^0.8.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
