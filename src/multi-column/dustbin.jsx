@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, Fragment } from 'react';
 import { DropTarget } from 'react-dnd';
 import FormElements from '../form-elements';
+import ItemTypes from '../ItemTypes';
 
 function getSimpleElement(item, props) {
   if (!item) return null;
@@ -20,8 +21,23 @@ function getStyle(backgroundColor) {
     width: '100%',
     backgroundColor,
     padding: 0,
-    float: 'left'
+    float: 'left',
   };
+}
+
+function isContainer(item) {
+  if (item.itemType !== ItemTypes.CARD) {
+    const { data } = item;
+    if (data) {
+      if (data.isContainer) {
+        return true;
+      }
+      if (data.field_name) {
+        return data.field_name.indexOf('_col_row') > -1;
+      }
+    }
+  }
+  return false;
 }
 
 const Dustbin = React.forwardRef(
@@ -69,11 +85,13 @@ export default DropTarget(
       }
 
       const item = monitor.getItem();
-      (component).onDrop(item);
-      if (item.data && typeof props.setAsChild === 'function') {
-        const isNew = !item.data.id;
-        const data = isNew ? item.onCreate(item.data) : item.data;
-        props.setAsChild(props.data, data, props.col);
+      if (!isContainer(item)) {
+        (component).onDrop(item);
+        if (item.data && typeof props.setAsChild === 'function') {
+          const isNew = !item.data.id;
+          const data = isNew ? item.onCreate(item.data) : item.data;
+          props.setAsChild(props.data, data, props.col);
+        }
       }
     },
   },
