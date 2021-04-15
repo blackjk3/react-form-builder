@@ -239,6 +239,9 @@ export default class ReactForm extends React.Component {
   }
 
   getInputElement(item) {
+    if (item.custom) {
+      return this.getCustomElement(item);
+    }
     const Input = FormElements[item.element];
     return (<Input
       handleChange={this.handleChange}
@@ -267,7 +270,7 @@ export default class ReactForm extends React.Component {
         console.error(`${item.element} was not registered`);
       }
     }
-    
+
     const inputProps = item.forwardRef && {
       handleChange: this.handleChange,
       defaultValue: this._getDefaultValue(item),
