@@ -3,9 +3,30 @@ import { DropTarget } from 'react-dnd';
 import FormElements from '../form-elements';
 import ItemTypes from '../ItemTypes';
 
-function getSimpleElement(item, props) {
+import CustomElement from '../form-elements/custom-element';
+import Registry from '../stores/registry';
+
+function getCustomElement(item) {
+  if (!item.component || typeof item.component !== 'function') {
+    item.component = Registry.get(item.key);
+    if (!item.component) {
+      console.error(`${item.element} was not registered`);
+    }
+  }
+  return (
+    <CustomElement
+      mutable={true}
+      key={`form_${item.id}`}
+      data={item}
+    />
+  );
+}
+
+function getElement(item, props) {
   if (!item) return null;
-  const Element = FormElements[item.element || item.key];
+  const Element = item.custom ?
+    () => getCustomElement(item) :
+    FormElements[item.element || item.key];
   return (
     <Fragment>
       <Element {...props} key={`form_${item.id}`} data={item} />
@@ -62,7 +83,7 @@ const Dustbin = React.forwardRef(
       backgroundColor = 'darkgreen';
     }
 
-    const element = getSimpleElement(item, rest);
+    const element = getElement(item, rest);
     // console.log('accepts, canDrop', accepts, canDrop);
     return connectDropTarget(
       <div style={getStyle(backgroundColor)}>
