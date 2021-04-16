@@ -459,9 +459,7 @@ class Image extends React.Component {
 
     return (
       <div className={baseClasses} style={style}>
-        { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} required={this.props.data.required} />
-        }
+        <ComponentHeader {...this.props} />
         { this.props.data.src &&
           <img src={this.props.data.src} width={this.props.data.width} height={this.props.data.height} />
         }
