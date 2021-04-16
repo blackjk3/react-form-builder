@@ -6,7 +6,7 @@ import ItemTypes from '../ItemTypes';
 import CustomElement from '../form-elements/custom-element';
 import Registry from '../stores/registry';
 
-function getCustomElement(item) {
+function getCustomElement(item, props) {
   if (!item.component || typeof item.component !== 'function') {
     item.component = Registry.get(item.key);
     if (!item.component) {
@@ -15,7 +15,8 @@ function getCustomElement(item) {
   }
   return (
     <CustomElement
-      mutable={true}
+      {...props}
+      mutable={false}
       key={`form_${item.id}`}
       data={item}
     />
@@ -25,7 +26,7 @@ function getCustomElement(item) {
 function getElement(item, props) {
   if (!item) return null;
   const Element = item.custom ?
-    () => getCustomElement(item) :
+    () => getCustomElement(item, props) :
     FormElements[item.element || item.key];
   return (
     <Fragment>
