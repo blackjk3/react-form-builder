@@ -314,7 +314,7 @@ class Tags extends React.Component {
   // state = { value: this.props.defaultValue !== undefined ? this.props.defaultValue.split(',') : [] };
 
   handleChange = (e) => {
-    this.setState({ value: e });
+    this.setState({ value: e || [] });
   };
 
   render() {
