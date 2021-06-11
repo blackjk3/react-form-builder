@@ -282,6 +282,15 @@ export default class Toolbar extends React.Component {
       elementOptions.custom_options = item.custom_options || [];
     }
 
+    if(item.type === 'bare'){
+      elementOptions.key = item.key;
+      elementOptions.bare = true;
+      elementOptions.forwardRef = item.forwardRef;
+      elementOptions.props = item.props;
+      elementOptions.component = item.component || null;
+      elementOptions.custom_options = item.custom_options || [];
+    }
+
     if (item.static) {
       elementOptions.bold = false;
       elementOptions.italic = false;
