@@ -245,6 +245,19 @@ export default class Preview extends React.Component {
     return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} getDataById={this.getDataById} setAsChild={this.setAsChild} removeChild={this.removeChild} _onDestroy={this._onDestroy} />;
   }
 
+  showEditForm() {
+    const formElementEditProps = {
+      showCorrectColumn: this.props.showCorrectColumn,
+      files: this.props.files,
+      manualEditModeOff: this.manualEditModeOff,
+      preview: this,
+      element: this.props.editElement,
+      updateElement: this.updateElement,
+    };
+
+    return this.props.renderEditForm(formElementEditProps);
+  }
+
   render() {
     let classes = this.props.className;
     if (this.props.editMode) { classes += ' is-editing'; }
@@ -253,9 +266,7 @@ export default class Preview extends React.Component {
     return (
       <div className={classes}>
         <div className="edit-form" ref={this.editForm}>
-          {this.props.editElement !== null &&
-            <FormElementsEdit showCorrectColumn={this.props.showCorrectColumn} files={this.props.files} manualEditModeOff={this.manualEditModeOff} preview={this} element={this.props.editElement} updateElement={this.updateElement} />
-          }
+          {this.props.editElement !== null && this.showEditForm()}
         </div>
         <div className="Sortable">{items}</div>
         <PlaceHolder id="form-place-holder" show={items.length === 0} index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard} />
@@ -264,5 +275,10 @@ export default class Preview extends React.Component {
   }
 }
 Preview.defaultProps = {
-  showCorrectColumn: false, files: [], editMode: false, editElement: null, className: 'col-md-9 react-form-builder-preview float-left',
+  showCorrectColumn: false,
+  files: [],
+  editMode: false,
+  editElement: null,
+  className: 'col-md-9 react-form-builder-preview float-left',
+  renderEditForm: props => <FormElementsEdit {...props} />,
 };

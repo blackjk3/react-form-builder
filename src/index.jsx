@@ -59,7 +59,8 @@ class ReactFormBuilder extends React.Component {
          </div> */}
           <div className="react-form-builder clearfix">
             <div>
-              <Preview files={this.props.files}
+              <Preview
+                files={this.props.files}
                 manualEditModeOff={this.manualEditModeOff.bind(this)}
                 showCorrectColumn={this.props.showCorrectColumn}
                 parent={this}
@@ -72,7 +73,8 @@ class ReactFormBuilder extends React.Component {
                 editMode={this.state.editMode}
                 variables={this.props.variables}
                 registry={Registry}
-                editElement={this.state.editElement} />
+                editElement={this.state.editElement}
+              />
               <Toolbar {...toolbarProps} customItems={this.props.customToolbarItems} />
             </div>
           </div>

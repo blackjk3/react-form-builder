@@ -115,14 +115,14 @@ In order to make the form builder look pretty, there are a few dependencies othe
 - FontAwesome
 
 # SASS
-All relevant styles are located in css/application.css.scss.
+All relevant styles located in css/application.css.scss.
 
 # Develop
 ```bash
-$ npm install
-$ npm run build:dist
-$ npm run serve:api
-$ npm start
+$ yarn install
+$ yarn run build:dist
+$ yarn run serve:api
+$ yarn start
 ```
 Then navigate to http://localhost:8080/ in your browser and you should be able to see the form builder in action.
 
