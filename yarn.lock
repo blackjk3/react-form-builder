@@ -6071,6 +6071,31 @@ react-draft-wysiwyg@~1.13.2:
     linkify-it "^2.0.3"
     prop-types "^15.6.0"
 
+react-form-builder2@zach2825/react-form-builder:
+  version "0.8.7"
+  resolved "https://codeload.github.com/zach2825/react-form-builder/tar.gz/cba312dc8c89f7d84691ed6cc5f1dc32c57ca119"
+  dependencies:
+    beedle "^0.8.1"
+    classnames "^2.2.6"
+    date-fns "^2.16.1"
+    draft-js "^0.11.7"
+    draftjs-to-html "^0.8.4"
+    es6-promise "^4.2.8"
+    fbemitter "^3.0.0"
+    immutability-helper "^3.1.1"
+    isomorphic-fetch "^3.0.0"
+    prop-types "^15.7.2"
+    react-bootstrap-slider "^2.2.3"
+    react-datepicker "^3.4.1"
+    react-dnd "^11.1.3"
+    react-dnd-html5-backend "^11.1.3"
+    react-draft-wysiwyg "~1.13.2"
+    react-select "^3.2.0"
+    react-signature-canvas "^1.0.3"
+    react-star-rating "^1.4.2"
+    react-textarea-autosize "^7.1.2"
+    xss "^1.0.8"
+
 react-input-autosize@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-3.0.0.tgz#6b5898c790d4478d69420b55441fcc31d5c50a85"
