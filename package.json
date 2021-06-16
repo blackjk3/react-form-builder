@@ -1,6 +1,6 @@
 {
   "name": "react-form-builder3",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
   "license": "MIT",
@@ -48,7 +48,6 @@
     "react-form-builder2": "zach2825/react-form-builder",
     "react-select": "^3.2.0",
     "react-signature-canvas": "^1.0.3",
-    "react-star-rating": "^1.4.2",
     "react-textarea-autosize": "^7.1.2",
     "xss": "^1.0.8"
   },
