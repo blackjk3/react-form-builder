@@ -74,6 +74,7 @@ class ReactFormBuilder extends React.Component {
                 variables={this.props.variables}
                 registry={Registry}
                 editElement={this.state.editElement}
+                renderEditForm={this.props.renderEditForm}
               />
               <Toolbar {...toolbarProps} customItems={this.props.customToolbarItems} />
             </div>

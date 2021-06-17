@@ -126,6 +126,34 @@ $ yarn start
 ```
 Then navigate to http://localhost:8080/ in your browser and you should be able to see the form builder in action.
 
+# Customizations
+- to customize the field edit form copy "src/form-elements-edit.jsx" to your project and pass it to the ReactFormBuilder as a prop. Here is an example
+```jsx
+<ReactFormBuilder
+    edit
+    data={form}
+    //toolbarItems={items}
+    customToolbarItems={items}
+    onChange={handleUpdate}
+    onSubmit={handleSubmit}
+
+    renderEditForm={props => <FormElementsEdit {...props}/>}
+/>
+```
+
+- to customize the ReactFormGenerator submit button use it like this
+
+```jsx
+<ReactFormGenerator
+    data={form}
+    toolbarItems={items}
+    onChange={handleUpdate}
+    onSubmit={handleSubmit}
+    actionName={"Set this to change the default submit button text"}
+    submitButton={<button type={"submit"} className={"btn btn-primary"}>Submit</button>}
+/>
+```
+
 # Examples
 - [Basic](https://github.com/Kiho/react-form-builder/tree/master/examples/demo)
 - [JSON Post](https://github.com/Kiho/react-form-builder/tree/master/examples/custom)

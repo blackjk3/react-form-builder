@@ -69,9 +69,7 @@ export default class ReactForm extends React.Component {
       element: item.element,
       value: '',
     };
-    if (item.element === 'Rating') {
-      $item.value = ref.inputField.current.state.rating;
-    } else if (item.element === 'Tags') {
+    if (item.element === 'Tags') {
       $item.value = ref.inputField.current.state.value;
     } else if (item.element === 'DatePicker') {
       $item.value = ref.state.value;
@@ -97,15 +95,6 @@ export default class ReactForm extends React.Component {
             incorrect = true;
           }
         });
-      } else {
-        const $item = this._getItemValue(item, ref);
-        if (item.element === 'Rating') {
-          if ($item.value.toString() !== item.correct) {
-            incorrect = true;
-          }
-        } else if ($item.value.toLowerCase() !== item.correct.trim().toLowerCase()) {
-          incorrect = true;
-        }
       }
     }
     return incorrect;
@@ -127,22 +116,16 @@ export default class ReactForm extends React.Component {
           // errors.push(item.label + ' is required!');
           invalid = true;
         }
-      } else {
-        const $item = this._getItemValue(item, ref);
-        if (item.element === 'Rating') {
-          if ($item.value === 0) {
-            invalid = true;
-          }
-        } else if ($item.value === undefined || $item.value.length < 1) {
-          invalid = true;
-        }
       }
     }
     return invalid;
   }
 
   _collect(item) {
-    const itemData = { name: item.field_name };
+    const itemData = {
+      name: item.field_name,
+      custom_name: item.custom_name || item.field_name,
+    };
     const ref = this.inputs[item.field_name];
     if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
       const checked_options = [];
@@ -242,7 +225,7 @@ export default class ReactForm extends React.Component {
   getInputElement(item) {
     if (item.custom) {
       return this.getCustomElement(item);
-    }else if(item.bare){
+    } if (item.bare) {
       return this.getBareElement(item);
     }
     const Input = FormElements[item.element];
@@ -314,6 +297,15 @@ export default class ReactForm extends React.Component {
     );
   }
 
+  handleRenderSubmit = () => {
+    const {
+      actionName = 'Submit',
+      submitButton = false,
+    } = this.props;
+
+    return submitButton || <input type='submit' className='btn btn-big' value={actionName} />;
+  }
+
   render() {
     let data_items = this.props.data;
 
@@ -336,7 +328,6 @@ export default class ReactForm extends React.Component {
         case 'Dropdown':
         case 'DatePicker':
         case 'RadioButtons':
-        case 'Rating':
         case 'Tags':
         case 'Range':
           return this.getInputElement(item);
@@ -369,7 +360,6 @@ export default class ReactForm extends React.Component {
       display: 'none',
     };
 
-    const actionName = (this.props.action_name) ? this.props.action_name : 'Submit';
     const backName = (this.props.back_name) ? this.props.back_name : 'Cancel';
 
     return (
@@ -387,7 +377,7 @@ export default class ReactForm extends React.Component {
             {items}
             <div className='btn-toolbar'>
               {!this.props.hide_actions &&
-                <input type='submit' className='btn btn-big' value={actionName} />
+                this.handleRenderSubmit()
               }
               {!this.props.hide_actions && this.props.back_action &&
                 <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>

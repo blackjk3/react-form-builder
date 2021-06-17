@@ -190,14 +190,6 @@ export default class Toolbar extends React.Component {
         src: '',
       },
       {
-        key: 'Rating',
-        canHaveAnswer: true,
-        name: 'Rating',
-        label: 'Placeholder Label',
-        icon: 'fas fa-star',
-        field_name: 'rating_',
-      },
-      {
         key: 'DatePicker',
         canDefaultToday: true,
         canReadOnly: true,

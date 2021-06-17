@@ -11,6 +11,11 @@ import SortableFormElements from './sortable-form-elements';
 const { PlaceHolder } = SortableFormElements;
 
 export default class Preview extends React.Component {
+  state = {
+    data: [],
+    answer_data: {},
+  };
+
   constructor(props) {
     super(props);
 
@@ -246,13 +251,16 @@ export default class Preview extends React.Component {
   }
 
   showEditForm() {
+    const handleUpdateElement = (element) => this.updateElement(element);
+    handleUpdateElement.bind(this);
+
     const formElementEditProps = {
       showCorrectColumn: this.props.showCorrectColumn,
       files: this.props.files,
       manualEditModeOff: this.manualEditModeOff,
       preview: this,
       element: this.props.editElement,
-      updateElement: this.updateElement,
+      updateElement: handleUpdateElement,
     };
 
     return this.props.renderEditForm(formElementEditProps);

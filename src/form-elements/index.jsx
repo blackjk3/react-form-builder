@@ -4,7 +4,6 @@ import Select from 'react-select';
 import SignaturePad from 'react-signature-canvas';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 
-import StarRating from './star-rating';
 import HeaderBar from './header-bar';
 import DatePicker from './date-picker';
 import ComponentHeader from './component-header';
@@ -471,39 +470,6 @@ class Image extends React.Component {
   }
 }
 
-class Rating extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputField = React.createRef();
-  }
-
-  render() {
-    const props = {};
-    props.name = this.props.data.field_name;
-    props.ratingAmount = 5;
-
-    if (this.props.mutable) {
-      props.rating = (this.props.defaultValue !== undefined) ? parseFloat(this.props.defaultValue, 10) : 0;
-      props.editing = true;
-      props.disabled = this.props.read_only;
-      props.ref = this.inputField;
-    }
-
-    let baseClasses = 'SortableItem rfb-item';
-    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
-
-    return (
-      <div className={baseClasses}>
-        <ComponentHeader {...this.props} />
-        <div className="form-group">
-          <ComponentLabel {...this.props} />
-          <StarRating {...props} />
-        </div>
-      </div>
-    );
-  }
-}
-
 class HyperLink extends React.Component {
   render() {
     let baseClasses = 'SortableItem rfb-item';
@@ -708,7 +674,6 @@ FormElements.Checkboxes = Checkboxes;
 FormElements.DatePicker = DatePicker;
 FormElements.RadioButtons = RadioButtons;
 FormElements.Image = Image;
-FormElements.Rating = Rating;
 FormElements.Tags = Tags;
 FormElements.HyperLink = HyperLink;
 FormElements.Download = Download;
