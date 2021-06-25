@@ -25,6 +25,7 @@ FormElements.Checkboxes = SortableElement(Checkboxes);
 FormElements.DatePicker = SortableElement(DatePicker);
 FormElements.RadioButtons = SortableElement(RadioButtons);
 FormElements.Image = SortableElement(Image);
+FormElements.Rating = SortableElement(Rating);
 FormElements.Tags = SortableElement(Tags);
 FormElements.HyperLink = SortableElement(HyperLink);
 FormElements.Download = SortableElement(Download);

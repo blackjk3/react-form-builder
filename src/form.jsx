@@ -69,7 +69,9 @@ export default class ReactForm extends React.Component {
       element: item.element,
       value: '',
     };
-    if (item.element === 'Tags') {
+    if (item.element === 'Rating') {
+      $item.value = ref.inputField.current.state.rating;
+    } else if (item.element === 'Tags') {
       $item.value = ref.inputField.current.state.value;
     } else if (item.element === 'DatePicker') {
       $item.value = ref.state.value;
@@ -95,6 +97,15 @@ export default class ReactForm extends React.Component {
             incorrect = true;
           }
         });
+      } else {
+        const $item = this._getItemValue(item, ref);
+        if (item.element === 'Rating') {
+          if ($item.value.toString() !== item.correct) {
+            incorrect = true;
+          }
+        } else if ($item.value.toLowerCase() !== item.correct.trim().toLowerCase()) {
+          incorrect = true;
+        }
       }
     }
     return incorrect;
@@ -114,6 +125,15 @@ export default class ReactForm extends React.Component {
         });
         if (checked_options < 1) {
           // errors.push(item.label + ' is required!');
+          invalid = true;
+        }
+      } else {
+        const $item = this._getItemValue(item, ref);
+        if (item.element === 'Rating') {
+          if ($item.value === 0) {
+            invalid = true;
+          }
+        } else if ($item.value === undefined || $item.value.length < 1) {
           invalid = true;
         }
       }
@@ -328,6 +348,7 @@ export default class ReactForm extends React.Component {
         case 'Dropdown':
         case 'DatePicker':
         case 'RadioButtons':
+        case 'Rating':
         case 'Tags':
         case 'Range':
           return this.getInputElement(item);
