@@ -7,7 +7,7 @@ import BareElement from './form-elements/bare-element';
 
 const {
   Header, Paragraph, Label, LineBreak, TextInput, NumberInput, TextArea, Dropdown, Checkboxes,
-  DatePicker, RadioButtons, Image, Tags, Signature, HyperLink, Download, Camera, Range,
+  DatePicker, RadioButtons, Image, Rating, Tags, Signature, HyperLink, Download, Camera, Range,
 } = BaseFormElements;
 
 const FormElements = {};
