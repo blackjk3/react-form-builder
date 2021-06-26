@@ -15,7 +15,12 @@ const saveUrl = '/api/formdata';
 
 // const MyInput = React.forwardRef((props, ref) => {
 //   const { name, defaultValue, disabled } = props;
-//   return <input ref={ref} name={name} defaultValue={defaultValue} disabled={disabled} />;
+//   return (
+//     <>
+//       <label style={{ marginRight: '1rem' }}><b>{ props.data.label }</b></label>
+//       <input ref={ref} name={name} defaultValue={defaultValue} disabled={disabled} />;
+//     </>
+//   );
 // });
 
 // Registry.register('MyInput', MyInput);
@@ -61,12 +66,13 @@ const saveUrl = '/api/formdata';
 //     component: MyInput,
 //     type: 'custom',
 //     forwardRef: true,
+//     bare: true,
 //     field_name: 'my_input_',
 //     name: 'My Input',
 //     icon: 'fa fa-cog',
 //     props: { test: 'test_input' },
 //     label: 'Label Input',
-//   }
+//   },
 // ];
 
 ReactDOM.render(

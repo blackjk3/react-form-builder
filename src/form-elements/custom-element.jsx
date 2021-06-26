@@ -9,6 +9,7 @@ class CustomElement extends Component {
   }
 
   render() {
+    const { bare } = this.props.data;
     const props = {};
     props.name = this.props.data.field_name;
     props.defaultValue = this.props.defaultValue;
@@ -31,10 +32,13 @@ class CustomElement extends Component {
     return (
       <div className={baseClasses}>
         <ComponentHeader {...this.props} />
-        <div className="form-group">
-          <ComponentLabel className="form-label" {...this.props} />
-          <Element data={this.props.data} {...this.props.data.props} {...props} />
-        </div>
+        { bare ?
+          <Element data={this.props.data} {...this.props.data.props} {...props} /> :
+          <div className="form-group">
+            <ComponentLabel className="form-label" {...this.props} />
+            <Element data={this.props.data} {...this.props.data.props} {...props} />
+          </div>
+        }
       </div>
     );
   }

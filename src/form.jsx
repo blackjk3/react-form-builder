@@ -9,7 +9,6 @@ import FormValidator from './form-validator';
 import FormElements from './form-elements';
 import { TwoColumnRow, ThreeColumnRow, FourColumnRow } from './multi-column';
 import CustomElement from './form-elements/custom-element';
-import BareElement from './form-elements/bare-element';
 import Registry from './stores/registry';
 
 const {
@@ -245,8 +244,6 @@ export default class ReactForm extends React.Component {
   getInputElement(item) {
     if (item.custom) {
       return this.getCustomElement(item);
-    } if (item.bare) {
-      return this.getBareElement(item);
     }
     const Input = FormElements[item.element];
     return (<Input
@@ -293,30 +290,6 @@ export default class ReactForm extends React.Component {
     );
   }
 
-  getBareElement(item) {
-    if (!item.component || typeof item.component !== 'function') {
-      item.component = Registry.get(item.key);
-      if (!item.component) {
-        console.error(`${item.element} was not registered`);
-      }
-    }
-
-    const inputProps = item.forwardRef && {
-      handleChange: this.handleChange,
-      defaultValue: this._getDefaultValue(item),
-      ref: c => this.inputs[item.field_name] = c,
-    };
-    return (
-      <BareElement
-        mutable={true}
-        read_only={this.props.read_only}
-        key={`form_${item.id}`}
-        data={item}
-        {...inputProps}
-      />
-    );
-  }
-
   handleRenderSubmit = () => {
     const {
       actionName = 'Submit',
@@ -354,8 +327,6 @@ export default class ReactForm extends React.Component {
           return this.getInputElement(item);
         case 'CustomElement':
           return this.getCustomElement(item);
-        case 'BareElement':
-          return this.getBareElement(item);
         case 'FourColumnRow':
           return this.getContainerElement(item, FourColumnRow);
         case 'ThreeColumnRow':

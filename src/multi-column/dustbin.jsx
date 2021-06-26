@@ -5,7 +5,6 @@ import ItemTypes from '../ItemTypes';
 
 import CustomElement from '../form-elements/custom-element';
 import Registry from '../stores/registry';
-import BareElement from '../form-elements/bare-element';
 
 function getCustomElement(item, props) {
   if (!item.component || typeof item.component !== 'function') {
@@ -24,30 +23,11 @@ function getCustomElement(item, props) {
   );
 }
 
-function getBareElement(item, props) {
-  if (!item.component || typeof item.component !== 'function') {
-    item.component = Registry.get(item.key);
-    if (!item.component) {
-      console.error(`${item.element} was not registered`);
-    }
-  }
-  return (
-    <BareElement
-      {...props}
-      mutable={false}
-      key={`form_${item.id}`}
-      data={item}
-    />
-  );
-}
-
 function getElement(item, props) {
   if (!item) return null;
   const Element = item.custom ?
     () => getCustomElement(item, props) :
-    item.bare?
-      () => getBareElement(item, props):
-      FormElements[item.element || item.key];
+    FormElements[item.element || item.key];
 
   return (
     <Fragment>
