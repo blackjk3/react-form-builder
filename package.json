@@ -1,6 +1,6 @@
 {
-  "name": "react-form-builder2",
-  "version": "0.8.6",
+  "name": "react-form-builder3",
+  "version": "0.8.28",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
   "license": "MIT",
@@ -22,6 +22,13 @@
     "drop"
   ],
   "author": "Kiho Chang",
+  "contributors": [
+    {
+      "name": "Zach Robichaud",
+      "email": "zach2825@gmail.com",
+      "url": "turtlebytes.com"
+    }
+  ],
   "dependencies": {
     "beedle": "^0.8.1",
     "classnames": "^2.2.6",
@@ -55,7 +62,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/preset-env": "^7.12.11",
-    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-react": "^7.14.5",
     "@babel/runtime-corejs2": "^7.12.5",
     "add": "^2.0.6",
     "babel-eslint": "^10.1.0",
