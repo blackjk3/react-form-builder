@@ -3,6 +3,7 @@
   "version": "0.8.8",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "license": "MIT",
   "repository": {
     "type": "git",
