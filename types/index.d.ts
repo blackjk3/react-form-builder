@@ -140,6 +140,6 @@ export interface FormGeneratorProps {
 
 export class ReactFormGenerator extends React.Component<FormGeneratorProps> {}
 
-export interface ElementStore {
+export type ElementStore = {
   dispatch: (type: string, data: any) => void;
 }
