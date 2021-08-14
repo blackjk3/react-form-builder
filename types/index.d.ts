@@ -112,6 +112,7 @@ export interface FormBuilderProps {
   url?: string;
   showCorrectColumn?: boolean;
   show_description?: boolean;
+  onLoad?: () => Promise<FormBuilderPostData>;
   onPost?: (data: FormBuilderPostData) => void;
   saveUrl?: string;
 }
@@ -138,3 +139,7 @@ export interface FormGeneratorProps {
 }
 
 export class ReactFormGenerator extends React.Component<FormGeneratorProps> {}
+
+export interface ElementStore {
+  dispatch: (type: string, data: any) => void;
+}
