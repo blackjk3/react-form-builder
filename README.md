@@ -205,7 +205,7 @@ const items = [{
   props: { test: 'test_input' },
   label: 'Label Input',
 }, 
-// Additional standard componets, you don't need full definition if no modification is required. 
+// Additional standard components, you don't need full definition if no modification is required. 
 {  
   key: 'Header',
 }, {
