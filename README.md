@@ -8,6 +8,7 @@ A complete react form builder that interfaces with a json endpoint to load and s
 - Save form data with dummy api server
 - Show posted data on readonly form
 - Multi column row
+- Custom Components
 
 [DEMO](https://kiho.github.io/react-form-builder/) Slow Loading.... back-end is running at FREE Heroku, hence it may not work if free time runs out for month.
 
@@ -153,6 +154,74 @@ Then navigate to http://localhost:8080/ in your browser and you should be able t
     submitButton={<button type={"submit"} className={"btn btn-primary"}>Submit</button>}
 />
 ```
+
+# Custom Components
+- Import component registry from react-form-builder2
+```jsx
+import { ReactFormBuilder, ElementStore, Registry } from 'react-form-builder2';
+```
+
+- Simple Custom Component 
+```jsx
+const TestComponent = () => <h2>Hello</h2>;
+```
+
+- Custom Component with input element
+```jsx
+const MyInput = React.forwardRef((props, ref) => {
+  const { name, defaultValue, disabled } = props;
+  return <input ref={ref} name={name} defaultValue={defaultValue} disabled={disabled} />;
+});
+```
+
+- Register custom components to be used in form builder
+```jsx
+Registry.register('MyInput', MyInput);
+Registry.register('TestComponent', TestComponent);
+```
+
+- Define Custom Components in Toolbar
+```jsx
+const items = [{
+  key: 'TestComponent',
+  element: 'CustomElement',
+  component: TestComponent,
+  type: 'custom',
+  field_name: 'test_component',
+  name: 'Something You Want',
+  icon: 'fa fa-cog',
+  static: true,
+  props: { test: 'test_comp' },
+  label: 'Label Test',
+}, {
+  key: 'MyInput',
+  element: 'CustomElement',
+  component: MyInput,
+  type: 'custom',
+  forwardRef: true,
+  field_name: 'my_input_',
+  name: 'My Input',
+  icon: 'fa fa-cog',
+  props: { test: 'test_input' },
+  label: 'Label Input',
+}, 
+// Additional standard componets, you don't need full definition if no modification is required. 
+{  
+  key: 'Header',
+}, {
+  key: 'TextInput',
+}, {
+  key: 'TextArea',
+}, {
+  key: 'RadioButtons',
+}, {
+  key: 'Checkboxes',
+}, {
+  key: 'Image',
+}];
+```
+- Find working example [here](https://github.com/Kiho/react-form-builder/blob/master/examples/custom/app.js)
+
 
 # Examples
 - [Basic](https://github.com/Kiho/react-form-builder/tree/master/examples/demo)
