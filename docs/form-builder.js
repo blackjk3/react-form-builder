@@ -46,6 +46,11 @@ function clearMessage() {
   show = false;
 }
 
+function errorMessage() {
+  show = false;
+  toastr.error('Service Not Available.', 'Back-End', { timeOut: 30000 });
+}
+
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json; charset=utf-8',
@@ -63,7 +68,9 @@ function checkBackEnd() {
   fetch(url, {
     method: 'GET',
     headers,
-  }).then(clearMessage);
+  })
+  .then(clearMessage)
+  .catch(errorMessage);
 }
 
 checkBackEnd();

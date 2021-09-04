@@ -9,7 +9,7 @@ A complete react form builder that interfaces with a json endpoint to load and s
 - Show posted data on readonly form
 - Multi column row
 
-[DEMO](https://kiho.github.io/react-form-builder/) Slow Loading.... back-end is running at FREE Heroku.
+[DEMO](https://kiho.github.io/react-form-builder/) Slow Loading.... back-end is running at FREE Heroku, hence it may not work if free time runs out for month.
 
 ![](screenshot.png)
 
