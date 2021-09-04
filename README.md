@@ -220,6 +220,15 @@ const items = [{
   key: 'Image',
 }];
 ```
+
+- Use defined Toolbar in ReactFormBuilder
+```jsx
+  <ReactFormBuilder
+    ...
+    toolbarItems={items}
+  />
+```
+       
 - Find working example [here](https://github.com/Kiho/react-form-builder/blob/master/examples/custom/app.js)
 
 
