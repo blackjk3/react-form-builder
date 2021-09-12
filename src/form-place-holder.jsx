@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PLACE_HOLDER = 'form-place-holder';
+const PLACE_HOLDER_HIDDEN = 'form-place-holder-hidden';
 
 export default class PlaceHolder extends React.Component {
   render() {
+    const placeHolderClass = this.props.show ? PLACE_HOLDER : PLACE_HOLDER_HIDDEN;
+    const placeHolder = this.props.show ? this.props.text : '';
     return (
-      this.props.show &&
-      <div className={PLACE_HOLDER} >
-        <div>{this.props.text}</div>
+      <div className={placeHolderClass} >
+        <div>{placeHolder}</div>
       </div>
     );
   }

@@ -35,7 +35,7 @@ const cardTarget = {
     const item = monitor.getItem();
     const dragIndex = item.index;
     const hoverIndex = props.index;
-    if (props.data.isContainer || item.itemType === ItemTypes.CARD) {
+    if ((props.data && props.data.isContainer) || item.itemType === ItemTypes.CARD) {
       // console.log('cardTarget -  Drop', item.itemType);
       return;
     }
