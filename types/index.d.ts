@@ -1,30 +1,31 @@
 /* eslint-disable max-classes-per-file */
-import * as React from 'react';
+import * as React from "react";
 
 type BaseElement = {
   id: string;
-  element: "Header Text" |
-    "Label" |
-    "Paragraph" |
-    "Line Break" |
-    "Dropdown" |
-    "Tags" |
-    "Checkboxes" |
-    "Multiple Choice" |
-    "Text Input" |
-    "Number Input" |
-    "Multi-line Input" |
-    "Two Column Row" |
-    "Three Column Row" |
-    "Four Column Row" |
-    "Image" |
-    "Rating" |
-    "Date" |
-    "Signature" |
-    "Web site" |
-    "File Attachment" |
-    "Range" |
-    "Camera";
+  element:
+    | "Header Text"
+    | "Label"
+    | "Paragraph"
+    | "Line Break"
+    | "Dropdown"
+    | "Tags"
+    | "Checkboxes"
+    | "Multiple Choice"
+    | "Text Input"
+    | "Number Input"
+    | "Multi-line Input"
+    | "Two Column Row"
+    | "Three Column Row"
+    | "Four Column Row"
+    | "Image"
+    | "Rating"
+    | "Date"
+    | "Signature"
+    | "Web site"
+    | "File Attachment"
+    | "Range"
+    | "Camera";
   showDescription?: boolean;
   required: boolean;
   canHaveAlternateForm: boolean;
@@ -34,32 +35,32 @@ type BaseElement = {
   canHavePageBreakBefore: boolean;
   canPopulateFromApi: boolean;
   text: string;
-}
+};
 export type StaticElement = {
   bold: boolean;
   content: string;
   inline?: boolean;
   italic: boolean;
   static: true;
-}
+};
 export type FormBuilderInput = {
   canHaveAnswer?: true;
   field_name: string;
   label: string;
-}
+};
 export type Option = {
   key: string;
   label?: string;
   text: string;
   value: string;
-}
+};
 export type SelectableElement = {
   options: Option[];
-} & FormBuilderInput
+} & FormBuilderInput;
 export type ImageElement = {
   field_name: string;
   src: string;
-}
+};
 export type DateElement = {
   dateFormat: string;
   defaultToday: boolean;
@@ -67,13 +68,13 @@ export type DateElement = {
   showTimeSelect: boolean;
   showTimeSelectOnly: boolean;
   timeFormat: string;
-} & FormBuilderInput
+} & FormBuilderInput;
 export type RangeElement = {
   max_label: string;
   max_value: number;
   min_label: string;
   min_value: number;
-} & FormBuilderInput
+} & FormBuilderInput;
 export type FileElement = {
   _href: string;
   file_path: string;
@@ -84,11 +85,20 @@ export type WebsiteElement = {
 } & StaticElement;
 export type SignatureElement = {
   readOnly: boolean;
-} & FormBuilderInput
-export type TaskData =
-  BaseElement
+} & FormBuilderInput;
+export type TaskData = BaseElement &
   // eslint-disable-next-line no-use-before-define
-  & (StaticElement | FormBuilderInput | SelectableElement | ImageElement | DateElement | RangeElement | WebsiteElement | FileElement | SignatureElement | FormBuilderLayout);
+  (| StaticElement
+    | FormBuilderInput
+    | SelectableElement
+    | ImageElement
+    | DateElement
+    | RangeElement
+    | WebsiteElement
+    | FileElement
+    | SignatureElement
+    | FormBuilderLayout
+  );
 export type FormBuilderLayout = {
   isContainer: true;
   childItems: TaskData[];
@@ -96,7 +106,7 @@ export type FormBuilderLayout = {
 };
 export type FormBuilderPostData = {
   task_data: TaskData[];
-}
+};
 
 export type ToolbarItem = {
   key: string;
@@ -104,7 +114,7 @@ export type ToolbarItem = {
   static: boolean;
   icon: string;
   content: string;
-}
+};
 
 export interface FormBuilderProps {
   toolbarItems?: ToolbarItem[];
@@ -119,11 +129,17 @@ export interface FormBuilderProps {
 
 export class ReactFormBuilder extends React.Component<FormBuilderProps> {}
 
+export interface FormGeneratorOnSubmitParams {
+  name: string;
+  custom_name: string;
+  value: string | string[];
+}
+
 export interface FormGeneratorProps {
   form_action: string;
   form_method: string;
   action_name?: string;
-  onSubmit?: () => void;
+  onSubmit?: (info: FormGeneratorOnSubmitParams[]) => void;
   data: any[];
   back_action?: string;
   back_name?: string;
@@ -140,7 +156,7 @@ export interface FormGeneratorProps {
 
 export class ReactFormGenerator extends React.Component<FormGeneratorProps> {}
 
-export type ActionType = 'load' | 'updateOrder' | 'delete';
+export type ActionType = "load" | "updateOrder" | "delete";
 
 export class ElementStore {
   static dispatch: (type: ActionType, data: any) => void;
