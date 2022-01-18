@@ -11,6 +11,8 @@ import { TwoColumnRow, ThreeColumnRow, FourColumnRow } from './multi-column';
 import CustomElement from './form-elements/custom-element';
 import Registry from './stores/registry';
 
+
+
 const {
   Image, Checkboxes, Signature, Download, Camera,
 } = FormElements;

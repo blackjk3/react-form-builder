@@ -10,10 +10,14 @@ import Toolbar from './toolbar';
 import ReactFormGenerator from './form';
 import store from './stores/store';
 import Registry from './stores/registry';
+import {IntlProvider} from 'react-intl';
+import AppLocale from "./language-provider";
 
 class ReactFormBuilder extends React.Component {
   constructor(props) {
     super(props);
+
+    
 
     this.state = {
       editMode: false,
@@ -45,9 +49,14 @@ class ReactFormBuilder extends React.Component {
     const toolbarProps = {
       showDescription: this.props.show_description,
     };
+
+    const currentAppLocale = AppLocale[this.props.locale];
     if (this.props.toolbarItems) { toolbarProps.items = this.props.toolbarItems; }
     return (
       <DndProvider backend={HTML5Backend}>
+         <IntlProvider  
+              locale={currentAppLocale.locale}
+              messages={currentAppLocale.messages}>
        <div>
          {/* <div>
            <p>
@@ -80,6 +89,7 @@ class ReactFormBuilder extends React.Component {
             </div>
           </div>
         </div>
+        </IntlProvider>
       </DndProvider>
     );
   }

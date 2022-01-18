@@ -6,6 +6,7 @@ import React from 'react';
 import ToolbarItem from './toolbar-draggable-item';
 import ID from './UUID';
 import store from './stores/store';
+import { injectIntl } from "react-intl";
 
 function isDefaultItem(item) {
   const keys = Object.keys(item);
@@ -25,43 +26,46 @@ function buildItems(items, defaultItems) {
   });
 }
 
-export default class Toolbar extends React.Component {
+class Toolbar extends React.Component {
   constructor(props) {
     super(props);
-
+    const {intl} = this.props;
     const items = buildItems(props.items, this._defaultItems());
     this.state = {
       items,
     };
     store.subscribe(state => this.setState({ store: state }));
     this.create = this.create.bind(this);
+    
   }
 
-  static _defaultItemOptions(element) {
+  static _defaultItemOptions(element,intl) {
+
+    
     switch (element) {
       case 'Dropdown':
         return [
-          { value: 'place_holder_option_1', text: 'Place holder option 1', key: `dropdown_option_${ID.uuid()}` },
-          { value: 'place_holder_option_2', text: 'Place holder option 2', key: `dropdown_option_${ID.uuid()}` },
-          { value: 'place_holder_option_3', text: 'Place holder option 3', key: `dropdown_option_${ID.uuid()}` },
+          { value: 'place_holder_option_1', text: intl.formatMessage({ id: "place-holder-option-1"}) , key: `dropdown_option_${ID.uuid()}` } ,
+          { value: 'place_holder_option_2', text: intl.formatMessage({ id: "place-holder-option-2"}), key: `dropdown_option_${ID.uuid()}` },
+          { value: 'place_holder_option_3', text: intl.formatMessage({ id: "place-holder-option-3"}), key: `dropdown_option_${ID.uuid()}` },
         ];
       case 'Tags':
         return [
-          { value: 'place_holder_tag_1', text: 'Place holder tag 1', key: `tags_option_${ID.uuid()}` },
-          { value: 'place_holder_tag_2', text: 'Place holder tag 2', key: `tags_option_${ID.uuid()}` },
-          { value: 'place_holder_tag_3', text: 'Place holder tag 3', key: `tags_option_${ID.uuid()}` },
+          { value: 'place_holder_tag_1', text: intl.formatMessage({ id: "place-holder-tag-1"}), key: `tags_option_${ID.uuid()}` },
+          { value: 'place_holder_tag_2', text: intl.formatMessage({ id: "place-holder-tag-2"}), key: `tags_option_${ID.uuid()}` },
+          { value: 'place_holder_tag_3', text: intl.formatMessage({ id: "place-holder-tag-3"}), key: `tags_option_${ID.uuid()}` },
         ];
       case 'Checkboxes':
         return [
-          { value: 'place_holder_option_1', text: 'Place holder option 1', key: `checkboxes_option_${ID.uuid()}` },
-          { value: 'place_holder_option_2', text: 'Place holder option 2', key: `checkboxes_option_${ID.uuid()}` },
-          { value: 'place_holder_option_3', text: 'Place holder option 3', key: `checkboxes_option_${ID.uuid()}` },
+          { value: 'place_holder_option_1', text: intl.formatMessage({ id: "place-holder-option-1"}), key: `checkboxes_option_${ID.uuid()}` },
+          { value: 'place_holder_option_2', text: intl.formatMessage({ id: "place-holder-option-2"}), key: `checkboxes_option_${ID.uuid()}` },
+          { value: 'place_holder_option_3', text: intl.formatMessage({ id: "place-holder-option-3"}), key: `checkboxes_option_${ID.uuid()}` },
         ];
       case 'RadioButtons':
         return [
-          { value: 'place_holder_option_1', text: 'Place holder option 1', key: `radiobuttons_option_${ID.uuid()}` },
-          { value: 'place_holder_option_2', text: 'Place holder option 2', key: `radiobuttons_option_${ID.uuid()}` },
-          { value: 'place_holder_option_3', text: 'Place holder option 3', key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'place_holder_option_1', text: intl.formatMessage({ id: "place-holder-option-1"}), key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'place_holder_option_2', text: intl.formatMessage({ id: "place-holder-option-2"}), key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'place_holder_option_3', text: intl.formatMessage({ id: "place-holder-option-3"}), key: `radiobuttons_option_${ID.uuid()}` },
         ];
       default:
         return [];
@@ -260,6 +264,9 @@ export default class Toolbar extends React.Component {
   }
 
   create(item) {
+
+    const {intl} = this.props;
+
     const elementOptions = {
       id: ID.uuid(),
       element: item.element || item.key,
@@ -347,7 +354,7 @@ export default class Toolbar extends React.Component {
       if (item.options.length > 0) {
         elementOptions.options = item.options;
       } else {
-        elementOptions.options = Toolbar._defaultItemOptions(elementOptions.element);
+        elementOptions.options = Toolbar._defaultItemOptions(elementOptions.element, intl);
       }
     }
 
@@ -360,6 +367,7 @@ export default class Toolbar extends React.Component {
   }
 
   render() {
+    
     return (
       <div className="col-md-3 react-form-builder-toolbar float-right">
         <h4>Toolbox</h4>
@@ -372,3 +380,5 @@ export default class Toolbar extends React.Component {
     );
   }
 }
+
+export default injectIntl(Toolbar);
