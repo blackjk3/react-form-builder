@@ -30,7 +30,7 @@ class Toolbar extends React.Component {
   constructor(props) {
     super(props);
     const {intl} = this.props;
-    const items = buildItems(props.items, this._defaultItems());
+    const items = buildItems(props.items, this._defaultItems(intl));
     this.state = {
       items,
     };
@@ -72,99 +72,99 @@ class Toolbar extends React.Component {
     }
   }
 
-  _defaultItems() {
+  _defaultItems(intl) {
     return [
       {
         key: 'Header',
-        name: 'Header Text',
+        name: intl.formatMessage({ id: "header-text"}),
         icon: 'fas fa-heading',
         static: true,
-        content: 'Placeholder Text...',
+        content: intl.formatMessage({ id: "place-holder-text"}),
       },
       {
         key: 'Label',
-        name: 'Label',
+        name: intl.formatMessage({ id: "label"}),
         static: true,
         icon: 'fas fa-font',
-        content: 'Placeholder Text...',
+        content: intl.formatMessage({ id: "place-holder-text"}),
       },
       {
         key: 'Paragraph',
-        name: 'Paragraph',
+        name: intl.formatMessage({ id: "paragraph"}),
         static: true,
         icon: 'fas fa-paragraph',
-        content: 'Placeholder Text...',
+        content: intl.formatMessage({ id: "place-holder-text"}),
       },
       {
         key: 'LineBreak',
-        name: 'Line Break',
+        name: intl.formatMessage({ id: "line-break"}),
         static: true,
         icon: 'fas fa-arrows-alt-h',
       },
       {
         key: 'Dropdown',
         canHaveAnswer: true,
-        name: 'Dropdown',
+        name: intl.formatMessage({ id: "dropdown"}),
         icon: 'far fa-caret-square-down',
-        label: 'Placeholder Label',
+        label: intl.formatMessage({ id: "place-holder-label"}),
         field_name: 'dropdown_',
         options: [],
       },
       {
         key: 'Tags',
         canHaveAnswer: true,
-        name: 'Tags',
+        name: intl.formatMessage({ id: "tags"}),
         icon: 'fas fa-tags',
-        label: 'Placeholder Label',
+        label: intl.formatMessage({ id: "place-holder-label"}),
         field_name: 'tags_',
         options: [],
       },
       {
         key: 'Checkboxes',
         canHaveAnswer: true,
-        name: 'Checkboxes',
+        name: intl.formatMessage({ id: "checkboxes"}),
         icon: 'far fa-check-square',
-        label: 'Placeholder Label',
+        label: intl.formatMessage({ id: "place-holder-label"}),
         field_name: 'checkboxes_',
         options: [],
       },
       {
         key: 'RadioButtons',
         canHaveAnswer: true,
-        name: 'Multiple Choice',
+        name: intl.formatMessage({ id: "multiple-choice"}),
         icon: 'far fa-dot-circle',
-        label: 'Placeholder Label',
+        label: intl.formatMessage({ id: "place-holder-label"}),
         field_name: 'radiobuttons_',
         options: [],
       },
       {
         key: 'TextInput',
         canHaveAnswer: true,
-        name: 'Text Input',
-        label: 'Placeholder Label',
+        name: intl.formatMessage({ id: "text-input"}),
+        label: intl.formatMessage({ id: "place-holder-label"}),
         icon: 'fas fa-font',
         field_name: 'text_input_',
       },
       {
         key: 'NumberInput',
         canHaveAnswer: true,
-        name: 'Number Input',
-        label: 'Placeholder Label',
+        name: intl.formatMessage({ id: "number-input"}),
+        label: intl.formatMessage({ id: "place-holder-label"}),
         icon: 'fas fa-plus',
         field_name: 'number_input_',
       },
       {
         key: 'TextArea',
         canHaveAnswer: true,
-        name: 'Multi-line Input',
-        label: 'Placeholder Label',
+        name: intl.formatMessage({ id: "multi-line-input"}),
+        label: intl.formatMessage({ id: "place-holder-label"}),
         icon: 'fas fa-text-height',
         field_name: 'text_area_',
       },
       {
         key: 'TwoColumnRow',
         canHaveAnswer: false,
-        name: 'Two Column Row',
+        name: intl.formatMessage({ id: "two-columns-row"}),
         label: '',
         icon: 'fas fa-columns',
         field_name: 'two_col_row_',
@@ -172,7 +172,7 @@ class Toolbar extends React.Component {
       {
         key: 'ThreeColumnRow',
         canHaveAnswer: false,
-        name: 'Three Column Row',
+        name: intl.formatMessage({ id: "three-columns-row"}),
         label: '',
         icon: 'fas fa-columns',
         field_name: 'three_col_row_',
@@ -180,14 +180,14 @@ class Toolbar extends React.Component {
       {
         key: 'FourColumnRow',
         canHaveAnswer: false,
-        name: 'Four Column Row',
+        name: intl.formatMessage({ id: "four-columns-row"}),
         label: '',
         icon: 'fas fa-columns',
         field_name: 'four_col_row_',
       },
       {
         key: 'Image',
-        name: 'Image',
+        name: intl.formatMessage({ id: "image"}),
         label: '',
         icon: 'far fa-image',
         field_name: 'image_',
@@ -196,8 +196,8 @@ class Toolbar extends React.Component {
       {
         key: 'Rating',
         canHaveAnswer: true,
-        name: 'Rating',
-        label: 'Placeholder Label',
+        name: intl.formatMessage({ id: "rating"}),
+        label: intl.formatMessage({ id: "place-holder-label"}),
         icon: 'fas fa-star',
         field_name: 'rating_',
       },
@@ -209,55 +209,55 @@ class Toolbar extends React.Component {
         timeFormat: 'hh:mm aa',
         showTimeSelect: false,
         showTimeSelectOnly: false,
-        name: 'Date',
+        name: intl.formatMessage({ id: "date"}),
         icon: 'far fa-calendar-alt',
-        label: 'Placeholder Label',
+        label: intl.formatMessage({ id: "place-holder-label"}),
         field_name: 'date_picker_',
       },
       {
         key: 'Signature',
         canReadOnly: true,
-        name: 'Signature',
+        name: intl.formatMessage({ id: "signature"}),
         icon: 'fas fa-pen-square',
-        label: 'Signature',
+        label: intl.formatMessage({ id: "signature"}),
         field_name: 'signature_',
       },
       {
         key: 'HyperLink',
-        name: 'Web site',
+        name: intl.formatMessage({ id: "website"}),
         icon: 'fas fa-link',
         static: true,
-        content: 'Placeholder Web site link ...',
+        content: intl.formatMessage({ id: "place-holder-website-link"}),
         href: 'http://www.example.com',
       },
       {
         key: 'Download',
-        name: 'File Attachment',
+        name: intl.formatMessage({ id: "file-attachment"}),
         icon: 'fas fa-file',
         static: true,
-        content: 'Placeholder file name ...',
+        content: intl.formatMessage({ id: "place-holder-file-name"}),
         field_name: 'download_',
         file_path: '',
         _href: '',
       },
       {
         key: 'Range',
-        name: 'Range',
+        name: intl.formatMessage({ id: "range"}),
         icon: 'fas fa-sliders-h',
-        label: 'Placeholder Label',
+        label: intl.formatMessage({ id: "place-holder-label"}),
         field_name: 'range_',
         step: 1,
         default_value: 3,
         min_value: 1,
         max_value: 5,
-        min_label: 'Easy',
-        max_label: 'Difficult',
+        min_label: intl.formatMessage({ id: "easy"}),
+        max_label: intl.formatMessage({ id: "difficult"}),
       },
       {
         key: 'Camera',
-        name: 'Camera',
+        name: intl.formatMessage({ id: "camera"}),
         icon: 'fas fa-camera',
-        label: 'Placeholder Label',
+        label: intl.formatMessage({ id: "place-holder-label"}),
         field_name: 'camera_',
       },
     ];
@@ -370,7 +370,7 @@ class Toolbar extends React.Component {
     
     return (
       <div className="col-md-3 react-form-builder-toolbar float-right">
-        <h4>Toolbox</h4>
+        <h4>{this.props.intl.formatMessage({ id: "toolbox"})}</h4>
         <ul>
           {
             this.state.items.map((item) => (<ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item)} onCreate={this.create} />))

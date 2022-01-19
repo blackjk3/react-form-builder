@@ -41,6 +41,42 @@
   "place-holder-option-3" : "Lựa chọn 3",
   "place-holder-tag-1" : "Lựa chọn 1",
   "place-holder-tag-2" : "Lựa chọn 2",
-  "place-holder-tag-3" : "Lựa chọn 3"
+  "place-holder-tag-3" : "Lựa chọn 3",
+
+  "toolbox" : "Công cụ",
+  "header-text" : "Tiêu đề",
+  "label" : "Nhãn",
+  "paragraph" : "Đoạn văn",
+  "line-break" : "Đường kẻ dòng",
+  "dropdown" : "Danh sách chọn",
+  "tags": "Thẻ",
+  "checkboxes" : "Hộp chọn",
+  "multiple-choice":"Nhiều lựa chọn",
+  "text-input":"Nhập chữ",
+  "number-input":"Nhập số",
+  "multi-line-input":"Nhập nhiều dòng",
+  "two-columns-row":"Chia hai cột",
+  "three-columns-row":"Chia ba cột",
+  "four-columns-row":"Chia bốn cột",
+  "image":"Liên kết ảnh",
+  "rating":"Đánh giá",
+  "date":"Ngày",
+  "signature":"Chữ kí",
+  "website":"Trang web",
+  "file-attachment":"Tệp đính kèm",
+  "range":"Khoảng",
+  "camera":"Tải ảnh",
+  "place-holder-text": "Nội dung...",
+  "place-holder-label": "Nhãn",
+  "place-holder-website-link": "Đường dẫn tới website...",
+  "place-holder-file-name": "Tên tệp...",
+  "easy": "Easy",
+  "difficult": "Difficult",
+
+  "drop-zone": "Khu vực kéo thả",
+
+  "message.is-required": "không được bỏ trống",
+  "message.was-answered incorrectly": "đã trả lời sai",
+  "message.was-not-registered": "chưa đăng ký"
   
 }

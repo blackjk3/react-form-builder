@@ -10,14 +10,13 @@ import FormElements from './form-elements';
 import { TwoColumnRow, ThreeColumnRow, FourColumnRow } from './multi-column';
 import CustomElement from './form-elements/custom-element';
 import Registry from './stores/registry';
-
-
+import {  injectIntl } from 'react-intl';
 
 const {
   Image, Checkboxes, Signature, Download, Camera,
 } = FormElements;
 
-export default class ReactForm extends React.Component {
+class ReactForm extends React.Component {
   form;
 
   inputs = {};
@@ -216,6 +215,7 @@ export default class ReactForm extends React.Component {
   validateForm() {
     const errors = [];
     let data_items = this.props.data;
+    const { intl } = this.props;
 
     if (this.props.display_short) {
       data_items = this.props.data.filter((i) => i.alternateForm === true);
@@ -227,11 +227,11 @@ export default class ReactForm extends React.Component {
       }
 
       if (this._isInvalid(item)) {
-        errors.push(`${item.label} is required!`);
+        errors.push(`${item.label} ${intl.formatMessage({ id: "message.is-required" })}!`);
       }
 
       if (this.props.validateForCorrectness && this._isIncorrect(item)) {
-        errors.push(`${item.label} was answered incorrectly!`);
+        errors.push(`${item.label} ${intl.formatMessage({ id: "message.was-answered-incorrectly" })}!`);
       }
     });
 
@@ -269,10 +269,12 @@ export default class ReactForm extends React.Component {
   }
 
   getCustomElement(item) {
+    const { intl } = this.props;
+
     if (!item.component || typeof item.component !== 'function') {
       item.component = Registry.get(item.key);
       if (!item.component) {
-        console.error(`${item.element} was not registered`);
+        console.error(`${item.element} ${intl.formatMessage({ id: "message.was-not-registered" })}`);
       }
     }
 
@@ -358,30 +360,31 @@ export default class ReactForm extends React.Component {
 
     return (
       <div>
-        <FormValidator emitter={this.emitter} />
-        <div className='react-form-builder-form'>
-          <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
-            {this.props.authenticity_token &&
-              <div style={formTokenStyle}>
-                <input name='utf8' type='hidden' value='&#x2713;' />
-                <input name='authenticity_token' type='hidden' value={this.props.authenticity_token} />
-                <input name='task_id' type='hidden' value={this.props.task_id} />
+          <FormValidator emitter={this.emitter} />
+          <div className='react-form-builder-form'>
+            <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
+              {this.props.authenticity_token &&
+                <div style={formTokenStyle}>
+                  <input name='utf8' type='hidden' value='&#x2713;' />
+                  <input name='authenticity_token' type='hidden' value={this.props.authenticity_token} />
+                  <input name='task_id' type='hidden' value={this.props.task_id} />
+                </div>
+              }
+              {items}
+              <div className='btn-toolbar'>
+                {!this.props.hide_actions &&
+                  this.handleRenderSubmit()
+                }
+                {!this.props.hide_actions && this.props.back_action &&
+                  <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
+                }
               </div>
-            }
-            {items}
-            <div className='btn-toolbar'>
-              {!this.props.hide_actions &&
-                this.handleRenderSubmit()
-              }
-              {!this.props.hide_actions && this.props.back_action &&
-                <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
-              }
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
       </div>
     );
   }
 }
 
+export default injectIntl(ReactForm);
 ReactForm.defaultProps = { validateForCorrectness: false };

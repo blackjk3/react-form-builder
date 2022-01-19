@@ -41,7 +41,46 @@
   "place-holder-option-3" : "Place holder option 3",
   "place-holder-tag-1" : "Place holder option 1",
   "place-holder-tag-2" : "Place holder option 2",
-  "place-holder-tag-3" : "Place holder option 3"
+  "place-holder-tag-3" : "Place holder option 3",
+
+  "toolbox" : "Toolbox",
+  "header-text" : "Header Text",
+  "label" : "Label",
+  "paragraph" : "Paragraph",
+  "line-break" : "Line Break",
+  "dropdown" : "Dropdown",
+  "tags": "Tags",
+  "checkboxes" : "Checkboxes",
+  "multiple-choice":"Multiple Choice",
+  "text-input":"Text Input",
+  "number-input":"Number Input",
+  "multi-line-input":"Multi-line Input",
+  "two-columns-row":"Two Column Row",
+  "three-columns-row":"Three Columns Row",
+  "four-columns-row":"Four Columns Row",
+  "image":"Image",
+  "rating":"Rating",
+  "date":"Date",
+  "signature":"Signature",
+  "website":"Website",
+  "file-attachment":"File Attachment",
+  "range":"Range",
+  "camera":"Camera",
+  "place-holder-text": "Placeholder text...",
+  "place-holder-label": "Placeholder label",
+  "place-holder-website-link": "Placeholder website Link...",
+  "place-holder-file-name": "Placeholder file name...",
+  "easy": "Easy",
+  "difficult": "Difficult",
+  "drop-zone": "Dropzone",
+
+  "message.is-required": "is required",
+  "message.was-answered-incorrectly": "was answered incorrectly",
+  "message.was-not-registered": "was not registered"
+
+
+
+
 
 
 

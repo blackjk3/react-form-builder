@@ -24,8 +24,8 @@ class Header extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
-        <ComponentHeader {...this.props} />
+      <div style={{...this.props.style}} className={baseClasses}>
+        <ComponentHeader  {...this.props} />
         <h3 className={classNames} dangerouslySetInnerHTML={{ __html: myxss.process(this.props.data.content) }} />
       </div>
     );
@@ -42,7 +42,7 @@ class Paragraph extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <p className={classNames} dangerouslySetInnerHTML={{ __html: myxss.process(this.props.data.content) }} />
       </div>
@@ -60,7 +60,7 @@ class Label extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <label className={classNames} dangerouslySetInnerHTML={{ __html: myxss.process(this.props.data.content) }} />
       </div>
@@ -74,7 +74,7 @@ class LineBreak extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <hr />
       </div>
@@ -106,7 +106,7 @@ class TextInput extends React.Component {
     }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -142,7 +142,7 @@ class NumberInput extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -177,7 +177,7 @@ class TextArea extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -213,7 +213,7 @@ class Dropdown extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -275,7 +275,7 @@ class Signature extends React.Component {
     }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -339,7 +339,7 @@ class Tags extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -365,7 +365,7 @@ class Checkboxes extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel className="form-label" {...this.props} />
@@ -414,7 +414,7 @@ class RadioButtons extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel className="form-label" {...this.props} />
@@ -458,7 +458,7 @@ class Image extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses} style={style}>
+      <div style={{...this.props.style, style}} className={baseClasses} >
         <ComponentHeader {...this.props} />
         { this.props.data.src &&
           <img src={this.props.data.src} width={this.props.data.width} height={this.props.data.height} />
@@ -493,7 +493,7 @@ class Rating extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -510,7 +510,7 @@ class HyperLink extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <a target="_blank" href={this.props.data.href}>{this.props.data.content}</a>
@@ -526,7 +526,7 @@ class Download extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <a href={`${this.props.download_path}?id=${this.props.data.file_path}`}>{this.props.data.content}</a>
@@ -583,7 +583,7 @@ class Camera extends React.Component {
     }
     console.log('sourceDataURL', sourceDataURL);
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
@@ -671,7 +671,7 @@ class Range extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
