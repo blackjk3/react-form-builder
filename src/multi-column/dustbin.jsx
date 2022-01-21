@@ -65,7 +65,7 @@ function isContainer(item) {
 
 const Dustbin = React.forwardRef(
   ({
-    greedy, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
+    draggedItem ,parentIndex, canDrop, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
   }, ref) => {
     const item = getDataById(items[col]);
     useImperativeHandle(
@@ -79,16 +79,22 @@ const Dustbin = React.forwardRef(
       [],
     );
 
+    const element = getElement(item, rest);
+    const sameCard =  draggedItem ? draggedItem.index == parentIndex : false
+
+    // console.log('dragIndex:',draggedItem?.index)
+    // console.log('HoverIndex:',parentIndex)
+    // console.log('SameCard:',sameCard)
+
     let backgroundColor = 'rgba(0, 0, 0, .03)';
 
-    if (isOverCurrent || (isOver && greedy)) {
-      backgroundColor = 'darkgreen';
+    if  (!sameCard &&  isOver && canDrop && !draggedItem.data.isContainer)  {
+      backgroundColor = '#F7F589';
     }
-
-    const element = getElement(item, rest);
+    
     // console.log('accepts, canDrop', accepts, canDrop);
     return connectDropTarget(
-      <div style={getStyle(backgroundColor)}>
+      <div style={!sameCard ? getStyle(backgroundColor) : getStyle('rgba(0, 0, 0, .03') }>
         {element}
       </div>,
     );
@@ -107,7 +113,14 @@ export default DropTarget(
         return;
       }
 
+      //Do nothing whith busy dustbin
+      if(props.items[props.col]) return;
+
       const item = monitor.getItem();
+
+      // Do nothing when moving the box inside the same column
+      if (props.col == item.col && props.items[props.col] == item.id) return;
+
       if (!isContainer(item)) {
         (component).onDrop(item);
         if (item.data && typeof props.setAsChild === 'function') {
@@ -120,6 +133,7 @@ export default DropTarget(
   },
   (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
+    draggedItem: monitor.getItem() ? monitor.getItem() : null,
     isOver: monitor.isOver(),
     isOverCurrent: monitor.isOver({ shallow: true }),
     canDrop: monitor.canDrop(),

@@ -9,7 +9,7 @@ const style = {
   padding: '0.5rem 1rem',
   marginBottom: '.5rem',
   backgroundColor: 'white',
-  cursor: 'move',
+  cursor: 'pointer',
 };
 
 const cardSource = {
@@ -33,8 +33,9 @@ const cardTarget = {
     }
 
     const item = monitor.getItem();
-    const dragIndex = item.index;
     const hoverIndex = props.index;
+    const dragIndex =  item.index;
+    
     if ((props.data && props.data.isContainer) || item.itemType === ItemTypes.CARD) {
       // console.log('cardTarget -  Drop', item.itemType);
       return;
@@ -48,32 +49,20 @@ const cardTarget = {
   },
   hover(props, monitor, component) {
     const item = monitor.getItem();
+    
+    if(item.itemType == ItemTypes.BOX && item.index == -1) return;
+
+    //Don't replace multi-column component unless both drag & hover are multi-column
+    if(props.data?.isContainer && !item.data?.isContainer) return;
+     
     const dragIndex = item.index;
     const hoverIndex = props.index;
 
-    if (item.data && typeof item.setAsChild === 'function') {
-      // console.log('BOX', item);
-      return;
-      // if (dragIndex === -1) {
-      //   props.insertCard(item, hoverIndex, item.id);
-      //   if (item.parentIndex === hoverIndex) {
-      //     return;
-      //   }
-      // }
-    }
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
       return;
     }
-    if (dragIndex === -1) {
-      if (props.data && props.data.isContainer) {
-        return;
-      }
-      // console.log('CARD', item);
-      item.index = hoverIndex;
-      props.insertCard(item.onCreate(item.data), hoverIndex);
-    }
-
+    
     // Determine rectangle on screen
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
@@ -107,6 +96,9 @@ const cardTarget = {
     // Generally it's better to avoid mutations,
     // but it's good here for the sake of performance
     // to avoid expensive index searches.
+
+    // if (item.itemType == ItemTypes.BOX) item.cardIndex = hoverIndex;
+    // else 
     item.index = hoverIndex;
   },
 };
@@ -116,6 +108,7 @@ export default function (ComposedComponent) {
   class Card extends Component {
     static propTypes = {
       connectDragSource: PropTypes.func,
+      connectDragPreview: PropTypes.func,
       connectDropTarget: PropTypes.func,
       index: PropTypes.number.isRequired,
       isDragging: PropTypes.bool,
@@ -133,11 +126,12 @@ export default function (ComposedComponent) {
       const {
         isDragging,
         connectDragSource,
+        connectDragPreview,
         connectDropTarget,
       } = this.props;
       const opacity = isDragging ? 0 : 1;
 
-      return connectDragSource(
+      return connectDragPreview(
         connectDropTarget(<div><ComposedComponent {...this.props} style={{ ...style, opacity }}></ComposedComponent></div>),
       );
     }
@@ -148,6 +142,7 @@ export default function (ComposedComponent) {
   }))(Card);
   return DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging(),
   }))(x);
 }
