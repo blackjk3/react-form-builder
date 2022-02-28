@@ -7,6 +7,7 @@ import update from 'immutability-helper';
 import store from './stores/store';
 import FormElementsEdit from './form-elements-edit';
 import SortableFormElements from './sortable-form-elements';
+import CustomDragLayer from './form-elements/component-drag-layer';
 
 const { PlaceHolder } = SortableFormElements;
 
@@ -138,9 +139,11 @@ export default class Preview extends React.Component {
     return true;
   }
 
-  setAsChild(item, child, col) {
+  setAsChild(item, child, col, isBusy) {
     const { data } = this.state;
     if (this.swapChildren(data, item, child, col)) {
+      return;
+    } if (isBusy) {
       return;
     }
     const oldParent = this.getDataById(child.parentId);
@@ -278,6 +281,7 @@ export default class Preview extends React.Component {
         </div>
         <div className="Sortable">{items}</div>
         <PlaceHolder id="form-place-holder" show={items.length === 0} index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard} />
+        <CustomDragLayer/>
       </div>
     );
   }

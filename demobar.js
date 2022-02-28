@@ -1,6 +1,6 @@
 import React from 'react';
 import store from './src/stores/store';
-import ReactFormGenerator from './src/form';
+import {ReactFormGenerator} from './src/index';
 
 const answers = {};
 // const answers = {
@@ -107,7 +107,8 @@ export default class Demobar extends React.Component {
                   // skip_validations={true}
                   // onSubmit={this._onSubmit}
                   variables={this.props.variables}
-                  data={this.state.data} />
+                  data={this.state.data} 
+                  locale='en'/>
 
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
@@ -132,7 +133,8 @@ export default class Demobar extends React.Component {
                   read_only={true}
                   variables={this.props.variables}
                   hide_actions={true}
-                  data={this.state.data} />
+                  data={this.state.data} 
+                  locale='en'/>
 
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
@@ -155,7 +157,9 @@ export default class Demobar extends React.Component {
                   data={this.state.data}
                   display_short={true}
                   variables={this.props.variables}
-                  hide_actions={false} />
+                  hide_actions={false} 
+                  locale='en'
+                  />
 
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>

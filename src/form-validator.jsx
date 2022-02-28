@@ -4,6 +4,7 @@
 
 import React from 'react';
 import xss from 'xss';
+import IntlMessages from "./language-provider/IntlMessages";
 
 const myxss = new xss.FilterXSS({
   whiteList: {
@@ -61,7 +62,7 @@ export default class FormValidator extends React.Component {
               </ul>
             </div>
             <div className="clearfix">
-              <a className="float-right btn btn-default btn-sm btn-danger" onClick={this.dismissModal.bind(this)}>Dismiss</a>
+              <a className="float-right btn btn-default btn-sm btn-danger" onClick={this.dismissModal.bind(this)}><IntlMessages id="dismiss" /></a>
             </div>
           </div>
         }

@@ -180,7 +180,7 @@
           border: 2px #ccc dashed;
         }
         .toolbar-header {
-          opacity: 0;
+          opacity: 0; // visible
           z-index: 100;
           position: relative;
           .label {

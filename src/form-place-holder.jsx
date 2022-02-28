@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from "react-intl";
 
 const PLACE_HOLDER = 'form-place-holder';
 const PLACE_HOLDER_HIDDEN = 'form-place-holder-hidden';
 
-export default class PlaceHolder extends React.Component {
+class PlaceHolder extends React.Component {
   render() {
+    const intl = this.props.intl;
     const placeHolderClass = this.props.show ? PLACE_HOLDER : PLACE_HOLDER_HIDDEN;
-    const placeHolder = this.props.show ? this.props.text : '';
+    const placeHolder = this.props.show ? 
+          (this.props.text == 'Dropzone' ? intl.formatMessage({ id : 'drop-zone' }) : this.props.text) : '';
+    
     return (
       <div className={placeHolderClass} >
         <div>{placeHolder}</div>
@@ -16,6 +20,7 @@ export default class PlaceHolder extends React.Component {
   }
 }
 
+export default injectIntl(PlaceHolder);
 PlaceHolder.propTypes = {
   text: PropTypes.string,
   show: PropTypes.bool,

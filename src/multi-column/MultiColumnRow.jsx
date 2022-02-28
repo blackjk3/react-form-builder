@@ -18,7 +18,7 @@ class MultiColumnRow extends React.Component {
     if (pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div style={{...this.props.style}} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div>
           <ComponentLabel {...this.props} />

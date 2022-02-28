@@ -17,14 +17,15 @@ module.exports = {
   plugins: [
     //
   ],
+  
   module: {
     rules: [
       {
         exclude: /node_modules/,
-        test: /\.js|.jsx?$/,
+        test: /\.js$|.jsx?$/,
         use: [
           { loader: 'babel-loader' }
-        ]
+        ],
       },
       {
         test: /\.scss$/,

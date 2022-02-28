@@ -80,6 +80,7 @@ ReactDOM.render(
     variables={variables}
     url={url}
     saveUrl={saveUrl}
+    locale='en'
     // toolbarItems={items}
   />,
   document.getElementById('form-builder'),
