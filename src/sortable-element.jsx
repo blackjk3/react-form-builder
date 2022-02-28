@@ -34,8 +34,8 @@ const cardTarget = {
 
     const item = monitor.getItem();
     const hoverIndex = props.index;
-    const dragIndex =  item.index;
-    
+    const dragIndex = item.index;
+
     if ((props.data && props.data.isContainer) || item.itemType === ItemTypes.CARD) {
       // console.log('cardTarget -  Drop', item.itemType);
       return;
@@ -49,12 +49,12 @@ const cardTarget = {
   },
   hover(props, monitor, component) {
     const item = monitor.getItem();
-    
-    if(item.itemType == ItemTypes.BOX && item.index == -1) return;
 
-    //Don't replace multi-column component unless both drag & hover are multi-column
-    if(props.data?.isContainer && !item.data?.isContainer) return;
-     
+    if (item.itemType === ItemTypes.BOX && item.index === -1) return;
+
+    // Don't replace multi-column component unless both drag & hover are multi-column
+    if (props.data?.isContainer && !item.data?.isContainer) return;
+
     const dragIndex = item.index;
     const hoverIndex = props.index;
 
@@ -62,7 +62,16 @@ const cardTarget = {
     if (dragIndex === hoverIndex) {
       return;
     }
-    
+
+    if (dragIndex === -1) {
+      if (props.data && props.data.isContainer) {
+        return;
+      }
+      // console.log('CARD', item);
+      item.index = hoverIndex;
+      props.insertCard(item.onCreate(item.data), hoverIndex);
+    }
+
     // Determine rectangle on screen
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
@@ -98,7 +107,7 @@ const cardTarget = {
     // to avoid expensive index searches.
 
     // if (item.itemType == ItemTypes.BOX) item.cardIndex = hoverIndex;
-    // else 
+    // else
     item.index = hoverIndex;
   },
 };
@@ -125,7 +134,7 @@ export default function (ComposedComponent) {
     render() {
       const {
         isDragging,
-        connectDragSource,
+        // connectDragSource,
         connectDragPreview,
         connectDropTarget,
       } = this.props;

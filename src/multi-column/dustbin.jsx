@@ -65,7 +65,7 @@ function isContainer(item) {
 
 const Dustbin = React.forwardRef(
   ({
-    draggedItem ,parentIndex, canDrop, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
+    draggedItem, parentIndex, canDrop, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
   }, ref) => {
     const item = getDataById(items[col]);
     useImperativeHandle(
@@ -80,7 +80,7 @@ const Dustbin = React.forwardRef(
     );
 
     const element = getElement(item, rest);
-    const sameCard =  draggedItem ? draggedItem.index == parentIndex : false
+    const sameCard = draggedItem ? draggedItem.index === parentIndex : false;
 
     // console.log('dragIndex:',draggedItem?.index)
     // console.log('HoverIndex:',parentIndex)
@@ -88,10 +88,10 @@ const Dustbin = React.forwardRef(
 
     let backgroundColor = 'rgba(0, 0, 0, .03)';
 
-    if  (!sameCard &&  isOver && canDrop && !draggedItem.data.isContainer)  {
+    if (!sameCard && isOver && canDrop && !draggedItem.data.isContainer) {
       backgroundColor = '#F7F589';
     }
-    
+
     // console.log('accepts, canDrop', accepts, canDrop);
     return connectDropTarget(
       <div style={!sameCard ? getStyle(backgroundColor) : getStyle('rgba(0, 0, 0, .03') }>
@@ -113,20 +113,21 @@ export default DropTarget(
         return;
       }
 
-      //Do nothing whith busy dustbin
-      if(props.items[props.col]) return;
-
+      // //Do nothing whith busy dustbin
+      // if(props.items[props.col]) return;
+      // Allow swap column if target and source are in same multi column row
+      const isBusy = !!props.items[props.col];
       const item = monitor.getItem();
 
       // Do nothing when moving the box inside the same column
-      if (props.col == item.col && props.items[props.col] == item.id) return;
+      if (props.col === item.col && props.items[props.col] === item.id) return;
 
       if (!isContainer(item)) {
         (component).onDrop(item);
         if (item.data && typeof props.setAsChild === 'function') {
           const isNew = !item.data.id;
           const data = isNew ? item.onCreate(item.data) : item.data;
-          props.setAsChild(props.data, data, props.col);
+          props.setAsChild(props.data, data, props.col, isBusy);
         }
       }
     },

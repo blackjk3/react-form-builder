@@ -139,9 +139,11 @@ export default class Preview extends React.Component {
     return true;
   }
 
-  setAsChild(item, child, col) {
+  setAsChild(item, child, col, isBusy) {
     const { data } = this.state;
     if (this.swapChildren(data, item, child, col)) {
+      return;
+    } if (isBusy) {
       return;
     }
     const oldParent = this.getDataById(child.parentId);
