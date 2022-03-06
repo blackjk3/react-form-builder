@@ -1,9 +1,9 @@
-import viMessages from "../locales/vi-vn.json";
+import viMessages from '../locales/vi-vn.json';
 
 const VnLang = {
   messages: {
-    ...viMessages
+    ...viMessages,
   },
-  locale: 'vi-VN'
+  locale: 'vi-VN',
 };
 export default VnLang;

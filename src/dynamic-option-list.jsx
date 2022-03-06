@@ -4,8 +4,8 @@
 
  import React from 'react';
  import ID from './UUID';
- import IntlMessages from "./language-provider/IntlMessages";
- 
+ import IntlMessages from './language-provider/IntlMessages';
+
  export default class DynamicOptionList extends React.Component {
    constructor(props) {
      super(props);
@@ -15,15 +15,15 @@
        dirty: false,
      };
    }
- 
+
    _setValue(text) {
      return text.replace(/[^A-Z0-9]+/ig, '_').toLowerCase();
    }
- 
+
    editOption(option_index, e) {
      const this_element = this.state.element;
      const val = (this_element.options[option_index].value !== this._setValue(this_element.options[option_index].text)) ? this_element.options[option_index].value : this._setValue(e.target.value);
- 
+
      this_element.options[option_index].text = e.target.value;
      this_element.options[option_index].value = val;
      this.setState({
@@ -31,7 +31,7 @@
        dirty: true,
      });
    }
- 
+
    editValue(option_index, e) {
      const this_element = this.state.element;
      const val = (e.target.value === '') ? this._setValue(this_element.options[option_index].text) : e.target.value;
@@ -41,7 +41,7 @@
        dirty: true,
      });
    }
- 
+
    // eslint-disable-next-line no-unused-vars
    editOptionCorrect(option_index, e) {
      const this_element = this.state.element;
@@ -53,7 +53,7 @@
      this.setState({ element: this_element });
      this.props.updateElement.call(this.props.preview, this_element);
    }
- 
+
    updateOption() {
      const this_element = this.state.element;
      // to prevent ajax calls with no change
@@ -62,19 +62,19 @@
        this.setState({ dirty: false });
      }
    }
- 
+
    addOption(index) {
      const this_element = this.state.element;
      this_element.options.splice(index + 1, 0, { value: '', text: '', key: ID.uuid() });
      this.props.updateElement.call(this.props.preview, this_element);
    }
- 
+
    removeOption(index) {
      const this_element = this.state.element;
      this_element.options.splice(index, 1);
      this.props.updateElement.call(this.props.preview, this_element);
    }
- 
+
    render() {
      if (this.state.dirty) {
        this.state.element.dirty = true;

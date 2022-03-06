@@ -18,7 +18,7 @@ class MultiColumnRow extends React.Component {
     if (pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div style={{...this.props.style}} className={baseClasses}>
+      <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div>
           <ComponentLabel {...this.props} />
@@ -70,7 +70,7 @@ const ThreeColumnRow = ({ data, class_name, ...rest }) => {
 };
 
 const FourColumnRow = ({ data, class_name, ...rest }) => {
-  const className = class_name || "col-md-3";
+  const className = class_name || 'col-md-3';
   if (!data.childItems) {
     // eslint-disable-next-line no-param-reassign
     data.childItems = [null, null, null, null];

@@ -5,19 +5,17 @@
 import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { IntlProvider } from 'react-intl';
 import Preview from './preview';
 import Toolbar from './toolbar';
 import FormGenerator from './form';
 import store from './stores/store';
 import Registry from './stores/registry';
-import { IntlProvider } from 'react-intl';
-import AppLocale from "./language-provider";
+import AppLocale from './language-provider';
 
 class ReactFormBuilder extends React.Component {
   constructor(props) {
     super(props);
-
-
 
     this.state = {
       editMode: false,
@@ -50,7 +48,7 @@ class ReactFormBuilder extends React.Component {
       showDescription: this.props.show_description,
     };
 
-    let language = this.props.locale ? this.props.locale : 'en';
+    const language = this.props.locale ? this.props.locale : 'en';
     const currentAppLocale = AppLocale[language];
     if (this.props.toolbarItems) { toolbarProps.items = this.props.toolbarItems; }
     return (
@@ -96,10 +94,8 @@ class ReactFormBuilder extends React.Component {
   }
 }
 
-
 function ReactFormGenerator(props) {
-
-  let language = props.locale ? props.locale : 'en';
+  const language = props.locale ? props.locale : 'en';
   const currentAppLocale = AppLocale[language];
   return (
     <IntlProvider
@@ -107,7 +103,7 @@ function ReactFormGenerator(props) {
       messages={currentAppLocale.messages}>
       <FormGenerator {...props} />
     </IntlProvider>
-  )
+  );
 }
 
 const FormBuilders = {};

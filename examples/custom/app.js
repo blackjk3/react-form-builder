@@ -91,8 +91,8 @@ class App extends React.Component {
         <label>
           Select your form:
         </label>
-        <select className="form-control" 
-            value={this.state.formId} 
+        <select className="form-control"
+            value={this.state.formId}
             onChange={this.handleChange} >
           <option value="1">Form 1</option>
           <option value="2">Form 2</option>

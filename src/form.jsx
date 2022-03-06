@@ -5,12 +5,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { EventEmitter } from 'fbemitter';
+import { injectIntl } from 'react-intl';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
 import { TwoColumnRow, ThreeColumnRow, FourColumnRow } from './multi-column';
 import CustomElement from './form-elements/custom-element';
 import Registry from './stores/registry';
-import {  injectIntl } from 'react-intl';
 
 const {
   Image, Checkboxes, Signature, Download, Camera,
@@ -227,11 +227,11 @@ class ReactForm extends React.Component {
       }
 
       if (this._isInvalid(item)) {
-        errors.push(`${item.label} ${intl.formatMessage({ id: "message.is-required" })}!`);
+        errors.push(`${item.label} ${intl.formatMessage({ id: 'message.is-required' })}!`);
       }
 
       if (this.props.validateForCorrectness && this._isIncorrect(item)) {
-        errors.push(`${item.label} ${intl.formatMessage({ id: "message.was-answered-incorrectly" })}!`);
+        errors.push(`${item.label} ${intl.formatMessage({ id: 'message.was-answered-incorrectly' })}!`);
       }
     });
 
@@ -274,7 +274,7 @@ class ReactForm extends React.Component {
     if (!item.component || typeof item.component !== 'function') {
       item.component = Registry.get(item.key);
       if (!item.component) {
-        console.error(`${item.element} ${intl.formatMessage({ id: "message.was-not-registered" })}`);
+        console.error(`${item.element} ${intl.formatMessage({ id: 'message.was-not-registered' })}`);
       }
     }
 

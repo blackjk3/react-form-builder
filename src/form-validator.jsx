@@ -4,7 +4,7 @@
 
 import React from 'react';
 import xss from 'xss';
-import IntlMessages from "./language-provider/IntlMessages";
+import IntlMessages from './language-provider/IntlMessages';
 
 const myxss = new xss.FilterXSS({
   whiteList: {

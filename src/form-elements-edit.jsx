@@ -9,7 +9,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import DynamicOptionList from './dynamic-option-list';
 import { get } from './stores/requests';
 import ID from './UUID';
-import IntlMessages from "./language-provider/IntlMessages";
+import IntlMessages from './language-provider/IntlMessages';
 
 const toolbar = {
   options: ['inline', 'list', 'textAlign', 'fontSize', 'link', 'history'],
