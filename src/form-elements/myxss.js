@@ -17,6 +17,7 @@ const myxss = new xss.FilterXSS({
     em: [],
     strong: [],
     span: ['style'],
+    ins: [],
   },
 });
 
