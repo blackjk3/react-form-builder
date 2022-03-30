@@ -106,7 +106,7 @@ class DatePicker extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div className={baseClasses} style={{ ...this.props.style }}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />

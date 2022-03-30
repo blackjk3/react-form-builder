@@ -11,7 +11,6 @@ const style = {
   cursor: 'move',
 };
 
-
 const dragHandleSource = {
   beginDrag(props) {
     const {
@@ -32,7 +31,6 @@ const dragHandleSource = {
 };
 
 class DragHandle extends PureComponent {
-
   componentDidMount() {
     const { connectDragPreview } = this.props;
     if (connectDragPreview) {
@@ -45,13 +43,12 @@ class DragHandle extends PureComponent {
       });
     }
   }
+
   render() {
     const { connectDragSource } = this.props;
-    return connectDragSource(<div className="btn is-isolated" style={style} ><i className="is-isolated fas fa-grip-vertical"></i></div>,
-    );
+    return connectDragSource(<div className="btn is-isolated" style={style} ><i className="is-isolated fas fa-grip-vertical"></i></div>);
   }
 }
-
 
 export default DragSource(
   ItemTypes.BOX,
