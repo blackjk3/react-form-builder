@@ -11,6 +11,7 @@
   "default-to-today": "Default to Today",
   "show-time-select": "Show Time Select",
   "show-time-select-only": "Show Time Select Only",
+  "show-time-input": "Show Time Input",
   "display-horizontal": "Display horizontal",
   "variable-key": "Variable Key",
   "variable-key-desc": "This will give the element a key that can be used to replace the content with a runtime value",

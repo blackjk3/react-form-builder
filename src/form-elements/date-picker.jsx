@@ -36,9 +36,9 @@ class DatePicker extends React.Component {
   };
 
   static updateFormat(props, oldFormatMask) {
-    const { showTimeSelect, showTimeSelectOnly } = props.data;
+    const { showTimeSelect, showTimeSelectOnly, showTimeInput } = props.data;
     const dateFormat = showTimeSelect && showTimeSelectOnly ? '' : props.data.dateFormat;
-    const timeFormat = showTimeSelect ? props.data.timeFormat : '';
+    const timeFormat = (showTimeSelect || showTimeInput) ? props.data.timeFormat : '';
     const formatMask = (`${dateFormat} ${timeFormat}`).trim();
     const updated = formatMask !== oldFormatMask;
 
@@ -88,7 +88,7 @@ class DatePicker extends React.Component {
   }
 
   render() {
-    const { showTimeSelect, showTimeSelectOnly } = this.props.data;
+    const { showTimeSelect, showTimeSelectOnly, showTimeInput } = this.props.data;
     const props = {};
     props.type = 'date';
     props.className = 'form-control';
@@ -141,6 +141,7 @@ class DatePicker extends React.Component {
                 isClearable={true}
                 showTimeSelect={showTimeSelect}
                 showTimeSelectOnly={showTimeSelectOnly}
+                showTimeInput={showTimeInput}
                 dateFormat={this.state.formatMask}
                 portalId="root-portal"
                 autoComplete="off"

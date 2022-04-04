@@ -11,6 +11,7 @@
   "default-to-today": "Mặc định hôm nay",
   "show-time-select": "Hiển thị chọn thời gian",
   "show-time-select-only": "Chỉ hiển thị thời gian",
+  "show-time-input": "Hiển thị đầu vào thời gian",
   "display-horizontal": "Hiển thị theo chiều ngang",
   "variable-key": "Khóa tham chiếu",
   "variable-key-desc": "Tùy chọn này cung cấp từ khóa dùng để thay thế nội dung khi biểu mẫu hoạt động",

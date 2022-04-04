@@ -206,6 +206,7 @@ class Toolbar extends React.Component {
         timeFormat: 'hh:mm aa',
         showTimeSelect: false,
         showTimeSelectOnly: false,
+        showTimeInput: false,
         name: intl.formatMessage({ id: 'date' }),
         icon: 'far fa-calendar-alt',
         label: intl.formatMessage({ id: 'place-holder-label' }),
@@ -324,6 +325,7 @@ class Toolbar extends React.Component {
       elementOptions.timeFormat = item.timeFormat;
       elementOptions.showTimeSelect = item.showTimeSelect;
       elementOptions.showTimeSelectOnly = item.showTimeSelectOnly;
+      elementOptions.showTimeInput = item.showTimeInput;
     }
 
     if (item.key === 'Download') {

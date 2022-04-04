@@ -110,6 +110,7 @@ export default class FormElementsEdit extends React.Component {
     const this_default_today = this.props.element.hasOwnProperty('defaultToday') ? this.props.element.defaultToday : false;
     const this_show_time_select = this.props.element.hasOwnProperty('showTimeSelect') ? this.props.element.showTimeSelect : false;
     const this_show_time_select_only = this.props.element.hasOwnProperty('showTimeSelectOnly') ? this.props.element.showTimeSelectOnly : false;
+    const this_show_time_input = this.props.element.hasOwnProperty('showTimeInput') ? this.props.element.showTimeInput : false;
     const this_checked_inline = this.props.element.hasOwnProperty('inline') ? this.props.element.inline : false;
     const this_checked_bold = this.props.element.hasOwnProperty('bold') ? this.props.element.bold : false;
     const this_checked_italic = this.props.element.hasOwnProperty('italic') ? this.props.element.italic : false;
@@ -239,6 +240,14 @@ export default class FormElementsEdit extends React.Component {
                 <input id="show-time-select-only" className="custom-control-input" type="checkbox" checked={this_show_time_select_only} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelectOnly', 'checked')} />
                 <label className="custom-control-label" htmlFor="show-time-select-only">
                 <IntlMessages id="show-time-select-only" />?
+                </label>
+              </div>
+            }
+            { this.props.element.hasOwnProperty('showTimeInput') &&
+              <div className="custom-control custom-checkbox">
+                <input id="show-time-input" className="custom-control-input" type="checkbox" checked={this_show_time_input} value={true} onChange={this.editElementProp.bind(this, 'showTimeInput', 'checked')} />
+                <label className="custom-control-label" htmlFor="show-time-input">
+                <IntlMessages id="show-time-input" />?
                 </label>
               </div>
             }
