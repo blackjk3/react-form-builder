@@ -295,12 +295,19 @@ class ReactForm extends React.Component {
   }
 
   handleRenderSubmit = () => {
-    const {
-      actionName = 'Submit',
-      submitButton = false,
-    } = this.props;
+    const name = this.props.action_name || this.props.actionName;
+    const actionName = name || 'Submit';
+    const { submitButton = false } = this.props;
 
     return submitButton || <input type='submit' className='btn btn-big' value={actionName} />;
+  }
+
+  handleRenderBack = () => {
+    const name = this.props.back_name || this.props.backName;
+    const backName = name || 'Cancel';
+    const { backButton = false } = this.props;
+
+    return backButton || <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>;
   }
 
   render() {
@@ -355,9 +362,6 @@ class ReactForm extends React.Component {
     const formTokenStyle = {
       display: 'none',
     };
-
-    const backName = (this.props.back_name) ? this.props.back_name : 'Cancel';
-
     return (
       <div>
           <FormValidator emitter={this.emitter} />
@@ -376,7 +380,7 @@ class ReactForm extends React.Component {
                   this.handleRenderSubmit()
                 }
                 {!this.props.hide_actions && this.props.back_action &&
-                  <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
+                  this.handleRenderBack()
                 }
               </div>
             </form>
