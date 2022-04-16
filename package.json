@@ -1,6 +1,6 @@
 {
   "name": "react-form-builder2",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
@@ -101,7 +101,7 @@
     "build:lib": "npm run transpile && npm run build:style",
     "build:dist": "npm run build && npm run copy:dist",
     "copy:dist": "copyfiles -f \"./dist/*\" \"./public/dist\"",
-    "prepublish": "npm run build:lib && npm run build",
+    "prepare": "npm run build:lib && npm run build",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --hot --inline --mode development",
     "serve:api": "node server/index.js",

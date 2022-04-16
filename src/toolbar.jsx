@@ -34,8 +34,11 @@ class Toolbar extends React.Component {
     this.state = {
       items,
     };
-    store.subscribe(state => this.setState({ store: state }));
     this.create = this.create.bind(this);
+  }
+
+  componentDidMount() {
+    store.subscribe(state => this.setState({ store: state }));
   }
 
   static _defaultItemOptions(element, intl) {

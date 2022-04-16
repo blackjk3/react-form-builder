@@ -28,11 +28,11 @@ class FormGenerator extends React.Component {
 
     this.showPreview = this.showPreview.bind(this);
     this.closePreview = this.closePreview.bind(this);
-    const update = this._onChange.bind(this);
-    ElementStore.subscribe(state => update(state.data));
+    this._onUpdate = this._onChange.bind(this);
   }
 
   componentDidMount() {
+    ElementStore.subscribe(state => this._onUpdate(state.data));
     document.querySelector('#button-preview')
       .addEventListener('click', this.showPreview);
     document.querySelector('#button-close')

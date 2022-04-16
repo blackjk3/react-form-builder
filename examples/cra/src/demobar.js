@@ -11,8 +11,11 @@ export default class Demobar extends React.Component {
       roPreviewVisible: false,
     };
 
-    const update = this._onChange.bind(this);
-    ElementStore.subscribe(state => update(state.data));
+    this._onUpdate = this._onChange.bind(this);
+  }
+
+  componentDidMount() {
+    ElementStore.subscribe(state => this._onUpdate(state.data));
   }
 
   showPreview() {

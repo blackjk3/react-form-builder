@@ -75,14 +75,17 @@ const saveUrl = '/api/formdata';
 //   },
 // ];
 
-ReactDOM.render(
+const App = () => (
   <FormBuilder.ReactFormBuilder
     variables={variables}
     url={url}
     saveUrl={saveUrl}
     locale='en'
     // toolbarItems={items}
-  />,
+  />);
+
+ReactDOM.render(
+  <App />,
   document.getElementById('form-builder'),
 );
 

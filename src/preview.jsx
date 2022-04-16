@@ -30,9 +30,7 @@ export default class Preview extends React.Component {
     };
     this.seq = 0;
 
-    const onUpdate = this._onChange.bind(this);
-    store.subscribe(state => onUpdate(state.data));
-
+    this._onUpdate = this._onChange.bind(this);
     this.getDataById = this.getDataById.bind(this);
     this.moveCard = this.moveCard.bind(this);
     this.insertCard = this.insertCard.bind(this);
@@ -43,6 +41,7 @@ export default class Preview extends React.Component {
 
   componentDidMount() {
     const { data, url, saveUrl } = this.props;
+    store.subscribe(state => this._onUpdate(state.data));
     store.dispatch('load', { loadUrl: url, saveUrl, data: data || [] });
     document.addEventListener('mousedown', this.editModeOff);
   }
