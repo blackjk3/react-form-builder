@@ -3,11 +3,10 @@
   */
 
 import React from 'react';
-import Grip from '../multi-column/grip';
+// import Grip from '../multi-column/grip';
 import DragHandle from './component-drag-handle';
 
 export default class HeaderBar extends React.Component {
-
   render() {
     return (
       <div className="toolbar-header">

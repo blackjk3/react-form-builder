@@ -5,7 +5,7 @@
 import React from 'react';
 import update from 'immutability-helper';
 import store from './stores/store';
-import FormElementsEdit from './form-elements-edit';
+import FormElementsEdit from './form-dynamic-edit';
 import SortableFormElements from './sortable-form-elements';
 import CustomDragLayer from './form-elements/component-drag-layer';
 
