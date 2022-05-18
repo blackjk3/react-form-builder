@@ -32,6 +32,9 @@ input[type="date"] {
     padding: 10px 0;
     position: relative;
 
+    img {
+      max-width: 100%;
+    }
     label {
       font-weight: normal;
     }
