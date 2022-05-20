@@ -382,12 +382,12 @@ class Checkboxes extends React.Component {
             }
             return (
               <div className={classNames} key={this_key}>
-                <input id={"fid_" + this_key} className="custom-control-input" ref={c => {
+                <input id={`fid_${this_key}`} className="custom-control-input" ref={c => {
                   if (c && self.props.mutable) {
                     self.options[`child_ref_${option.key}`] = c;
                   }
                 }} {...props} />
-                <label className="custom-control-label" htmlFor={"fid_" + this_key}>{option.text}</label>
+                <label className="custom-control-label" htmlFor={`fid_${this_key}`}>{option.text}</label>
               </div>
             );
           })}
@@ -433,12 +433,12 @@ class RadioButtons extends React.Component {
 
             return (
               <div className={classNames} key={this_key}>
-                <input id={"fid_" + this_key} className="custom-control-input" ref={c => {
+                <input id={`fid_${this_key}`} className="custom-control-input" ref={c => {
                   if (c && self.props.mutable) {
                     self.options[`child_ref_${option.key}`] = c;
                   }
                 }} {...props} />
-                <label className="custom-control-label" htmlFor={"fid_" + this_key}>{option.text}</label>
+                <label className="custom-control-label" htmlFor={`fid_${this_key}`}>{option.text}</label>
               </div>
             );
           })}
@@ -567,6 +567,7 @@ class Camera extends React.Component {
   };
 
   render() {
+    const imageStyle = { objectFit: 'contain', objectPosition: (this.props.data.center) ? 'center' : 'left' };
     let baseClasses = 'SortableItem rfb-item';
     const name = this.props.data.field_name;
     const fileInputStyle = this.state.img ? { display: 'none' } : null;
@@ -579,34 +580,64 @@ class Camera extends React.Component {
         sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`;
       }
     }
-    console.log('sourceDataURL', sourceDataURL);
+
     return (
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
-          {this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0
-            ? (<div><img src={sourceDataURL} /></div>)
-            : (<div className="image-upload-container">
-
+          {this.props.read_only === true &&
+          this.props.defaultValue &&
+          this.props.defaultValue.length > 0 ? (
+            <div>
+              <img
+                style={imageStyle}
+                src={sourceDataURL}
+                width={
+                  this.props.data.width < window.innerWidth
+                    ? this.props.data.width
+                    : 0.9 * window.innerWidth
+                }
+                height={this.props.data.height || 'auto'}
+              />
+            </div>
+          ) : (
+            <div className="image-upload-container">
               <div style={fileInputStyle}>
-                <input name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
+                <input
+                  name={name}
+                  type="file"
+                  accept="image/*"
+                  capture="camera"
+                  className="image-upload"
+                  onChange={this.displayImage}
+                />
                 <div className="image-upload-control">
-                  <div className="btn btn-default"><i className="fas fa-camera"></i> Upload Photo</div>
+                  <div className="btn btn-default">
+                    <i className="fas fa-camera"></i> Upload Photo
+                  </div>
                   <p>Select an image from your computer or device.</p>
                 </div>
               </div>
 
-              { this.state.img &&
+              {this.state.img && (
                 <div>
-                  <img src={this.state.img} height="100" className="image-upload-preview" /><br />
-                  <div className="btn btn-image-clear" onClick={this.clearImage}>
+                  <img
+                    src={this.state.img}
+                    height="100"
+                    className="image-upload-preview"
+                  />
+                  <br />
+                  <div
+                    className="btn btn-image-clear"
+                    onClick={this.clearImage}
+                  >
                     <i className="fas fa-times"></i> Clear Photo
+                  </div>
                 </div>
-                </div>
-              }
-            </div>)
-          }
+              )}
+            </div>
+          )}
         </div>
       </div>
     );

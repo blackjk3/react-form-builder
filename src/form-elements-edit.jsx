@@ -121,6 +121,7 @@ export default class FormElementsEdit extends React.Component {
     const {
       canHavePageBreakBefore, canHaveAlternateForm, canHaveDisplayHorizontal, canHaveOptionCorrect, canHaveOptionValue,
     } = this.props.element;
+    const canHaveImageSize = (this.state.element.element === 'Image' || this.state.element.element === 'Camera');
 
     const this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || (this_files.length > 0 && this_files[0].id !== '')) {
@@ -167,32 +168,6 @@ export default class FormElementsEdit extends React.Component {
         { this.props.element.hasOwnProperty('href') &&
           <div className="form-group">
             <TextAreaAutosize type="text" className="form-control" defaultValue={this.props.element.href} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'href', 'value')} />
-          </div>
-        }
-        { this.props.element.hasOwnProperty('src') &&
-          <div>
-            <div className="form-group">
-              <label className="control-label" htmlFor="srcInput"><IntlMessages id="link-to" />:</label>
-              <input id="srcInput" type="text" className="form-control" defaultValue={this.props.element.src} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'src', 'value')} />
-            </div>
-            <div className="form-group">
-              <div className="custom-control custom-checkbox">
-                <input id="do-center" className="custom-control-input" type="checkbox" checked={this_checked_center} value={true} onChange={this.editElementProp.bind(this, 'center', 'checked')} />
-                <label className="custom-control-label" htmlFor="do-center">
-                <IntlMessages id="center" />?
-                </label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-3">
-                <label className="control-label" htmlFor="elementWidth"><IntlMessages id="width" />:</label>
-                <input id="elementWidth" type="text" className="form-control" defaultValue={this.props.element.width} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'width', 'value')} />
-              </div>
-              <div className="col-sm-3">
-                <label className="control-label" htmlFor="elementHeight"><IntlMessages id="height" />:</label>
-                <input id="elementHeight" type="text" className="form-control" defaultValue={this.props.element.height} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'height', 'value')} />
-              </div>
-            </div>
           </div>
         }
         { this.props.element.hasOwnProperty('label') &&
@@ -261,7 +236,36 @@ export default class FormElementsEdit extends React.Component {
             }
           </div>
         }
-
+        { this.props.element.hasOwnProperty('src') &&
+          <div>
+            <div className="form-group">
+              <label className="control-label" htmlFor="srcInput"><IntlMessages id="link-to" />:</label>
+              <input id="srcInput" type="text" className="form-control" defaultValue={this.props.element.src} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'src', 'value')} />
+            </div>
+          </div>
+        }
+        { canHaveImageSize &&
+          <div>
+            <div className="form-group">
+              <div className="custom-control custom-checkbox">
+                <input id="do-center" className="custom-control-input" type="checkbox" checked={this_checked_center} value={true} onChange={this.editElementProp.bind(this, 'center', 'checked')} />
+                <label className="custom-control-label" htmlFor="do-center">
+                <IntlMessages id="center" />?
+                </label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-3">
+                <label className="control-label" htmlFor="elementWidth"><IntlMessages id="width" />:</label>
+                <input id="elementWidth" type="text" className="form-control" defaultValue={this.props.element.width} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'width', 'value')} />
+              </div>
+              <div className="col-sm-3">
+                <label className="control-label" htmlFor="elementHeight"><IntlMessages id="height" />:</label>
+                <input id="elementHeight" type="text" className="form-control" defaultValue={this.props.element.height} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'height', 'value')} />
+              </div>
+            </div>
+          </div>
+        }
         {this.state.element.element === 'Signature' && this.props.element.readOnly
           ? (
             <div className="form-group">
