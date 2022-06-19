@@ -266,6 +266,46 @@ export default class FormElementsEdit extends React.Component {
             </div>
           </div>
         }
+        {this.state.element.element === 'FileUpload' && (
+          <div>
+            <div className='form-group'>
+              <label className='control-label' htmlFor='fileType'>
+                <IntlMessages id='choose-file-type' />:
+              </label>
+              <select
+                id='fileType'
+                className="form-control"
+                onBlur={this.updateElement.bind(this)}
+                onChange={this.editElementProp.bind(this, 'fileType', 'value')}
+              >
+                {[
+                  {
+                    type: 'image, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                    typeName: 'All File Type',
+                  },
+                  { type: 'image', typeName: 'Image' },
+                  { type: 'application/pdf', typeName: 'PDF' },
+                  {
+                    type: 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    typeName: 'Word',
+                  },
+                  {
+                    type: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    typeName: 'Excel',
+                  },
+                  {
+                    type: 'application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                    typeName: 'Powerpoint',
+                  },
+                ].map((file, index) => (
+                  <option value={file.type} key={index}>
+                    {file.typeName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
         {this.state.element.element === 'Signature' && this.props.element.readOnly
           ? (
             <div className="form-group">
