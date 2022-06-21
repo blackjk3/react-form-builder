@@ -13,7 +13,7 @@ import CustomElement from './form-elements/custom-element';
 import Registry from './stores/registry';
 
 const {
-  Image, Checkboxes, Signature, Download, Camera,
+  Image, Checkboxes, Signature, Download, Camera, FileUpload,
 } = FormElements;
 
 class ReactForm extends React.Component {
@@ -77,6 +77,8 @@ class ReactForm extends React.Component {
       $item.value = ref.state.value;
     } else if (item.element === 'Camera') {
       $item.value = ref.state.img ? ref.state.img.replace('data:image/png;base64,', '') : '';
+    } else if (item.element === 'FileUpload') {
+      $item.value = ref.state.fileUpload;
     } else if (ref && ref.inputField && ref.inputField.current) {
       $item = ReactDOM.findDOMNode(ref.inputField.current);
       if ($item && typeof $item.value === 'string') {
@@ -354,6 +356,17 @@ class ReactForm extends React.Component {
           return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />;
         case 'Camera':
           return <Camera ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
+          case 'FileUpload':
+            return (
+              <FileUpload
+                ref={(c) => (this.inputs[item.field_name] = c)}
+                read_only={this.props.read_only || item.readOnly}
+                mutable={true}
+                key={`form_${item.id}`}
+                data={item}
+                defaultValue={this._getDefaultValue(item)}
+              />
+            );
         default:
           return this.getSimpleElement(item);
       }

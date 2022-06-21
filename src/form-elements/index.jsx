@@ -1,4 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
+import fetch from 'isomorphic-fetch';
+import { saveAs } from 'file-saver';
 import React from 'react';
 import Select from 'react-select';
 import SignaturePad from 'react-signature-canvas';
@@ -567,7 +569,7 @@ class Camera extends React.Component {
   };
 
   render() {
-    const imageStyle = { objectFit: 'contain', objectPosition: (this.props.data.center) ? 'center' : 'left' };
+    const imageStyle = { objectFit: 'scale-down', objectPosition: (this.props.data.center) ? 'center' : 'left' };
     let baseClasses = 'SortableItem rfb-item';
     const name = this.props.data.field_name;
     const fileInputStyle = this.state.img ? { display: 'none' } : null;
@@ -633,6 +635,130 @@ class Camera extends React.Component {
                     onClick={this.clearImage}
                   >
                     <i className="fas fa-times"></i> Clear Photo
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+}
+
+class FileUpload extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { fileUpload: null };
+  }
+
+  displayFileUpload = (e) => {
+    const self = this;
+    const target = e.target;
+    let file;
+
+    if (target.files && target.files.length > 0) {
+      file = target.files[0];
+
+      self.setState({
+        fileUpload: file,
+      });
+    }
+  };
+
+  clearFileUpload = () => {
+    this.setState({
+      fileUpload: null,
+    });
+  };
+
+  saveFile = (e) => {
+    e.preventDefault();
+    fetch(this.props.defaultValue, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
+        OPTIONS: '',
+      },
+      responseType: 'blob',
+    }).then((response) => {
+      // eslint-disable-next-line no-undef
+      const blob = new Blob([response.data], {
+        type: this.props.data.fileType || response.headers.get('content-type'),
+      });
+      const fileName = response.headers
+        .get('Content-Disposition')
+        .split(';filename=')[1];
+      saveAs(blob, fileName);
+    });
+  };
+
+  render() {
+    let baseClasses = 'SortableItem rfb-item';
+    const name = this.props.data.field_name;
+    const fileInputStyle = this.state.fileUpload ? { display: 'none' } : null;
+    if (this.props.data.pageBreakBefore) {
+      baseClasses += ' alwaysbreak';
+    }
+    return (
+      <div style={{ ...this.props.style }} className={baseClasses}>
+        <ComponentHeader {...this.props} />
+        <div className="form-group">
+          <ComponentLabel {...this.props} />
+          {this.props.read_only === true &&
+          this.props.defaultValue &&
+          this.props.defaultValue.length > 0 ? (
+            <div>
+              <button
+                className='btn btn-default'
+                onClick={(e) => this.saveFile(e)}
+              >
+                <i className='fas fa-download'></i> Download File
+              </button>
+            </div>
+          ) : (
+            <div className='image-upload-container'>
+              <div style={fileInputStyle}>
+                <input
+                  name={name}
+                  type='file'
+                  accept={this.props.data.fileType || '*'}
+                  className='image-upload'
+                  onChange={this.displayFileUpload}
+                />
+                <div className='image-upload-control'>
+                  <div className='btn btn-default'>
+                    <i className='fas fa-file'></i> Upload File
+                  </div>
+                  <p>Select a file from your computer or device.</p>
+                </div>
+              </div>
+
+              {this.state.fileUpload && (
+                <div>
+                  <div className='file-upload-preview'>
+                    <div
+                      style={{ display: 'inline-block', marginRight: '5px' }}
+                    >
+                      {`Name: ${this.state.fileUpload.name}`}
+                    </div>
+                    <div style={{ display: 'inline-block', marginLeft: '5px' }}>
+                      {this.state.fileUpload.size.length > 6
+                        ? `Size:  ${Math.ceil(
+                            this.state.fileUpload.size / (1024 * 1024)
+                          )} mb`
+                        : `Size:  ${Math.ceil(
+                            this.state.fileUpload.size / 1024
+                          )} kb`}
+                    </div>
+                  </div>
+                  <br />
+                  <div
+                    className='btn btn-file-upload-clear'
+                    onClick={this.clearFileUpload}
+                  >
+                    <i className='fas fa-times'></i> Clear File
                   </div>
                 </div>
               )}
@@ -742,6 +868,7 @@ FormElements.Tags = Tags;
 FormElements.HyperLink = HyperLink;
 FormElements.Download = Download;
 FormElements.Camera = Camera;
+FormElements.FileUpload = FileUpload;
 FormElements.Range = Range;
 
 export default FormElements;

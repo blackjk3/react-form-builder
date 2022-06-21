@@ -273,9 +273,20 @@
   box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
 }
 
+.file-upload-preview {
+  border: 4px solid #fff;
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+  padding: 5px;
+}
+
 .btn-image-clear {
   margin: 15px 0;
   padding: 15px;
+}
+
+.btn-file-upload-clear {
+  margin: auto;
+  padding: 10px;
 }
 
 @media ( max-width: $screen-sm-min ) {
