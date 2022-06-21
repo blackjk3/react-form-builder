@@ -56,8 +56,7 @@ module.exports = {
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
         "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
     },
-    watchOptions: {aggregateTimeout: 300, poll: 1000},
-    contentBase: './public',
+    static: './public',
     open: true,
     proxy: {
       "/api/*": "http://127.0.0.1:5005"

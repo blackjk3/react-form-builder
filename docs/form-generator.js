@@ -44,6 +44,7 @@ class FormGenerator extends React.Component {
       previewVisible: true,
     });
     setClass('#preview-dialog', 'show', false);
+    setClass('#preview-dialog', 'd-block', false);
   }
 
   closePreview() {
@@ -51,6 +52,7 @@ class FormGenerator extends React.Component {
       previewVisible: false,
     });
     setClass('#preview-dialog', 'show', true);
+    setClass('#preview-dialog', 'd-block', true);
   }
 
   _onChange(data) {
