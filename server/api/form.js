@@ -9,6 +9,7 @@ var formData = require('./formData');
 
 var extensions = ['.png', '.gif', '.jpg', '.jpeg'];
 var handleError = (err, res) => {
+  console.log(err);
   res
     .status(500)
     .contentType('text/plain')
@@ -46,6 +47,7 @@ var handleUpload = (req, res) => {
           res.redirect('/api/form');
         });
       } else {
+        console.log('File type is not allowed!');
         fs.unlink(tempPath, err => {
           if (err) return handleError(err, res);
           res

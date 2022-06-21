@@ -42,6 +42,7 @@
     "draftjs-to-html": "^0.8.4",
     "es6-promise": "^4.2.8",
     "fbemitter": "^3.0.0",
+    "file-saver": "^2.0.5",
     "immutability-helper": "^3.1.1",
     "isomorphic-fetch": "^3.0.0",
     "prop-types": "^15.7.2",
@@ -96,7 +97,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "scripts": {
-    "build": "webpack -p --config webpack.production.config.js",
+    "build": "webpack --mode production --config webpack.production.config.js",
     "build:dev": "webpack --mode development",
     "build:umd": "webpack --mode development --config webpack.production.config.js",
     "build:style": "node-sass ./scss/application.scss dist/app.css --output-style compressed",

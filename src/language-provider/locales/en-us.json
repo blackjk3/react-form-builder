@@ -1,6 +1,8 @@
 {
   "display-label": "Display Label",
   "choose-file": "Choose file",
+  "choose-file-type": "Choose file type",
+  "select-file-type": "Select file type",
   "text-to-display": "Text to display",
   "link-to": "Link to",
   "center": "Center",
@@ -30,6 +32,10 @@
   "correct-answer" : "Correct Answer",
   "populate-options-from-api" : "Populate Options from API",
   "populate" : "Populate",
+  "pdf" : "PDF",
+  "word" : "Word",
+  "excel" : "Excel",
+  "ppt" : "PPT",
 
   "options" : "Options",
   "value" : "Value",
@@ -67,6 +73,7 @@
   "file-attachment":"File Attachment",
   "range":"Range",
   "camera":"Camera",
+  "file-upload":"File Upload",
   "place-holder-text": "Placeholder text...",
   "place-holder-label": "Placeholder label",
   "place-holder-website-link": "Placeholder website Link...",

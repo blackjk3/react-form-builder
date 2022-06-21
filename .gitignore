@@ -43,6 +43,7 @@ dist/
 lib/
 public/app.*
 public/uploads/
+public/temp
 
 # bundles
 bundle.js
