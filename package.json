@@ -97,7 +97,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "scripts": {
-    "build": "webpack -p --config webpack.production.config.js",
+    "build": "webpack --mode production --config webpack.production.config.js",
     "build:dev": "webpack --mode development",
     "build:umd": "webpack --mode development --config webpack.production.config.js",
     "build:style": "node-sass ./scss/application.scss dist/app.css --output-style compressed",
