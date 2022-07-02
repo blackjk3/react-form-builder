@@ -674,7 +674,8 @@ class FileUpload extends React.Component {
 
   saveFile = (e) => {
     e.preventDefault();
-    fetch(this.props.defaultValue, {
+    const sourceUrl = this.props.defaultValue;
+    fetch(sourceUrl, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -687,10 +688,14 @@ class FileUpload extends React.Component {
       const blob = new Blob([response.data], {
         type: this.props.data.fileType || response.headers.get('content-type'),
       });
-      const fileName = response.headers
-        .get('Content-Disposition')
-        .split(';filename=')[1];
-      saveAs(blob, fileName);
+      let fileName = response.headers.get('Content-Disposition');
+      if (fileName && fileName.indexOf(';filename=') > -1) {
+        [, fileName] = fileName.split(';filename=');
+        saveAs(blob, fileName);
+      } else {
+        fileName = sourceUrl.substring(sourceUrl.lastIndexOf('/') + 1);
+        saveAs(response.url, fileName);
+      }
     });
   };
 
@@ -712,7 +717,7 @@ class FileUpload extends React.Component {
             <div>
               <button
                 className='btn btn-default'
-                onClick={(e) => this.saveFile(e)}
+                onClick={this.saveFile}
               >
                 <i className='fas fa-download'></i> Download File
               </button>
