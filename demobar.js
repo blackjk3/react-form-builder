@@ -32,18 +32,21 @@ export default class Demobar extends React.Component {
   }
 
   showPreview() {
+    this.saveFormData();
     this.setState({
       previewVisible: true,
     });
   }
 
   showShortPreview() {
+    this.saveFormData();
     this.setState({
       shortPreviewVisible: true,
     });
   }
 
   showRoPreview() {
+    this.saveFormData();
     this.setState({
       roPreviewVisible: true,
     });
@@ -69,6 +72,10 @@ export default class Demobar extends React.Component {
     // Place code to post json data to server here
   }
 
+  saveFormData() {
+    store.dispatch('post');
+  }
+
   render() {
     let modalClass = 'modal';
     if (this.state.previewVisible) {
@@ -91,6 +98,7 @@ export default class Demobar extends React.Component {
         <button className="btn btn-primary float-right" style={{ marginRight: '10px' }} onClick={() => this.showPreview()}>Preview Form</button>
         <button className="btn btn-default float-right" style={{ marginRight: '10px' }} onClick={() => this.showShortPreview()}>Alternate/Short Form</button>
         <button className="btn btn-default float-right" style={{ marginRight: '10px' }} onClick={() => this.showRoPreview()}>Read Only Form</button>
+        <button className="btn btn-default float-right" style={{ marginRight: '10px' }} onClick={() => this.saveFormData()}>Save Form</button>
 
         { this.state.previewVisible &&
           <div className={modalClass} role="dialog">

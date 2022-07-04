@@ -81,6 +81,7 @@ const App = () => (
     url={url}
     saveUrl={saveUrl}
     locale='en'
+    saveAlways={false}
     // toolbarItems={items}
   />);
 

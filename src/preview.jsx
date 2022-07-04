@@ -40,9 +40,9 @@ export default class Preview extends React.Component {
   }
 
   componentDidMount() {
-    const { data, url, saveUrl } = this.props;
+    const { data, url, saveUrl, saveAlways } = this.props;
     store.subscribe(state => this._onUpdate(state.data));
-    store.dispatch('load', { loadUrl: url, saveUrl, data: data || [] });
+    store.dispatch('load', { loadUrl: url, saveUrl, data: data || [], saveAlways });
     document.addEventListener('mousedown', this.editModeOff);
   }
 

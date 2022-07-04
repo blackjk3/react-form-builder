@@ -12,8 +12,10 @@ const store = new Store({
       if (saveData) this.save(data);
     },
 
-    load(context, { loadUrl, saveUrl, data }) {
+    load(context, { loadUrl, saveUrl, data, saveAlways }) {
       _saveUrl = saveUrl;
+      const saveA = saveAlways || saveAlways === undefined;
+      context.commit('setSaveAlways', saveA);
       if (_onLoad) {
         _onLoad().then(x => {
           if (data && data.length > 0 && x.length === 0) {
@@ -34,22 +36,27 @@ const store = new Store({
     },
 
     create(context, element) {
-      const { data } = context.state;
+      const { data, saveAlways } = context.state;
       data.push(element);
-      this.setData(context, data, true);
+      this.setData(context, data, saveAlways);
     },
 
     delete(context, element) {
-      const { data } = context.state;
+      const { data, saveAlways } = context.state;
       data.splice(data.indexOf(element), 1);
+      this.setData(context, data, saveAlways);
+    },
+
+    post(context) {
+      const { data } = context.state;
       this.setData(context, data, true);
     },
 
     updateOrder(context, elements) {
+      const { saveAlways } = context.state;
       const newData = elements.filter(x => x && !x.parentId);
       elements.filter(x => x && x.parentId).forEach(x => newData.push(x));
-      // console.log('setAsChild', newData);
-      this.setData(context, newData, true);
+      this.setData(context, newData, saveAlways);
     },
 
     save(data) {
@@ -67,10 +74,16 @@ const store = new Store({
       state.data = payload;
       return state;
     },
+    setSaveAlways(state, payload) {
+      // eslint-disable-next-line no-param-reassign
+      state.saveAlways = payload;
+      return state;
+    },
   },
 
   initialState: {
     data: [],
+    saveAlways: true,
   },
 });
 
