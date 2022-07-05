@@ -672,31 +672,30 @@ class FileUpload extends React.Component {
     });
   };
 
-  saveFile = (e) => {
+  saveFile = async (e) => {
     e.preventDefault();
     const sourceUrl = this.props.defaultValue;
-    fetch(sourceUrl, {
+    const response = await fetch(sourceUrl, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
-        OPTIONS: '',
       },
       responseType: 'blob',
-    }).then((response) => {
-      // eslint-disable-next-line no-undef
-      const blob = new Blob([response.data], {
-        type: this.props.data.fileType || response.headers.get('content-type'),
-      });
-      let fileName = response.headers.get('Content-Disposition');
-      if (fileName && fileName.indexOf(';filename=') > -1) {
-        [, fileName] = fileName.split(';filename=');
-        saveAs(blob, fileName);
-      } else {
-        fileName = sourceUrl.substring(sourceUrl.lastIndexOf('/') + 1);
-        saveAs(response.url, fileName);
-      }
     });
+    const dispositionHeader = response.headers.get('Content-Disposition');
+    const resBlob = await response.blob();
+    // eslint-disable-next-line no-undef
+    const blob = new Blob([resBlob], {
+      type: this.props.data.fileType || response.headers.get('Content-Type'),
+    });
+    if (dispositionHeader && dispositionHeader.indexOf(';filename=') > -1) {
+      const fileName = dispositionHeader.split(';filename=');
+      saveAs(blob, fileName);
+    } else {
+      const fileName = sourceUrl.substring(sourceUrl.lastIndexOf('/') + 1);
+      saveAs(response.url, fileName);
+    }
   };
 
   render() {
