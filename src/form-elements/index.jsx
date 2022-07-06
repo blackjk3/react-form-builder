@@ -690,7 +690,7 @@ class FileUpload extends React.Component {
       type: this.props.data.fileType || response.headers.get('Content-Type'),
     });
     if (dispositionHeader && dispositionHeader.indexOf(';filename=') > -1) {
-      const fileName = dispositionHeader.split(';filename=');
+      const fileName = dispositionHeader.split(';filename=')[1];
       saveAs(blob, fileName);
     } else {
       const fileName = sourceUrl.substring(sourceUrl.lastIndexOf('/') + 1);
