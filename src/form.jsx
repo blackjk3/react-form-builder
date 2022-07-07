@@ -148,6 +148,7 @@ class ReactForm extends React.Component {
       name: item.field_name,
       custom_name: item.custom_name || item.field_name,
     };
+    if (!itemData.name) return null;
     const ref = this.inputs[item.field_name];
     if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
       const checked_options = [];
