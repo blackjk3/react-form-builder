@@ -146,6 +146,14 @@ class Toolbar extends React.Component {
         field_name: 'text_input_',
       },
       {
+        key: 'EmailInput',
+        canHaveAnswer: true,
+        name: intl.formatMessage({ id: 'email-input' }),
+        label: intl.formatMessage({ id: 'place-holder-email' }),
+        icon: 'fas fa-envelope',
+        field_name: 'email_input_',
+      },
+      {
         key: 'NumberInput',
         canHaveAnswer: true,
         name: intl.formatMessage({ id: 'number-input' }),

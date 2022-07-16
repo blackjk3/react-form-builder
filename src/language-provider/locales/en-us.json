@@ -60,6 +60,7 @@
   "checkboxes" : "Checkboxes",
   "multiple-choice":"Multiple Choice",
   "text-input":"Text Input",
+  "email-input":"Email",
   "number-input":"Number Input",
   "multi-line-input":"Multi-line Input",
   "two-columns-row":"Two Column Row",
@@ -78,13 +79,15 @@
   "place-holder-label": "Placeholder label",
   "place-holder-website-link": "Placeholder website Link...",
   "place-holder-file-name": "Placeholder file name...",
+  "place-holder-email": "E-Mail",
   "easy": "Easy",
   "difficult": "Difficult",
   "drop-zone": "Dropzone",
 
   "message.is-required": "is required",
   "message.was-answered-incorrectly": "was answered incorrectly",
-  "message.was-not-registered": "was not registered"
+  "message.was-not-registered": "was not registered",
+  "message.invalid-email": "E-Mail field requires valid email address"
 
 
 
