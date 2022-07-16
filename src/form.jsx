@@ -233,6 +233,20 @@ class ReactForm extends React.Component {
         errors.push(`${item.label} ${intl.formatMessage({ id: 'message.is-required' })}!`);
       }
 
+      if (item.element === 'EmailInput') {
+        const validateEmail = (email) => {
+          return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+        };
+        const ref = this.inputs[item.field_name];
+        const emailValue = this._getItemValue(item, ref).value;
+        const checkEmail = validateEmail(emailValue);
+        if (!checkEmail) {
+          errors.push(`${item.label} ${intl.formatMessage({ id: 'message.invalid-email' })}`);
+        }
+      }
+
       if (this.props.validateForCorrectness && this._isIncorrect(item)) {
         errors.push(`${item.label} ${intl.formatMessage({ id: 'message.was-answered-incorrectly' })}!`);
       }
@@ -330,6 +344,7 @@ class ReactForm extends React.Component {
       if (!item) return null;
       switch (item.element) {
         case 'TextInput':
+        case 'EmailInput':
         case 'NumberInput':
         case 'TextArea':
         case 'Dropdown':
