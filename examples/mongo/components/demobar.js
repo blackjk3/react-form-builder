@@ -13,11 +13,10 @@ export default class Demobar extends React.Component {
     };
 
     this.submit = this.onSubmit.bind(this);
-    this._onUpdate = this._onChange.bind(this);
   }
 
   componentDidMount() {
-    ElementStore.subscribe(state => this._onUpdate(state.data));
+    ElementStore.subscribe(state => this.onChange(state.data));
   }
 
   showPreview() {
@@ -46,7 +45,7 @@ export default class Demobar extends React.Component {
     });
   }
 
-  onChange(data) {
+  onChange = (data) => {
     this.setState({
       data,
     });
@@ -56,7 +55,7 @@ export default class Demobar extends React.Component {
     const { postUrl } = this.props;
     console.log('onSubmit', data);
     // Place code to post json data to server here
-    post(postUrl, data).then(x => {
+    post(postUrl, data).then(() => {
       window.location.href = '/form';
     });
     return false;
