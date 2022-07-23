@@ -61,6 +61,7 @@
   "multiple-choice":"Multiple Choice",
   "text-input":"Text Input",
   "email-input":"Email",
+  "phone-input":"Phone Number",
   "number-input":"Number Input",
   "multi-line-input":"Multi-line Input",
   "two-columns-row":"Two Column Row",
@@ -80,6 +81,7 @@
   "place-holder-website-link": "Placeholder website Link...",
   "place-holder-file-name": "Placeholder file name...",
   "place-holder-email": "E-Mail",
+  "place-holder-phone-number": "Phone Number",
   "easy": "Easy",
   "difficult": "Difficult",
   "drop-zone": "Dropzone",
@@ -87,7 +89,8 @@
   "message.is-required": "is required",
   "message.was-answered-incorrectly": "was answered incorrectly",
   "message.was-not-registered": "was not registered",
-  "message.invalid-email": "E-Mail field requires valid email address"
+  "message.invalid-email": "E-Mail field requires valid email address",
+  "message.invalid-phone-number": "Phone Number field requires a valid phone number"
 
 
 

@@ -248,6 +248,21 @@ class ReactForm extends React.Component {
         }
       }
 
+      if (item.element === 'PhoneNumber') {
+        const ref = this.inputs[item.field_name];
+        const phoneValue = this._getItemValue(item, ref).value;
+        if (phoneValue) {
+          const validatePhone = (phone) => phone.match(
+            // eslint-disable-next-line no-useless-escape
+            /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g
+          );
+          const checkPhone = validatePhone(phoneValue);
+          if (!checkPhone) {
+            errors.push(`${item.label} ${intl.formatMessage({ id: 'message.invalid-phone-number' })}`);
+          }
+        }
+      }
+
       if (this.props.validateForCorrectness && this._isIncorrect(item)) {
         errors.push(`${item.label} ${intl.formatMessage({ id: 'message.was-answered-incorrectly' })}!`);
       }
@@ -346,6 +361,7 @@ class ReactForm extends React.Component {
       switch (item.element) {
         case 'TextInput':
         case 'EmailInput':
+        case 'PhoneNumber':
         case 'NumberInput':
         case 'TextArea':
         case 'Dropdown':
