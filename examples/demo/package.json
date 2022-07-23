@@ -14,9 +14,9 @@
   ],
   "author": "Jason Kadrmas",
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-form-builder2": "^0.8.7"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-form-builder2": "^0.13.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
