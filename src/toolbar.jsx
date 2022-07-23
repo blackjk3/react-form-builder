@@ -162,6 +162,14 @@ class Toolbar extends React.Component {
         field_name: 'number_input_',
       },
       {
+        key: 'PhoneNumber',
+        canHaveAnswer: true,
+        name: intl.formatMessage({ id: 'phone-input' }),
+        label: intl.formatMessage({ id: 'place-holder-phone-number' }),
+        icon: 'fas fa-phone',
+        field_name: 'phone_input_',
+      },
+      {
         key: 'TextArea',
         canHaveAnswer: true,
         name: intl.formatMessage({ id: 'multi-line-input' }),
