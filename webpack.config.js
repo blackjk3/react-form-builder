@@ -58,8 +58,8 @@ module.exports = {
     },
     static: './public',
     open: true,
-    proxy: {
-      "/api/*": "http://127.0.0.1:5005"
-    }
+    // proxy: {
+    //   "/api/*": "http://127.0.0.1:5005"
+    // }
   }
 };

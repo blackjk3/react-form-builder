@@ -615,20 +615,8 @@ class Camera extends React.Component {
   displayImage = (e) => {
     const self = this;
     const target = e.target;
-    let file; let
-      reader;
-
     if (target.files && target.files.length) {
-      file = target.files[0];
-      // eslint-disable-next-line no-undef
-      reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onloadend = () => {
-        self.setState({
-          img: reader.result,
-        });
-      };
+      self.setState({ img: target.files[0] });
     }
   };
 
@@ -695,7 +683,7 @@ class Camera extends React.Component {
               {this.state.img && (
                 <div>
                   <img
-                    src={this.state.img}
+                    src={URL.createObjectURL(this.state.img)}
                     height="100"
                     className="image-upload-preview"
                   />
