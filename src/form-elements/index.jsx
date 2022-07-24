@@ -161,7 +161,7 @@ class PhoneNumber extends React.Component {
 
   render() {
     const props = {};
-    props.type = 'text';
+    props.type = 'number';
     props.className = 'form-control';
     props.name = this.props.data.field_name;
     if (this.props.mutable) {
