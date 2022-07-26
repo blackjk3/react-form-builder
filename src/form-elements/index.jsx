@@ -609,20 +609,21 @@ class Download extends React.Component {
 class Camera extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { img: null };
+    this.state = { img: null, previewImg: null };
   }
 
   displayImage = (e) => {
     const self = this;
     const target = e.target;
     if (target.files && target.files.length) {
-      self.setState({ img: target.files[0] });
+      self.setState({ img: target.files[0], previewImg: URL.createObjectURL(target.files[0]) });
     }
   };
 
   clearImage = () => {
     this.setState({
       img: null,
+      previewImg: null,
     });
   };
 
@@ -683,7 +684,8 @@ class Camera extends React.Component {
               {this.state.img && (
                 <div>
                   <img
-                    src={URL.createObjectURL(this.state.img)}
+                    onLoad={() => URL.revokeObjectURL(this.state.previewImg)}
+                    src={this.state.previewImg}
                     height="100"
                     className="image-upload-preview"
                   />
