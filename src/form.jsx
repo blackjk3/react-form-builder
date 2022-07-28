@@ -76,7 +76,7 @@ class ReactForm extends React.Component {
     } else if (item.element === 'DatePicker') {
       $item.value = ref.state.value;
     } else if (item.element === 'Camera') {
-      $item.value = ref.state.img ? ref.state.img.replace('data:image/png;base64,', '') : '';
+      $item.value = ref.state.img;
     } else if (item.element === 'FileUpload') {
       $item.value = ref.state.fileUpload;
     } else if (ref && ref.inputField && ref.inputField.current) {
