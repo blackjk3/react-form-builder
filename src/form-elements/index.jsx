@@ -161,7 +161,7 @@ class PhoneNumber extends React.Component {
 
   render() {
     const props = {};
-    props.type = 'text';
+    props.type = 'tel';
     props.className = 'form-control';
     props.name = this.props.data.field_name;
     if (this.props.mutable) {
@@ -609,32 +609,21 @@ class Download extends React.Component {
 class Camera extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { img: null };
+    this.state = { img: null, previewImg: null };
   }
 
   displayImage = (e) => {
     const self = this;
     const target = e.target;
-    let file; let
-      reader;
-
     if (target.files && target.files.length) {
-      file = target.files[0];
-      // eslint-disable-next-line no-undef
-      reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onloadend = () => {
-        self.setState({
-          img: reader.result,
-        });
-      };
+      self.setState({ img: target.files[0], previewImg: URL.createObjectURL(target.files[0]) });
     }
   };
 
   clearImage = () => {
     this.setState({
       img: null,
+      previewImg: null,
     });
   };
 
@@ -695,7 +684,8 @@ class Camera extends React.Component {
               {this.state.img && (
                 <div>
                   <img
-                    src={this.state.img}
+                    onLoad={() => URL.revokeObjectURL(this.state.previewImg)}
+                    src={this.state.previewImg}
                     height="100"
                     className="image-upload-preview"
                   />
