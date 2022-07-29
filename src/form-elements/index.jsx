@@ -627,6 +627,19 @@ class Camera extends React.Component {
     });
   };
 
+  getImageSizeProps({ width, height }) {
+    const imgProps = { width: '100%' };
+    if (width) {
+      imgProps.width = width < window.innerWidth
+      ? width
+      : 0.9 * window.innerWidth;
+    }
+    if (height) {
+      imgProps.height = height;
+    }
+    return imgProps;
+  }
+
   render() {
     const imageStyle = { objectFit: 'scale-down', objectPosition: (this.props.data.center) ? 'center' : 'left' };
     let baseClasses = 'SortableItem rfb-item';
@@ -654,12 +667,7 @@ class Camera extends React.Component {
               <img
                 style={imageStyle}
                 src={sourceDataURL}
-                width={
-                  this.props.data.width < window.innerWidth
-                    ? this.props.data.width
-                    : 0.9 * window.innerWidth
-                }
-                height={this.props.data.height || 'auto'}
+                {...this.getImageSizeProps(this.props.data)}
               />
             </div>
           ) : (
