@@ -127,6 +127,8 @@ export interface FormBuilderProps {
   onPost?: (data: FormBuilderPostData) => void;
   saveUrl?: string;
   saveAlways?: boolean;
+  editMode?: boolean;
+  renderEditForm?: (props: BaseElement) => React.ReactNode;
 }
 
 export class ReactFormBuilder extends React.Component<FormBuilderProps> {}
