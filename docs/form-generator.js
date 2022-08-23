@@ -39,7 +39,12 @@ class FormGenerator extends React.Component {
       .addEventListener('click', this.closePreview);
   }
 
+  saveFormData() {
+    ElementStore.dispatch('post');
+  }
+
   showPreview() {
+    this.saveFormData();
     this.setState({
       previewVisible: true,
     });
