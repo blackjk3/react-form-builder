@@ -18,8 +18,9 @@ if (!cid) {
 
 const url = `https://safe-springs-35306.herokuapp.com/api/formdata?cid=${cid}`;
 const saveUrl = `https://safe-springs-35306.herokuapp.com/api/formdata?cid=${cid}`;
+const saveAlways = false;
 
-ReactDOM.render(e(FormBuilder, { url, saveUrl }), domContainer);
+ReactDOM.render(e(FormBuilder, { url, saveUrl, saveAlways }), domContainer);
 
 let backdropElement;
 const classBackdrop = 'modal-backdrop';
