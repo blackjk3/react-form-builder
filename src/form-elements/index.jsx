@@ -876,7 +876,7 @@ class Range extends React.Component {
     }
 
     const datalist = [];
-    for (let i = parseInt(props.min_value, 10); i <= parseInt(props.max_value, 10); i += parseInt(props.step, 10)) {
+    for (let i = parseInt(props.min, 10); i <= parseInt(props.max, 10); i += parseInt(props.step, 10)) {
       datalist.push(i);
     }
 
