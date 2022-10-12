@@ -894,6 +894,10 @@ class Range extends React.Component {
       return <label {...option_props}>{d}</label>;
     });
 
+    if (this.props.read_only) {
+      props.disabled = 'disabled';
+    }
+    
     let baseClasses = 'SortableItem rfb-item';
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
