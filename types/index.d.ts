@@ -17,7 +17,7 @@ type BaseElement = {
     | "Multi-line Input"
     | "Two Column Row"
     | "Three Column Row"
-    | "Four Column Row"
+    | "Multi Column Row"
     | "Image"
     | "Rating"
     | "Date"

@@ -8,7 +8,7 @@ import ItemTypes from '../ItemTypes';
 
 const accepts = [ItemTypes.BOX, ItemTypes.CARD];
 
-class MultiColumnRow extends React.Component {
+class MultiColumnRowBase extends React.Component {
   render() {
     const {
       controls, data, editModeOn, getDataById, setAsChild, removeChild, seq, className, index,
@@ -54,7 +54,7 @@ const TwoColumnRow = ({ data, class_name, ...rest }) => {
     data.childItems = [null, null]; data.isContainer = true;
   }
   return (
-    <MultiColumnRow {...rest} className={className} data={data} />
+    <MultiColumnRowBase {...rest} className={className} data={data} />
   );
 };
 
@@ -65,18 +65,19 @@ const ThreeColumnRow = ({ data, class_name, ...rest }) => {
     data.childItems = [null, null, null]; data.isContainer = true;
   }
   return (
-    <MultiColumnRow {...rest} className={className} data={data} />
+    <MultiColumnRowBase {...rest} className={className} data={data} />
   );
 };
 
-const FourColumnRow = ({ data, class_name, ...rest }) => {
-  const className = class_name || 'col-md-3';
+const MultiColumnRow = ({ data, ...rest }) => {
+  const colCount = data.col_count || 4;
+  const className = data.class_name || (colCount === 4 ? 'col-md-3' : 'col');
   if (!data.childItems) {
     // eslint-disable-next-line no-param-reassign
-    data.childItems = [null, null, null, null];
+    data.childItems = Array.from({length: colCount}, (v, i) => null);
     data.isContainer = true;
   }
-  return <MultiColumnRow {...rest} className={className} data={data} />;
+  return <MultiColumnRowBase {...rest} className={className} data={data} />;
 };
 
-export { TwoColumnRow, ThreeColumnRow, FourColumnRow };
+export { TwoColumnRow, ThreeColumnRow, MultiColumnRow };

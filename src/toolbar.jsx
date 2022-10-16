@@ -5,25 +5,44 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import ToolbarItem from './toolbar-draggable-item';
+import ToolbarGroupItem from './toolbar-group-item';
+
 import ID from './UUID';
 import store from './stores/store';
+import { groupBy } from './functions';
 
-function isDefaultItem(item) {
-  const keys = Object.keys(item);
-  return keys.filter(x => x !== 'element' && x !== 'key').length === 0;
-}
+// function isDefaultItem(item) {
+//   const keys = Object.keys(item);
+//   return keys.filter(x => x !== 'element' && x !== 'key' && x !== 'group_name').length === 0;
+// }
 
 function buildItems(items, defaultItems) {
   if (!items) {
     return defaultItems;
   }
   return items.map(x => {
-    let found;
-    if (isDefaultItem(x)) {
+    let found = defaultItems.find(y => (x.element === y.element && y.key === x.key))
+    if (!found) {
       found = defaultItems.find(y => (x.element || x.key) === (y.element || y.key));
+    }
+    if (found) {
+      if (x.inherited !== false) {
+        found = { ...found, ...x };
+      } else if (x.group_name) {
+        found.group_name = x.group_name;
+      }
     }
     return found || x;
   });
+}
+
+function buildGroupItems(allItems) {
+  const items = allItems.filter(x => !x.group_name);
+  const gItems = allItems.filter(x => !!x.group_name);
+  const grouped = groupBy(gItems, x => x.group_name);
+  const groupKeys = gItems.map(x => x.group_name)
+    .filter((v, i, self) => self.indexOf(v) === i);
+  return { items, grouped, groupKeys };
 }
 
 class Toolbar extends React.Component {
@@ -195,11 +214,36 @@ class Toolbar extends React.Component {
       },
       {
         key: 'FourColumnRow',
+        element: 'MultiColumnRow',
         canHaveAnswer: false,
         name: intl.formatMessage({ id: 'four-columns-row' }),
         label: '',
         icon: 'fas fa-columns',
         field_name: 'four_col_row_',
+        col_count: 4,
+        class_name: 'col-md-3',
+      },
+      {
+        key: 'FiveColumnRow',
+        element: 'MultiColumnRow',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'five-columns-row' }),
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'five_col_row_',
+        col_count: 5,
+        class_name: 'col',
+      },
+      {
+        key: 'SixColumnRow',
+        element: 'MultiColumnRow',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'six-columns-row' }),
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'six_col_row_',
+        col_count: 6,
+        class_name: 'col-md-2',
       },
       {
         key: 'Image',
@@ -294,6 +338,7 @@ class Toolbar extends React.Component {
       id: ID.uuid(),
       element: item.element || item.key,
       text: item.name,
+      group_name: item.group_name,
       static: item.static,
       required: false,
       showDescription: item.showDescription,
@@ -327,6 +372,8 @@ class Toolbar extends React.Component {
     if (item.content) { elementOptions.content = item.content; }
 
     if (item.href) { elementOptions.href = item.href; }
+
+    if (item.inherited !== undefined) { elementOptions.inherited = item.inherited; }
 
     elementOptions.canHavePageBreakBefore = item.canHavePageBreakBefore !== false;
     elementOptions.canHaveAlternateForm = item.canHaveAlternateForm !== false;
@@ -368,6 +415,10 @@ class Toolbar extends React.Component {
       elementOptions.max_label = item.max_label;
     }
 
+    if (item.element === 'MultiColumnRow') {
+      elementOptions.col_count = item.col_count;
+    }
+
     if (item.defaultValue) { elementOptions.defaultValue = item.defaultValue; }
 
     if (item.field_name) { elementOptions.field_name = item.field_name + ID.uuid(); }
@@ -390,13 +441,19 @@ class Toolbar extends React.Component {
     store.dispatch('create', this.create(item));
   }
 
+  renderItem = (item) => (<ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item)} onCreate={this.create} />)
+
   render() {
+    const { items, grouped, groupKeys } = buildGroupItems(this.state.items);
     return (
       <div className="col-md-3 react-form-builder-toolbar float-right">
         <h4>{this.props.intl.formatMessage({ id: 'toolbox' })}</h4>
         <ul>
           {
-            this.state.items.map((item) => (<ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item)} onCreate={this.create} />))
+            items.map(this.renderItem)
+          }
+          {
+            groupKeys.map(k => <ToolbarGroupItem key={k} name={k} group={grouped.get(k)} renderItem={this.renderItem} />)
           }
         </ul>
       </div>

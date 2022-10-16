@@ -40,15 +40,30 @@ const saveUrl = '/api/formdata';
 //     key: 'Image',
 //   },
 //   {
+//     group_name: 'Multi Column Row',
 //     key: 'TwoColumnRow'
 //   },
 //   {
+//     group_name: 'Multi Column Row',
 //     key: 'ThreeColumnRow'
 //   },
 //   {
-//     key: 'FourColumnRow'
+//     group_name: 'Multi Column Row',
+//     key: 'FourColumnRow',
+//     element: 'MultiColumnRow',
 //   },
 //   {
+//     group_name: 'Multi Column Row',
+//     key: 'FiveColumnRow',
+//     element: 'MultiColumnRow',
+//   },  
+//   {
+//     group_name: 'Multi Column Row',
+//     key: 'SixColumnRow',
+//     element: 'MultiColumnRow',
+//   },
+//   {
+//     group_name: 'Custom Element',
 //     key: 'TestComponent',
 //     element: 'CustomElement',
 //     component: TestComponent,
@@ -61,6 +76,7 @@ const saveUrl = '/api/formdata';
 //     label: 'Label Test',
 //   },
 //   {
+//     group_name: 'Custom Element',
 //     key: 'MyInput',
 //     element: 'CustomElement',
 //     component: MyInput,
