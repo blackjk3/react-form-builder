@@ -21,7 +21,7 @@ function buildItems(items, defaultItems) {
     return defaultItems;
   }
   return items.map(x => {
-    let found = defaultItems.find(y => (x.element === y.element && y.key === x.key))
+    let found = defaultItems.find(y => (x.element === y.element && y.key === x.key));
     if (!found) {
       found = defaultItems.find(y => (x.element || x.key) === (y.element || y.key));
     }
