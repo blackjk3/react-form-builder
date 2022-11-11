@@ -528,7 +528,7 @@ class Image extends React.Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div style={{ ...this.props.style, style }} className={baseClasses} >
+      <div style={{ ...this.props.style, ...style }} className={baseClasses} >
         <ComponentHeader {...this.props} />
         { this.props.data.src &&
           <img src={this.props.data.src} width={this.props.data.width} height={this.props.data.height} />
