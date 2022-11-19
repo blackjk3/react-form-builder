@@ -77,7 +77,7 @@ const store = new Store({
 
     insertItem(context, item) {
       // console.log('insertItem', item);
-      context.commit('setLastItem', item);
+      context.commit('setLastItem', item.isContainer ? null : item);
     },
 
     save(data) {
