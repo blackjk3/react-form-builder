@@ -5,6 +5,7 @@ import ItemTypes from '../ItemTypes';
 
 import CustomElement from '../form-elements/custom-element';
 import Registry from '../stores/registry';
+import store from '../stores/store';
 
 function getCustomElement(item, props) {
   if (!item.component || typeof item.component !== 'function') {
@@ -71,9 +72,12 @@ const Dustbin = React.forwardRef(
     useImperativeHandle(
       ref,
       () => ({
-        onDrop: (/* dropped */) => {
-          // const { data } = dropped;
-          // console.log('onDrop', data);
+        onDrop: (dropped) => {
+          const { data } = dropped;
+          if (data) {
+            console.log('dropped', dropped);
+            store.dispatch('deleteLastItem');
+          }
         },
       }),
       [],
@@ -92,7 +96,7 @@ const Dustbin = React.forwardRef(
       backgroundColor = '#F7F589';
     }
 
-    // console.log('accepts, canDrop', accepts, canDrop);
+    // console.log('sameCard, canDrop', sameCard, canDrop);
     return connectDropTarget(
       <div style={!sameCard ? getStyle(backgroundColor) : getStyle('rgba(0, 0, 0, .03') }>
         {element}
@@ -121,6 +125,12 @@ export default DropTarget(
 
       // Do nothing when moving the box inside the same column
       if (props.col === item.col && props.items[props.col] === item.id) return;
+
+      // Do not allow replace component other than both items in same multi column row
+      if (item.col === undefined && props.items[props.col]) {
+        store.dispatch('resetLastItem');
+        return;
+      }
 
       if (!isContainer(item)) {
         (component).onDrop(item);
