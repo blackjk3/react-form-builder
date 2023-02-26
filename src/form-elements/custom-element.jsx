@@ -30,7 +30,7 @@ class CustomElement extends Component {
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
 
     return (
-      <div className={baseClasses}>
+      <div className={baseClasses} style={{ ...this.props.style }}>
         <ComponentHeader {...this.props} />
         { bare ?
           <Element data={this.props.data} {...this.props.data.props} {...props} /> :

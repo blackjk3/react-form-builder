@@ -156,6 +156,7 @@ export interface FormGeneratorProps {
   read_only?: boolean;
   // eslint-disable-next-line no-undef
   variables?: Record<any, any>;
+  submitButton?: JSX.Element;
 }
 
 export class ReactFormGenerator extends React.Component<FormGeneratorProps> {}
