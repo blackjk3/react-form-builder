@@ -5551,10 +5551,10 @@ react-draft-wysiwyg@^1.14.7:
     linkify-it "^2.2.0"
     prop-types "^15.7.2"
 
-react-form-builder2@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/react-form-builder2/-/react-form-builder2-0.13.0.tgz#5c7f151f836d42f99eeb96072840dbec55e924fb"
-  integrity sha512-yo1nMr1/MS0cgMALl2dpPU3R8FYxcGWUv8Hh0MJpx/03HET1Wvm6kJfhwVK2eWNlwKZWwj0dRf/CftSd4DSknw==
+react-form-builder2@^0.14.2:
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/react-form-builder2/-/react-form-builder2-0.14.2.tgz#3b8f7e178ba74dbe6076d6a7bcfe6efe4fc031fe"
+  integrity sha512-kCSNpwYvBmzfqRfzdM++pAysqjDYWD1Fn3H83z49xQOvWV7DZ2aVVX7/6gAkNbK4nhjSq98w4PyDK8WC0vcp4Q==
   dependencies:
     beedle "^0.8.1"
     classnames "^2.2.6"

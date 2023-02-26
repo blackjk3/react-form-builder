@@ -103,7 +103,7 @@ const store = new Store({
     setLastItem(state, payload) {
       // eslint-disable-next-line no-param-reassign
       state.lastItem = payload;
-      console.log('setLastItem', payload);
+      // console.log('setLastItem', payload);
       return state;
     },
   },
