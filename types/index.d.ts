@@ -166,3 +166,11 @@ export type ActionType = "load" | "updateOrder" | "delete";
 export class ElementStore {
   static dispatch: (type: ActionType, data: any) => void;
 }
+
+export class Registry {
+  static register: (name: string, component: React.ReactNode) => void;
+
+  static list: () => string[];
+
+  static get: (name: string) => React.ReactNode;
+}
