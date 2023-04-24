@@ -427,7 +427,7 @@ class Toolbar extends React.Component {
 
     if (item.options) {
       if (item.options.length > 0) {
-        elementOptions.options = item.options;
+        elementOptions.options = item.options.map(x => ({ ...x, key: `custom_option_${ID.uuid()}` }));
       } else {
         elementOptions.options = Toolbar._defaultItemOptions(elementOptions.element, intl);
       }
