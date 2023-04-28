@@ -333,10 +333,10 @@ class Toolbar extends React.Component {
 
   create(item) {
     const { intl } = this.props;
-
+    const elementKey = item.element || item.key;
     const elementOptions = {
       id: ID.uuid(),
-      element: item.element || item.key,
+      element: elementKey,
       text: item.name,
       group_name: item.group_name,
       static: item.static,
@@ -389,11 +389,11 @@ class Toolbar extends React.Component {
       elementOptions.class_name = item.class_name;
     }
 
-    if (item.element === 'Image') {
+    if (elementKey === 'Image') {
       elementOptions.src = item.src;
     }
 
-    if (item.element === 'DatePicker') {
+    if (elementKey === 'DatePicker') {
       elementOptions.dateFormat = item.dateFormat;
       elementOptions.timeFormat = item.timeFormat;
       elementOptions.showTimeSelect = item.showTimeSelect;
@@ -401,12 +401,12 @@ class Toolbar extends React.Component {
       elementOptions.showTimeInput = item.showTimeInput;
     }
 
-    if (item.element === 'Download') {
+    if (elementKey === 'Download') {
       elementOptions._href = item._href;
       elementOptions.file_path = item.file_path;
     }
 
-    if (item.element === 'Range') {
+    if (elementKey === 'Range') {
       elementOptions.step = item.step;
       elementOptions.default_value = item.default_value;
       elementOptions.min_value = item.min_value;
