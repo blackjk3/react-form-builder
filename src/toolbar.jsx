@@ -331,10 +331,21 @@ class Toolbar extends React.Component {
     ];
   }
 
+  addCustomOptions(item, elementOptions) {
+    if (item.type === 'custom') {
+      const customOptions = Object.assign({}, item, elementOptions);
+      customOptions.custom = true;
+      customOptions.component = item.component || null;
+      customOptions.custom_options = item.custom_options || [];
+      return customOptions;
+    }
+    return elementOptions;
+  }
+
   create(item) {
     const { intl } = this.props;
     const elementKey = item.element || item.key;
-    const elementOptions = {
+    const elementOptions = this.addCustomOptions(item, {
       id: ID.uuid(),
       element: elementKey,
       text: item.name,
@@ -342,22 +353,12 @@ class Toolbar extends React.Component {
       static: item.static,
       required: false,
       showDescription: item.showDescription,
-    };
+    });
 
     if (this.props.showDescription === true && !item.static) {
       elementOptions.showDescription = true;
     }
-
-    if (item.type === 'custom') {
-      elementOptions.key = item.key;
-      elementOptions.custom = true;
-      elementOptions.forwardRef = item.forwardRef;
-      elementOptions.bare = item.bare;
-      elementOptions.props = item.props;
-      elementOptions.component = item.component || null;
-      elementOptions.custom_options = item.custom_options || [];
-    }
-
+    
     if (item.static) {
       elementOptions.bold = false;
       elementOptions.italic = false;
