@@ -105,7 +105,7 @@
     "build:dist": "npm run build && npm run copy:dist",
     "clean": "rimraf dist",
     "copy:dist": "copyfiles -f \"./dist/*\" \"./public/dist\"",
-    "prepublishOnly": "npm run clean && npm run build:lib && npm run build",
+    "prepublishOnly": "npm run clean && NODE_OPTIONS=--openssl-legacy-provider npm run build:lib && NODE_OPTIONS=--openssl-legacy-provider npm run build",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --hot --mode development",
     "serve:api": "node server/index.js",
