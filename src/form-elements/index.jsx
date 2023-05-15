@@ -63,7 +63,7 @@ class Label extends React.Component {
     return (
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
-        <label className={classNames} dangerouslySetInnerHTML={{ __html: myxss.process(this.props.data.content) }} className={'form-label'}/>
+        <label className={`${classNames} form-label`} dangerouslySetInnerHTML={{ __html: myxss.process(this.props.data.content) }}/>
       </div>
     );
   }
@@ -110,7 +110,7 @@ class TextInput extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props}  className={'form-label'}/>
+          <ComponentLabel {...this.props} />
           <input {...props} />
         </div>
       </div>
@@ -145,7 +145,7 @@ class EmailInput extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'}/>
+          <ComponentLabel {...this.props}/>
           <input {...props} />
         </div>
       </div>
@@ -180,7 +180,7 @@ class PhoneNumber extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'} />
+          <ComponentLabel {...this.props}/>
           <input {...props} />
         </div>
       </div>
@@ -216,7 +216,7 @@ class NumberInput extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'} />
+          <ComponentLabel {...this.props} />
           <input {...props} />
         </div>
       </div>
@@ -251,7 +251,7 @@ class TextArea extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'}/>
+          <ComponentLabel {...this.props}/>
           <textarea {...props} />
         </div>
       </div>
@@ -286,7 +286,7 @@ class Dropdown extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'} />
+          <ComponentLabel {...this.props} />
           <select {...props}>
             {this.props.data.options.map((option) => {
               const this_key = `preview_${option.key}`;
@@ -412,7 +412,7 @@ class Tags extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'} />
+          <ComponentLabel {...this.props} />
           <Select {...props} />
         </div>
       </div>
@@ -438,7 +438,7 @@ class Checkboxes extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel className="form-label" {...this.props} />
+          <ComponentLabel {...this.props} />
           {this.props.data.options.map((option) => {
             const this_key = `preview_${option.key}`;
             const props = {};
@@ -487,7 +487,7 @@ class RadioButtons extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel className="form-label" {...this.props} />
+          <ComponentLabel {...this.props} />
           {this.props.data.options.map((option) => {
             const this_key = `preview_${option.key}`;
             const props = {};
@@ -566,7 +566,7 @@ class Rating extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'}/>
+          <ComponentLabel {...this.props} />
           <StarRating {...props} />
         </div>
       </div>
@@ -779,7 +779,7 @@ class FileUpload extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'}/>
+          <ComponentLabel {...this.props} />
           {this.props.read_only === true &&
           this.props.defaultValue &&
           this.props.defaultValue.length > 0 ? (
@@ -906,7 +906,7 @@ class Range extends React.Component {
       <div style={{ ...this.props.style }} className={baseClasses}>
         <ComponentHeader {...this.props} />
         <div className="form-group">
-          <ComponentLabel {...this.props} className={'form-label'}/>
+          <ComponentLabel {...this.props} />
           <div className="range">
             <div className="clearfix">
               <span className="float-left">{this.props.data.min_label}</span>
