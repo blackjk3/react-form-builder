@@ -18,7 +18,7 @@ const saveUrl = '/api/formdata';
 //   return (
 //     <>
 //       <label style={{ marginRight: '1rem' }}><b>{ props.data.label }</b></label>
-//       <input ref={ref} name={name} defaultValue={defaultValue} disabled={disabled} />;
+//       <input ref={ref} name={name} defaultValue={defaultValue} disabled={disabled} />
 //     </>
 //   );
 // });
