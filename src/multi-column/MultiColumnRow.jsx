@@ -5,13 +5,18 @@ import ComponentHeader from '../form-elements/component-header';
 import ComponentLabel from '../form-elements/component-label';
 import Dustbin from './dustbin';
 import ItemTypes from '../ItemTypes';
+import FieldSetBase from "./FieldSetBase"
 
 const accepts = [ItemTypes.BOX, ItemTypes.CARD];
 
 class MultiColumnRowBase extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {childs: 10};
+  }
   render() {
     const {
-      controls, data, editModeOn, getDataById, setAsChild, removeChild, seq, className, index,
+      controls, data, editModeOn, getDataById, setAsChild, removeChild, seq, className, index
     } = this.props;
     const { childItems, pageBreakBefore } = data;
     let baseClasses = 'SortableItem rfb-item';
@@ -19,7 +24,7 @@ class MultiColumnRowBase extends React.Component {
 
     return (
       <div style={{ ...this.props.style }} className={baseClasses}>
-        <ComponentHeader {...this.props} />
+        <ComponentHeader {...this.props} isFieldSet={true}/>
         <div>
           <ComponentLabel {...this.props} />
           <div className="row">
@@ -47,15 +52,11 @@ class MultiColumnRowBase extends React.Component {
   }
 }
 
-const TwoColumnRow = ({ data, class_name, ...rest }) => {
-  const className = class_name || 'col-md-6';
-  if (!data.childItems) {
-    // eslint-disable-next-line no-param-reassign
-    data.childItems = [null, null]; data.isContainer = true;
-  }
-  return (
-    <MultiColumnRowBase {...rest} className={className} data={data} />
-  );
+const FieldSet = (props) => {
+ 
+
+  return <FieldSetBase   {...props} />
+  ;
 };
 
 const ThreeColumnRow = ({ data, class_name, ...rest }) => {
@@ -79,5 +80,5 @@ const MultiColumnRow = ({ data, ...rest }) => {
   }
   return <MultiColumnRowBase {...rest} className={className} data={data} />;
 };
-
+const TwoColumnRow=FieldSet;
 export { TwoColumnRow, ThreeColumnRow, MultiColumnRow };

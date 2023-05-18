@@ -64,7 +64,7 @@ function isContainer(item) {
   return false;
 }
 
-const Dustbin = React.forwardRef(
+const FieldsetDustbin = React.forwardRef(
   ({
     draggedItem, parentIndex, canDrop, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
   }, ref) => {
@@ -153,4 +153,4 @@ export default DropTarget(
     isOverCurrent: monitor.isOver({ shallow: true }),
     canDrop: monitor.canDrop(),
   }),
-)(Dustbin);
+)(FieldsetDustbin);
