@@ -200,7 +200,7 @@ class Toolbar extends React.Component {
         key: 'FieldSet',
         canHaveAnswer: false,
         name: intl.formatMessage({ id: 'Fieldset' }),
-        label: '',
+        label: intl.formatMessage({ id: 'Fieldset' }),
         icon: 'fas fa-bars',
         field_name: 'fieldset-element',
       },
