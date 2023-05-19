@@ -15,25 +15,33 @@ export default function FieldSetBase(props) {
   const [childData, setChildData] = useState({});
   const [rerender, setRender] = useState(1);
   const [childItems, setchildItems] = useState(null);
-const childChange=props?.data?.fieldsteps;
+
+  const childChange=props?.data?.fieldsteps;
   useEffect(() => {
     if(childChange){
       
+    let currentChilds=childItems;
+    let count =parseInt(props?.data?.fieldsteps);
+    if(currentChilds){
+      
+    // setchildItems(null);
+    let newchild=count-currentChilds.length;
+      for (let i=0;i<newchild;i++){
+        currentChilds.push(null)
+      }
+      setchildItems(currentChilds)
+  }
+  
+}
+  }, [childChange]);
+  
+  useEffect(() => {
     const { data, class_name, ...rest } = props;
     setChildData(data);
-    let count=data?.fieldsteps?parseInt(data?.fieldsteps):3
+    let count=1;
     createChild(count, data);
-    const currentChilds=childItems;
-    console.log("currentChilds",currentChilds)
-    console.log("currentChilds",currentChilds.length)
-    setchildItems(null);
-    let newchild=parseInt(props?.data?.fieldsteps)-currentChilds?currentChilds.length:0;
-    console.log("newchild",newchild)
-    console.log("props",props)
-
     
-  }
-  }, [childChange]);
+  }, [props]);
 
   useEffect(() => {
     createChild(childCount, props.data);
@@ -44,6 +52,27 @@ const childChange=props?.data?.fieldsteps;
     setRender(re++);
   }, [childItems]);
 
+
+  const addNewChild=()=>{
+    let data=props.data;
+    let colCount=data.childItems.length+1;
+    let oldChilds=data.childItems;
+    data.childItems = Array.from({ length: colCount }, (v, i) => {return oldChilds[i]?oldChilds[i]:null});
+
+    setchildItems( data.childItems)
+  }
+
+  const onDropSuccess=(droppedIndex)=>{
+    const totalChild=childItems?childItems.length:0;
+    const isLastChild = totalChild===droppedIndex+1 ;
+   
+
+    if(isLastChild)
+    {
+      addNewChild()
+    }
+  }
+  
   const createChild = (count, data) => {
     const colCount = count;
     const className = data.class_name || "col-md-12";
@@ -65,7 +94,6 @@ const childChange=props?.data?.fieldsteps;
     index,
   } = props;
   const { pageBreakBefore } = childData;
-  console.log("controls",controls)
   let baseClasses = "SortableItem rfb-item";
   if (pageBreakBefore) {
     baseClasses += " alwaysbreak";
@@ -78,7 +106,7 @@ const childChange=props?.data?.fieldsteps;
         <ComponentLabel {...props} />
         <div className="row">
         
-          {rerender &&
+          {
             childItems?.map((x, i) => (
               <div key={`${i}_${x || "_"}`} className={"col-md-12"}>
                 {controls ? (
@@ -89,13 +117,16 @@ const childChange=props?.data?.fieldsteps;
                     data={childData}
                     accepts={accepts}
                     items={childItems}
+                    key={i}
                     col={i}
+                    onDropSuccess={()=> onDropSuccess(i)}
                     parentIndex={index}
                     editModeOn={editModeOn}
                     _onDestroy={() => removeChild(childData, i)}
                     getDataById={getDataById}
                     setAsChild={setAsChild}
                     seq={seq}
+                    rowNo={i}
                   />
                 )}
               </div>
