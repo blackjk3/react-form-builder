@@ -41,13 +41,17 @@ const items = [
     key: 'Image',
   },
   {
-    key: 'TwoColumnRow',
-    label:"Filed Set",
-    name:"Filed Set",
-    props:{
-      isFieldSet:true
-    }
+    key: 'FieldSet',
+    label:"Field Set",
+    name:"Field Set",
+    
   },
+  // {
+  //   key: 'TwoColumnRow',
+  //   label:"Filed Set",
+  //   name:"Filed Set",
+   
+  // },
   // {
   //   group_name: 'Multi Column Row',
   //   key: 'ThreeColumnRow'
