@@ -23,6 +23,7 @@ type BaseElement = {
     | "Date"
     | "Signature"
     | "Web site"
+    | "Fieldset"
     | "File Attachment"
     | "Range"
     | "Camera";

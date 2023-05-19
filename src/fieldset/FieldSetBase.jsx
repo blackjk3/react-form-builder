@@ -9,31 +9,10 @@ import ItemTypes from "../ItemTypes";
 const accepts = [ItemTypes.BOX, ItemTypes.CARD];
 
 export default function FieldSetBase(props) {
-  const [childCount, setChildCount] = useState(
-    props?.childItems?.length ? props?.childItems?.length : 3
-  );
+  
   const [childData, setChildData] = useState({});
-  const [rerender, setRender] = useState(1);
   const [childItems, setchildItems] = useState(null);
 
-  const childChange=props?.data?.fieldsteps;
-  useEffect(() => {
-    if(childChange){
-      
-    let currentChilds=childItems;
-    let count =parseInt(props?.data?.fieldsteps);
-    if(currentChilds){
-      
-    // setchildItems(null);
-    let newchild=count-currentChilds.length;
-      for (let i=0;i<newchild;i++){
-        currentChilds.push(null)
-      }
-      setchildItems(currentChilds)
-  }
-  
-}
-  }, [childChange]);
   
   useEffect(() => {
     const { data, class_name, ...rest } = props;
@@ -42,15 +21,6 @@ export default function FieldSetBase(props) {
     createChild(count, data);
     
   }, [props]);
-
-  useEffect(() => {
-    createChild(childCount, props.data);
-  }, [childCount]);
-
-  useEffect(() => {
-    let re = rerender;
-    setRender(re++);
-  }, [childItems]);
 
 
   const addNewChild=()=>{
