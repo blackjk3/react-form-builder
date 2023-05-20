@@ -8,6 +8,7 @@ import Registry from '../stores/registry';
 import store from '../stores/store';
 
 function getCustomElement(item, props) {
+
   if (!item.component || typeof item.component !== 'function') {
     item.component = Registry.get(item.key);
     if (!item.component) {
@@ -64,19 +65,19 @@ function isContainer(item) {
   return false;
 }
 
-const Dustbin = React.forwardRef(
-  ({
-    draggedItem, parentIndex, canDrop, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
-  }, ref) => {
+const FieldsetDustbin = React.forwardRef(
+  (props, ref) => {
+    const {
+      onDropSuccess,seq,draggedItem, parentIndex, canDrop, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
+    }=props;
     const item = getDataById(items[col]);
     useImperativeHandle(
       ref,
       () => ({
         onDrop: (dropped) => {
-          console.log("dropped ites")
           const { data } = dropped;
           if (data) {
-            console.log('dropped', dropped);
+            onDropSuccess()
             store.dispatch('deleteLastItem');
           }
         },
@@ -137,7 +138,6 @@ export default DropTarget(
 
       if (!isContainer(item)) {
         (component).onDrop(item);
-        console.log("calling on Drop from 137",item)
         if (item.data && typeof props.setAsChild === 'function') {
           const isNew = !item.data.id;
           const data = isNew ? item.onCreate(item.data) : item.data;
@@ -153,4 +153,4 @@ export default DropTarget(
     isOverCurrent: monitor.isOver({ shallow: true }),
     canDrop: monitor.canDrop(),
   }),
-)(Dustbin);
+)(FieldsetDustbin);

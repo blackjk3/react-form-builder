@@ -11,14 +11,14 @@ require('./scss/application.scss');
 const url = '/api/formdata';
 const saveUrl = '/api/formdata';
 
-// const TestComponent = () => <h2>Hello</h2>;
+const TestComponent = () => <h2>Hello</h2>;
 
 // const MyInput = React.forwardRef((props, ref) => {
 //   const { name, defaultValue, disabled } = props;
 //   return (
 //     <>
 //       <label style={{ marginRight: '1rem' }}><b>{ props.data.label }</b></label>
-//       <input ref={ref} name={name} defaultValue={defaultValue} disabled={disabled} />
+//       <input ref={ref} name={name} defaultValue={defaultValue} disabled={disabled} />;
 //     </>
 //   );
 // });
@@ -38,6 +38,12 @@ const saveUrl = '/api/formdata';
 //     key: 'Checkboxes',
 //   }, {
 //     key: 'Image',
+//   },
+//   {
+//     key: 'FieldSet',
+//     label:"Field Set",
+//     name:"Field Set",
+    
 //   },
 //   {
 //     group_name: 'Multi Column Row',
@@ -91,6 +97,7 @@ const saveUrl = '/api/formdata';
 //   },
 // ];
 
+
 const App = () => (
   <FormBuilder.ReactFormBuilder
     variables={variables}
@@ -99,6 +106,7 @@ const App = () => (
     locale='en'
     saveAlways={false}
     // toolbarItems={items}
+  
   />);
 
 ReactDOM.render(

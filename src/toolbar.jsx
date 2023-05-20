@@ -197,6 +197,14 @@ class Toolbar extends React.Component {
         field_name: 'text_area_',
       },
       {
+        key: 'FieldSet',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'fieldset' }),
+        label: intl.formatMessage({ id: 'fieldset' }),
+        icon: 'fas fa-bars',
+        field_name: 'fieldset-element',
+      },
+      {
         key: 'TwoColumnRow',
         canHaveAnswer: false,
         name: intl.formatMessage({ id: 'two-columns-row' }),

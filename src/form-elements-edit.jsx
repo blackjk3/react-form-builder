@@ -344,7 +344,6 @@ export default class FormElementsEdit extends React.Component {
             </div>
           </div>
         }
-
         { this.props.element.hasOwnProperty('step') &&
           <div className="form-group">
             <div className="form-group-range">

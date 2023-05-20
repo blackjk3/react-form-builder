@@ -9,6 +9,7 @@ import { injectIntl } from 'react-intl';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
 import { TwoColumnRow, ThreeColumnRow, MultiColumnRow } from './multi-column';
+import { FieldSet } from './fieldset';
 import CustomElement from './form-elements/custom-element';
 import Registry from './stores/registry';
 
@@ -379,6 +380,8 @@ class ReactForm extends React.Component {
           return this.getContainerElement(item, ThreeColumnRow);
         case 'TwoColumnRow':
           return this.getContainerElement(item, TwoColumnRow);
+        case 'FieldSet':
+        return this.getContainerElement(item, FieldSet);
         case 'Signature':
           return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} />;
         case 'Checkboxes':

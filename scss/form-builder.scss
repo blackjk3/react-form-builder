@@ -1,3 +1,22 @@
+.react-form-builder-form {
+
+  .rfb-item {
+    label {
+      span {
+        background: white;
+        font-weight: bold;
+        padding: 0 10px;
+      }
+    }
+    .row {
+      padding: 0 25px;
+      border: 1px solid #6da6e3;
+      border-radius: 10px;
+      margin-top: -18px;
+    }
+  }
+}
+
 .react-form-builder {
   .react-form-builder-preview {
     // position: relative;
@@ -142,6 +161,7 @@
       -ms-user-select: none;
       user-select: none;
       .rfb-item {
+       
         padding: 10px 20px;
         &.SortableItem {
           position: relative;
