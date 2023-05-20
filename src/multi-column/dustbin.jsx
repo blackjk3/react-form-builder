@@ -66,7 +66,7 @@ function isContainer(item) {
 
 const Dustbin = React.forwardRef(
   ({
-    draggedItem, parentIndex, canDrop, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
+    onDropSuccess, seq, draggedItem, parentIndex, canDrop, isOver, isOverCurrent, connectDropTarget, items, col, getDataById, ...rest
   }, ref) => {
     const item = getDataById(items[col]);
     useImperativeHandle(
@@ -76,7 +76,7 @@ const Dustbin = React.forwardRef(
           console.log("dropped ites")
           const { data } = dropped;
           if (data) {
-            console.log('dropped', dropped);
+            onDropSuccess && onDropSuccess();
             store.dispatch('deleteLastItem');
           }
         },

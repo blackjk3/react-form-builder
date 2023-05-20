@@ -5,9 +5,8 @@ import FieldSetBase from "./FieldSetBase"
 
 const accepts = [ItemTypes.BOX, ItemTypes.CARD];
 
-
-const FieldSet = (props) => {
- 
+const FieldSet = (props) => { 
   return <FieldSetBase   {...props} />;
 };
+
 export { FieldSet };
