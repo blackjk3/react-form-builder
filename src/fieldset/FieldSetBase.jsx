@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 
 import ComponentHeader from "../form-elements/component-header";
 import ComponentLabel from "../form-elements/component-label";
-import FieldsetDustbin from "./fieldsetDustbin";
+// import FieldsetDustbin from "./fieldsetDustbin";
+import FieldsetDustbin from '../multi-column/dustbin';
 import ItemTypes from "../ItemTypes";
 
 const accepts = [ItemTypes.BOX, ItemTypes.CARD];
@@ -11,9 +12,8 @@ const accepts = [ItemTypes.BOX, ItemTypes.CARD];
 export default function FieldSetBase(props) {
   
   const [childData, setChildData] = useState({});
-  const [childItems, setchildItems] = useState(null);
+  const [childItems, setChildItems] = useState(null);
 
-  
   useEffect(() => {
     const { data, class_name, ...rest } = props;
     setChildData(data);
@@ -29,14 +29,13 @@ export default function FieldSetBase(props) {
     let oldChilds=data.childItems;
     data.childItems = Array.from({ length: colCount }, (v, i) => {return oldChilds[i]?oldChilds[i]:null});
 
-    setchildItems( data.childItems)
+    setChildItems( data.childItems)
   }
 
   const onDropSuccess=(droppedIndex)=>{
     const totalChild=childItems?childItems.length:0;
     const isLastChild = totalChild===droppedIndex+1 ;
    
-
     if(isLastChild)
     {
       addNewChild()
@@ -51,7 +50,7 @@ export default function FieldSetBase(props) {
       data.childItems = Array.from({ length: colCount }, (v, i) => null);
       data.isContainer = true;
     }
-    setchildItems(data.childItems);
+    setChildItems(data.childItems);
   };
   const {
     controls,
@@ -74,8 +73,7 @@ export default function FieldSetBase(props) {
       <ComponentHeader {...props} isFieldSet={true} />
       <div>
         <ComponentLabel {...props} />
-        <div className="row">
-        
+        <div className="row">        
           {
             childItems?.map((x, i) => (
               <div key={`${i}_${x || "_"}`} className={"col-md-12"}>
