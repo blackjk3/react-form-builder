@@ -1,3 +1,3 @@
-import { FieldSet } from './FieldSet';
+import FieldSet from './FieldSet';
 
 export { FieldSet };
