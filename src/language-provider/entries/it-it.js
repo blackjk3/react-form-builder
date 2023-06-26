@@ -1,6 +1,6 @@
 import itMessages from '../locales/it-it.json';
 
-const EnLang = {
+const ItLang = {
   messages: {
     ...itMessages,
   },
