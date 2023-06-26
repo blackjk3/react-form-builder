@@ -1,13 +1,13 @@
 {
-  "name": "react-form-builder2",
-  "version": "0.16.0",
+  "name": "react-form-builder-ita",
+  "version": "0.16.1",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kiho/react-form-builder.git"
+    "url": "git+https://github.com/electrixx90/react-form-builder-ita.git"
   },
   "files": [
     "lib",
