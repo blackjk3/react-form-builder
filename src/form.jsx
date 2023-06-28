@@ -33,6 +33,7 @@ class ReactForm extends React.Component {
     // Bind handleBlur and handleChange methods
     this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   _convert(answers) {
@@ -438,7 +439,7 @@ class ReactForm extends React.Component {
       <div>
           <FormValidator emitter={this.emitter} />
           <div className='react-form-builder-form'>
-            <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onBlur={this.handleBlur.bind(this)} onChange={this.handleChange.bind(this)} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
+            <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onBlur={this.handleBlur} onChange={this.handleChange} onSubmit={this.handleSubmit} method={this.props.form_method}>
               {this.props.authenticity_token &&
                 <div style={formTokenStyle}>
                   <input name='utf8' type='hidden' value='&#x2713;' />
