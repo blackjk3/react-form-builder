@@ -148,7 +148,6 @@ Then navigate to http://localhost:8080/ in your browser and you should be able t
 <ReactFormGenerator
     data={form}
     toolbarItems={items}
-    onChange={handleUpdate}
     onSubmit={handleSubmit}
     actionName="Set this to change the default submit button text"
     submitButton={<button type="submit" className="btn btn-primary">Submit</button>}
