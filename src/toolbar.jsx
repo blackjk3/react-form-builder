@@ -366,7 +366,7 @@ class Toolbar extends React.Component {
     if (this.props.showDescription === true && !item.static) {
       elementOptions.showDescription = true;
     }
-    
+
     if (item.static) {
       elementOptions.bold = false;
       elementOptions.italic = false;
