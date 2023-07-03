@@ -1,0 +1,38 @@
+{
+  "name": "react-form-next",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server/index.js",
+    "build": "next build",
+    "start": "node server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
+    "body-parser": "^1.18.3",
+    "classnames": "^2.2.5",
+    "co": "^4.6.0",
+    "es6-promise": "^4.2.4",
+    "express": "^4.16.4",
+    "isomorphic-fetch": "^2.2.1",
+    "jquery": "^3.3.1",
+    "mongodb": "^3.2.3",
+    "multer": "^1.4.1",
+    "next": "^8.0.3",
+    "next-routes": "^1.4.2",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-form-builder2": "^0.8.7",
+    "react-draft-wysiwyg": "1.13.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}

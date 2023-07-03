@@ -3,292 +3,471 @@
   */
 
 import React from 'react';
-import ToolbarItem from './toolbar-item';
+import { injectIntl } from 'react-intl';
+import ToolbarItem from './toolbar-draggable-item';
+import ToolbarGroupItem from './toolbar-group-item';
+
 import ID from './UUID';
-import ElementActions from './actions/ElementActions';
+import store from './stores/store';
+import { groupBy } from './functions';
 
-export default class Toolbar extends React.Component {
+// function isDefaultItem(item) {
+//   const keys = Object.keys(item);
+//   return keys.filter(x => x !== 'element' && x !== 'key' && x !== 'group_name').length === 0;
+// }
 
+function buildItems(items, defaultItems) {
+  if (!items) {
+    return defaultItems;
+  }
+  return items.map(x => {
+    let found = defaultItems.find(y => (x.element === y.element && y.key === x.key));
+    if (!found) {
+      found = defaultItems.find(y => (x.element || x.key) === (y.element || y.key));
+    }
+    if (found) {
+      if (x.inherited !== false) {
+        found = { ...found, ...x };
+      } else if (x.group_name) {
+        found.group_name = x.group_name;
+      }
+    }
+    return found || x;
+  });
+}
+
+function buildGroupItems(allItems) {
+  const items = allItems.filter(x => !x.group_name);
+  const gItems = allItems.filter(x => !!x.group_name);
+  const grouped = groupBy(gItems, x => x.group_name);
+  const groupKeys = gItems.map(x => x.group_name)
+    .filter((v, i, self) => self.indexOf(v) === i);
+  return { items, grouped, groupKeys };
+}
+
+class Toolbar extends React.Component {
   constructor(props) {
     super(props);
-
-    var items = (this.props.items) ? this.props.items : this._defaultItems();
-
+    const { intl } = this.props;
+    const items = buildItems(props.items, this._defaultItems(intl));
     this.state = {
-      items: items
+      items,
     };
+    this.create = this.create.bind(this);
   }
 
-  _defaultItemOptions(element) {
-    switch(element) {
-      case "Dropdown":
+  componentDidMount() {
+    store.subscribe(state => this.setState({ store: state }));
+  }
+
+  static _defaultItemOptions(element, intl) {
+    switch (element) {
+      case 'Dropdown':
         return [
-          {value: '', text: '', key: 'dropdown_option_' + ID.uuid()},
-          {value: '', text: '', key: 'dropdown_option_' + ID.uuid()},
-          {value: '', text: '', key: 'dropdown_option_' + ID.uuid()}
+          { value: 'place_holder_option_1', text: intl.formatMessage({ id: 'place-holder-option-1' }), key: `dropdown_option_${ID.uuid()}` },
+          { value: 'place_holder_option_2', text: intl.formatMessage({ id: 'place-holder-option-2' }), key: `dropdown_option_${ID.uuid()}` },
+          { value: 'place_holder_option_3', text: intl.formatMessage({ id: 'place-holder-option-3' }), key: `dropdown_option_${ID.uuid()}` },
         ];
-      case "Tags":
+      case 'Tags':
         return [
-          {value: 'place_holder_tag_1', text: 'Place holder tag 1', key: 'tags_option_' + ID.uuid()},
-          {value: 'place_holder_tag_2', text: 'Place holder tag 2', key: 'tags_option_' + ID.uuid()},
-          {value: 'place_holder_tag_3', text: 'Place holder tag 3', key: 'tags_option_' + ID.uuid()}
+          { value: 'place_holder_tag_1', text: intl.formatMessage({ id: 'place-holder-tag-1' }), key: `tags_option_${ID.uuid()}` },
+          { value: 'place_holder_tag_2', text: intl.formatMessage({ id: 'place-holder-tag-2' }), key: `tags_option_${ID.uuid()}` },
+          { value: 'place_holder_tag_3', text: intl.formatMessage({ id: 'place-holder-tag-3' }), key: `tags_option_${ID.uuid()}` },
         ];
-      case "Checkboxes":
+      case 'Checkboxes':
         return [
-          {value: 'place_holder_option_1', text: 'Place holder option 1', key: 'checkboxes_option_' + ID.uuid()},
-          {value: 'place_holder_option_2', text: 'Place holder option 2', key: 'checkboxes_option_' + ID.uuid()},
-          {value: 'place_holder_option_3', text: 'Place holder option 3', key: 'checkboxes_option_' + ID.uuid()}
+          { value: 'place_holder_option_1', text: intl.formatMessage({ id: 'place-holder-option-1' }), key: `checkboxes_option_${ID.uuid()}` },
+          { value: 'place_holder_option_2', text: intl.formatMessage({ id: 'place-holder-option-2' }), key: `checkboxes_option_${ID.uuid()}` },
+          { value: 'place_holder_option_3', text: intl.formatMessage({ id: 'place-holder-option-3' }), key: `checkboxes_option_${ID.uuid()}` },
         ];
-      case "RadioButtons":
+      case 'RadioButtons':
         return [
-          {value: 'place_holder_option_1', text: 'Place holder option 1', key: 'radiobuttons_option_' + ID.uuid()},
-          {value: 'place_holder_option_2', text: 'Place holder option 2', key: 'radiobuttons_option_' + ID.uuid()},
-          {value: 'place_holder_option_3', text: 'Place holder option 3', key: 'radiobuttons_option_' + ID.uuid()}
+          { value: 'place_holder_option_1', text: intl.formatMessage({ id: 'place-holder-option-1' }), key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'place_holder_option_2', text: intl.formatMessage({ id: 'place-holder-option-2' }), key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'place_holder_option_3', text: intl.formatMessage({ id: 'place-holder-option-3' }), key: `radiobuttons_option_${ID.uuid()}` },
         ];
       default:
         return [];
     }
   }
 
-  _defaultItems() {
+  _defaultItems(intl) {
     return [
       {
         key: 'Header',
-        name: 'Header Text',
-        icon: 'fa fa-header',
+        name: intl.formatMessage({ id: 'header-text' }),
+        icon: 'fas fa-heading',
         static: true,
-        content: 'Placeholder Text...'
+        content: intl.formatMessage({ id: 'place-holder-text' }),
       },
       {
         key: 'Label',
-        name: 'Label',
+        name: intl.formatMessage({ id: 'label' }),
         static: true,
-        icon: 'fa fa-font',
-        content: 'Placeholder Text...'
+        icon: 'fas fa-font',
+        content: intl.formatMessage({ id: 'place-holder-text' }),
       },
       {
         key: 'Paragraph',
-        name: 'Paragraph',
+        name: intl.formatMessage({ id: 'paragraph' }),
         static: true,
-        icon: 'fa fa-paragraph',
-        content: 'Placeholder Text...'
+        icon: 'fas fa-paragraph',
+        content: intl.formatMessage({ id: 'place-holder-text' }),
       },
       {
         key: 'LineBreak',
-        name: 'Line Break',
+        name: intl.formatMessage({ id: 'line-break' }),
         static: true,
-        icon: 'fa fa-arrows-h'
+        icon: 'fas fa-arrows-alt-h',
       },
       {
         key: 'Dropdown',
         canHaveAnswer: true,
-        name: 'Dropdown',
-        icon: 'fa fa-caret-square-o-down',
-        label: 'Placeholder Label',
+        name: intl.formatMessage({ id: 'dropdown' }),
+        icon: 'far fa-caret-square-down',
+        label: intl.formatMessage({ id: 'place-holder-label' }),
         field_name: 'dropdown_',
-        options: []
+        options: [],
       },
       {
         key: 'Tags',
         canHaveAnswer: true,
-        name: 'Tags',
-        icon: 'fa fa-tags',
-        label: 'Placeholder Label',
+        name: intl.formatMessage({ id: 'tags' }),
+        icon: 'fas fa-tags',
+        label: intl.formatMessage({ id: 'place-holder-label' }),
         field_name: 'tags_',
-        options: []
+        options: [],
       },
       {
         key: 'Checkboxes',
         canHaveAnswer: true,
-        name: 'Checkboxes',
-        icon: 'fa fa-check-square-o',
-        label: 'Placeholder Label',
+        name: intl.formatMessage({ id: 'checkboxes' }),
+        icon: 'far fa-check-square',
+        label: intl.formatMessage({ id: 'place-holder-label' }),
         field_name: 'checkboxes_',
-        options: []
+        options: [],
       },
       {
         key: 'RadioButtons',
         canHaveAnswer: true,
-        name: 'Multiple Choice',
-        icon: 'fa fa-dot-circle-o',
-        label: 'Placeholder Label',
-        field_name: 'radio_buttons_',
-        options: []
+        name: intl.formatMessage({ id: 'multiple-choice' }),
+        icon: 'far fa-dot-circle',
+        label: intl.formatMessage({ id: 'place-holder-label' }),
+        field_name: 'radiobuttons_',
+        options: [],
       },
       {
         key: 'TextInput',
         canHaveAnswer: true,
-        name: 'Text Input',
-        label: 'Placeholder Label',
-        icon: 'fa fa-font',
-        field_name: 'text_input_'
+        name: intl.formatMessage({ id: 'text-input' }),
+        label: intl.formatMessage({ id: 'place-holder-label' }),
+        icon: 'fas fa-font',
+        field_name: 'text_input_',
+      },
+      {
+        key: 'EmailInput',
+        canHaveAnswer: true,
+        name: intl.formatMessage({ id: 'email-input' }),
+        label: intl.formatMessage({ id: 'place-holder-email' }),
+        icon: 'fas fa-envelope',
+        field_name: 'email_input_',
       },
       {
         key: 'NumberInput',
         canHaveAnswer: true,
-        name: 'Number Input',
-        label: 'Placeholder Label',
-        icon: 'fa fa-plus',
-        field_name: 'number_input_'
+        name: intl.formatMessage({ id: 'number-input' }),
+        label: intl.formatMessage({ id: 'place-holder-label' }),
+        icon: 'fas fa-plus',
+        field_name: 'number_input_',
+      },
+      {
+        key: 'PhoneNumber',
+        canHaveAnswer: true,
+        name: intl.formatMessage({ id: 'phone-input' }),
+        label: intl.formatMessage({ id: 'place-holder-phone-number' }),
+        icon: 'fas fa-phone',
+        field_name: 'phone_input_',
       },
       {
         key: 'TextArea',
         canHaveAnswer: true,
-        name: 'Multi-line Input',
-        label: 'Placeholder Label',
-        icon: 'fa fa-text-height',
-        field_name: 'text_area_'
+        name: intl.formatMessage({ id: 'multi-line-input' }),
+        label: intl.formatMessage({ id: 'place-holder-label' }),
+        icon: 'fas fa-text-height',
+        field_name: 'text_area_',
+      },
+      {
+        key: 'FieldSet',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'fieldset' }),
+        label: intl.formatMessage({ id: 'fieldset' }),
+        icon: 'fas fa-bars',
+        field_name: 'fieldset-element',
+      },
+      {
+        key: 'TwoColumnRow',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'two-columns-row' }),
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'two_col_row_',
+      },
+      {
+        key: 'ThreeColumnRow',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'three-columns-row' }),
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'three_col_row_',
+      },
+      {
+        key: 'FourColumnRow',
+        element: 'MultiColumnRow',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'four-columns-row' }),
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'four_col_row_',
+        col_count: 4,
+        class_name: 'col-md-3',
+      },
+      {
+        key: 'FiveColumnRow',
+        element: 'MultiColumnRow',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'five-columns-row' }),
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'five_col_row_',
+        col_count: 5,
+        class_name: 'col',
+      },
+      {
+        key: 'SixColumnRow',
+        element: 'MultiColumnRow',
+        canHaveAnswer: false,
+        name: intl.formatMessage({ id: 'six-columns-row' }),
+        label: '',
+        icon: 'fas fa-columns',
+        field_name: 'six_col_row_',
+        col_count: 6,
+        class_name: 'col-md-2',
       },
       {
         key: 'Image',
-        name: 'Image',
+        name: intl.formatMessage({ id: 'image' }),
         label: '',
-        icon: 'fa fa-photo',
+        icon: 'far fa-image',
         field_name: 'image_',
-        src: ''
+        src: '',
       },
       {
         key: 'Rating',
         canHaveAnswer: true,
-        name: 'Rating',
-        label: 'Placeholder Label',
-        icon: 'fa fa-star',
-        field_name: 'rating_'
+        name: intl.formatMessage({ id: 'rating' }),
+        label: intl.formatMessage({ id: 'place-holder-label' }),
+        icon: 'fas fa-star',
+        field_name: 'rating_',
       },
       {
         key: 'DatePicker',
         canDefaultToday: true,
         canReadOnly: true,
-        name: 'Date',
-        icon: 'fa fa-calendar',
-        label: 'Placeholder Label',
-        field_name: 'date_picker_'
+        dateFormat: 'MM/dd/yyyy',
+        timeFormat: 'hh:mm aa',
+        showTimeSelect: false,
+        showTimeSelectOnly: false,
+        showTimeInput: false,
+        name: intl.formatMessage({ id: 'date' }),
+        icon: 'far fa-calendar-alt',
+        label: intl.formatMessage({ id: 'place-holder-label' }),
+        field_name: 'date_picker_',
       },
       {
         key: 'Signature',
         canReadOnly: true,
-        name: 'Signature',
-        icon: 'fa fa-pencil-square-o',
-        label: 'Signature',
-        field_name: 'signature_'
+        name: intl.formatMessage({ id: 'signature' }),
+        icon: 'fas fa-pen-square',
+        label: intl.formatMessage({ id: 'signature' }),
+        field_name: 'signature_',
       },
       {
         key: 'HyperLink',
-        name: 'Web site',
-        icon: 'fa fa-link',
+        name: intl.formatMessage({ id: 'website' }),
+        icon: 'fas fa-link',
         static: true,
-        content: 'Placeholder Web site link ...',
-        href: 'http://www.example.com'
+        content: intl.formatMessage({ id: 'place-holder-website-link' }),
+        href: 'http://www.example.com',
       },
       {
         key: 'Download',
-        name: 'File Attachment',
-        icon: 'fa fa-file',
+        name: intl.formatMessage({ id: 'file-attachment' }),
+        icon: 'fas fa-file',
         static: true,
-        content: 'Placeholder file name ...',
+        content: intl.formatMessage({ id: 'place-holder-file-name' }),
         field_name: 'download_',
         file_path: '',
-        _href: ''
+        _href: '',
       },
       {
         key: 'Range',
-        name: 'Range',
-        icon: 'fa fa-sliders',
-        label: 'Placeholder Label',
+        name: intl.formatMessage({ id: 'range' }),
+        icon: 'fas fa-sliders-h',
+        label: intl.formatMessage({ id: 'place-holder-label' }),
         field_name: 'range_',
         step: 1,
         default_value: 3,
         min_value: 1,
         max_value: 5,
-        min_label: 'Easy',
-        max_label: 'Difficult'
+        min_label: intl.formatMessage({ id: 'easy' }),
+        max_label: intl.formatMessage({ id: 'difficult' }),
       },
       {
         key: 'Camera',
-        name: 'Camera',
-        icon: 'fa fa-camera',
-        label: 'Placeholder Label',
-        field_name: 'camera_'
+        name: intl.formatMessage({ id: 'camera' }),
+        icon: 'fas fa-camera',
+        label: intl.formatMessage({ id: 'place-holder-label' }),
+        field_name: 'camera_',
+      },
+      {
+        key: 'FileUpload',
+        name: intl.formatMessage({ id: 'file-upload' }),
+        icon: 'fas fa-file',
+        label: intl.formatMessage({ id: 'place-holder-label' }),
+        field_name: 'file_upload_',
+      },
+    ];
+  }
+
+  addCustomOptions(item, elementOptions) {
+    if (item.type === 'custom') {
+      const customOptions = Object.assign({}, item, elementOptions);
+      customOptions.custom = true;
+      customOptions.component = item.component || null;
+      customOptions.custom_options = item.custom_options || [];
+      return customOptions;
+    }
+    return elementOptions;
+  }
+
+  create(item) {
+    const { intl } = this.props;
+    const elementKey = item.element || item.key;
+    const elementOptions = this.addCustomOptions(item, {
+      id: ID.uuid(),
+      element: elementKey,
+      text: item.name,
+      group_name: item.group_name,
+      static: item.static,
+      required: false,
+      showDescription: item.showDescription,
+    });
+
+    if (this.props.showDescription === true && !item.static) {
+      elementOptions.showDescription = true;
+    }
+    
+    if (item.static) {
+      elementOptions.bold = false;
+      elementOptions.italic = false;
+    }
+
+    if (item.canHaveAnswer) { elementOptions.canHaveAnswer = item.canHaveAnswer; }
+
+    if (item.canReadOnly) { elementOptions.readOnly = false; }
+
+    if (item.canDefaultToday) { elementOptions.defaultToday = false; }
+
+    if (item.content) { elementOptions.content = item.content; }
+
+    if (item.href) { elementOptions.href = item.href; }
+
+    if (item.inherited !== undefined) { elementOptions.inherited = item.inherited; }
+
+    elementOptions.canHavePageBreakBefore = item.canHavePageBreakBefore !== false;
+    elementOptions.canHaveAlternateForm = item.canHaveAlternateForm !== false;
+    elementOptions.canHaveDisplayHorizontal = item.canHaveDisplayHorizontal !== false;
+    if (elementOptions.canHaveDisplayHorizontal) {
+      elementOptions.inline = item.inline;
+    }
+    elementOptions.canHaveOptionCorrect = item.canHaveOptionCorrect !== false;
+    elementOptions.canHaveOptionValue = item.canHaveOptionValue !== false;
+    elementOptions.canPopulateFromApi = item.canPopulateFromApi !== false;
+
+    if (item.class_name) {
+      elementOptions.class_name = item.class_name;
+    }
+
+    if (elementKey === 'Image') {
+      elementOptions.src = item.src;
+    }
+
+    if (elementKey === 'DatePicker') {
+      elementOptions.dateFormat = item.dateFormat;
+      elementOptions.timeFormat = item.timeFormat;
+      elementOptions.showTimeSelect = item.showTimeSelect;
+      elementOptions.showTimeSelectOnly = item.showTimeSelectOnly;
+      elementOptions.showTimeInput = item.showTimeInput;
+    }
+
+    if (elementKey === 'Download') {
+      elementOptions._href = item._href;
+      elementOptions.file_path = item.file_path;
+    }
+
+    if (elementKey === 'Range') {
+      elementOptions.step = item.step;
+      elementOptions.default_value = item.default_value;
+      elementOptions.min_value = item.min_value;
+      elementOptions.max_value = item.max_value;
+      elementOptions.min_label = item.min_label;
+      elementOptions.max_label = item.max_label;
+    }
+
+    if (item.element === 'MultiColumnRow') {
+      elementOptions.col_count = item.col_count;
+    }
+
+    if (item.defaultValue) { elementOptions.defaultValue = item.defaultValue; }
+
+    if (item.field_name) { elementOptions.field_name = item.field_name + ID.uuid(); }
+
+    if (item.label) { elementOptions.label = item.label; }
+
+    if (item.options) {
+      if (item.options.length > 0) {
+        elementOptions.options = item.options.map(x => ({ ...x, key: `custom_option_${ID.uuid()}` }));
+      } else {
+        elementOptions.options = Toolbar._defaultItemOptions(elementOptions.element, intl);
       }
-    ]
+    }
+
+    return elementOptions;
   }
 
   _onClick(item) {
-
-    var elementOptions = {
-      id: ID.uuid(),
-      element: item.key,
-      text: item.name,
-      static: item.static,
-      required: false
-    };
-
-    if(item.static) {
-      elementOptions['bold'] = false;
-      elementOptions['italic'] = false;
-    }
-
-    if (item.canHaveAnswer)
-      elementOptions['canHaveAnswer'] = item.canHaveAnswer;
-
-    if (item.canReadOnly)
-      elementOptions['readOnly'] = false;
-
-    if (item.canDefaultToday)
-      elementOptions['defaultToday'] = false;
-
-    if (item.content)
-      elementOptions['content'] = item.content;
-
-    if (item.href)
-      elementOptions['href'] = item.href;
-
-    if (item.key === "Image") {
-      elementOptions['src'] = item.src;
-    }
-
-    if (item.key === "Download") {
-      elementOptions['_href'] = item._href;
-      elementOptions['file_path'] = item.file_path;
-    }
-
-    if (item.key === "Range") {
-      elementOptions['step'] = item.step;
-      elementOptions['default_value'] = item.default_value;
-      elementOptions['min_value'] = item.min_value;
-      elementOptions['max_value'] = item.max_value;
-      elementOptions['min_label'] = item.min_label;
-      elementOptions['max_label'] = item.max_label;
-    }
-
-    if (item.defaultValue)
-      elementOptions['defaultValue'] = item.defaultValue;
-
-    if (item.field_name)
-      elementOptions['field_name'] = item.field_name + ID.uuid();
-
-    if (item.label)
-      elementOptions['label'] = item.label;
-
-    if (item.options) {
-      elementOptions['options'] = this._defaultItemOptions(elementOptions['element']);
-    }
-
-    ElementActions.createElement(elementOptions);
+    // ElementActions.createElement(this.create(item));
+    store.dispatch('create', this.create(item));
   }
 
+  renderItem = (item) => (<ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item)} onCreate={this.create} />)
+
   render() {
+    const { items, grouped, groupKeys } = buildGroupItems(this.state.items);
     return (
-      <div className="react-form-builder-toolbar pull-right">
-        <h4>Toolbox</h4>
+      <div className="col-md-3 react-form-builder-toolbar float-right">
+        <h4>{this.props.intl.formatMessage({ id: 'toolbox' })}</h4>
         <ul>
           {
-            this.state.items.map(item => {
-              return <ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item) } />;
-            })
+            items.map(this.renderItem)
+          }
+          {
+            groupKeys.map(k => <ToolbarGroupItem key={k} name={k} group={grouped.get(k)} renderItem={this.renderItem} />)
           }
         </ul>
       </div>
-    )
+    );
   }
 }
+
+export default injectIntl(Toolbar);

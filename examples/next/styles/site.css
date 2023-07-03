@@ -1,0 +1,9 @@
+body {
+  font-size: 14px;
+  font-weight: 300;
+  color: #404d5b;
+  width: 1200px;
+  margin: 0 auto;
+}
+.modal { background: rgba(0,0,0, 0.3);}
+.modal-content { padding: 30px; max-height: 500px; overflow-y: auto }
