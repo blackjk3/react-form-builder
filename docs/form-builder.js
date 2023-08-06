@@ -59,7 +59,7 @@ const headers = {
 };
 
 function checkBackEnd() {
-  show = true;
+  show = false;
   setTimeout(() => {
     if (show) showBackdrop();
   }, 300);
