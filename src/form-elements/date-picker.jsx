@@ -126,7 +126,6 @@ class DatePicker extends React.Component {
                      ref={props.ref}
                      onChange={this.handleChange}
                      dateFormat="MM/DD/YYYY"
-                     placeholder={this.state.placeholder}
                      value={this.state.value}
                      className = "form-control" />
             }
