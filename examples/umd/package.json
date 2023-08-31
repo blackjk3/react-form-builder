@@ -14,7 +14,7 @@
   ],
   "author": "Kiho Chang",
   "devDependencies": {
-    "live-server": "^1.2.0",
+    "live-server": "1.2.1",
     "react-form-builder2": "^0.8.7"
   },
   "scripts": {
