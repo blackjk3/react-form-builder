@@ -26,15 +26,11 @@ function getCustomElement(item, props) {
 
 function getElement(item, props) {
   if (!item) return null;
-  const Element = item.custom ?
-    () => getCustomElement(item, props) :
-    FormElements[item.element || item.key];
-
-  return (
-    <Fragment>
-      <Element {...props} key={`form_${item.id}`} data={item} />
-    </Fragment>
-  );
+  if (item.custom) {
+    return getCustomElement(item, props);
+  }
+  const Element = FormElements[item.element || item.key];
+  return <Element {...props} key={`form_${item.id}`} data={item} />;
 }
 
 function getStyle(backgroundColor) {
