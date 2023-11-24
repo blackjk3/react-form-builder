@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Private array of chars to use
 var CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
 var ID = {};

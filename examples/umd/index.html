@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>React Form Builder - UMD</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="node_modules/react-form-builder2/dist/app.css">
+  <style>
+    body {
+      font-size: 14px;
+      font-weight: 300;
+      color: #404d5b;
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    .modal {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-content {
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    var FORM_ACTION = "/testing";
+    var FORM_METHOD = "POST";
+  </script>
+
+  <div class="clearfix" style="margin: 10px; width:70%">
+    <h4 class="float-left">Preview</h4>
+    <button class="btn btn-primary float-right" style="margin-right: 10px" id="button-preview">Preview Form</button>
+    <div class="modal" id="preview-dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div id="form-generator"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="button-close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="form-builder"></div>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16.8.6/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Load our React component. -->
+  <script src="node_modules/react-form-builder2/dist/app.js"></script>
+  <script src="form-generator.js"></script>
+  <script src="form-builder.js"></script>
+
+</body>
+
+</html>

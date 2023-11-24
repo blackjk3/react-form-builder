@@ -1,0 +1,23 @@
+{
+  "name": "rfb2-umd",
+  "version": "0.0.7",
+  "description": "A complete form builder for react.",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "react-component",
+    "form",
+    "builder",
+    "ui",
+    "drag",
+    "drop"
+  ],
+  "author": "Kiho Chang",
+  "devDependencies": {
+    "live-server": "1.2.1",
+    "react-form-builder2": "^0.8.7"
+  },
+  "scripts": {
+    "start": "live-server --cors --port=8007 --proxy=/api:http://127.0.0.1:5005/api --watch=./bundle.js,./index.html ."
+  }
+}
