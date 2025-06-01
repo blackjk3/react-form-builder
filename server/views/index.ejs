@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>React Form Builder</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/dist/app.css">
+  <style>
+    body {
+      font-size: 14px;
+      font-weight: 300;
+      color: #404d5b;
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    .modal {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-content {
+      padding: 30px;
+      max-height: 800px;
+      overflow-y: auto
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    var FORM_ACTION = "/testing";
+    var FORM_METHOD = "POST";
+  </script>
+
+  <div class="clearfix" style="margin: 10px; width:70%">
+    <h4 class="float-left">Preview</h4>
+    <button class="btn btn-primary float-right" style="margin-right: 10px" id="button-preview">Preview Form</button>
+    <div class="modal" id="preview-dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div id="form-generator"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="button-close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="form-builder"></div>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Load our React component. -->
+  <script src="/dist/app.js"></script>
+
+  <script>
+    var form_data = '<%- data %>';
+    var form_answers = '<%- answers %>';
+
+    const e = React.createElement;
+
+    const ReactFormGenerator = ReactFormBuilder.default.ReactFormGenerator;
+    const ElementStore = ReactFormBuilder.default.ElementStore;
+    const Registry = ReactFormBuilder.default.Registry;
+    const formContainer = document.querySelector('#form-generator');
+    
+    // *********************************************
+    const TestComponent = function TestComponent() {
+      return React.createElement("h2", null, "Hello");
+    };
+
+    const MyInput = React.forwardRef(function (props, ref) {
+      const name = props.name,
+          defaultValue = props.defaultValue,
+          disabled = props.disabled;
+      return React.createElement("input", {
+        ref: ref,
+        name: name,
+        defaultValue: defaultValue,
+        disabled: disabled
+      });
+    });
+
+    Registry.register('MyInput', MyInput);
+    Registry.register('TestComponent', TestComponent);
+    // *********************************************
+
+    function setClass(element, name, remove) {
+      if (typeof element === 'string') {
+        element = document.querySelector(element);
+      }
+      if (remove) {
+        element.classList.remove(name);
+      } else {
+        element.classList.add(name);
+      }
+    }
+
+    const answers = JSON.parse(form_answers);
+    const f = JSON.parse(form_data);
+    const task_data = f.task_data == '[]' ? [] : f.task_data;
+
+    class FormGenerator extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          data: task_data,
+          answers: answers,
+          previewVisible: true,
+        };
+
+        this.showPreview = this.showPreview.bind(this);
+        this.closePreview = this.closePreview.bind(this);
+        this._onUpdate = this._onChange.bind(this);
+      }
+
+      componentDidMount() {        
+        ElementStore.subscribe(state => this._onUpdate(state.data));
+        document.querySelector('#button-preview')
+          .addEventListener('click', this.showPreview);
+        document.querySelector('#button-close')
+          .addEventListener('click', this.closePreview);
+
+        setTimeout(this.showPreview, 1000);
+      }
+
+      showPreview() {
+        this.setState({
+          previewVisible: true,
+        });
+        setClass('#preview-dialog', 'show', false);
+        setClass('#preview-dialog', 'd-block', false);
+      }
+
+      closePreview() {
+        this.setState({
+          previewVisible: false,
+        });
+        setClass('#preview-dialog', 'show', true);
+        setClass('#preview-dialog', 'd-block', true);
+      }
+
+      _onChange(data) {
+        this.setState({
+          data,
+        });
+      }
+
+      render() {
+        const previewVisible = this.state.previewVisible;
+        if (!previewVisible) {
+          return null;
+        }
+        return e(
+          ReactFormGenerator, {
+          download_path: '',
+          back_action: '/',
+          back_name: 'Back',
+          answer_data: this.state.answers,
+          action_name: 'Save',
+          form_action: '/',
+          form_method: 'POST',
+          read_only: true,
+          variables: this.props.variables,
+          hide_actions: true,
+          data: this.state.data,
+        },
+        );
+      }
+    }
+
+    ReactDOM.render(e(FormGenerator), formContainer);        
+  </script>
+</body>
+
+</html>

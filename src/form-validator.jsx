@@ -4,14 +4,15 @@
 
 import React from 'react';
 import xss from 'xss';
+import IntlMessages from './language-provider/IntlMessages';
 
-let myxss = new xss.FilterXSS({
+const myxss = new xss.FilterXSS({
   whiteList: {
     u: [],
     br: [],
     b: [],
     i: [],
-    ol:['style'],
+    ol: ['style'],
     ul: ['style'],
     li: [],
     p: ['style'],
@@ -20,22 +21,21 @@ let myxss = new xss.FilterXSS({
     div: ['style'],
     em: [],
     strong: [],
-    span: ['style']
-  }
+    span: ['style'],
+  },
 });
 
 export default class FormValidator extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      errors: []
-    }
+      errors: [],
+    };
   }
 
-  componentWillMount() {
-    this.subscription = this.props.emitter.addListener('formValidation', errors => {
-      this.setState({errors: errors});
+  componentDidMount() {
+    this.subscription = this.props.emitter.addListener('formValidation', (errors) => {
+      this.setState({ errors });
     });
   }
 
@@ -45,30 +45,28 @@ export default class FormValidator extends React.Component {
 
   dismissModal(e) {
     e.preventDefault();
-    this.setState({errors: []});
+    this.setState({ errors: [] });
   }
 
   render() {
-    let errors = this.state.errors.map((error,index) => {
-      return <li key={'error_'+index} dangerouslySetInnerHTML={{__html: myxss.process(error) }} />
-    })
+    const errors = this.state.errors.map((error, index) => <li key={`error_${index}`} dangerouslySetInnerHTML={{ __html: myxss.process(error) }} />);
 
     return (
       <div>
         { this.state.errors.length > 0 &&
           <div className="alert alert-danger validation-error">
             <div className="clearfix">
-              <i className="fa fa-exclamation-triangle pull-left"></i>
-              <ul className="pull-left">
+              <i className="fas fa-exclamation-triangle float-left"></i>
+              <ul className="float-left">
                 {errors}
               </ul>
             </div>
             <div className="clearfix">
-              <a className="pull-right btn btn-default btn-sm btn-danger" onClick={this.dismissModal.bind(this)}>Dismiss</a>
+              <a className="float-right btn btn-default btn-sm btn-danger" onClick={this.dismissModal.bind(this)}><IntlMessages id="dismiss" /></a>
             </div>
           </div>
         }
       </div>
-    )
+    );
   }
 }

@@ -1,0 +1,205 @@
+// Override bootstrap-slider styles with modern Sass syntax
+@use "sass:meta";
+@use "sass:math";
+@use "sass:color";
+
+$slider-horizontal-width: 100%;
+$slider-line-height: 20px;
+$slider-border-radius: 4px;
+$slider-vertical-height: 210px;
+
+// Define our own variables first
+$brand-primary: #0480BE;
+$slider-primary: $brand-primary;
+$slider-primary-top: $slider-primary;
+$slider-primary-bottom: color.adjust($slider-primary, $lightness: -5%);
+$slider-secondary-top: color.adjust(color.scale($slider-primary, $lightness: 28%), $saturation: 20%);
+$slider-secondary-bottom: color.adjust(color.scale($slider-primary, $lightness: 23%), $saturation: 2%);
+
+// Define grays for slider channel and disabled states
+$slider-gray-1: #BEBEBE;
+$slider-gray-2: #DFDFDF;
+$slider-gray-3: #E5E5E5;
+$slider-gray-4: #E9E9E9;
+$slider-gray-5: #F5F5F5;
+$slider-gray-6: #F9F9F9;
+
+// Custom slider styles using modern Sass
+.slider {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+
+  // Hide tooltips only within slider component
+  .tooltip {
+    display: none !important;
+  }
+
+  &.slider-horizontal {
+    width: $slider-horizontal-width;
+    height: $slider-line-height;
+
+    .slider-track {
+      height: calc(#{$slider-line-height} / 2);
+      width: 100%;
+      margin-top: calc(-#{$slider-line-height} / 4);
+      top: 50%;
+      left: 0;
+    }
+
+    .slider-selection, .slider-track-low, .slider-track-high {
+      height: 100%;
+      top: 0;
+      bottom: 0;
+    }
+
+    .slider-tick {
+      display: none; // Hide default ticks
+    }
+
+    .slider-handle {
+      margin-left: calc(-#{$slider-line-height} / 2);
+      background-image: linear-gradient(to bottom, $slider-primary-top, $slider-primary-bottom);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+      position: absolute;
+      top: 0;
+      width: $slider-line-height;
+      height: $slider-line-height;
+      background-color: $slider-primary;
+      border: 0px solid transparent;
+      border-radius: $slider-line-height;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.triangle {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 0 calc(#{$slider-line-height} / 2) calc(#{$slider-line-height} / 2) calc(#{$slider-line-height} / 2);
+        width: 0;
+        height: 0;
+        border-bottom-color: $slider-primary-bottom;
+        margin-top: 0;
+        background: transparent none;
+      }
+
+      // Hide max-slider-handle when it has the hide class
+      &.max-slider-handle.hide {
+        display: none !important;
+      }
+
+      // Ensure min-slider-handle is always visible
+      &.min-slider-handle {
+        display: block !important;
+      }
+    }
+
+    &.slider-rtl {
+      .slider-tick,
+      .slider-handle {
+        margin-left: initial;
+        margin-right: calc(-#{$slider-line-height} / 2);
+      }
+    }
+  }
+
+  &.slider-vertical {
+    height: $slider-vertical-height;
+    width: $slider-line-height;
+
+    .slider-track {
+      width: calc(#{$slider-line-height} / 2);
+      height: 100%;
+      left: 25%;
+      top: 0;
+    }
+
+    .slider-tick {
+      display: none; // Hide default ticks
+    }
+
+    .slider-handle {
+      margin-top: calc(-#{$slider-line-height} / 2);
+      background-image: linear-gradient(to bottom, $slider-primary-top, $slider-primary-bottom);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+      position: absolute;
+      top: 0;
+      width: $slider-line-height;
+      height: $slider-line-height;
+      background-color: $slider-primary;
+      border: 0px solid transparent;
+      border-radius: $slider-line-height;
+
+      &.triangle {
+        border-width: calc(#{$slider-line-height} / 2) 0 calc(#{$slider-line-height} / 2) calc(#{$slider-line-height} / 2);
+        width: 1px;
+        height: 1px;
+        border-left-color: $slider-primary-bottom;
+        margin-left: 0;
+        background: transparent none;
+      }
+
+      // Hide max-slider-handle when it has the hide class
+      &.max-slider-handle.hide {
+        display: none !important;
+      }
+
+      // Ensure min-slider-handle is always visible
+      &.min-slider-handle {
+        display: block !important;
+      }
+    }
+
+    &.slider-rtl {
+      .slider-tick,
+      .slider-handle {
+        &.triangle {
+          border-width: calc(#{$slider-line-height} / 2) calc(#{$slider-line-height} / 2) calc(#{$slider-line-height} / 2) 0;
+        }
+      }
+    }
+  }
+
+  &.slider-disabled {
+    .slider-handle {
+      background-image: linear-gradient(to bottom, $slider-gray-2, $slider-gray-1);
+    }
+    .slider-track {
+      background-image: linear-gradient(to bottom, $slider-gray-3, $slider-gray-4);
+      cursor: not-allowed;
+    }
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.slider-track {
+  background-image: linear-gradient(to bottom, $slider-gray-5, $slider-gray-6);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  border-radius: $slider-border-radius;
+  position: absolute;
+  cursor: pointer;
+}
+
+.slider-selection {
+  background-image: linear-gradient(to bottom, $slider-gray-6, $slider-gray-5);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  box-sizing: border-box;
+  border-radius: $slider-border-radius;
+  position: absolute;
+
+  &.tick-slider-selection {
+    background-image: linear-gradient(to bottom, $slider-secondary-top, $slider-secondary-bottom);
+  }
+}
+
+.slider-track-low, .slider-track-high {
+  box-sizing: border-box;
+  border-radius: $slider-border-radius;
+  position: absolute;
+  background: transparent;
+}

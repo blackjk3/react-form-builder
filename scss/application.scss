@@ -1,0 +1,17 @@
+// Modern SCSS file structure using @use and @forward
+
+// Core variables and mixins
+// @use replaces @import and prevents global namespace pollution
+@use 'variables' as vars;
+
+// Component styles with namespacing
+// This allows you to reference variables as component.variable
+@use 'react-star-rating';
+@use 'react-select';
+@use 'react-bootstrap-slider';
+@use 'react-date-picker';
+@use 'react-draft';
+
+// Form builder styles
+@use 'form-builder';
+@use 'form-builder-form';

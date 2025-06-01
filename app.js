@@ -1,18 +1,29 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import DemoBar from './demobar';
-import FormBuilder from "./src/index";
-import * as variables from './variables'
+// eslint-disable-next-line no-unused-vars
+import FormBuilder, { Registry } from './src/index';
+import * as variables from './variables';
 
 // Add our stylesheets for the demo.
-require('./css/application.css.scss');
+require('./scss/application.scss');
 
-ReactDOM.render(
-  <FormBuilder.ReactFormBuilder variables={variables} />,
-  document.getElementById('form-builder')
-)
+const url = '/api/formdata';
+const saveUrl = '/api/formdata';
 
-ReactDOM.render(
-  <DemoBar variables={variables} />,
-  document.getElementById('demo-bar')
-)
+const App = () => (
+  <FormBuilder.ReactFormBuilder
+    variables={variables}
+    url={url}
+    saveUrl={saveUrl}
+    locale="en"
+    saveAlways={false}
+    // toolbarItems={items}
+  />
+);
+
+const root = createRoot(document.getElementById('form-builder'));
+root.render(<App />);
+
+const demoBarRoot = createRoot(document.getElementById('demo-bar'));
+demoBarRoot.render(<DemoBar variables={variables} />);

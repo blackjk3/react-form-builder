@@ -1,0 +1,80 @@
+input[type="date"]:before {
+  content: attr(placeholder);
+  color: #aaa;
+  margin-right: 0.5em;
+}
+
+input[type="date"] {
+  width: 200px;
+}
+.validation-error {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 99999999;
+  ul {
+    width: auto;
+  }
+  .dismiss-modal-button {
+    margin-top: 10px;
+  }
+}
+.react-form-builder-form {
+  position: relative;
+
+  .rfb-item.alwaysbreak { page-break-before: always; }
+  .rfb-item.nobreak:before { clear:both; }
+  .rfb-item.nobreak { page-break-inside: avoid; }
+
+  .rfb-item {
+    padding: 10px 0;
+    position: relative;
+
+    img {
+      max-width: 100%;
+    }
+    label {
+      font-weight: normal;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+    .italic {
+      font-style: italic;
+    }
+    .form-label {
+      display: block !important;
+    }
+
+    .form-group {
+      .option-inline {
+        display: inline-block !important;
+        margin-right: 10px;
+      }
+
+      a {
+        cursor: pointer;
+      }
+      input[type='date'] {
+        height: 42px;
+      }
+      .m-signature-pad {
+        position: relative;
+        width: auto;
+      }
+      .react-star-rating {
+        display: block;
+      }
+      .checkbox-label, .radio-label {
+        font-weight: normal;
+        display: block;
+      }
+      .label-required {
+        margin-left: 5px;
+      }
+    }
+  }
+}
